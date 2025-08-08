@@ -178,6 +178,14 @@ Complete these challenges to determine your starting level:
 /playgrounds/ — interactive demos and experiments
 ```
 
+## 🧪 Running Tests
+
+Run the katas and challenges using Node.js. For example, to execute the Level 1 test:
+
+```bash
+node tests/1/fizzbuzz.test.js
+```
+
 ## 🎯 Key Features
 
 ### **Progressive Learning**
