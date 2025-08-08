@@ -4,25 +4,88 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
 
 jobs:
-  lint-and-test:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: npm
+      - name: Validate HTML files
+        run: |
+          # Check for HTML syntax errors in project files
+          find . -name "*.html" -type f | while read file; do
+            echo "Validating $file"
+            # Simple HTML validation using tidy
+            if command -v tidy >/dev/null 2>&1; then
+              if ! tidy -q -e "$file" >/dev/null 2>&1; then
+                echo "HTML validation failed for $file"
+                exit 1
+              fi
+            else
+              # Fallback: basic HTML structure check
+              if ! grep -q "<!DOCTYPE\|<html\|</html>" "$file"; then
+                echo "Basic HTML structure missing in $file"
+                exit 1
+              fi
+            fi
+          done
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Check for broken links
+        run: |
+          # Simple check for common issues in markdown files
+          find . -name "*.md" -type f | while read file; do
+            echo "Checking $file for common issues"
+            # Check for empty links (links with empty parentheses)
+            if grep -n "\[.*\]\(\)" "$file" | grep -v "https://\|http://\|mailto:\|#\|LICENSE\|CONTRIBUTING"; then
+              echo "Found empty links in $file"
+              exit 1
+            fi
+            # Check for broken image references
+            if grep -n "!\[.*\]\([^)]*\)" "$file" | grep -v "http"; then
+              echo "Found potential broken image references in $file"
+              # Don't fail for this, just warn
+            fi
+          done
 
-      - name: Run linting
-        run: npm run lint
+      - name: Validate project structure
+        run: |
+          # Check that required directories exist
+          for dir in "projects" "levels" "articles" "badges"; do
+            if [ ! -d "$dir" ]; then
+              echo "Required directory '$dir' is missing"
+              exit 1
+            fi
+          done
+          
+          # Check that README files exist in project directories
+          find projects -type d -mindepth 1 | while read dir; do
+            if [ ! -f "$dir/README.md" ]; then
+              echo "Missing README.md in $dir"
+              exit 1
+            fi
+          done
 
-      - name: Run tests
-        run: npm test
+      - name: Check file permissions
+        run: |
+          # Ensure no executable files are accidentally committed
+          find . -type f -perm +111 | grep -v ".git" | while read file; do
+            echo "Found executable file: $file"
+            exit 1
+          done
+
+      - name: Validate markdown syntax
+        run: |
+          # Basic markdown validation
+          find . -name "*.md" -type f | while read file; do
+            echo "Validating markdown syntax in $file"
+            # Check for unclosed code blocks
+            if grep -n "^```" "$file" | wc -l | grep -q "^[0-9]*[13579]$"; then
+              echo "Unclosed code block detected in $file"
+              exit 1
+            fi
+          done
