@@ -4,19 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Frontend Mastery Hub — Badges</title>
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
   <style>
     :root {
       --bronze: #B87333;
-      --silver: #A9A9A9; /* slightly darker for contrast */
-      --gold: #CAAA00;   /* slightly darker for contrast */
-      --diamond: #00BDE3;/* slightly darker for contrast */
+      --silver: #C0C0C0;
+      --gold: #FFD200;
+      --diamond: #00CFFF;
       --text: #0f172a;
       --muted: #475569;
       --bg: #ffffff;
       --card: #f8fafc;
       --border: #e2e8f0;
-      --focus: #2563eb;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -35,18 +33,14 @@
     }
     header h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: -0.02em; }
     header p { margin: 0; color: var(--muted); }
-    .hint { max-width: 1200px; margin: 6px auto 0; padding: 0 20px; color: var(--muted); font-size: 12px; }
 
     .table-wrap { max-width: 1200px; margin: 16px auto 48px; padding: 0 20px 40px; overflow-x: auto; }
-    .table-wrap::-webkit-scrollbar { height: 10px; }
-    .table-wrap::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 6px; }
-
     .badge-name { font-weight: 800; font-size: 16px; letter-spacing: -0.01em; }
     .badge-domain { color: var(--muted); font-size: 12px; }
     .badge-summary { color: var(--muted); font-size: 12px; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; }
 
+    /* Table layout for tiers */
     .tiers-table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 8px; }
-    .tiers-table caption { text-align: left; color: var(--muted); font-size: 12px; margin-bottom: 6px; }
     .tiers-table th { position: sticky; top: 0; background: var(--bg); z-index: 1; font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; padding: 6px 4px; }
     .tiers-table thead th .bar { display: block; height: 3px; border-radius: 2px; margin-top: 6px; }
     .tiers-table .bronze { background: var(--bronze); }
@@ -55,12 +49,6 @@
     .tiers-table .diamond { background: var(--diamond); }
 
     .cell { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px; display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: start; min-height: 110px; }
-    .cell.tier-bronze { border-left: 4px solid var(--bronze); }
-    .cell.tier-silver { border-left: 4px solid var(--silver); }
-    .cell.tier-gold { border-left: 4px solid var(--gold); }
-    .cell.tier-diamond { border-left: 4px solid var(--diamond); }
-    .cell:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-
     .cell img { width: 56px; height: 56px; display: block; object-fit: contain; }
     .meta { display: grid; gap: 4px; width: 100%; grid-template-rows: auto 1fr auto; }
     .row { display: flex; align-items: center; gap: 8px; }
@@ -69,13 +57,12 @@
     .dot.silver { background: var(--silver); }
     .dot.gold { background: var(--gold); }
     .dot.diamond { background: var(--diamond); }
-    .tier-label { font-weight: 700; font-size: 14px; }
+    .tier-label { font-weight: 700; font-size: 13px; }
     .criteria { color: var(--muted); font-size: 12px; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; }
     .level { color: var(--muted); font-size: 12px; }
 
     footer { max-width: 1200px; margin: 0 auto 40px; padding: 0 20px; color: var(--muted); font-size: 13px; }
     a { color: inherit; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
   </style>
 </head>
 <body>
@@ -83,17 +70,16 @@
     <h1>Badge Gallery</h1>
     <p>All badges and tiers from the Frontend Mastery Hub blueprint. SVGs are rendered directly from <code>badges/svg/</code>.</p>
   </header>
-  <div class="hint">Tip: On small screens, drag horizontally to view all tiers.</div>
 
   <div class="table-wrap">
-    <table class="tiers-table" id="badgesTable" aria-label="Badge tiers">
+    <table class="tiers-table" id="badgesTable" aria-live="polite">
       <thead>
         <tr>
-          <th scope="col" style="width:26%">Badge</th>
-          <th scope="col">Bronze<span class="bar bronze"></span></th>
-          <th scope="col">Silver<span class="bar silver"></span></th>
-          <th scope="col">Gold<span class="bar gold"></span></th>
-          <th scope="col">Diamond<span class="bar diamond"></span></th>
+          <th style="width:26%">Badge</th>
+          <th>Bronze<span class="bar bronze"></span></th>
+          <th>Silver<span class="bar silver"></span></th>
+          <th>Gold<span class="bar gold"></span></th>
+          <th>Diamond<span class="bar diamond"></span></th>
         </tr>
       </thead>
       <tbody id="badgesBody"></tbody>
@@ -119,15 +105,16 @@
       const tier = tierObj.tier;
       const td = document.createElement('td');
       const cell = document.createElement('div');
-      cell.className = `cell tier-${tier}`;
-      cell.tabIndex = 0;
+      cell.className = 'cell';
 
       const img = document.createElement('img');
       img.loading = 'lazy';
       img.alt = `${id} – ${tierTitle[tier]}`;
-      img.title = `${id} – ${tierTitle[tier]}`;
       img.width = 56; img.height = 56;
-      img.src = `./svg/${id}-${tier}.svg`;
+      const legacySrc = `./svg/${id}-${tier}.svg`;
+      const v2Src = `./svg2/${id}-${tier}.svg`;
+      img.src = v2Src;
+      img.onerror = () => { img.src = legacySrc; img.onerror = null; };
 
       const meta = document.createElement('div');
       meta.className = 'meta';
@@ -154,7 +141,6 @@
       td.append(cell);
       return td;
     }
-
     function createRow(badge) {
       const tr = document.createElement('tr');
       const badgeTd = document.createElement('td');
