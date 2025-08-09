@@ -40,8 +40,8 @@ jobs:
           # Simple check for common issues in markdown files
           find . -name "*.md" -type f | while read file; do
             echo "Checking $file for common issues"
-            # Check for empty links (links with empty parentheses, but not checkboxes)
-            if grep -n "\[[^[:space:]]+[^]]*\]\(\)" "$file" | grep -v "https://\|http://\|mailto:\|#\|LICENSE\|CONTRIBUTING"; then
+            # Check for empty links like [text]() (exclude images and checkboxes)
+            if grep -En '(^|[^!])\[[^][]+\]\([[:space:]]*\)' "$file"; then
               echo "Found empty links in $file"
               exit 1
             fi
