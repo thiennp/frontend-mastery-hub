@@ -12,8 +12,8 @@
       --diamond: #00CFFF;
       --text: #0f172a;
       --muted: #475569;
-      --bg: #ffffff;
-      --card: #f8fafc;
+      --bg: #f8fafc;
+      --card: #ffffff;
       --border: #e2e8f0;
     }
     * { box-sizing: border-box; }
@@ -48,16 +48,29 @@
     .tiers-table .gold { background: var(--gold); }
     .tiers-table .diamond { background: var(--diamond); }
 
-    .cell { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px; display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: start; min-height: 110px; }
+    .cell {
+      background: var(--card);
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 12px;
+      align-items: start;
+      min-height: 104px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    }
     .cell img { width: 56px; height: 56px; display: block; object-fit: contain; }
+    .icon { display: grid; justify-items: center; align-content: start; gap: 6px; }
+    .stars { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: var(--muted); letter-spacing: 2px; }
     .meta { display: grid; gap: 4px; width: 100%; grid-template-rows: auto 1fr auto; }
     .row { display: flex; align-items: center; gap: 8px; }
-    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; opacity: .85; }
     .dot.bronze { background: var(--bronze); }
     .dot.silver { background: var(--silver); }
     .dot.gold { background: var(--gold); }
     .dot.diamond { background: var(--diamond); }
-    .tier-label { font-weight: 700; font-size: 13px; }
+    .tier-label { font-weight: 700; font-size: 12px; letter-spacing: .02em; color: var(--muted); }
     .criteria { color: var(--muted); font-size: 12px; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; }
     .level { color: var(--muted); font-size: 12px; }
 
@@ -92,7 +105,13 @@
 
   <script>
     const tierOrder = ["bronze", "silver", "gold", "diamond"];
-    const tierTitle = { bronze: "Bronze", silver: "Silver", gold: "Gold", diamond: "Diamond" };
+    const ELEGANT_MODE = true; // set to false to use Bronze/Silver/Gold/Diamond labels/colors
+    const tierTitle = ELEGANT_MODE
+      ? { bronze: "I", silver: "II", gold: "III", diamond: "IV" }
+      : { bronze: "Bronze", silver: "Silver", gold: "Gold", diamond: "Diamond" };
+    const neutralTierDot = ELEGANT_MODE
+      ? { bronze: "#cbd5e1", silver: "#94a3b8", gold: "#64748b", diamond: "#334155" }
+      : { bronze: "var(--bronze)", silver: "var(--silver)", gold: "var(--gold)", diamond: "var(--diamond)" };
 
     async function loadBadges() {
       const res = await fetch('./badges.json');
@@ -111,10 +130,16 @@
       img.loading = 'lazy';
       img.alt = `${id} – ${tierTitle[tier]}`;
       img.width = 56; img.height = 56;
-      const legacySrc = `./svg/${id}-${tier}.svg`;
-      const v2Src = `./svg2/${id}-${tier}.svg`;
-      img.src = v2Src;
-      img.onerror = () => { img.src = legacySrc; img.onerror = null; };
+      const src = `./svg/${id}-${tier}.svg`;
+      img.src = src;
+
+      const iconWrap = document.createElement('div');
+      iconWrap.className = 'icon';
+      const stars = document.createElement('div');
+      stars.className = 'stars';
+      const tierStars = { bronze: '*', silver: '**', gold: '***', diamond: '****' };
+      stars.textContent = `(${tierStars[tier]})`;
+      iconWrap.append(img, stars);
 
       const meta = document.createElement('div');
       meta.className = 'meta';
@@ -122,7 +147,8 @@
       const row1 = document.createElement('div');
       row1.className = 'row';
       const dot = document.createElement('span');
-      dot.className = `dot ${tier}`;
+      dot.className = 'dot';
+      dot.style.background = neutralTierDot[tier];
       const label = document.createElement('span');
       label.className = 'tier-label';
       label.textContent = tierTitle[tier];
@@ -137,7 +163,7 @@
       level.textContent = `Earliest unlock: Level ${tierObj.earliestLevel}`;
 
       meta.append(row1, criteria, level);
-      cell.append(img, meta);
+      cell.append(iconWrap, meta);
       td.append(cell);
       return td;
     }
@@ -167,6 +193,19 @@
 
     (async () => {
       try {
+        if (ELEGANT_MODE) {
+          const neutral = { bronze: '#cbd5e1', silver: '#94a3b8', gold: '#64748b', diamond: '#334155' };
+          const tiers = ['bronze','silver','gold','diamond'];
+          document.querySelectorAll('.bar.bronze').forEach(e => e.style.background = neutral.bronze);
+          document.querySelectorAll('.bar.silver').forEach(e => e.style.background = neutral.silver);
+          document.querySelectorAll('.bar.gold').forEach(e => e.style.background = neutral.gold);
+          document.querySelectorAll('.bar.diamond').forEach(e => e.style.background = neutral.diamond);
+          const heads = document.querySelectorAll('.tiers-table thead th');
+          tiers.forEach((t, i) => {
+            const th = heads[i + 1];
+            if (th) th.innerHTML = `${tierTitle[t]}<span class="bar ${t}"></span>`;
+          });
+        }
         const badges = await loadBadges();
         const tbody = document.getElementById('badgesBody');
         badges.forEach(b => tbody.appendChild(createRow(b)));
