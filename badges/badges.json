@@ -1,0 +1,180 @@
+{
+  "version": 1,
+  "updatedAt": "2025-08-09",
+  "badges": [
+    {
+      "id": "dom-tamer",
+      "name": "DOM Tamer",
+      "domain": "Core JavaScript & Browser APIs",
+      "summary": "Mastery of HTML, DOM, and vanilla JavaScript for building interactive UIs.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Select and modify DOM elements with querySelector & .textContent.", "earliestLevel": 1 },
+        { "tier": "silver", "criteria": "Build a multi-step UI interaction without frameworks.", "earliestLevel": 4 },
+        { "tier": "gold", "criteria": "Implement dynamic UI updates with event delegation & performance optimizations.", "earliestLevel": 10 },
+        { "tier": "diamond", "criteria": "Create a fully interactive app with only vanilla JS + DOM APIs.", "earliestLevel": 20 }
+      ]
+    },
+    {
+      "id": "css-whisperer",
+      "name": "CSS Whisperer",
+      "domain": "Styling, Layout, and Theming",
+      "summary": "From basic styling to complete responsive design systems.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Create a responsive layout with Flexbox.", "earliestLevel": 2 },
+        { "tier": "silver", "criteria": "Combine Flexbox + Grid for complex layouts.", "earliestLevel": 7 },
+        { "tier": "gold", "criteria": "Pixel-perfect, accessible design implementation from a Figma mockup.", "earliestLevel": 12 },
+        { "tier": "diamond", "criteria": "Publish a responsive design system with theming & dark mode.", "earliestLevel": 22 }
+      ]
+    },
+    {
+      "id": "logic-weaver",
+      "name": "Logic Weaver",
+      "domain": "Programming Fundamentals & Problem Solving",
+      "summary": "Ability to reason, structure, and optimize code logic.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Solve basic problems using if/else and loops.", "earliestLevel": 2 },
+        { "tier": "silver", "criteria": "Refactor solutions into reusable functions.", "earliestLevel": 5 },
+        { "tier": "gold", "criteria": "Write efficient algorithms with improved Big O complexity.", "earliestLevel": 14 },
+        { "tier": "diamond", "criteria": "Create a personal utility library used across multiple projects.", "earliestLevel": 28 }
+      ]
+    },
+    {
+      "id": "async-ninja",
+      "name": "Async Ninja",
+      "domain": "Asynchronous Programming",
+      "summary": "Mastery of async flows, APIs, and browser event loop behavior.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Fetch data using fetch() & .then().", "earliestLevel": 5 },
+        { "tier": "silver", "criteria": "Use async/await with try/catch error handling.", "earliestLevel": 6 },
+        { "tier": "gold", "criteria": "Optimize parallel API calls with Promise.all() and caching.", "earliestLevel": 15 },
+        { "tier": "diamond", "criteria": "Architect advanced async flows (retry, cancellation, offline-first).", "earliestLevel": 25 }
+      ]
+    },
+    {
+      "id": "state-sculptor",
+      "name": "State Sculptor",
+      "domain": "State Management Mastery",
+      "summary": "From local component state to global, scalable state patterns.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Manage local state with React useState.", "earliestLevel": 12 },
+        { "tier": "silver", "criteria": "Manage shared state with Context API.", "earliestLevel": 13 },
+        { "tier": "gold", "criteria": "Implement optimized state management with Redux/Zustand.", "earliestLevel": 17 },
+        { "tier": "diamond", "criteria": "Architect a multi-domain state system across micro-frontends.", "earliestLevel": 26 }
+      ]
+    },
+    {
+      "id": "api-alchemist",
+      "name": "API Alchemist",
+      "domain": "Data Communication & APIs",
+      "summary": "Crafting stable, performant data layers.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Fetch and render data from a REST API.", "earliestLevel": 5 },
+        { "tier": "silver", "criteria": "Handle errors & retries in API requests.", "earliestLevel": 8 },
+        { "tier": "gold", "criteria": "Integrate multiple APIs (REST + GraphQL).", "earliestLevel": 18 },
+        { "tier": "diamond", "criteria": "Design and consume a type-safe API with tRPC/GraphQL subscriptions.", "earliestLevel": 28 }
+      ]
+    },
+    {
+      "id": "performance-engineer",
+      "name": "Performance Engineer",
+      "domain": "Speed & Optimization",
+      "summary": "Making applications faster and more efficient.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Identify and fix a rendering bottleneck.", "earliestLevel": 15 },
+        { "tier": "silver", "criteria": "Achieve passing Core Web Vitals scores (LCP, FID, CLS).", "earliestLevel": 18 },
+        { "tier": "gold", "criteria": "Reduce bundle size by 30% or more.", "earliestLevel": 23 },
+        { "tier": "diamond", "criteria": "Architect a performance budget & enforce it in CI/CD.", "earliestLevel": 30 }
+      ]
+    },
+    {
+      "id": "accessibility-advocate",
+      "name": "Accessibility Advocate",
+      "domain": "Inclusive Development",
+      "summary": "Ensuring every user can access your product.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Add semantic HTML & alt text to images.", "earliestLevel": 6 },
+        { "tier": "silver", "criteria": "Pass WCAG AA compliance on a component.", "earliestLevel": 9 },
+        { "tier": "gold", "criteria": "Pass WCAG AAA compliance on a multi-step flow.", "earliestLevel": 20 },
+        { "tier": "diamond", "criteria": "Audit & improve accessibility of a full design system.", "earliestLevel": 27 }
+      ]
+    },
+    {
+      "id": "security-sentinel",
+      "name": "Security Sentinel",
+      "domain": "Frontend Security Practices",
+      "summary": "Building safe, secure web applications.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Prevent basic XSS in user inputs.", "earliestLevel": 15 },
+        { "tier": "silver", "criteria": "Implement CSRF protection in forms.", "earliestLevel": 19 },
+        { "tier": "gold", "criteria": "Secure an OAuth2/OIDC authentication flow.", "earliestLevel": 24 },
+        { "tier": "diamond", "criteria": "Implement a zero-trust frontend architecture.", "earliestLevel": 35 }
+      ]
+    },
+    {
+      "id": "testing-tactician",
+      "name": "Testing Tactician",
+      "domain": "Quality Assurance & Testing",
+      "summary": "Building reliable apps through testing.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Write and pass a unit test.", "earliestLevel": 13 },
+        { "tier": "silver", "criteria": "Write integration tests for a feature.", "earliestLevel": 16 },
+        { "tier": "gold", "criteria": "Maintain >90% coverage in a module with unit + E2E tests.", "earliestLevel": 22 },
+        { "tier": "diamond", "criteria": "Architect a full testing strategy (unit, integration, E2E, contract).", "earliestLevel": 29 }
+      ]
+    },
+    {
+      "id": "toolsmith",
+      "name": "Toolsmith",
+      "domain": "Tooling, CI/CD, and Automation",
+      "summary": "Mastery of build tools, pipelines, and custom dev tooling.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Configure a project with Vite or Webpack.", "earliestLevel": 14 },
+        { "tier": "silver", "criteria": "Set up a basic CI pipeline with automated tests.", "earliestLevel": 18 },
+        { "tier": "gold", "criteria": "Create a custom build plugin or CLI tool.", "earliestLevel": 25 },
+        { "tier": "diamond", "criteria": "Architect a monorepo build pipeline with CI/CD.", "earliestLevel": 33 }
+      ]
+    },
+    {
+      "id": "ux-strategist",
+      "name": "UX Strategist",
+      "domain": "User Experience & Design Thinking",
+      "summary": "Designing user-focused, usable products.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Conduct a simple usability test & apply changes.", "earliestLevel": 10 },
+        { "tier": "silver", "criteria": "Redesign a feature with measurable UX improvement.", "earliestLevel": 16 },
+        { "tier": "gold", "criteria": "Lead a full UX review of a product.", "earliestLevel": 24 },
+        { "tier": "diamond", "criteria": "Architect a UX research strategy for an entire app.", "earliestLevel": 38 }
+      ]
+    },
+    {
+      "id": "innovation-catalyst",
+      "name": "Innovation Catalyst",
+      "domain": "Emerging Tech & Future Skills",
+      "summary": "Using cutting-edge technologies creatively.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Build a small feature with WebAssembly or WebXR.", "earliestLevel": 22 },
+        { "tier": "silver", "criteria": "Integrate AI/ML into a frontend project.", "earliestLevel": 28 },
+        { "tier": "gold", "criteria": "Ship an AR/VR-capable web app.", "earliestLevel": 36 },
+        { "tier": "diamond", "criteria": "Invent and prototype a novel frontend technology.", "earliestLevel": 45 }
+      ]
+    },
+    {
+      "id": "architect-and-leader",
+      "name": "Architect & Leader",
+      "domain": "System Design & Leadership",
+      "summary": "Guiding projects, teams, and architecture.",
+      "tiers": [
+        { "tier": "bronze", "criteria": "Lead a small team project to completion.", "earliestLevel": 20 },
+        { "tier": "silver", "criteria": "Plan & execute a large-scale architecture migration.", "earliestLevel": 27 },
+        { "tier": "gold", "criteria": "Lead a cross-team collaboration with shared architecture.", "earliestLevel": 34 },
+        { "tier": "diamond", "criteria": "Define technical strategy for an entire organization.", "earliestLevel": 50 }
+      ]
+    }
+  ],
+  "distributionLogic": {
+    "earlyLevels": "Levels 1–10 unlock Bronze and some Silver badges.",
+    "midLevels": "Levels 11–25 open up Gold tiers and higher skill overlap.",
+    "lateLevels": "Levels 26–50 focus on Diamond tiers, advanced domains, and leadership/innovation badges.",
+    "note": "No single badge can be maxed without reaching late Year 3."
+  }
+}
