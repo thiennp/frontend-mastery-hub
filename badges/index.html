@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frontend Mastery Hub — Badges</title>
+  <style>
+    :root {
+      --bronze: #B87333;
+      --silver: #C0C0C0;
+      --gold: #FFD200;
+      --diamond: #00CFFF;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --bg: #ffffff;
+      --card: #f9fafb;
+      --border: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: var(--bg);
+    }
+    header {
+      padding: 32px 20px 8px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    header h1 { margin: 0 0 6px; font-size: 28px; }
+    header p { margin: 0; color: var(--muted); }
+
+    .grid {
+      max-width: 1100px;
+      margin: 16px auto 40px;
+      padding: 0 20px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: box-shadow .2s ease, transform .2s ease;
+    }
+    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.06); transform: translateY(-1px); }
+
+    .title { display: flex; flex-direction: column; gap: 6px; }
+    .badge-name { font-weight: 700; font-size: 16px; }
+    .badge-domain { color: var(--muted); font-size: 13px; }
+    .badge-summary { color: var(--muted); font-size: 13px; }
+
+    .tiers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .tier {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+    .tier img { width: 64px; height: 64px; display: block; }
+    .tier .meta { display: flex; flex-direction: column; gap: 4px; }
+    .tier .row { display: flex; align-items: center; gap: 8px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot.bronze { background: var(--bronze); }
+    .dot.silver { background: var(--silver); }
+    .dot.gold { background: var(--gold); }
+    .dot.diamond { background: var(--diamond); }
+    .tier-label { font-weight: 600; font-size: 13px; }
+    .criteria { color: var(--muted); font-size: 12px; }
+    .level { color: var(--muted); font-size: 12px; }
+
+    footer { max-width: 1100px; margin: 0 auto 40px; padding: 0 20px; color: var(--muted); font-size: 13px; }
+    a { color: inherit; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Badge Gallery</h1>
+    <p>All badges and tiers from the Frontend Mastery Hub blueprint. SVGs are rendered directly from <code>badges/svg/</code>.</p>
+  </header>
+
+  <main class="grid" id="grid" aria-live="polite"></main>
+
+  <footer>
+    Data source: <code>badges/badges.json</code>. Icons: <code>badges/svg/&lt;badge-id&gt;-&lt;tier&gt;.svg</code>.
+  </footer>
+
+  <script>
+    const tierOrder = ["bronze", "silver", "gold", "diamond"];
+    const tierTitle = {
+      bronze: "Bronze",
+      silver: "Silver",
+      gold: "Gold",
+      diamond: "Diamond"
+    };
+
+    async function loadBadges() {
+      const res = await fetch('./badges.json');
+      if (!res.ok) throw new Error('Failed to load badges.json');
+      const data = await res.json();
+      return data.badges || [];
+    }
+
+    function createTier(id, tierObj) {
+      const tier = tierObj.tier;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'tier';
+
+      const img = document.createElement('img');
+      img.alt = `${id} – ${tierTitle[tier]}`;
+      img.src = `./svg/${id}-${tier}.svg`;
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+
+      const row1 = document.createElement('div');
+      row1.className = 'row';
+      const dot = document.createElement('span');
+      dot.className = `dot ${tier}`;
+      const label = document.createElement('span');
+      label.className = 'tier-label';
+      label.textContent = tierTitle[tier];
+      row1.append(dot, label);
+
+      const criteria = document.createElement('div');
+      criteria.className = 'criteria';
+      criteria.textContent = tierObj.criteria;
+
+      const level = document.createElement('div');
+      level.className = 'level';
+      level.textContent = `Earliest unlock: Level ${tierObj.earliestLevel}`;
+
+      meta.append(row1, criteria, level);
+      wrapper.append(img, meta);
+      return wrapper;
+    }
+
+    function createCard(badge) {
+      const card = document.createElement('section');
+      card.className = 'card';
+
+      const title = document.createElement('div');
+      title.className = 'title';
+      const name = document.createElement('div');
+      name.className = 'badge-name';
+      name.textContent = badge.name;
+      const domain = document.createElement('div');
+      domain.className = 'badge-domain';
+      domain.textContent = badge.domain;
+      const summary = document.createElement('div');
+      summary.className = 'badge-summary';
+      summary.textContent = badge.summary;
+      title.append(name, domain, summary);
+
+      const tiers = document.createElement('div');
+      tiers.className = 'tiers';
+      const sorted = [...badge.tiers].sort((a, b) => tierOrder.indexOf(a.tier) - tierOrder.indexOf(b.tier));
+      for (const t of sorted) tiers.append(createTier(badge.id, t));
+
+      card.append(title, tiers);
+      return card;
+    }
+
+    (async () => {
+      try {
+        const badges = await loadBadges();
+        const grid = document.getElementById('grid');
+        badges.forEach(b => grid.appendChild(createCard(b)));
+      } catch (err) {
+        const grid = document.getElementById('grid');
+        grid.innerHTML = `<div style="color:#b91c1c;">Failed to load badges: ${err.message}</div>`;
+      }
+    })();
+  </script>
+</body>
+</html>
