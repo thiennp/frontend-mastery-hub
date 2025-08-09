@@ -10,77 +10,58 @@
       --silver: #C0C0C0;
       --gold: #FFD200;
       --diamond: #00CFFF;
-      --text: #1f2937;
-      --muted: #6b7280;
+      --text: #0f172a;
+      --muted: #475569;
       --bg: #ffffff;
-      --card: #f9fafb;
-      --border: #e5e7eb;
+      --card: #f8fafc;
+      --border: #e2e8f0;
     }
     * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
       color: var(--text);
       background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     header {
-      padding: 32px 20px 8px;
-      max-width: 1100px;
+      padding: 28px 20px 8px;
+      max-width: 1200px;
       margin: 0 auto;
     }
-    header h1 { margin: 0 0 6px; font-size: 28px; }
+    header h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: -0.02em; }
     header p { margin: 0; color: var(--muted); }
 
-    .grid {
-      max-width: 1100px;
-      margin: 16px auto 40px;
-      padding: 0 20px 40px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
+    .table-wrap { max-width: 1200px; margin: 16px auto 48px; padding: 0 20px 40px; overflow-x: auto; }
+    .badge-name { font-weight: 800; font-size: 16px; letter-spacing: -0.01em; }
+    .badge-domain { color: var(--muted); font-size: 12px; }
+    .badge-summary { color: var(--muted); font-size: 12px; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; }
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: box-shadow .2s ease, transform .2s ease;
-    }
-    .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.06); transform: translateY(-1px); }
+    /* Table layout for tiers */
+    .tiers-table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 8px; }
+    .tiers-table th { position: sticky; top: 0; background: var(--bg); z-index: 1; font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; padding: 6px 4px; }
+    .tiers-table thead th .bar { display: block; height: 3px; border-radius: 2px; margin-top: 6px; }
+    .tiers-table .bronze { background: var(--bronze); }
+    .tiers-table .silver { background: var(--silver); }
+    .tiers-table .gold { background: var(--gold); }
+    .tiers-table .diamond { background: var(--diamond); }
 
-    .title { display: flex; flex-direction: column; gap: 6px; }
-    .badge-name { font-weight: 700; font-size: 16px; }
-    .badge-domain { color: var(--muted); font-size: 13px; }
-    .badge-summary { color: var(--muted); font-size: 13px; }
-
-    .tiers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .tier {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px;
-      display: grid;
-      grid-template-columns: 64px 1fr;
-      gap: 10px;
-      align-items: center;
-    }
-    .tier img { width: 64px; height: 64px; display: block; }
-    .tier .meta { display: flex; flex-direction: column; gap: 4px; }
-    .tier .row { display: flex; align-items: center; gap: 8px; }
+    .cell { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px; display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: start; min-height: 110px; }
+    .cell img { width: 56px; height: 56px; display: block; object-fit: contain; }
+    .meta { display: grid; gap: 4px; width: 100%; grid-template-rows: auto 1fr auto; }
+    .row { display: flex; align-items: center; gap: 8px; }
     .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
     .dot.bronze { background: var(--bronze); }
     .dot.silver { background: var(--silver); }
     .dot.gold { background: var(--gold); }
     .dot.diamond { background: var(--diamond); }
-    .tier-label { font-weight: 600; font-size: 13px; }
-    .criteria { color: var(--muted); font-size: 12px; }
+    .tier-label { font-weight: 700; font-size: 13px; }
+    .criteria { color: var(--muted); font-size: 12px; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; }
     .level { color: var(--muted); font-size: 12px; }
 
-    footer { max-width: 1100px; margin: 0 auto 40px; padding: 0 20px; color: var(--muted); font-size: 13px; }
+    footer { max-width: 1200px; margin: 0 auto 40px; padding: 0 20px; color: var(--muted); font-size: 13px; }
     a { color: inherit; }
   </style>
 </head>
@@ -90,7 +71,20 @@
     <p>All badges and tiers from the Frontend Mastery Hub blueprint. SVGs are rendered directly from <code>badges/svg/</code>.</p>
   </header>
 
-  <main class="grid" id="grid" aria-live="polite"></main>
+  <div class="table-wrap">
+    <table class="tiers-table" id="badgesTable" aria-live="polite">
+      <thead>
+        <tr>
+          <th style="width:26%">Badge</th>
+          <th>Bronze<span class="bar bronze"></span></th>
+          <th>Silver<span class="bar silver"></span></th>
+          <th>Gold<span class="bar gold"></span></th>
+          <th>Diamond<span class="bar diamond"></span></th>
+        </tr>
+      </thead>
+      <tbody id="badgesBody"></tbody>
+    </table>
+  </div>
 
   <footer>
     Data source: <code>badges/badges.json</code>. Icons: <code>badges/svg/&lt;badge-id&gt;-&lt;tier&gt;.svg</code>.
@@ -98,12 +92,7 @@
 
   <script>
     const tierOrder = ["bronze", "silver", "gold", "diamond"];
-    const tierTitle = {
-      bronze: "Bronze",
-      silver: "Silver",
-      gold: "Gold",
-      diamond: "Diamond"
-    };
+    const tierTitle = { bronze: "Bronze", silver: "Silver", gold: "Gold", diamond: "Diamond" };
 
     async function loadBadges() {
       const res = await fetch('./badges.json');
@@ -112,13 +101,16 @@
       return data.badges || [];
     }
 
-    function createTier(id, tierObj) {
+    function createTierCell(id, tierObj) {
       const tier = tierObj.tier;
-      const wrapper = document.createElement('div');
-      wrapper.className = 'tier';
+      const td = document.createElement('td');
+      const cell = document.createElement('div');
+      cell.className = 'cell';
 
       const img = document.createElement('img');
+      img.loading = 'lazy';
       img.alt = `${id} – ${tierTitle[tier]}`;
+      img.width = 56; img.height = 56;
       img.src = `./svg/${id}-${tier}.svg`;
 
       const meta = document.createElement('div');
@@ -142,16 +134,16 @@
       level.textContent = `Earliest unlock: Level ${tierObj.earliestLevel}`;
 
       meta.append(row1, criteria, level);
-      wrapper.append(img, meta);
-      return wrapper;
+      cell.append(img, meta);
+      td.append(cell);
+      return td;
     }
-
-    function createCard(badge) {
-      const card = document.createElement('section');
-      card.className = 'card';
-
-      const title = document.createElement('div');
-      title.className = 'title';
+    function createRow(badge) {
+      const tr = document.createElement('tr');
+      const badgeTd = document.createElement('td');
+      const info = document.createElement('div');
+      info.style.display = 'grid';
+      info.style.gap = '4px';
       const name = document.createElement('div');
       name.className = 'badge-name';
       name.textContent = badge.name;
@@ -161,25 +153,29 @@
       const summary = document.createElement('div');
       summary.className = 'badge-summary';
       summary.textContent = badge.summary;
-      title.append(name, domain, summary);
+      info.append(name, domain, summary);
+      badgeTd.append(info);
+      tr.append(badgeTd);
 
-      const tiers = document.createElement('div');
-      tiers.className = 'tiers';
       const sorted = [...badge.tiers].sort((a, b) => tierOrder.indexOf(a.tier) - tierOrder.indexOf(b.tier));
-      for (const t of sorted) tiers.append(createTier(badge.id, t));
-
-      card.append(title, tiers);
-      return card;
+      for (const t of sorted) tr.appendChild(createTierCell(badge.id, t));
+      return tr;
     }
 
     (async () => {
       try {
         const badges = await loadBadges();
-        const grid = document.getElementById('grid');
-        badges.forEach(b => grid.appendChild(createCard(b)));
+        const tbody = document.getElementById('badgesBody');
+        badges.forEach(b => tbody.appendChild(createRow(b)));
       } catch (err) {
-        const grid = document.getElementById('grid');
-        grid.innerHTML = `<div style="color:#b91c1c;">Failed to load badges: ${err.message}</div>`;
+        const tbody = document.getElementById('badgesBody');
+        const row = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = 5;
+        td.style.color = '#b91c1c';
+        td.textContent = `Failed to load badges: ${err.message}`;
+        row.appendChild(td);
+        tbody.appendChild(row);
       }
     })();
   </script>
