@@ -174,9 +174,16 @@ Complete these challenges to determine your starting level:
 /projects/<project> — progressive app per level
 /examples/<topic> — minimal runnable samples
 /tests/<level> — katas, fixtures, CI config
-/badges/<level>.json — criteria & icon ref
+/badges/badges.json — badge catalog (machine-readable)
+/badges/README.md — badge guide (human-friendly)
 /playgrounds/ — interactive demos and experiments
 ```
+
+## 🏅 Badge System
+
+Track your skill progression across domains with tiered badges:
+- Badge Guide: badges/README.md
+- JSON Catalog: badges/badges.json
 
 ## 🧪 Running Tests
 
