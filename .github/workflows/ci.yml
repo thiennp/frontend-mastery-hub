@@ -83,8 +83,8 @@ jobs:
           # Basic markdown validation
           find . -name "*.md" -type f | while read file; do
             echo "Validating markdown syntax in $file"
-            # Check for unclosed code blocks
-            if grep -n "^```" "$file" | wc -l | grep -q "^[0-9]*[13579]$"; then
+            # Check for unclosed code blocks (odd number of opening ```)
+            if grep -n '^```' "$file" | wc -l | grep -q '^[0-9]*[13579]$'; then
               echo "Unclosed code block detected in $file"
               exit 1
             fi
