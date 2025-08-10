@@ -62,7 +62,7 @@
     }
     .cell img { width: 56px; height: 56px; display: block; object-fit: contain; }
     .icon { display: grid; justify-items: center; align-content: start; gap: 6px; }
-    .stars { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: var(--muted); letter-spacing: 2px; }
+  
     .meta { display: grid; gap: 4px; width: 100%; grid-template-rows: auto 1fr auto; }
     .row { display: flex; align-items: center; gap: 8px; }
     .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; opacity: .85; }
@@ -135,11 +135,7 @@
 
       const iconWrap = document.createElement('div');
       iconWrap.className = 'icon';
-      const stars = document.createElement('div');
-      stars.className = 'stars';
-      const tierStars = { bronze: '*', silver: '**', gold: '***', diamond: '****' };
-      stars.textContent = `(${tierStars[tier]})`;
-      iconWrap.append(img, stars);
+      iconWrap.append(img);
 
       const meta = document.createElement('div');
       meta.className = 'meta';
