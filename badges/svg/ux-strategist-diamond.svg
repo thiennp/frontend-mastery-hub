@@ -11,9 +11,8 @@
     <circle cx="32" cy="26" r="4"/>
     <!-- User body -->
     <path d="M28 30 Q32 34 36 30"/>
-    <!-- Target circles -->
+    <!-- Target circles - simplified -->
     <circle cx="32" cy="40" r="6" fill="none"/>
-    <circle cx="32" cy="40" r="3" fill="none"/>
     <circle cx="32" cy="40" r="1" fill="#fff"/>
   </g>
   <!-- four evenly spaced arcs (each 45°, separated by 45° gaps) -->

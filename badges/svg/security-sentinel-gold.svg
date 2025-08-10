@@ -15,5 +15,7 @@
     <path d="M22 24 L32 21 L42 24 V32 C42 38 37 42 32 43 C27 42 22 38 22 32 Z"/>
     <path d="M29 32 L35 32"/>
   </g>
-  <circle cx="32" cy="32" r="30" fill="none" stroke="url(#inner)" stroke-width="3" stroke-linecap="round" stroke-dasharray="31.416 31.416" stroke-dashoffset="125.664"/>
+  <circle cx="32" cy="32" r="30" fill="none" stroke="url(#inner)" stroke-width="3" stroke-linecap="round" stroke-dasharray="31.416 157.08" stroke-dashoffset="0"/>
+  <circle cx="32" cy="32" r="30" fill="none" stroke="url(#inner)" stroke-width="3" stroke-linecap="round" stroke-dasharray="31.416 157.08" stroke-dashoffset="47.124"/>
+  <circle cx="32" cy="32" r="30" fill="none" stroke="url(#inner)" stroke-width="3" stroke-linecap="round" stroke-dasharray="31.416 157.08" stroke-dashoffset="141.372"/>
 </svg>

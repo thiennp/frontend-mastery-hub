@@ -13,11 +13,11 @@
   </g>
   <g fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
     <!-- Flask body with connected neck -->
-    <path d="M22 21 L22 37 Q22 43 32 43 Q42 43 42 37 L42 21 L38 17 L26 17 Z"/>
+    <path d="M23 24 L23 38 Q23 44 32 44 Q41 44 41 38 L41 24 L37 20 L27 20 Z"/>
     <!-- Integrated bubble inside flask -->
-    <circle cx="32" cy="32" r="3" fill="none"/>
+    <circle cx="32" cy="34" r="3" fill="none"/>
     <!-- Small connecting lines to show alchemy -->
-    <path d="M29 29 L35 29 M31 37 L33 37"/>
+    <path d="M30 30 L36 30 M32 38 L34 38"/>
   </g>
   <circle cx="32" cy="32" r="30" fill="none" stroke="url(#inner)" stroke-width="3" stroke-linecap="round" stroke-dasharray="31.416 157.08" stroke-dashoffset="125.664"/>
 </svg>

@@ -12,6 +12,7 @@
     <path d="M28 34 H36"/>
   </g>
   <circle cx="32" cy="32" r="2" fill="#ffffff"/>
+  <!-- four evenly spaced arcs (each 45°, separated by 45° gaps) -->
   <circle cx="32" cy="32" r="30" fill="none" stroke="url(#inner)" stroke-width="3" stroke-linecap="round" stroke-dasharray="31.416 157.08" stroke-dashoffset="125.664"/>
 </svg>
 
