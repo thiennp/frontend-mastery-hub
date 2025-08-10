@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Frontend Mastery Hub — Badges</title>
   <style>
     :root {
@@ -16,8 +16,15 @@
       --card: #ffffff;
       --border: #e2e8f0;
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
@@ -26,27 +33,96 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
+
     header {
       padding: 28px 20px 8px;
       max-width: 1200px;
       margin: 0 auto;
     }
-    header h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: -0.02em; }
-    header p { margin: 0; color: var(--muted); }
 
-    .table-wrap { max-width: 1200px; margin: 16px auto 48px; padding: 0 20px 40px; overflow-x: auto; }
-    .badge-name { font-weight: 800; font-size: 16px; letter-spacing: -0.01em; }
-    .badge-domain { color: var(--muted); font-size: 12px; }
-    .badge-summary { color: var(--muted); font-size: 12px; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      max-width: 1200px;
+      margin: 16px auto 48px;
+      padding: 0 20px 40px;
+      overflow-x: auto;
+    }
+
+    .badge-name {
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .badge-domain {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .badge-summary {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
 
     /* Table layout for tiers */
-    .tiers-table { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 8px; }
-    .tiers-table th { position: sticky; top: 0; background: var(--bg); z-index: 1; font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; padding: 6px 4px; }
-    .tiers-table thead th .bar { display: block; height: 3px; border-radius: 2px; margin-top: 6px; }
-    .tiers-table .bronze { background: var(--bronze); }
-    .tiers-table .silver { background: var(--silver); }
-    .tiers-table .gold { background: var(--gold); }
-    .tiers-table .diamond { background: var(--diamond); }
+    .tiers-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: separate;
+      border-spacing: 8px;
+    }
+
+    .tiers-table th {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 1;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 6px 4px;
+    }
+
+    .tiers-table thead th .bar {
+      display: block;
+      height: 3px;
+      border-radius: 2px;
+      margin-top: 6px;
+    }
+
+    .tiers-table .bronze {
+      background: var(--bronze);
+    }
+
+    .tiers-table .silver {
+      background: var(--silver);
+    }
+
+    .tiers-table .gold {
+      background: var(--gold);
+    }
+
+    .tiers-table .diamond {
+      background: var(--diamond);
+    }
 
     .cell {
       background: var(--card);
@@ -60,162 +136,915 @@
       min-height: 104px;
       box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
     }
-    .cell img { width: 56px; height: 56px; display: block; object-fit: contain; }
-    .icon { display: grid; justify-items: center; align-content: start; gap: 6px; }
-  
-    .meta { display: grid; gap: 4px; width: 100%; grid-template-rows: auto 1fr auto; }
-    .row { display: flex; align-items: center; gap: 8px; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; opacity: .85; }
-    .dot.bronze { background: var(--bronze); }
-    .dot.silver { background: var(--silver); }
-    .dot.gold { background: var(--gold); }
-    .dot.diamond { background: var(--diamond); }
-    .tier-label { font-weight: 700; font-size: 12px; letter-spacing: .02em; color: var(--muted); }
-    .criteria { color: var(--muted); font-size: 12px; line-height: 1.35; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; }
-    .level { color: var(--muted); font-size: 12px; }
 
-    footer { max-width: 1200px; margin: 0 auto 40px; padding: 0 20px; color: var(--muted); font-size: 13px; }
-    a { color: inherit; }
+    .cell img {
+      width: 56px;
+      height: 56px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .icon {
+      display: grid;
+      justify-items: center;
+      align-content: start;
+      gap: 6px;
+    }
+
+    .meta {
+      display: grid;
+      gap: 4px;
+      width: 100%;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+      opacity: .85;
+    }
+
+    .dot.bronze {
+      background: var(--bronze);
+    }
+
+    .dot.silver {
+      background: var(--silver);
+    }
+
+    .dot.gold {
+      background: var(--gold);
+    }
+
+    .dot.diamond {
+      background: var(--diamond);
+    }
+
+    .tier-label {
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .02em;
+      color: var(--muted);
+    }
+
+    .criteria {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .level {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    a {
+      color: inherit;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Badge Gallery</h1>
-    <p>All badges and tiers from the Frontend Mastery Hub blueprint. SVGs are rendered directly from <code>badges/svg/</code>.</p>
-  </header>
+<header>
+  <h1>Badge Gallery</h1>
+  <p>All badges and tiers from the Frontend Mastery Hub blueprint. SVGs are rendered directly from
+    <code>badges/svg/</code>.</p>
+</header>
 
-  <div class="table-wrap">
-    <table class="tiers-table" id="badgesTable" aria-live="polite">
-      <thead>
-        <tr>
-          <th style="width:26%">Badge</th>
-          <th>Bronze<span class="bar bronze"></span></th>
-          <th>Silver<span class="bar silver"></span></th>
-          <th>Gold<span class="bar gold"></span></th>
-          <th>Diamond<span class="bar diamond"></span></th>
-        </tr>
-      </thead>
-      <tbody id="badgesBody"></tbody>
-    </table>
-  </div>
+<div class="table-wrap">
+  <table aria-live="polite" class="tiers-table" id="badgesTable">
+    <thead>
+    <tr>
+      <th style="width:26%">Badge</th>
+      <th>I<span class="bar bronze"></span></th>
+      <th>II<span class="bar silver"></span></th>
+      <th>III<span class="bar gold"></span></th>
+      <th>IV<span class="bar diamond"></span></th>
+    </tr>
+    </thead>
+    <tbody id="badgesBody">
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">DOM Tamer</div>
+          <div class="badge-domain">Core JavaScript &amp; Browser APIs</div>
+          <div class="badge-summary">Mastery of HTML, DOM, and vanilla JavaScript for building interactive UIs.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="dom-tamer – I" height="56" loading="lazy" src="./svg/dom-tamer-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Select and modify DOM elements with querySelector &amp; .textContent.</div>
+            <div class="level">Earliest unlock: Level 1</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="dom-tamer – II" height="56" loading="lazy" src="./svg/dom-tamer-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Build a multi-step UI interaction without frameworks.</div>
+            <div class="level">Earliest unlock: Level 4</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="dom-tamer – III" height="56" loading="lazy" src="./svg/dom-tamer-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Implement dynamic UI updates with event delegation &amp; performance optimizations.
+            </div>
+            <div class="level">Earliest unlock: Level 10</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="dom-tamer – IV" height="56" loading="lazy" src="./svg/dom-tamer-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Create a fully interactive app with only vanilla JS + DOM APIs.</div>
+            <div class="level">Earliest unlock: Level 20</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">CSS Whisperer</div>
+          <div class="badge-domain">Styling, Layout, and Theming</div>
+          <div class="badge-summary">From basic styling to complete responsive design systems.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="css-whisperer – I" height="56" loading="lazy" src="./svg/css-whisperer-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Create a responsive layout with Flexbox.</div>
+            <div class="level">Earliest unlock: Level 2</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="css-whisperer – II" height="56" loading="lazy" src="./svg/css-whisperer-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Combine Flexbox + Grid for complex layouts.</div>
+            <div class="level">Earliest unlock: Level 7</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="css-whisperer – III" height="56" loading="lazy" src="./svg/css-whisperer-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Pixel-perfect, accessible design implementation from a Figma mockup.</div>
+            <div class="level">Earliest unlock: Level 12</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="css-whisperer – IV" height="56" loading="lazy" src="./svg/css-whisperer-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Publish a responsive design system with theming &amp; dark mode.</div>
+            <div class="level">Earliest unlock: Level 22</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">Logic Weaver</div>
+          <div class="badge-domain">Programming Fundamentals &amp; Problem Solving</div>
+          <div class="badge-summary">Ability to reason, structure, and optimize code logic.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="logic-weaver – I" height="56" loading="lazy" src="./svg/logic-weaver-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Solve basic problems using if/else and loops.</div>
+            <div class="level">Earliest unlock: Level 2</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="logic-weaver – II" height="56" loading="lazy" src="./svg/logic-weaver-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Refactor solutions into reusable functions.</div>
+            <div class="level">Earliest unlock: Level 5</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="logic-weaver – III" height="56" loading="lazy" src="./svg/logic-weaver-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Write efficient algorithms with improved Big O complexity.</div>
+            <div class="level">Earliest unlock: Level 14</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="logic-weaver – IV" height="56" loading="lazy" src="./svg/logic-weaver-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Create a personal utility library used across multiple projects.</div>
+            <div class="level">Earliest unlock: Level 28</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">Async Ninja</div>
+          <div class="badge-domain">Asynchronous Programming</div>
+          <div class="badge-summary">Mastery of async flows, APIs, and browser event loop behavior.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="async-ninja – I" height="56" loading="lazy" src="./svg/async-ninja-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Fetch data using fetch() &amp; .then().</div>
+            <div class="level">Earliest unlock: Level 5</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="async-ninja – II" height="56" loading="lazy" src="./svg/async-ninja-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Use async/await with try/catch error handling.</div>
+            <div class="level">Earliest unlock: Level 6</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="async-ninja – III" height="56" loading="lazy" src="./svg/async-ninja-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Optimize parallel API calls with Promise.all() and caching.</div>
+            <div class="level">Earliest unlock: Level 15</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="async-ninja – IV" height="56" loading="lazy" src="./svg/async-ninja-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Architect advanced async flows (retry, cancellation, offline-first).</div>
+            <div class="level">Earliest unlock: Level 25</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">State Sculptor</div>
+          <div class="badge-domain">State Management Mastery</div>
+          <div class="badge-summary">From local component state to global, scalable state patterns.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="state-sculptor – I" height="56" loading="lazy" src="./svg/state-sculptor-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Manage local state with React useState.</div>
+            <div class="level">Earliest unlock: Level 12</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="state-sculptor – II" height="56" loading="lazy" src="./svg/state-sculptor-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Manage shared state with Context API.</div>
+            <div class="level">Earliest unlock: Level 13</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="state-sculptor – III" height="56" loading="lazy" src="./svg/state-sculptor-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Implement optimized state management with Redux/Zustand.</div>
+            <div class="level">Earliest unlock: Level 17</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="state-sculptor – IV" height="56" loading="lazy" src="./svg/state-sculptor-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Architect a multi-domain state system across micro-frontends.</div>
+            <div class="level">Earliest unlock: Level 26</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">API Alchemist</div>
+          <div class="badge-domain">Data Communication &amp; APIs</div>
+          <div class="badge-summary">Crafting stable, performant data layers.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="api-alchemist – I" height="56" loading="lazy" src="./svg/api-alchemist-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Fetch and render data from a REST API.</div>
+            <div class="level">Earliest unlock: Level 5</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="api-alchemist – II" height="56" loading="lazy" src="./svg/api-alchemist-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Handle errors &amp; retries in API requests.</div>
+            <div class="level">Earliest unlock: Level 8</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="api-alchemist – III" height="56" loading="lazy" src="./svg/api-alchemist-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Integrate multiple APIs (REST + GraphQL).</div>
+            <div class="level">Earliest unlock: Level 18</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="api-alchemist – IV" height="56" loading="lazy" src="./svg/api-alchemist-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Design and consume a type-safe API with tRPC/GraphQL subscriptions.</div>
+            <div class="level">Earliest unlock: Level 28</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">Performance Engineer</div>
+          <div class="badge-domain">Speed &amp; Optimization</div>
+          <div class="badge-summary">Making applications faster and more efficient.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="performance-engineer – I" height="56" loading="lazy" src="./svg/performance-engineer-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Identify and fix a rendering bottleneck.</div>
+            <div class="level">Earliest unlock: Level 15</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="performance-engineer – II" height="56" loading="lazy" src="./svg/performance-engineer-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Achieve passing Core Web Vitals scores (LCP, FID, CLS).</div>
+            <div class="level">Earliest unlock: Level 18</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="performance-engineer – III" height="56" loading="lazy" src="./svg/performance-engineer-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Reduce bundle size by 30% or more.</div>
+            <div class="level">Earliest unlock: Level 23</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="performance-engineer – IV" height="56" loading="lazy" src="./svg/performance-engineer-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Architect a performance budget &amp; enforce it in CI/CD.</div>
+            <div class="level">Earliest unlock: Level 30</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">Accessibility Advocate</div>
+          <div class="badge-domain">Inclusive Development</div>
+          <div class="badge-summary">Ensuring every user can access your product.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="accessibility-advocate – I" height="56" loading="lazy" src="./svg/accessibility-advocate-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Add semantic HTML &amp; alt text to images.</div>
+            <div class="level">Earliest unlock: Level 6</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="accessibility-advocate – II" height="56" loading="lazy" src="./svg/accessibility-advocate-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Pass WCAG AA compliance on a component.</div>
+            <div class="level">Earliest unlock: Level 9</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="accessibility-advocate – III" height="56" loading="lazy" src="./svg/accessibility-advocate-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Pass WCAG AAA compliance on a multi-step flow.</div>
+            <div class="level">Earliest unlock: Level 20</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="accessibility-advocate – IV" height="56" loading="lazy" src="./svg/accessibility-advocate-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Audit &amp; improve accessibility of a full design system.</div>
+            <div class="level">Earliest unlock: Level 27</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">Security Sentinel</div>
+          <div class="badge-domain">Frontend Security Practices</div>
+          <div class="badge-summary">Building safe, secure web applications.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="security-sentinel – I" height="56" loading="lazy" src="./svg/security-sentinel-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Prevent basic XSS in user inputs.</div>
+            <div class="level">Earliest unlock: Level 15</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="security-sentinel – II" height="56" loading="lazy" src="./svg/security-sentinel-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Implement CSRF protection in forms.</div>
+            <div class="level">Earliest unlock: Level 19</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="security-sentinel – III" height="56" loading="lazy" src="./svg/security-sentinel-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Secure an OAuth2/OIDC authentication flow.</div>
+            <div class="level">Earliest unlock: Level 24</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="security-sentinel – IV" height="56" loading="lazy" src="./svg/security-sentinel-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Implement a zero-trust frontend architecture.</div>
+            <div class="level">Earliest unlock: Level 35</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">Testing Tactician</div>
+          <div class="badge-domain">Quality Assurance &amp; Testing</div>
+          <div class="badge-summary">Building reliable apps through testing.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="testing-tactician – I" height="56" loading="lazy" src="./svg/testing-tactician-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Write and pass a unit test.</div>
+            <div class="level">Earliest unlock: Level 13</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="testing-tactician – II" height="56" loading="lazy" src="./svg/testing-tactician-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Write integration tests for a feature.</div>
+            <div class="level">Earliest unlock: Level 16</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="testing-tactician – III" height="56" loading="lazy" src="./svg/testing-tactician-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Maintain &gt;90% coverage in a module with unit + E2E tests.</div>
+            <div class="level">Earliest unlock: Level 22</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="testing-tactician – IV" height="56" loading="lazy" src="./svg/testing-tactician-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Architect a full testing strategy (unit, integration, E2E, contract).</div>
+            <div class="level">Earliest unlock: Level 29</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">Toolsmith</div>
+          <div class="badge-domain">Tooling, CI/CD, and Automation</div>
+          <div class="badge-summary">Mastery of build tools, pipelines, and custom dev tooling.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="toolsmith – I" height="56" loading="lazy" src="./svg/toolsmith-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Configure a project with Vite or Webpack.</div>
+            <div class="level">Earliest unlock: Level 14</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="toolsmith – II" height="56" loading="lazy" src="./svg/toolsmith-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Set up a basic CI pipeline with automated tests.</div>
+            <div class="level">Earliest unlock: Level 18</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="toolsmith – III" height="56" loading="lazy" src="./svg/toolsmith-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Create a custom build plugin or CLI tool.</div>
+            <div class="level">Earliest unlock: Level 25</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="toolsmith – IV" height="56" loading="lazy" src="./svg/toolsmith-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Architect a monorepo build pipeline with CI/CD.</div>
+            <div class="level">Earliest unlock: Level 33</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">UX Strategist</div>
+          <div class="badge-domain">User Experience &amp; Design Thinking</div>
+          <div class="badge-summary">Designing user-focused, usable products.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="ux-strategist – I" height="56" loading="lazy" src="./svg/ux-strategist-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Conduct a simple usability test &amp; apply changes.</div>
+            <div class="level">Earliest unlock: Level 10</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="ux-strategist – II" height="56" loading="lazy" src="./svg/ux-strategist-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Redesign a feature with measurable UX improvement.</div>
+            <div class="level">Earliest unlock: Level 16</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="ux-strategist – III" height="56" loading="lazy" src="./svg/ux-strategist-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Lead a full UX review of a product.</div>
+            <div class="level">Earliest unlock: Level 24</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="ux-strategist – IV" height="56" loading="lazy" src="./svg/ux-strategist-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Architect a UX research strategy for an entire app.</div>
+            <div class="level">Earliest unlock: Level 38</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">Innovation Catalyst</div>
+          <div class="badge-domain">Emerging Tech &amp; Future Skills</div>
+          <div class="badge-summary">Using cutting-edge technologies creatively.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="innovation-catalyst – I" height="56" loading="lazy" src="./svg/innovation-catalyst-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Build a small feature with WebAssembly or WebXR.</div>
+            <div class="level">Earliest unlock: Level 22</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="innovation-catalyst – II" height="56" loading="lazy" src="./svg/innovation-catalyst-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Integrate AI/ML into a frontend project.</div>
+            <div class="level">Earliest unlock: Level 28</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="innovation-catalyst – III" height="56" loading="lazy" src="./svg/innovation-catalyst-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Ship an AR/VR-capable web app.</div>
+            <div class="level">Earliest unlock: Level 36</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="innovation-catalyst – IV" height="56" loading="lazy" src="./svg/innovation-catalyst-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Invent and prototype a novel frontend technology.</div>
+            <div class="level">Earliest unlock: Level 45</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="display: grid; gap: 4px;">
+          <div class="badge-name">Architect &amp; Leader</div>
+          <div class="badge-domain">System Design &amp; Leadership</div>
+          <div class="badge-summary">Guiding projects, teams, and architecture.</div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="architect-and-leader – I" height="56" loading="lazy" src="./svg/architect-and-leader-bronze.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(203, 213, 225);"></span><span
+              class="tier-label">I</span></div>
+            <div class="criteria">Lead a small team project to completion.</div>
+            <div class="level">Earliest unlock: Level 20</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="architect-and-leader – II" height="56" loading="lazy" src="./svg/architect-and-leader-silver.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(148, 163, 184);"></span><span class="tier-label">II</span>
+            </div>
+            <div class="criteria">Plan &amp; execute a large-scale architecture migration.</div>
+            <div class="level">Earliest unlock: Level 27</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="architect-and-leader – III" height="56" loading="lazy" src="./svg/architect-and-leader-gold.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(100, 116, 139);"></span><span class="tier-label">III</span>
+            </div>
+            <div class="criteria">Lead a cross-team collaboration with shared architecture.</div>
+            <div class="level">Earliest unlock: Level 34</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="cell">
+          <div class="icon"><img alt="architect-and-leader – IV" height="56" loading="lazy" src="./svg/architect-and-leader-diamond.svg"
+            width="56"></div>
+          <div class="meta">
+            <div class="row"><span class="dot" style="background: rgb(51, 65, 85);"></span><span
+              class="tier-label">IV</span></div>
+            <div class="criteria">Define technical strategy for an entire organization.</div>
+            <div class="level">Earliest unlock: Level 50</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 
-  <footer>
-    Data source: <code>badges/badges.json</code>. Icons: <code>badges/svg/&lt;badge-id&gt;-&lt;tier&gt;.svg</code>.
-  </footer>
-
-  <script>
-    const tierOrder = ["bronze", "silver", "gold", "diamond"];
-    const ELEGANT_MODE = true; // set to false to use Bronze/Silver/Gold/Diamond labels/colors
-    const tierTitle = ELEGANT_MODE
-      ? { bronze: "I", silver: "II", gold: "III", diamond: "IV" }
-      : { bronze: "Bronze", silver: "Silver", gold: "Gold", diamond: "Diamond" };
-    const neutralTierDot = ELEGANT_MODE
-      ? { bronze: "#cbd5e1", silver: "#94a3b8", gold: "#64748b", diamond: "#334155" }
-      : { bronze: "var(--bronze)", silver: "var(--silver)", gold: "var(--gold)", diamond: "var(--diamond)" };
-
-    async function loadBadges() {
-      const res = await fetch('./badges.json');
-      if (!res.ok) throw new Error('Failed to load badges.json');
-      const data = await res.json();
-      return data.badges || [];
-    }
-
-    function createTierCell(id, tierObj) {
-      const tier = tierObj.tier;
-      const td = document.createElement('td');
-      const cell = document.createElement('div');
-      cell.className = 'cell';
-
-      const img = document.createElement('img');
-      img.loading = 'lazy';
-      img.alt = `${id} – ${tierTitle[tier]}`;
-      img.width = 56; img.height = 56;
-      const src = `./svg/${id}-${tier}.svg`;
-      img.src = src;
-
-      const iconWrap = document.createElement('div');
-      iconWrap.className = 'icon';
-      iconWrap.append(img);
-
-      const meta = document.createElement('div');
-      meta.className = 'meta';
-
-      const row1 = document.createElement('div');
-      row1.className = 'row';
-      const dot = document.createElement('span');
-      dot.className = 'dot';
-      dot.style.background = neutralTierDot[tier];
-      const label = document.createElement('span');
-      label.className = 'tier-label';
-      label.textContent = tierTitle[tier];
-      row1.append(dot, label);
-
-      const criteria = document.createElement('div');
-      criteria.className = 'criteria';
-      criteria.textContent = tierObj.criteria;
-
-      const level = document.createElement('div');
-      level.className = 'level';
-      level.textContent = `Earliest unlock: Level ${tierObj.earliestLevel}`;
-
-      meta.append(row1, criteria, level);
-      cell.append(iconWrap, meta);
-      td.append(cell);
-      return td;
-    }
-    function createRow(badge) {
-      const tr = document.createElement('tr');
-      const badgeTd = document.createElement('td');
-      const info = document.createElement('div');
-      info.style.display = 'grid';
-      info.style.gap = '4px';
-      const name = document.createElement('div');
-      name.className = 'badge-name';
-      name.textContent = badge.name;
-      const domain = document.createElement('div');
-      domain.className = 'badge-domain';
-      domain.textContent = badge.domain;
-      const summary = document.createElement('div');
-      summary.className = 'badge-summary';
-      summary.textContent = badge.summary;
-      info.append(name, domain, summary);
-      badgeTd.append(info);
-      tr.append(badgeTd);
-
-      const sorted = [...badge.tiers].sort((a, b) => tierOrder.indexOf(a.tier) - tierOrder.indexOf(b.tier));
-      for (const t of sorted) tr.appendChild(createTierCell(badge.id, t));
-      return tr;
-    }
-
-    (async () => {
-      try {
-        if (ELEGANT_MODE) {
-          const neutral = { bronze: '#cbd5e1', silver: '#94a3b8', gold: '#64748b', diamond: '#334155' };
-          const tiers = ['bronze','silver','gold','diamond'];
-          document.querySelectorAll('.bar.bronze').forEach(e => e.style.background = neutral.bronze);
-          document.querySelectorAll('.bar.silver').forEach(e => e.style.background = neutral.silver);
-          document.querySelectorAll('.bar.gold').forEach(e => e.style.background = neutral.gold);
-          document.querySelectorAll('.bar.diamond').forEach(e => e.style.background = neutral.diamond);
-          const heads = document.querySelectorAll('.tiers-table thead th');
-          tiers.forEach((t, i) => {
-            const th = heads[i + 1];
-            if (th) th.innerHTML = `${tierTitle[t]}<span class="bar ${t}"></span>`;
-          });
-        }
-        const badges = await loadBadges();
-        const tbody = document.getElementById('badgesBody');
-        badges.forEach(b => tbody.appendChild(createRow(b)));
-      } catch (err) {
-        const tbody = document.getElementById('badgesBody');
-        const row = document.createElement('tr');
-        const td = document.createElement('td');
-        td.colSpan = 5;
-        td.style.color = '#b91c1c';
-        td.textContent = `Failed to load badges: ${err.message}`;
-        row.appendChild(td);
-        tbody.appendChild(row);
-      }
-    })();
-  </script>
 </body>
 </html>
