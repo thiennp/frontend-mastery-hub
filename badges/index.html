@@ -2,65 +2,145 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Frontend Mastery Hub Badge Gallery - Complete collection of skill badges and achievement tiers for frontend developers"/>
+  <meta name="keywords" content="frontend development, web development, badges, skills, mastery, programming"/>
+  <meta name="author" content="Frontend Mastery Hub"/>
+  <meta name="robots" content="index, follow"/>
+  <meta property="og:title" content="Frontend Mastery Hub — Badges"/>
+  <meta property="og:description" content="Complete collection of skill badges and achievement tiers for frontend developers"/>
+  <meta property="og:type" content="website"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="Frontend Mastery Hub — Badges"/>
+  <meta name="twitter:description" content="Complete collection of skill badges and achievement tiers for frontend developers"/>
+  
+  <!-- Security Headers -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+  <meta http-equiv="X-Frame-Options" content="DENY"/>
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin"/>
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()"/>
+  
+  <!-- Performance Optimization -->
+  <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="preconnect" href="//fonts.googleapis.com">
+  
+  <!-- Accessibility Styles -->
+  <style>
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: #000;
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      z-index: 1000;
+    }
+    .skip-link:focus {
+      top: 6px;
+    }
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+    .footer-content nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+    .footer-content nav a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .footer-content nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  
   <title>Frontend Mastery Hub — Badges</title>
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
-  <h1>Badge Gallery</h1>
-  <p>All badges and tiers from the Frontend Mastery Hub blueprint. SVGs are rendered directly from
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<header role="banner">
+  <h1>Frontend Mastery Hub Badge Gallery</h1>
+  <p>Complete collection of skill badges and achievement tiers from the Frontend Mastery Hub blueprint. SVGs are rendered directly from
     <code>badges/svg/</code>.</p>
 </header>
 
-<div class="table-wrap">
-  <table aria-live="polite" class="tiers-table" id="badgesTable">
+<main role="main" id="main-content">
+  <section aria-labelledby="badges-heading" class="badges-section">
+    <h2 id="badges-heading" class="visually-hidden">Badge Tiers Table</h2>
+    <div class="table-wrap" role="region" aria-label="Badge tiers table">
+  <table aria-live="polite" class="tiers-table" id="badgesTable" role="table" aria-label="Frontend development skill badges and achievement tiers">
+    <caption class="visually-hidden">Complete table of frontend development skill badges organized by tier levels from I to IV</caption>
     <thead>
     <tr>
-      <th style="width:26%; text-align: left">Badge</th>
-      <th>I<span class="bar bronze"></span></th>
-      <th>II<span class="bar silver"></span></th>
-      <th>III<span class="bar gold"></span></th>
-      <th>IV<span class="bar diamond"></span></th>
+      <th scope="col" style="width:26%; text-align: left">Badge</th>
+      <th scope="col">I<span class="bar bronze" aria-label="Bronze tier"></span></th>
+      <th scope="col">II<span class="bar silver" aria-label="Silver tier"></span></th>
+      <th scope="col">III<span class="bar gold" aria-label="Gold tier"></span></th>
+      <th scope="col">IV<span class="bar diamond" aria-label="Diamond tier"></span></th>
     </tr>
     </thead>
     <tbody id="badgesBody">
-    <tr>
+    <tr role="row" aria-label="DOM Tamer badge row">
       <td>
-        <div style="display: grid; gap: 4px;">
-          <div class="badge-name">DOM Tamer</div>
-          <div class="badge-domain">Core JavaScript &amp; Browser APIs</div>
-          <div class="badge-summary">Mastery of HTML, DOM, and vanilla JavaScript for building interactive UIs.</div>
-        </div>
+        <article class="badge-info" style="display: grid; gap: 4px;">
+          <h3 class="badge-name" id="dom-tamer-title">DOM Tamer</h3>
+          <p class="badge-domain">Core JavaScript &amp; Browser APIs</p>
+          <p class="badge-summary">Mastery of HTML, DOM, and vanilla JavaScript for building interactive UIs.</p>
+        </article>
       </td>
       <td>
-        <div class="cell">
-          <div class="icon"><img alt="dom-tamer – I" height="56" loading="lazy" src="./svg/dom-tamer-bronze.svg"
-            width="56"></div>
+        <div class="cell" role="cell">
+          <div class="icon" role="img" aria-label="DOM Tamer Bronze Badge">
+            <img alt="DOM Tamer Bronze Badge" height="56" loading="lazy" src="./svg/dom-tamer-bronze.svg"
+              width="56" decoding="async" fetchpriority="high">
+          </div>
           <div class="meta">
-            <i class="level">Earliest unlock: Level 1</i>
-            <div class="criteria">Select and modify DOM elements with querySelector &amp; .textContent.</div>
+            <time class="level" datetime="level-1">Earliest unlock: Level 1</time>
+            <p class="criteria">Select and modify DOM elements with querySelector &amp; .textContent.</p>
           </div>
         </div>
       </td>
       <td>
-        <div class="cell">
-          <div class="icon"><img alt="dom-tamer – II" height="56" loading="lazy" src="./svg/dom-tamer-silver.svg"
-            width="56"></div>
+        <div class="cell" role="cell">
+          <div class="icon" role="img" aria-label="DOM Tamer Silver Badge">
+            <img alt="DOM Tamer Silver Badge" height="56" loading="lazy" src="./svg/dom-tamer-silver.svg"
+              width="56" decoding="async">
+          </div>
           <div class="meta">
-            <i class="level">Earliest unlock: Level 4</i>
-            <div class="criteria">Build a multi-step UI interaction without frameworks.</div>
+            <time class="level" datetime="level-4">Earliest unlock: Level 4</time>
+            <p class="criteria">Build a multi-step UI interaction without frameworks.</p>
           </div>
         </div>
       </td>
       <td>
-        <div class="cell">
-          <div class="icon"><img alt="dom-tamer – III" height="56" loading="lazy" src="./svg/dom-tamer-gold.svg"
-            width="56"></div>
+        <div class="cell" role="cell">
+          <div class="icon" role="img" aria-label="DOM Tamer Gold Badge">
+            <img alt="DOM Tamer Gold Badge" height="56" loading="lazy" src="./svg/dom-tamer-gold.svg"
+              width="56" decoding="async">
+          </div>
           <div class="meta">
-            <div class="criteria">Implement dynamic UI updates with event delegation &amp; performance optimizations.
-              <i class="level">Earliest unlock: Level 10</i>
-            </div>
+            <p class="criteria">Implement dynamic UI updates with event delegation &amp; performance optimizations.</p>
+            <time class="level" datetime="level-10">Earliest unlock: Level 10</time>
           </div>
         </div>
       </td>
@@ -77,11 +157,11 @@
     </tr>
     <tr>
       <td>
-        <div style="display: grid; gap: 4px;">
-          <div class="badge-name">CSS Whisperer</div>
-          <div class="badge-domain">Styling, Layout, and Theming</div>
-          <div class="badge-summary">From basic styling to complete responsive design systems.</div>
-        </div>
+        <article class="badge-info" style="display: grid; gap: 4px;">
+          <h3 class="badge-name">CSS Whisperer</h3>
+          <p class="badge-domain">Styling, Layout, and Theming</p>
+          <p class="badge-summary">From basic styling to complete responsive design systems.</p>
+        </article>
       </td>
       <td>
         <div class="cell">
@@ -746,9 +826,24 @@
         </div>
       </td>
     </tr>
-    </tbody>
+        </tbody>
   </table>
-</div>
+    </div>
+  </section>
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-content">
+    <p>&copy; 2024 Frontend Mastery Hub. All rights reserved.</p>
+    <nav aria-label="Footer navigation">
+      <ul>
+        <li><a href="#main-content">Back to top</a></li>
+        <li><a href="#" aria-label="Privacy Policy">Privacy Policy</a></li>
+        <li><a href="#" aria-label="Terms of Service">Terms of Service</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
 
 </body>
 </html>
