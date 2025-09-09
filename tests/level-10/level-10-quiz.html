@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 10 Quiz - React Fundamentals & Framework Comparison</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .quiz-content {
+            padding: 2rem;
+        }
+
+        .question {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        .question h3 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .option:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .option.selected {
+            border-color: #3b82f6;
+            background: #dbeafe;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #d1fae5;
+        }
+
+        .option.incorrect {
+            border-color: #ef4444;
+            background: #fee2e2;
+        }
+
+        .option input[type="radio"] {
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: #2563eb;
+        }
+
+        .btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #4b5563;
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            transition: width 0.3s ease;
+        }
+
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1f2937;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .results {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .results.excellent {
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            color: #065f46;
+            border-radius: 8px;
+        }
+
+        .results.good {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            color: #1e40af;
+            border-radius: 8px;
+        }
+
+        .results.average {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            color: #92400e;
+            border-radius: 8px;
+        }
+
+        .results.poor {
+            background: #fee2e2;
+            border: 1px solid #ef4444;
+            color: #991b1b;
+            border-radius: 8px;
+        }
+
+        .score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .feedback {
+            margin-bottom: 1.5rem;
+        }
+
+        .explanation {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+
+        .explanation h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .explanation ul {
+            margin-left: 1.5rem;
+        }
+
+        .explanation li {
+            margin-bottom: 0.5rem;
+        }
+
+        .question-counter {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #1f2937;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                border-radius: 8px;
+            }
+
+            .header {
+                padding: 1.5rem;
+            }
+
+            .quiz-content {
+                padding: 1.5rem;
+            }
+
+            .timer, .question-counter {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .progress {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .progress-bar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="question-counter" id="questionCounter">Question 1 of 10</div>
+    <div class="timer" id="timer">Time: 15:00</div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Level 10 Quiz</h1>
+            <p>React Fundamentals & Framework Comparison</p>
+        </div>
+
+        <div class="quiz-content">
+            <form id="quizForm">
+                <!-- Question 1 -->
+                <div class="question active">
+                    <h3>1. What is JSX in React?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q1" value="a">
+                            <span>A) A JavaScript extension that allows HTML-like syntax</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="b">
+                            <span>B) A new programming language</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="c">
+                            <span>C) A CSS preprocessor</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="d">
+                            <span>D) A database query language</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question">
+                    <h3>2. Which hook is used to manage state in functional components?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q2" value="a">
+                            <span>A) useEffect</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="b">
+                            <span>B) useState</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="c">
+                            <span>C) useContext</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="d">
+                            <span>D) useReducer</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question">
+                    <h3>3. What is the main advantage of React's component-based architecture?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="a">
+                            <span>A) Better performance than other frameworks</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="b">
+                            <span>B) Reusable and maintainable code</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="c">
+                            <span>C) Smaller bundle size</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="d">
+                            <span>D) Built-in TypeScript support</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question">
+                    <h3>4. Which framework is known for its progressive nature and easy learning curve?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q4" value="a">
+                            <span>A) React</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="b">
+                            <span>B) Vue</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="c">
+                            <span>C) Svelte</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="d">
+                            <span>D) Angular</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question">
+                    <h3>5. What is the purpose of the key prop in React lists?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q5" value="a">
+                            <span>A) To style list items</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="b">
+                            <span>B) To help React identify which items have changed</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="c">
+                            <span>C) To sort list items</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="d">
+                            <span>D) To filter list items</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question">
+                    <h3>6. Which framework compiles components at build time for optimal performance?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q6" value="a">
+                            <span>A) React</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="b">
+                            <span>B) Vue</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="c">
+                            <span>C) Svelte</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="d">
+                            <span>D) Angular</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question">
+                    <h3>7. What is the main purpose of useCallback in React?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q7" value="a">
+                            <span>A) To manage component state</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="b">
+                            <span>B) To memoize callback functions and prevent unnecessary re-renders</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="c">
+                            <span>C) To handle side effects</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="d">
+                            <span>D) To create custom hooks</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question">
+                    <h3>8. Which framework uses a template-based syntax with directives like v-if and v-for?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q8" value="a">
+                            <span>A) React</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="b">
+                            <span>B) Vue</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="c">
+                            <span>C) Svelte</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="d">
+                            <span>D) Angular</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question">
+                    <h3>9. What is the main advantage of using custom hooks in React?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q9" value="a">
+                            <span>A) They provide better performance than regular functions</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="b">
+                            <span>B) They allow sharing stateful logic between components</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="c">
+                            <span>C) They replace the need for class components</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="d">
+                            <span>D) They automatically handle component lifecycle</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question">
+                    <h3>10. Which framework is best known for its TypeScript-first approach and enterprise features?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q10" value="a">
+                            <span>A) React</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="b">
+                            <span>B) Vue</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="c">
+                            <span>C) Svelte</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="d">
+                            <span>D) Angular</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button type="button" class="btn btn-secondary" id="prevBtn" disabled>Previous</button>
+                    <div class="progress">
+                        <span id="progressText">1/10</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 10%"></div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn" id="nextBtn">Next</button>
+                </div>
+            </form>
+
+            <div class="results" id="results">
+                <div class="score" id="score">0/10</div>
+                <div class="feedback" id="feedback"></div>
+                <div class="explanation" id="explanation"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class Level10Quiz {
+            constructor() {
+                this.currentQuestion = 0;
+                this.totalQuestions = 10;
+                this.answers = {};
+                this.timeLeft = 15 * 60; // 15 minutes in seconds
+                this.timer = null;
+                this.correctAnswers = {
+                    q1: 'a', // JSX
+                    q2: 'b', // useState
+                    q3: 'b', // Reusable and maintainable
+                    q4: 'b', // Vue
+                    q5: 'b', // Help React identify changes
+                    q6: 'c', // Svelte
+                    q7: 'b', // Memoize callbacks
+                    q8: 'b', // Vue
+                    q9: 'b', // Share stateful logic
+                    q10: 'd' // Angular
+                };
+                
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.startTimer();
+                this.updateProgress();
+            }
+
+            setupEventListeners() {
+                // Radio button changes
+                const radioButtons = document.querySelectorAll('input[type="radio"]');
+                radioButtons.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        this.answers[`q${this.currentQuestion + 1}`] = e.target.value;
+                        this.updateProgress();
+                    });
+                });
+
+                // Navigation buttons
+                document.getElementById('prevBtn').addEventListener('click', () => {
+                    this.previousQuestion();
+                });
+
+                document.getElementById('nextBtn').addEventListener('click', () => {
+                    this.nextQuestion();
+                });
+
+                // Form submission
+                document.getElementById('quizForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.submitQuiz();
+                });
+            }
+
+            startTimer() {
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    this.updateTimerDisplay();
+                    
+                    if (this.timeLeft <= 0) {
+                        this.submitQuiz();
+                    }
+                }, 1000);
+            }
+
+            updateTimerDisplay() {
+                const timerElement = document.getElementById('timer');
+                const minutes = Math.floor(this.timeLeft / 60);
+                const seconds = this.timeLeft % 60;
+                timerElement.textContent = `Time: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (this.timeLeft <= 60) {
+                    timerElement.style.background = '#ef4444';
+                }
+            }
+
+            updateProgress() {
+                const progress = ((this.currentQuestion + 1) / this.totalQuestions) * 100;
+                document.getElementById('progressFill').style.width = `${progress}%`;
+                document.getElementById('progressText').textContent = `${this.currentQuestion + 1}/${this.totalQuestions}`;
+                document.getElementById('questionCounter').textContent = `Question ${this.currentQuestion + 1} of ${this.totalQuestions}`;
+            }
+
+            nextQuestion() {
+                if (this.currentQuestion < this.totalQuestions - 1) {
+                    this.currentQuestion++;
+                    this.showQuestion();
+                    this.updateProgress();
+                } else {
+                    this.submitQuiz();
+                }
+            }
+
+            previousQuestion() {
+                if (this.currentQuestion > 0) {
+                    this.currentQuestion--;
+                    this.showQuestion();
+                    this.updateProgress();
+                }
+            }
+
+            showQuestion() {
+                const questions = document.querySelectorAll('.question');
+                questions.forEach((question, index) => {
+                    question.classList.toggle('active', index === this.currentQuestion);
+                });
+
+                // Update button states
+                document.getElementById('prevBtn').disabled = this.currentQuestion === 0;
+                document.getElementById('nextBtn').textContent = 
+                    this.currentQuestion === this.totalQuestions - 1 ? 'Submit' : 'Next';
+
+                // Restore previous answer if exists
+                const questionId = `q${this.currentQuestion + 1}`;
+                if (this.answers[questionId]) {
+                    const radio = document.querySelector(`input[name="${questionId}"][value="${this.answers[questionId]}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                    }
+                }
+            }
+
+            submitQuiz() {
+                clearInterval(this.timer);
+                
+                const score = this.calculateScore();
+                const percentage = Math.round((score / this.totalQuestions) * 100);
+                
+                this.showResults(score, percentage);
+                this.highlightAnswers();
+            }
+
+            calculateScore() {
+                let score = 0;
+                Object.keys(this.correctAnswers).forEach(questionId => {
+                    if (this.answers[questionId] === this.correctAnswers[questionId]) {
+                        score++;
+                    }
+                });
+                return score;
+            }
+
+            showResults(score, percentage) {
+                // Hide quiz form
+                document.getElementById('quizForm').style.display = 'none';
+                
+                const resultsDiv = document.getElementById('results');
+                const scoreDiv = document.getElementById('score');
+                const feedbackDiv = document.getElementById('feedback');
+                const explanationDiv = document.getElementById('explanation');
+                
+                scoreDiv.textContent = `${score}/${this.totalQuestions}`;
+                
+                let grade, message, explanation;
+                
+                if (percentage >= 90) {
+                    grade = 'excellent';
+                    message = 'Excellent! You have a deep understanding of React and framework comparison.';
+                    explanation = 'You demonstrate mastery of React fundamentals, hooks, component architecture, and can effectively compare different frontend frameworks. You\'re ready to lead complex React projects and make informed framework decisions.';
+                } else if (percentage >= 75) {
+                    grade = 'good';
+                    message = 'Great job! You have a solid grasp of React and framework concepts.';
+                    explanation = 'You show good understanding of React fundamentals and framework comparison. Consider exploring advanced React patterns, performance optimization, and hands-on practice with different frameworks.';
+                } else if (percentage >= 60) {
+                    grade = 'average';
+                    message = 'Good effort! You understand the basics but need more practice.';
+                    explanation = 'You have a basic understanding of React and frameworks. Focus on hands-on practice with React hooks, component development, and exploring different framework implementations.';
+                } else {
+                    grade = 'poor';
+                    message = 'Keep learning! React and framework knowledge are essential skills.';
+                    explanation = 'React and framework understanding require practice and experience. Start with basic React concepts, build simple components, and gradually work up to more complex applications.';
+                }
+                
+                resultsDiv.className = `results show ${grade}`;
+                feedbackDiv.innerHTML = `
+                    <h3>${message}</h3>
+                    <p>Score: ${percentage}%</p>
+                `;
+                explanationDiv.innerHTML = `
+                    <h4>Next Steps:</h4>
+                    <p>${explanation}</p>
+                    <h4>Key Areas to Focus On:</h4>
+                    <ul>
+                        <li>React hooks (useState, useEffect, useContext, useReducer)</li>
+                        <li>Component architecture and design patterns</li>
+                        <li>Performance optimization techniques</li>
+                        <li>Framework comparison and selection criteria</li>
+                        <li>Hands-on practice with different frameworks</li>
+                    </ul>
+                `;
+                
+                resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            highlightAnswers() {
+                // Show all questions with correct answers highlighted
+                const questions = document.querySelectorAll('.question');
+                questions.forEach((question, index) => {
+                    question.style.display = 'block';
+                    question.classList.remove('active');
+                    
+                    const questionId = `q${index + 1}`;
+                    const correctAnswer = this.correctAnswers[questionId];
+                    const selectedAnswer = this.answers[questionId];
+                    
+                    // Highlight correct answer
+                    const correctOption = question.querySelector(`input[value="${correctAnswer}"]`);
+                    if (correctOption) {
+                        correctOption.closest('.option').classList.add('correct');
+                    }
+                    
+                    // Highlight incorrect selected answer
+                    if (selectedAnswer && selectedAnswer !== correctAnswer) {
+                        const selectedOption = question.querySelector(`input[value="${selectedAnswer}"]`);
+                        if (selectedOption) {
+                            selectedOption.closest('.option').classList.add('incorrect');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Initialize quiz when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new Level10Quiz();
+        });
+    </script>
+</body>
+</html>
