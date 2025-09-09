@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 2 - Control Flow Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .example {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #007acc;
+            border-radius: 4px;
+        }
+        .output {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        button {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #005a9e;
+        }
+    </style>
+</head>
+<body>
+    <h1>Level 2 - Control Flow Examples</h1>
+    
+    <div class="example">
+        <h3>1. Conditional Statements</h3>
+        <p>Demonstrates if-else, switch, and ternary operators</p>
+        <button onclick="runConditionalExamples()">Run Examples</button>
+        <div id="conditional-output" class="output"></div>
+    </div>
+
+    <div class="example">
+        <h3>2. Loops</h3>
+        <p>Demonstrates for, while, do-while, and array iteration methods</p>
+        <button onclick="runLoopExamples()">Run Examples</button>
+        <div id="loop-output" class="output"></div>
+    </div>
+
+    <div class="example">
+        <h3>3. Array Methods</h3>
+        <p>Demonstrates map, filter, reduce, and other array methods</p>
+        <button onclick="runArrayExamples()">Run Examples</button>
+        <div id="array-output" class="output"></div>
+    </div>
+
+    <div class="example">
+        <h3>4. Complex Control Flow</h3>
+        <p>Demonstrates nested conditions, error handling, and performance optimization</p>
+        <button onclick="runComplexExamples()">Run Examples</button>
+        <div id="complex-output" class="output"></div>
+    </div>
+
+    <script>
+        // Utility function to display output
+        function displayOutput(elementId, content) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = content;
+        }
+
+        // 1. Conditional Statements Examples
+        function runConditionalExamples() {
+            let output = '';
+            
+            // Basic if-else
+            output += '=== Basic If-Else ===\n';
+            let age = 20;
+            if (age >= 18) {
+                output += 'Adult\n';
+            } else {
+                output += 'Minor\n';
+            }
+            
+            // If-else if chain
+            output += '\n=== If-Else If Chain ===\n';
+            let score = 85;
+            if (score >= 90) {
+                output += 'Grade: A\n';
+            } else if (score >= 80) {
+                output += 'Grade: B\n';
+            } else if (score >= 70) {
+                output += 'Grade: C\n';
+            } else {
+                output += 'Grade: F\n';
+            }
+            
+            // Switch statement
+            output += '\n=== Switch Statement ===\n';
+            let day = 'Monday';
+            switch (day) {
+                case 'Monday':
+                    output += 'Start of work week\n';
+                    break;
+                case 'Friday':
+                    output += 'TGIF!\n';
+                    break;
+                default:
+                    output += 'Mid week\n';
+            }
+            
+            // Ternary operator
+            output += '\n=== Ternary Operator ===\n';
+            let status = age >= 18 ? 'Adult' : 'Minor';
+            output += `Status: ${status}\n`;
+            
+            // Nested ternary
+            let grade = score >= 90 ? 'A' : score >= 80 ? 'B' : score >= 70 ? 'C' : 'F';
+            output += `Grade: ${grade}\n`;
+            
+            displayOutput('conditional-output', output);
+        }
+
+        // 2. Loops Examples
+        function runLoopExamples() {
+            let output = '';
+            
+            // For loop
+            output += '=== For Loop ===\n';
+            for (let i = 1; i <= 5; i++) {
+                output += `Count: ${i}\n`;
+            }
+            
+            // While loop
+            output += '\n=== While Loop ===\n';
+            let count = 0;
+            while (count < 3) {
+                output += `While count: ${count}\n`;
+                count++;
+            }
+            
+            // Do-while loop
+            output += '\n=== Do-While Loop ===\n';
+            let num = 0;
+            do {
+                output += `Do-while: ${num}\n`;
+                num++;
+            } while (num < 3);
+            
+            // For...of loop
+            output += '\n=== For...Of Loop ===\n';
+            let fruits = ['apple', 'banana', 'orange'];
+            for (let fruit of fruits) {
+                output += `Fruit: ${fruit}\n`;
+            }
+            
+            // For...in loop
+            output += '\n=== For...In Loop ===\n';
+            let person = {name: 'John', age: 30, city: 'New York'};
+            for (let key in person) {
+                output += `${key}: ${person[key]}\n`;
+            }
+            
+            // Array methods
+            output += '\n=== Array Methods ===\n';
+            let numbers = [1, 2, 3, 4, 5];
+            
+            // forEach
+            output += 'forEach: ';
+            numbers.forEach(n => output += `${n} `);
+            output += '\n';
+            
+            // map
+            let doubled = numbers.map(n => n * 2);
+            output += `map (doubled): ${doubled.join(', ')}\n`;
+            
+            // filter
+            let evens = numbers.filter(n => n % 2 === 0);
+            output += `filter (evens): ${evens.join(', ')}\n`;
+            
+            // reduce
+            let sum = numbers.reduce((acc, n) => acc + n, 0);
+            output += `reduce (sum): ${sum}\n`;
+            
+            displayOutput('loop-output', output);
+        }
+
+        // 3. Array Methods Examples
+        function runArrayExamples() {
+            let output = '';
+            
+            let users = [
+                {name: 'John', age: 30, city: 'New York', active: true},
+                {name: 'Jane', age: 25, city: 'Boston', active: false},
+                {name: 'Bob', age: 35, city: 'Chicago', active: true},
+                {name: 'Alice', age: 28, city: 'New York', active: true}
+            ];
+            
+            output += '=== Original Data ===\n';
+            users.forEach(user => {
+                output += `${user.name}, ${user.age}, ${user.city}, ${user.active}\n`;
+            });
+            
+            // Filter active users
+            output += '\n=== Filter Active Users ===\n';
+            let activeUsers = users.filter(user => user.active);
+            activeUsers.forEach(user => {
+                output += `${user.name} is active\n`;
+            });
+            
+            // Map to get names
+            output += '\n=== Map to Get Names ===\n';
+            let names = users.map(user => user.name);
+            output += `Names: ${names.join(', ')}\n`;
+            
+            // Reduce to get average age
+            output += '\n=== Reduce to Get Average Age ===\n';
+            let totalAge = users.reduce((sum, user) => sum + user.age, 0);
+            let averageAge = totalAge / users.length;
+            output += `Average age: ${averageAge.toFixed(1)}\n`;
+            
+            // Find specific user
+            output += '\n=== Find Specific User ===\n';
+            let john = users.find(user => user.name === 'John');
+            output += `Found: ${john.name}, age ${john.age}\n`;
+            
+            // Some and every
+            output += '\n=== Some and Every ===\n';
+            let hasActiveUser = users.some(user => user.active);
+            let allAdults = users.every(user => user.age >= 18);
+            output += `Has active user: ${hasActiveUser}\n`;
+            output += `All adults: ${allAdults}\n`;
+            
+            // Group by city
+            output += '\n=== Group by City ===\n';
+            let groupedByCity = users.reduce((groups, user) => {
+                if (!groups[user.city]) {
+                    groups[user.city] = [];
+                }
+                groups[user.city].push(user.name);
+                return groups;
+            }, {});
+            
+            for (let city in groupedByCity) {
+                output += `${city}: ${groupedByCity[city].join(', ')}\n`;
+            }
+            
+            displayOutput('array-output', output);
+        }
+
+        // 4. Complex Control Flow Examples
+        function runComplexExamples() {
+            let output = '';
+            
+            // Nested conditions with validation
+            output += '=== Nested Conditions with Validation ===\n';
+            function validateUser(user) {
+                if (!user) {
+                    output += 'Error: User object is required\n';
+                    return false;
+                }
+                
+                if (!user.name) {
+                    output += 'Error: Name is required\n';
+                    return false;
+                }
+                
+                if (!user.email) {
+                    output += 'Error: Email is required\n';
+                    return false;
+                }
+                
+                if (!user.email.includes('@')) {
+                    output += 'Error: Invalid email format\n';
+                    return false;
+                }
+                
+                if (user.age && user.age < 0) {
+                    output += 'Error: Age cannot be negative\n';
+                    return false;
+                }
+                
+                output += `User ${user.name} is valid\n`;
+                return true;
+            }
+            
+            // Test validation
+            validateUser({name: 'John', email: 'john@example.com', age: 30});
+            validateUser({name: 'Jane', email: 'invalid-email'});
+            validateUser(null);
+            
+            // Error handling with try-catch
+            output += '\n=== Error Handling ===\n';
+            function riskyOperation(data) {
+                if (!data) {
+                    throw new Error('Data is required');
+                }
+                
+                if (data.value < 0) {
+                    throw new Error('Value cannot be negative');
+                }
+                
+                return data.value * 2;
+            }
+            
+            try {
+                let result = riskyOperation({value: 5});
+                output += `Result: ${result}\n`;
+            } catch (error) {
+                output += `Error: ${error.message}\n`;
+            }
+            
+            try {
+                let result = riskyOperation({value: -5});
+                output += `Result: ${result}\n`;
+            } catch (error) {
+                output += `Error: ${error.message}\n`;
+            }
+            
+            // Performance optimization
+            output += '\n=== Performance Optimization ===\n';
+            let largeArray = Array.from({length: 1000}, (_, i) => i);
+            
+            // Inefficient: Multiple passes
+            let start = performance.now();
+            let filtered = largeArray.filter(n => n % 2 === 0);
+            let mapped = filtered.map(n => n * 2);
+            let sum = mapped.reduce((acc, n) => acc + n, 0);
+            let end = performance.now();
+            output += `Multiple passes: ${sum} (${(end - start).toFixed(2)}ms)\n`;
+            
+            // Efficient: Single pass
+            start = performance.now();
+            let efficientSum = largeArray.reduce((acc, n) => {
+                if (n % 2 === 0) {
+                    return acc + (n * 2);
+                }
+                return acc;
+            }, 0);
+            end = performance.now();
+            output += `Single pass: ${efficientSum} (${(end - start).toFixed(2)}ms)\n`;
+            
+            // Early returns
+            output += '\n=== Early Returns ===\n';
+            function processData(data) {
+                if (!data) return null;
+                if (data.length === 0) return [];
+                if (data.length > 100) return 'Too much data';
+                
+                return data.map(item => item * 2);
+            }
+            
+            output += `processData(null): ${processData(null)}\n`;
+            output += `processData([]): ${processData([])}\n`;
+            output += `processData([1,2,3]): ${processData([1,2,3])}\n`;
+            
+            displayOutput('complex-output', output);
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 3 Assessment - Functions & Scope Management</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .question {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .question h3 {
+            color: #495057;
+            margin-top: 0;
+        }
+        .question p {
+            margin: 10px 0;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+        }
+        .options {
+            margin: 15px 0;
+        }
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .option:hover {
+            background: #e9ecef;
+            border-color: #3498db;
+        }
+        .option.selected {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        .coding-challenge {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .coding-challenge h3 {
+            color: #856404;
+            margin-top: 0;
+        }
+        .code-editor {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+            width: 100%;
+            min-height: 200px;
+            border: none;
+            resize: vertical;
+        }
+        .run-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .run-button:hover {
+            background: #218838;
+        }
+        .result {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            display: none;
+        }
+        .result.show {
+            display: block;
+        }
+        .result.error {
+            background: #ffebee;
+            border-color: #f44336;
+            color: #c62828;
+        }
+        .result.success {
+            background: #e8f5e8;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+        .submit-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin: 20px 0;
+        }
+        .submit-button:hover {
+            background: #2980b9;
+        }
+        .score {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
+        .score.show {
+            display: block;
+        }
+        .score h3 {
+            color: #1565c0;
+            margin-top: 0;
+        }
+        .score-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2196f3;
+            margin: 10px 0;
+        }
+        .explanation {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+        .explanation h4 {
+            color: #495057;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Level 3 Assessment: Functions & Scope Management</h1>
+        <p>Test your understanding of JavaScript functions, scope, closures, and functional programming concepts.</p>
+
+        <form id="assessment-form">
+            <!-- Question 1: Function Types -->
+            <div class="question">
+                <h3>Question 1: Function Types</h3>
+                <p>Which of the following function declarations will be hoisted and can be called before it's defined?</p>
+                <div class="code-block">
+function example1() { return "hoisted"; }
+const example2 = function() { return "not hoisted"; };
+const example3 = () => "not hoisted";
+var example4 = function() { return "not hoisted"; };
+                </div>
+                <div class="options">
+                    <div class="option" data-answer="a">
+                        <input type="radio" name="q1" value="a" id="q1a">
+                        <label for="q1a">Only example1</label>
+                    </div>
+                    <div class="option" data-answer="b">
+                        <input type="radio" name="q1" value="b" id="q1b">
+                        <label for="q1b">example1 and example4</label>
+                    </div>
+                    <div class="option" data-answer="c">
+                        <input type="radio" name="q1" value="c" id="q1c">
+                        <label for="q1c">All of them</label>
+                    </div>
+                    <div class="option" data-answer="d">
+                        <input type="radio" name="q1" value="d" id="q1d">
+                        <label for="q1d">None of them</label>
+                    </div>
+                </div>
+                <div class="explanation" id="explanation1">
+                    <h4>Explanation:</h4>
+                    <p>Only function declarations (example1) are hoisted. Function expressions (example2, example3) and var declarations with function expressions (example4) are not hoisted.</p>
+                </div>
+            </div>
+
+            <!-- Question 2: Scope Chain -->
+            <div class="question">
+                <h3>Question 2: Scope Chain</h3>
+                <p>What will be the output of the following code?</p>
+                <div class="code-block">
+var name = "global";
+function outer() {
+    var name = "outer";
+    function inner() {
+        console.log(name);
+    }
+    return inner;
+}
+const myFunction = outer();
+myFunction();
+                </div>
+                <div class="options">
+                    <div class="option" data-answer="a">
+                        <input type="radio" name="q2" value="a" id="q2a">
+                        <label for="q2a">"global"</label>
+                    </div>
+                    <div class="option" data-answer="b">
+                        <input type="radio" name="q2" value="b" id="q2b">
+                        <label for="q2b">"outer"</label>
+                    </div>
+                    <div class="option" data-answer="c">
+                        <input type="radio" name="q2" value="c" id="q2c">
+                        <label for="q2c">undefined</label>
+                    </div>
+                    <div class="option" data-answer="d">
+                        <input type="radio" name="q2" value="d" id="q2d">
+                        <label for="q2d">ReferenceError</label>
+                    </div>
+                </div>
+                <div class="explanation" id="explanation2">
+                    <h4>Explanation:</h4>
+                    <p>JavaScript uses lexical scoping. The inner function "remembers" its lexical scope where "name" was "outer", even when called from a different context.</p>
+                </div>
+            </div>
+
+            <!-- Question 3: Closures -->
+            <div class="question">
+                <h3>Question 3: Closures</h3>
+                <p>What will be the output of the following code?</p>
+                <div class="code-block">
+function createCounter() {
+    let count = 0;
+    return function() {
+        return ++count;
+    };
+}
+const counter1 = createCounter();
+const counter2 = createCounter();
+console.log(counter1());
+console.log(counter1());
+console.log(counter2());
+                </div>
+                <div class="options">
+                    <div class="option" data-answer="a">
+                        <input type="radio" name="q3" value="a" id="q3a">
+                        <label for="q3a">1, 2, 1</label>
+                    </div>
+                    <div class="option" data-answer="b">
+                        <input type="radio" name="q3" value="b" id="q3b">
+                        <label for="q3b">1, 1, 1</label>
+                    </div>
+                    <div class="option" data-answer="c">
+                        <input type="radio" name="q3" value="c" id="q3c">
+                        <label for="q3c">1, 2, 3</label>
+                    </div>
+                    <div class="option" data-answer="d">
+                        <input type="radio" name="q3" value="d" id="q3d">
+                        <label for="q3d">0, 1, 0</label>
+                    </div>
+                </div>
+                <div class="explanation" id="explanation3">
+                    <h4>Explanation:</h4>
+                    <p>Each call to createCounter() creates a new closure with its own count variable. counter1 and counter2 are independent closures.</p>
+                </div>
+            </div>
+
+            <!-- Question 4: Higher-Order Functions -->
+            <div class="question">
+                <h3>Question 4: Higher-Order Functions</h3>
+                <p>Which of the following is NOT a higher-order function?</p>
+                <div class="options">
+                    <div class="option" data-answer="a">
+                        <input type="radio" name="q4" value="a" id="q4a">
+                        <label for="q4a">Array.prototype.map</label>
+                    </div>
+                    <div class="option" data-answer="b">
+                        <input type="radio" name="q4" value="b" id="q4b">
+                        <label for="q4b">Array.prototype.filter</label>
+                    </div>
+                    <div class="option" data-answer="c">
+                        <input type="radio" name="q4" value="c" id="q4c">
+                        <label for="q4c">Array.prototype.length</label>
+                    </div>
+                    <div class="option" data-answer="d">
+                        <input type="radio" name="q4" value="d" id="q4d">
+                        <label for="q4d">Array.prototype.reduce</label>
+                    </div>
+                </div>
+                <div class="explanation" id="explanation4">
+                    <h4>Explanation:</h4>
+                    <p>Higher-order functions take functions as arguments or return functions. Array.prototype.length is a property, not a function.</p>
+                </div>
+            </div>
+
+            <!-- Question 5: Function Composition -->
+            <div class="question">
+                <h3>Question 5: Function Composition</h3>
+                <p>What will be the output of the following composition?</p>
+                <div class="code-block">
+const addOne = x => x + 1;
+const multiplyByTwo = x => x * 2;
+const square = x => x * x;
+
+const compose = (f, g, h) => x => f(g(h(x)));
+const result = compose(square, multiplyByTwo, addOne)(3);
+                </div>
+                <div class="options">
+                    <div class="option" data-answer="a">
+                        <input type="radio" name="q5" value="a" id="q5a">
+                        <label for="q5a">64</label>
+                    </div>
+                    <div class="option" data-answer="b">
+                        <input type="radio" name="q5" value="b" id="q5b">
+                        <label for="q5b">49</label>
+                    </div>
+                    <div class="option" data-answer="c">
+                        <input type="radio" name="q5" value="c" id="q5c">
+                        <label for="q5c">36</label>
+                    </div>
+                    <div class="option" data-answer="d">
+                        <input type="radio" name="q5" value="d" id="q5d">
+                        <label for="q5d">25</label>
+                    </div>
+                </div>
+                <div class="explanation" id="explanation5">
+                    <h4>Explanation:</h4>
+                    <p>Composition executes from right to left: addOne(3) = 4, multiplyByTwo(4) = 8, square(8) = 64.</p>
+                </div>
+            </div>
+
+            <!-- Question 6: Currying -->
+            <div class="question">
+                <h3>Question 6: Currying</h3>
+                <p>What will be the output of the following curried function?</p>
+                <div class="code-block">
+const add = (a, b, c) => a + b + c;
+const curriedAdd = a => b => c => a + b + c;
+const add5 = curriedAdd(5);
+const add5And10 = add5(10);
+const result = add5And10(3);
+                </div>
+                <div class="options">
+                    <div class="option" data-answer="a">
+                        <input type="radio" name="q6" value="a" id="q6a">
+                        <label for="q6a">18</label>
+                    </div>
+                    <div class="option" data-answer="b">
+                        <input type="radio" name="q6" value="b" id="q6b">
+                        <label for="q6b">15</label>
+                    </div>
+                    <div class="option" data-answer="c">
+                        <input type="radio" name="q6" value="c" id="q6c">
+                        <label for="q6c">13</label>
+                    </div>
+                    <div class="option" data-answer="d">
+                        <input type="radio" name="q6" value="d" id="q6d">
+                        <label for="q6d">8</label>
+                    </div>
+                </div>
+                <div class="explanation" id="explanation6">
+                    <h4>Explanation:</h4>
+                    <p>Currying allows partial application: add5 = add(5), add5And10 = add(5, 10), add5And10(3) = add(5, 10, 3) = 18.</p>
+                </div>
+            </div>
+
+            <!-- Question 7: Memory Management -->
+            <div class="question">
+                <h3>Question 7: Memory Management</h3>
+                <p>Which of the following is a potential memory leak with closures?</p>
+                <div class="options">
+                    <div class="option" data-answer="a">
+                        <input type="radio" name="q7" value="a" id="q7a">
+                        <label for="q7a">Keeping references to large objects in closures</label>
+                    </div>
+                    <div class="option" data-answer="b">
+                        <input type="radio" name="q7" value="b" id="q7b">
+                        <label for="q7b">Using let and const instead of var</label>
+                    </div>
+                    <div class="option" data-answer="c">
+                        <input type="radio" name="q7" value="c" id="q7c">
+                        <label for="q7c">Creating closures in loops</label>
+                    </div>
+                    <div class="option" data-answer="d">
+                        <input type="radio" name="q7" value="d" id="q7d">
+                        <label for="q7d">Using arrow functions</label>
+                    </div>
+                </div>
+                <div class="explanation" id="explanation7">
+                    <h4>Explanation:</h4>
+                    <p>Closures keep references to their outer scope, so large objects referenced in closures cannot be garbage collected, potentially causing memory leaks.</p>
+                </div>
+            </div>
+
+            <!-- Question 8: Arrow Functions -->
+            <div class="question">
+                <h3>Question 8: Arrow Functions</h3>
+                <p>What will be the value of 'this' in the following arrow function?</p>
+                <div class="code-block">
+const obj = {
+    name: "John",
+    greet: () => {
+        return this.name;
+    }
+};
+console.log(obj.greet());
+                </div>
+                <div class="options">
+                    <div class="option" data-answer="a">
+                        <input type="radio" name="q8" value="a" id="q8a">
+                        <label for="q8a">"John"</label>
+                    </div>
+                    <div class="option" data-answer="b">
+                        <input type="radio" name="q8" value="b" id="q8b">
+                        <label for="q8b">undefined</label>
+                    </div>
+                    <div class="option" data-answer="c">
+                        <input type="radio" name="q8" value="c" id="q8c">
+                        <label for="q8c">null</label>
+                    </div>
+                    <div class="option" data-answer="d">
+                        <input type="radio" name="q8" value="d" id="q8d">
+                        <label for="q8d">ReferenceError</label>
+                    </div>
+                </div>
+                <div class="explanation" id="explanation8">
+                    <h4>Explanation:</h4>
+                    <p>Arrow functions don't have their own 'this' binding. They inherit 'this' from their lexical scope, which in this case is the global scope where 'this.name' is undefined.</p>
+                </div>
+            </div>
+
+            <!-- Question 9: Function Parameters -->
+            <div class="question">
+                <h3>Question 9: Function Parameters</h3>
+                <p>What will be the output of the following function call?</p>
+                <div class="code-block">
+function example(a, b = 2, c = 3) {
+    return a + b + c;
+}
+console.log(example(1, undefined, 5));
+                </div>
+                <div class="options">
+                    <div class="option" data-answer="a">
+                        <input type="radio" name="q9" value="a" id="q9a">
+                        <label for="q9a">8</label>
+                    </div>
+                    <div class="option" data-answer="b">
+                        <input type="radio" name="q9" value="b" id="q9b">
+                        <label for="q9b">6</label>
+                    </div>
+                    <div class="option" data-answer="c">
+                        <input type="radio" name="q9" value="c" id="q9c">
+                        <label for="q9c">9</label>
+                    </div>
+                    <div class="option" data-answer="d">
+                        <input type="radio" name="q9" value="d" id="q9d">
+                        <label for="q9d">NaN</label>
+                    </div>
+                </div>
+                <div class="explanation" id="explanation9">
+                    <h4>Explanation:</h4>
+                    <p>When undefined is passed as an argument, the default value is used. So b = 2 (default), c = 5 (explicit), result = 1 + 2 + 5 = 8.</p>
+                </div>
+            </div>
+
+            <!-- Question 10: Async Functions -->
+            <div class="question">
+                <h3>Question 10: Async Functions</h3>
+                <p>What will be the output of the following async function?</p>
+                <div class="code-block">
+async function example() {
+    const result = await Promise.resolve(42);
+    return result * 2;
+}
+example().then(console.log);
+                </div>
+                <div class="options">
+                    <div class="option" data-answer="a">
+                        <input type="radio" name="q10" value="a" id="q10a">
+                        <label for="q10a">42</label>
+                    </div>
+                    <div class="option" data-answer="b">
+                        <input type="radio" name="q10" value="b" id="q10b">
+                        <label for="q10b">84</label>
+                    </div>
+                    <div class="option" data-answer="c">
+                        <input type="radio" name="q10" value="c" id="q10c">
+                        <label for="q10c">Promise&lt;84&gt;</label>
+                    </div>
+                    <div class="option" data-answer="d">
+                        <input type="radio" name="q10" value="d" id="q10d">
+                        <label for="q10d">undefined</label>
+                    </div>
+                </div>
+                <div class="explanation" id="explanation10">
+                    <h4>Explanation:</h4>
+                    <p>Async functions return promises. The await keyword waits for the promise to resolve, then returns the value. 42 * 2 = 84.</p>
+                </div>
+            </div>
+
+            <!-- Coding Challenge 1 -->
+            <div class="coding-challenge">
+                <h3>Coding Challenge 1: Function Composition</h3>
+                <p>Create a function that composes three functions: addOne, multiplyByTwo, and square. The function should take a number and return the result of applying these functions in sequence.</p>
+                <textarea class="code-editor" id="challenge1" placeholder="Write your solution here...">
+// Your solution here
+function composeThreeFunctions(number) {
+    // TODO: Implement function composition
+    // Hint: Use the functions addOne, multiplyByTwo, and square
+    return number;
+}
+
+// Test your function
+console.log(composeThreeFunctions(3)); // Should output 64
+                </textarea>
+                <button class="run-button" onclick="runChallenge1()">Run Code</button>
+                <div class="result" id="result1"></div>
+            </div>
+
+            <!-- Coding Challenge 2 -->
+            <div class="coding-challenge">
+                <h3>Coding Challenge 2: Closure Counter</h3>
+                <p>Create a counter using closures that has increment, decrement, and getValue methods. The counter should start at 0.</p>
+                <textarea class="code-editor" id="challenge2" placeholder="Write your solution here...">
+// Your solution here
+function createCounter() {
+    // TODO: Implement counter with closures
+    return {
+        increment: function() {
+            // TODO: Implement increment
+        },
+        decrement: function() {
+            // TODO: Implement decrement
+        },
+        getValue: function() {
+            // TODO: Implement getValue
+        }
+    };
+}
+
+// Test your counter
+const counter = createCounter();
+console.log(counter.increment()); // Should output 1
+console.log(counter.increment()); // Should output 2
+console.log(counter.decrement()); // Should output 1
+console.log(counter.getValue()); // Should output 1
+                </textarea>
+                <button class="run-button" onclick="runChallenge2()">Run Code</button>
+                <div class="result" id="result2"></div>
+            </div>
+
+            <!-- Coding Challenge 3 -->
+            <div class="coding-challenge">
+                <h3>Coding Challenge 3: Currying</h3>
+                <p>Create a curried function that takes three arguments and returns their sum. Then create a partially applied function that adds 5 to any two numbers.</p>
+                <textarea class="code-editor" id="challenge3" placeholder="Write your solution here...">
+// Your solution here
+function add(a, b, c) {
+    return a + b + c;
+}
+
+// TODO: Create curried version
+const curriedAdd = add; // Replace with curried version
+
+// TODO: Create partially applied function that adds 5
+const add5 = curriedAdd; // Replace with partial application
+
+// Test your functions
+console.log(curriedAdd(1)(2)(3)); // Should output 6
+console.log(add5(2)(3)); // Should output 10
+                </textarea>
+                <button class="run-button" onclick="runChallenge3()">Run Code</button>
+                <div class="result" id="result3"></div>
+            </div>
+
+            <button type="submit" class="submit-button">Submit Assessment</button>
+        </form>
+
+        <div class="score" id="score">
+            <h3>Assessment Complete!</h3>
+            <div class="score-value" id="score-value">0/10</div>
+            <p id="score-message"></p>
+        </div>
+    </div>
+
+    <script>
+        // Function definitions for challenges
+        function addOne(x) {
+            return x + 1;
+        }
+        
+        function multiplyByTwo(x) {
+            return x * 2;
+        }
+        
+        function square(x) {
+            return x * x;
+        }
+
+        // Challenge runners
+        function runChallenge1() {
+            const code = document.getElementById('challenge1').value;
+            const result = document.getElementById('result1');
+            
+            try {
+                // Create a safe evaluation context
+                const func = new Function('addOne', 'multiplyByTwo', 'square', code + '; return composeThreeFunctions(3);');
+                const output = func(addOne, multiplyByTwo, square);
+                
+                if (output === 64) {
+                    result.textContent = `✅ Correct! Output: ${output}`;
+                    result.className = 'result show success';
+                } else {
+                    result.textContent = `❌ Incorrect. Expected: 64, Got: ${output}`;
+                    result.className = 'result show error';
+                }
+            } catch (error) {
+                result.textContent = `❌ Error: ${error.message}`;
+                result.className = 'result show error';
+            }
+        }
+
+        function runChallenge2() {
+            const code = document.getElementById('challenge2').value;
+            const result = document.getElementById('result2');
+            
+            try {
+                // Create a safe evaluation context
+                const func = new Function(code + '; return createCounter();');
+                const counter = func();
+                
+                const test1 = counter.increment();
+                const test2 = counter.increment();
+                const test3 = counter.decrement();
+                const test4 = counter.getValue();
+                
+                if (test1 === 1 && test2 === 2 && test3 === 1 && test4 === 1) {
+                    result.textContent = `✅ Correct! All tests passed.`;
+                    result.className = 'result show success';
+                } else {
+                    result.textContent = `❌ Incorrect. Results: ${test1}, ${test2}, ${test3}, ${test4}`;
+                    result.className = 'result show error';
+                }
+            } catch (error) {
+                result.textContent = `❌ Error: ${error.message}`;
+                result.className = 'result show error';
+            }
+        }
+
+        function runChallenge3() {
+            const code = document.getElementById('challenge3').value;
+            const result = document.getElementById('result3');
+            
+            try {
+                // Create a safe evaluation context
+                const func = new Function(code + '; return { curriedAdd, add5 };');
+                const { curriedAdd, add5 } = func();
+                
+                const test1 = curriedAdd(1)(2)(3);
+                const test2 = add5(2)(3);
+                
+                if (test1 === 6 && test2 === 10) {
+                    result.textContent = `✅ Correct! All tests passed.`;
+                    result.className = 'result show success';
+                } else {
+                    result.textContent = `❌ Incorrect. Results: ${test1}, ${test2}`;
+                    result.className = 'result show error';
+                }
+            } catch (error) {
+                result.textContent = `❌ Error: ${error.message}`;
+                result.className = 'result show error';
+            }
+        }
+
+        // Assessment submission
+        document.getElementById('assessment-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const answers = {
+                q1: 'a',
+                q2: 'b',
+                q3: 'a',
+                q4: 'c',
+                q5: 'a',
+                q6: 'a',
+                q7: 'a',
+                q8: 'b',
+                q9: 'a',
+                q10: 'b'
+            };
+            
+            let score = 0;
+            const totalQuestions = 10;
+            
+            // Check answers
+            for (let i = 1; i <= totalQuestions; i++) {
+                const question = `q${i}`;
+                const selectedAnswer = document.querySelector(`input[name="${question}"]:checked`);
+                
+                if (selectedAnswer) {
+                    if (selectedAnswer.value === answers[question]) {
+                        score++;
+                        // Mark correct answer
+                        const option = selectedAnswer.closest('.option');
+                        option.classList.add('correct');
+                    } else {
+                        // Mark incorrect answer
+                        const option = selectedAnswer.closest('.option');
+                        option.classList.add('incorrect');
+                    }
+                }
+            }
+            
+            // Show explanations
+            for (let i = 1; i <= totalQuestions; i++) {
+                const explanation = document.getElementById(`explanation${i}`);
+                explanation.classList.add('show');
+            }
+            
+            // Display score
+            const scoreElement = document.getElementById('score');
+            const scoreValue = document.getElementById('score-value');
+            const scoreMessage = document.getElementById('score-message');
+            
+            scoreValue.textContent = `${score}/${totalQuestions}`;
+            
+            if (score >= 8) {
+                scoreMessage.textContent = "Excellent! You have a strong understanding of JavaScript functions and scope management.";
+            } else if (score >= 6) {
+                scoreMessage.textContent = "Good job! You understand most concepts but could benefit from more practice.";
+            } else {
+                scoreMessage.textContent = "Keep studying! Review the concepts and try the examples to improve your understanding.";
+            }
+            
+            scoreElement.classList.add('show');
+        });
+
+        // Option selection handling
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const radio = this.querySelector('input[type="radio"]');
+                if (radio) {
+                    radio.checked = true;
+                    
+                    // Remove selected class from other options in the same question
+                    const question = this.closest('.question');
+                    question.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to current option
+                    this.classList.add('selected');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

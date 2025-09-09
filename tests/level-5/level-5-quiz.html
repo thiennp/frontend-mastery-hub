@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 5 Quiz - Asynchronous Programming & Event Loop</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .quiz { background: white; margin: 20px 0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .question { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .question h4 { color: #333; margin-bottom: 10px; }
+        .options { margin: 10px 0; }
+        .option { margin: 5px 0; }
+        .option input { margin-right: 10px; }
+        .code-block { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; padding: 15px; margin: 10px 0; font-family: monospace; }
+        .submit-btn { background: #28a745; color: white; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        .submit-btn:hover { background: #218838; }
+        .results { margin-top: 20px; padding: 20px; border-radius: 5px; }
+        .correct { background: #d4edda; border: 1px solid #c3e6cb; }
+        .incorrect { background: #f8d7da; border: 1px solid #f5c6cb; }
+        .timer { background: #007bff; color: white; padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Level 5 Quiz - Asynchronous Programming & Event Loop</h1>
+    <p>Test your knowledge with this interactive quiz. You have 15 minutes to complete it.</p>
+
+    <div class="timer" id="timer">Time remaining: 15:00</div>
+
+    <div class="quiz">
+        <form id="quizForm">
+            <!-- Question 1 -->
+            <div class="question">
+                <h4>1. What will be the output of this code?</h4>
+                <div class="code-block">
+console.log('1');
+setTimeout(() => console.log('2'), 0);
+Promise.resolve().then(() => console.log('3'));
+console.log('4');
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q1" value="a"> A) 1, 2, 3, 4</div>
+                    <div class="option"><input type="radio" name="q1" value="b"> B) 1, 4, 3, 2</div>
+                    <div class="option"><input type="radio" name="q1" value="c"> C) 1, 4, 2, 3</div>
+                    <div class="option"><input type="radio" name="q1" value="d"> D) 1, 3, 4, 2</div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <h4>2. Which of the following is NOT a way to handle async operations?</h4>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q2" value="a"> A) Callbacks</div>
+                    <div class="option"><input type="radio" name="q2" value="b"> B) Promises</div>
+                    <div class="option"><input type="radio" name="q2" value="c"> C) async/await</div>
+                    <div class="option"><input type="radio" name="q2" value="d"> D) for loops</div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <h4>3. What is the main problem with callback hell?</h4>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q3" value="a"> A) It's too fast</div>
+                    <div class="option"><input type="radio" name="q3" value="b"> B) It makes code hard to read and maintain</div>
+                    <div class="option"><input type="radio" name="q3" value="c"> C) It uses too much memory</div>
+                    <div class="option"><input type="radio" name="q3" value="d"> D) It's not supported in modern browsers</div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <h4>4. What does Promise.allSettled() do?</h4>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q4" value="a"> A) Executes promises sequentially</div>
+                    <div class="option"><input type="radio" name="q4" value="b"> B) Waits for all promises to settle regardless of success or failure</div>
+                    <div class="option"><input type="radio" name="q4" value="c"> C) Executes only the first promise</div>
+                    <div class="option"><input type="radio" name="q4" value="d"> D) Cancels all promises</div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <h4>5. What is the purpose of the Circuit Breaker pattern?</h4>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q5" value="a"> A) To break the call stack</div>
+                    <div class="option"><input type="radio" name="q5" value="b"> B) To prevent cascading failures and provide fault tolerance</div>
+                    <div class="option"><input type="radio" name="q5" value="c"> C) To stop all async operations</div>
+                    <div class="option"><input type="radio" name="q5" value="d"> D) To debug async code</div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <h4>6. What is the correct way to handle errors in async/await?</h4>
+                <div class="code-block">
+// A)
+async function example() {
+    try {
+        const result = await someAsyncFunction();
+        return result;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// B)
+async function example() {
+    const result = await someAsyncFunction();
+    return result;
+}
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q6" value="a"> A) Option A</div>
+                    <div class="option"><input type="radio" name="q6" value="b"> B) Option B</div>
+                    <div class="option"><input type="radio" name="q6" value="c"> C) Both are correct</div>
+                    <div class="option"><input type="radio" name="q6" value="d"> D) Neither is correct</div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question">
+                <h4>7. What is the difference between microtasks and macrotasks?</h4>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q7" value="a"> A) There is no difference</div>
+                    <div class="option"><input type="radio" name="q7" value="b"> B) Microtasks have higher priority and execute before macrotasks</div>
+                    <div class="option"><input type="radio" name="q7" value="c"> C) Macrotasks have higher priority</div>
+                    <div class="option"><input type="radio" name="q7" value="d"> D) They execute in random order</div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question">
+                <h4>8. What is the purpose of exponential backoff in retry logic?</h4>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q8" value="a"> A) To make retries faster</div>
+                    <div class="option"><input type="radio" name="q8" value="b"> B) To reduce server load and avoid overwhelming failing services</div>
+                    <div class="option"><input type="radio" name="q8" value="c"> C) To increase the number of retries</div>
+                    <div class="option"><input type="radio" name="q8" value="d"> D) To make the code more complex</div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question">
+                <h4>9. What is the main advantage of using async generators?</h4>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q9" value="a"> A) They are faster than regular functions</div>
+                    <div class="option"><input type="radio" name="q9" value="b"> B) They allow streaming and backpressure control for large datasets</div>
+                    <div class="option"><input type="radio" name="q9" value="c"> C) They use less memory</div>
+                    <div class="option"><input type="radio" name="q9" value="d"> D) They are easier to debug</div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question">
+                <h4>10. What is the purpose of rate limiting in async operations?</h4>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q10" value="a"> A) To make operations faster</div>
+                    <div class="option"><input type="radio" name="q10" value="b"> B) To control the frequency of requests and prevent overwhelming services</div>
+                    <div class="option"><input type="radio" name="q10" value="c"> C) To reduce memory usage</div>
+                    <div class="option"><input type="radio" name="q10" value="d"> D) To make code more readable</div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Quiz</button>
+        </form>
+
+        <div id="results" class="results" style="display: none;">
+            <h3>Quiz Results</h3>
+            <div id="score"></div>
+            <div id="answers"></div>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: 'b',
+            q2: 'd',
+            q3: 'b',
+            q4: 'b',
+            q5: 'b',
+            q6: 'a',
+            q7: 'b',
+            q8: 'b',
+            q9: 'b',
+            q10: 'b'
+        };
+
+        // Timer functionality
+        let timeLeft = 15 * 60; // 15 minutes in seconds
+        const timerElement = document.getElementById('timer');
+        
+        const timer = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `Time remaining: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                submitQuiz();
+            }
+            
+            timeLeft--;
+        }, 1000);
+
+        function submitQuiz() {
+            clearInterval(timer);
+            const formData = new FormData(document.getElementById('quizForm'));
+            let score = 0;
+            let totalQuestions = Object.keys(correctAnswers).length;
+            let results = [];
+
+            for (let question in correctAnswers) {
+                const selectedAnswer = formData.get(question);
+                const isCorrect = selectedAnswer === correctAnswers[question];
+                
+                if (isCorrect) score++;
+                
+                results.push({
+                    question: question,
+                    selected: selectedAnswer,
+                    correct: correctAnswers[question],
+                    isCorrect: isCorrect
+                });
+            }
+
+            displayResults(score, totalQuestions, results);
+        }
+
+        function displayResults(score, total, results) {
+            const resultsDiv = document.getElementById('results');
+            const scoreDiv = document.getElementById('score');
+            const answersDiv = document.getElementById('answers');
+
+            const percentage = Math.round((score / total) * 100);
+            
+            scoreDiv.innerHTML = `
+                <h4>Score: ${score}/${total} (${percentage}%)</h4>
+                <p>${percentage >= 80 ? 'Excellent! You have a strong understanding of asynchronous programming.' : 
+                   percentage >= 60 ? 'Good job! Consider reviewing some concepts.' : 
+                   'Keep studying! Review the Level 5 materials and try again.'}</p>
+            `;
+
+            answersDiv.innerHTML = results.map((result, index) => `
+                <div class="question ${result.isCorrect ? 'correct' : 'incorrect'}">
+                    <h5>Question ${index + 1}: ${result.isCorrect ? 'Correct' : 'Incorrect'}</h5>
+                    <p>Your answer: ${result.selected || 'No answer selected'}</p>
+                    <p>Correct answer: ${result.correct}</p>
+                </div>
+            `).join('');
+
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.getElementById('quizForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitQuiz();
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1 Quiz: Web Platform Fundamentals</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        .timer {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .timer.warning {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .quiz {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background: #f8f9fa;
+            display: none;
+        }
+        .question.active {
+            display: block;
+        }
+        .question h3 {
+            color: #495057;
+            margin-top: 0;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .answer-options {
+            margin: 15px 0;
+        }
+        .answer-option {
+            margin: 8px 0;
+            padding: 10px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .answer-option:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        .answer-option input[type="radio"] {
+            margin-right: 10px;
+        }
+        .answer-option.selected {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        .button.secondary {
+            background: #6c757d;
+        }
+        .button.secondary:hover {
+            background: #545b62;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .progress {
+            background: #e9ecef;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transition: width 0.3s ease;
+        }
+        .result {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+        .result h2 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .result.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Level 1 Quiz</h1>
+        <p>Web Platform Fundamentals - 15 Minutes Timed Quiz</p>
+    </div>
+
+    <div class="timer" id="timer">
+        Time Remaining: <span id="timeLeft">15:00</span>
+    </div>
+
+    <div class="progress">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+
+    <div class="quiz">
+        <div class="question active" id="q1">
+            <h3>Question 1 of 10</h3>
+            <p>Which HTML element is used to create a hyperlink?</p>
+            <div class="answer-options">
+                <label class="answer-option">
+                    <input type="radio" name="q1" value="a">
+                    <span>&lt;link&gt;</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q1" value="b">
+                    <span>&lt;a&gt;</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q1" value="c">
+                    <span>&lt;href&gt;</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q1" value="d">
+                    <span>&lt;url&gt;</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question" id="q2">
+            <h3>Question 2 of 10</h3>
+            <p>What does CSS stand for?</p>
+            <div class="answer-options">
+                <label class="answer-option">
+                    <input type="radio" name="q2" value="a">
+                    <span>Cascading Style Sheets</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q2" value="b">
+                    <span>Computer Style Sheets</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q2" value="c">
+                    <span>Creative Style Sheets</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q2" value="d">
+                    <span>Colorful Style Sheets</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question" id="q3">
+            <h3>Question 3 of 10</h3>
+            <p>What will be the output of this JavaScript code?</p>
+            <div class="code-block">console.log(typeof "Hello World");</div>
+            <div class="answer-options">
+                <label class="answer-option">
+                    <input type="radio" name="q3" value="a">
+                    <span>string</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q3" value="b">
+                    <span>text</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q3" value="c">
+                    <span>object</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q3" value="d">
+                    <span>undefined</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question" id="q4">
+            <h3>Question 4 of 10</h3>
+            <p>Which CSS property is used to change the text color?</p>
+            <div class="answer-options">
+                <label class="answer-option">
+                    <input type="radio" name="q4" value="a">
+                    <span>text-color</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q4" value="b">
+                    <span>color</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q4" value="c">
+                    <span>font-color</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q4" value="d">
+                    <span>text-style</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question" id="q5">
+            <h3>Question 5 of 10</h3>
+            <p>What is the correct way to declare a variable in JavaScript?</p>
+            <div class="answer-options">
+                <label class="answer-option">
+                    <input type="radio" name="q5" value="a">
+                    <span>variable name = "value";</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q5" value="b">
+                    <span>var name = "value";</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q5" value="c">
+                    <span>v name = "value";</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q5" value="d">
+                    <span>declare name = "value";</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question" id="q6">
+            <h3>Question 6 of 10</h3>
+            <p>Which HTML tag is used to create an unordered list?</p>
+            <div class="answer-options">
+                <label class="answer-option">
+                    <input type="radio" name="q6" value="a">
+                    <span>&lt;ul&gt;</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q6" value="b">
+                    <span>&lt;ol&gt;</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q6" value="c">
+                    <span>&lt;li&gt;</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q6" value="d">
+                    <span>&lt;list&gt;</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question" id="q7">
+            <h3>Question 7 of 10</h3>
+            <p>What will be the result of this JavaScript expression?</p>
+            <div class="code-block">5 + "5"</div>
+            <div class="answer-options">
+                <label class="answer-option">
+                    <input type="radio" name="q7" value="a">
+                    <span>10</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q7" value="b">
+                    <span>"55"</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q7" value="c">
+                    <span>Error</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q7" value="d">
+                    <span>undefined</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question" id="q8">
+            <h3>Question 8 of 10</h3>
+            <p>Which CSS property is used to add space between elements?</p>
+            <div class="answer-options">
+                <label class="answer-option">
+                    <input type="radio" name="q8" value="a">
+                    <span>spacing</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q8" value="b">
+                    <span>margin</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q8" value="c">
+                    <span>gap</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q8" value="d">
+                    <span>space</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question" id="q9">
+            <h3>Question 9 of 10</h3>
+            <p>What is the purpose of the &lt;meta&gt; tag in HTML?</p>
+            <div class="answer-options">
+                <label class="answer-option">
+                    <input type="radio" name="q9" value="a">
+                    <span>To create a table</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q9" value="b">
+                    <span>To provide metadata about the document</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q9" value="c">
+                    <span>To create a form</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q9" value="d">
+                    <span>To add images</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="question" id="q10">
+            <h3>Question 10 of 10</h3>
+            <p>Which JavaScript method is used to add an element to the end of an array?</p>
+            <div class="answer-options">
+                <label class="answer-option">
+                    <input type="radio" name="q10" value="a">
+                    <span>push()</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q10" value="b">
+                    <span>add()</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q10" value="c">
+                    <span>append()</span>
+                </label>
+                <label class="answer-option">
+                    <input type="radio" name="q10" value="d">
+                    <span>insert()</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="button secondary" id="prevBtn" onclick="previousQuestion()" disabled>Previous</button>
+            <span id="questionCounter">Question 1 of 10</span>
+            <button class="button" id="nextBtn" onclick="nextQuestion()">Next</button>
+        </div>
+    </div>
+
+    <div class="result" id="result">
+        <h2>Quiz Complete!</h2>
+        <p id="finalScore">Your Score: 0/10</p>
+        <p id="finalPercentage">Percentage: 0%</p>
+        <p id="finalMessage">Keep studying!</p>
+        <button class="button" onclick="restartQuiz()">Try Again</button>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: 'b', // <a>
+            q2: 'a', // Cascading Style Sheets
+            q3: 'a', // string
+            q4: 'b', // color
+            q5: 'b', // var name = "value";
+            q6: 'a', // <ul>
+            q7: 'b', // "55"
+            q8: 'b', // margin
+            q9: 'b', // To provide metadata
+            q10: 'a' // push()
+        };
+
+        let currentQuestion = 1;
+        let answers = {};
+        let timeLeft = 15 * 60; // 15 minutes in seconds
+        let timerInterval;
+
+        // Start timer
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimer();
+                
+                if (timeLeft <= 0) {
+                    endQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            document.getElementById('timeLeft').textContent = timeString;
+            
+            // Add warning when less than 2 minutes
+            const timerElement = document.getElementById('timer');
+            if (timeLeft < 120) {
+                timerElement.classList.add('warning');
+            }
+        }
+
+        function showQuestion(questionNumber) {
+            // Hide all questions
+            document.querySelectorAll('.question').forEach(q => {
+                q.classList.remove('active');
+            });
+            
+            // Show current question
+            document.getElementById(`q${questionNumber}`).classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = questionNumber === 1;
+            document.getElementById('nextBtn').disabled = questionNumber === 10;
+            document.getElementById('nextBtn').textContent = questionNumber === 10 ? 'Finish' : 'Next';
+            
+            // Update question counter
+            document.getElementById('questionCounter').textContent = `Question ${questionNumber} of 10`;
+            
+            // Update progress bar
+            const progress = (questionNumber / 10) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < 10) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            } else {
+                endQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        }
+
+        function endQuiz() {
+            clearInterval(timerInterval);
+            
+            // Calculate score
+            let score = 0;
+            for (let i = 1; i <= 10; i++) {
+                const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedAnswer && selectedAnswer.value === correctAnswers[`q${i}`]) {
+                    score++;
+                }
+            }
+            
+            const percentage = Math.round((score / 10) * 100);
+            
+            // Show results
+            document.getElementById('finalScore').textContent = `Your Score: ${score}/10`;
+            document.getElementById('finalPercentage').textContent = `Percentage: ${percentage}%`;
+            
+            let message;
+            if (percentage >= 80) {
+                message = '🎉 Excellent! You have a strong foundation in web development!';
+            } else if (percentage >= 60) {
+                message = '👍 Good job! Review the areas you missed and try again.';
+            } else {
+                message = '📚 Keep studying! Review the Level 1 materials and practice more.';
+            }
+            
+            document.getElementById('finalMessage').textContent = message;
+            document.getElementById('result').classList.add('show');
+            
+            // Hide quiz
+            document.querySelector('.quiz').style.display = 'none';
+            document.querySelector('.timer').style.display = 'none';
+            document.querySelector('.progress').style.display = 'none';
+        }
+
+        function restartQuiz() {
+            // Reset variables
+            currentQuestion = 1;
+            answers = {};
+            timeLeft = 15 * 60;
+            
+            // Clear all selections
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+            
+            // Show quiz elements
+            document.querySelector('.quiz').style.display = 'block';
+            document.querySelector('.timer').style.display = 'block';
+            document.querySelector('.progress').style.display = 'block';
+            document.getElementById('result').classList.remove('show');
+            
+            // Reset timer
+            clearInterval(timerInterval);
+            startTimer();
+            updateTimer();
+            
+            // Show first question
+            showQuestion(1);
+        }
+
+        // Add event listeners to radio buttons
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                answers[this.name] = this.value;
+            });
+        });
+
+        // Start the quiz
+        startTimer();
+        showQuestion(1);
+    </script>
+</body>
+</html>

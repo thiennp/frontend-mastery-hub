@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Navigation Examples - Level 6</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .example { background: white; margin: 20px 0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .example h3 { color: #333; border-bottom: 2px solid #dc3545; padding-bottom: 10px; }
+        .code-block { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; padding: 15px; margin: 10px 0; overflow-x: auto; }
+        .demo { background: #e8f5e8; border: 1px solid #28a745; border-radius: 4px; padding: 15px; margin: 10px 0; }
+        button { background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #c82333; }
+        button:focus { outline: 2px solid #007bff; outline-offset: 2px; }
+        .skip-links { position: absolute; top: -40px; left: 6px; z-index: 1000; }
+        .skip-link { position: absolute; top: -40px; left: 6px; background: #000; color: #fff; padding: 8px 16px; text-decoration: none; border-radius: 4px; z-index: 1000; transition: top 0.3s; }
+        .skip-link:focus { top: 6px; }
+        .skip-link:not(:focus) { clip: rect(0 0 0 0); clip-path: inset(50%); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-trigger { padding: 8px 16px; background: white; border: 1px solid #ddd; cursor: pointer; }
+        .dropdown-trigger:focus { outline: 2px solid #007bff; outline-offset: 2px; }
+        .dropdown-menu { position: absolute; top: 100%; left: 0; background: white; border: 1px solid #ddd; min-width: 200px; display: none; }
+        .dropdown-menu[aria-hidden="false"] { display: block; }
+        .dropdown-menu a { display: block; padding: 8px 16px; text-decoration: none; color: #333; }
+        .dropdown-menu a:hover, .dropdown-menu a:focus { background: #f5f5f5; outline: none; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal[aria-hidden="false"] { display: flex; }
+        .modal-content { background: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%; }
+        .modal-content button:focus { outline: 2px solid #007bff; outline-offset: 2px; }
+        .tab-list { display: flex; list-style: none; padding: 0; margin: 0; }
+        .tab-list li { margin: 0; }
+        .tab-button { padding: 8px 16px; background: #f8f9fa; border: 1px solid #ddd; cursor: pointer; }
+        .tab-button:focus { outline: 2px solid #007bff; outline-offset: 2px; }
+        .tab-button[aria-selected="true"] { background: #007bff; color: white; }
+        .tab-panel { padding: 20px; border: 1px solid #ddd; margin-top: 10px; }
+        .tab-panel[aria-hidden="true"] { display: none; }
+        .focusable-demo { padding: 10px; border: 2px dashed #ccc; margin: 10px 0; }
+        .focusable-demo:focus { border-color: #007bff; background: #f8f9fa; }
+        .keyboard-instructions { background: #e3f2fd; border: 1px solid #2196f3; border-radius: 4px; padding: 15px; margin: 10px 0; }
+        .keyboard-instructions h4 { margin-top: 0; color: #1976d2; }
+        .keyboard-instructions ul { margin: 10px 0; padding-left: 20px; }
+        .keyboard-instructions li { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <!-- Skip Links -->
+    <nav class="skip-links" aria-label="Skip navigation">
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+        <a href="#navigation" class="skip-link">Skip to navigation</a>
+        <a href="#examples" class="skip-link">Skip to examples</a>
+    </nav>
+
+    <!-- Header -->
+    <header role="banner">
+        <h1>Keyboard Navigation Examples - Level 6</h1>
+        <p>These examples demonstrate keyboard navigation patterns and focus management.</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav id="navigation" role="navigation" aria-label="Main navigation">
+        <ul>
+            <li><a href="#main-content" aria-current="page">Home</a></li>
+            <li><a href="#examples">Examples</a></li>
+            <li><a href="#documentation">Documentation</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        <!-- Keyboard Instructions -->
+        <div class="keyboard-instructions">
+            <h4>Keyboard Navigation Instructions</h4>
+            <ul>
+                <li><strong>Tab/Shift+Tab:</strong> Navigate between focusable elements</li>
+                <li><strong>Enter/Space:</strong> Activate buttons and links</li>
+                <li><strong>Arrow Keys:</strong> Navigate within components</li>
+                <li><strong>Escape:</strong> Close modals and dropdowns</li>
+                <li><strong>Home/End:</strong> Jump to first/last items in lists</li>
+            </ul>
+        </div>
+
+        <!-- Example 1: Basic Focus Management -->
+        <div class="example">
+            <h3>1. Basic Focus Management</h3>
+            <p>This example shows basic focus management with focusable elements.</p>
+            
+            <div class="code-block">
+                <pre><code>&lt;!-- Focusable elements --&gt;
+&lt;button onclick="handleClick()"&gt;Button 1&lt;/button&gt;
+&lt;button onclick="handleClick()"&gt;Button 2&lt;/button&gt;
+&lt;a href="#"&gt;Link 1&lt;/a&gt;
+&lt;a href="#"&gt;Link 2&lt;/a&gt;
+&lt;input type="text" placeholder="Input field"&gt;
+&lt;select&gt;
+    &lt;option&gt;Option 1&lt;/option&gt;
+    &lt;option&gt;Option 2&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Custom focusable element --&gt;
+&lt;div tabindex="0" class="focusable-demo" onclick="handleClick()"&gt;
+    Custom focusable div
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="demo">
+                <h4>Live Demo:</h4>
+                <p>Use Tab to navigate between these elements:</p>
+                <button onclick="handleClick()">Button 1</button>
+                <button onclick="handleClick()">Button 2</button>
+                <a href="#" onclick="handleClick(); return false;">Link 1</a>
+                <a href="#" onclick="handleClick(); return false;">Link 2</a>
+                <input type="text" placeholder="Input field">
+                <select>
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                </select>
+                
+                <div tabindex="0" class="focusable-demo" onclick="handleClick()">
+                    Custom focusable div
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 2: Skip Links -->
+        <div class="example">
+            <h3>2. Skip Links for Quick Navigation</h3>
+            <p>This example demonstrates skip links that allow keyboard users to quickly navigate to different sections.</p>
+            
+            <div class="code-block">
+                <pre><code>&lt;!-- Skip Links --&gt;
+&lt;nav class="skip-links" aria-label="Skip navigation"&gt;
+    &lt;a href="#main-content" class="skip-link"&gt;Skip to main content&lt;/a&gt;
+    &lt;a href="#navigation" class="skip-link"&gt;Skip to navigation&lt;/a&gt;
+    &lt;a href="#examples" class="skip-link"&gt;Skip to examples&lt;/a&gt;
+&lt;/nav&gt;
+
+&lt;style&gt;
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #000;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1000;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+&lt;/style&gt;</code></pre>
+            </div>
+            
+            <div class="demo">
+                <h4>Live Demo:</h4>
+                <p>Press Tab to see the skip links appear. They allow keyboard users to quickly navigate to different sections of the page.</p>
+                <p>Try using the skip links to jump to different sections!</p>
+            </div>
+        </div>
+
+        <!-- Example 3: Dropdown Menu -->
+        <div class="example">
+            <h3>3. Dropdown Menu with Keyboard Navigation</h3>
+            <p>This example shows a dropdown menu with full keyboard support.</p>
+            
+            <div class="code-block">
+                <pre><code>&lt;div class="dropdown"&gt;
+    &lt;button class="dropdown-trigger" 
+            aria-expanded="false" 
+            aria-haspopup="menu" 
+            aria-controls="menu1"
+            onclick="toggleDropdown('menu1')"&gt;
+        Actions
+    &lt;/button&gt;
+    &lt;ul class="dropdown-menu" 
+        id="menu1" 
+        role="menu" 
+        aria-labelledby="trigger1"
+        aria-hidden="true"&gt;
+        &lt;li role="none"&gt;
+            &lt;a href="#" role="menuitem" tabindex="-1"&gt;Edit&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li role="none"&gt;
+            &lt;a href="#" role="menuitem" tabindex="-1"&gt;Delete&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li role="none"&gt;
+            &lt;a href="#" role="menuitem" tabindex="-1"&gt;Share&lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="demo">
+                <h4>Live Demo:</h4>
+                <p>Keyboard instructions:</p>
+                <ul>
+                    <li>Tab to the dropdown button</li>
+                    <li>Press Enter or Space to open</li>
+                    <li>Use Arrow keys to navigate within the menu</li>
+                    <li>Press Escape to close</li>
+                </ul>
+                
+                <div class="dropdown">
+                    <button class="dropdown-trigger" 
+                            aria-expanded="false" 
+                            aria-haspopup="menu" 
+                            aria-controls="menu1"
+                            onclick="toggleDropdown('menu1')"
+                            onkeydown="handleDropdownKeydown(event, 'menu1')">
+                        Actions
+                    </button>
+                    <ul class="dropdown-menu" 
+                        id="menu1" 
+                        role="menu" 
+                        aria-labelledby="trigger1"
+                        aria-hidden="true">
+                        <li role="none">
+                            <a href="#" role="menuitem" tabindex="-1" onclick="handleMenuAction('Edit'); return false;">Edit</a>
+                        </li>
+                        <li role="none">
+                            <a href="#" role="menuitem" tabindex="-1" onclick="handleMenuAction('Delete'); return false;">Delete</a>
+                        </li>
+                        <li role="none">
+                            <a href="#" role="menuitem" tabindex="-1" onclick="handleMenuAction('Share'); return false;">Share</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 4: Modal Dialog -->
+        <div class="example">
+            <h3>4. Modal Dialog with Focus Trapping</h3>
+            <p>This example demonstrates a modal dialog with focus trapping and keyboard navigation.</p>
+            
+            <div class="code-block">
+                <pre><code>&lt;div class="modal" 
+     role="dialog" 
+     aria-modal="true" 
+     aria-labelledby="modal-title"
+     aria-describedby="modal-description"
+     tabindex="-1"
+     aria-hidden="true"&gt;
+    
+    &lt;div class="modal-content"&gt;
+        &lt;h2 id="modal-title"&gt;Confirm Action&lt;/h2&gt;
+        &lt;p id="modal-description"&gt;
+            Are you sure you want to perform this action?
+        &lt;/p&gt;
+        &lt;button onclick="closeModal()"&gt;Cancel&lt;/button&gt;
+        &lt;button onclick="confirmAction()"&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="demo">
+                <h4>Live Demo:</h4>
+                <p>Keyboard instructions:</p>
+                <ul>
+                    <li>Tab to the "Open Modal" button</li>
+                    <li>Press Enter to open the modal</li>
+                    <li>Use Tab to navigate between buttons</li>
+                    <li>Press Escape to close the modal</li>
+                </ul>
+                
+                <button onclick="openModal()">Open Modal</button>
+                
+                <div class="modal" 
+                     id="demo-modal"
+                     role="dialog" 
+                     aria-modal="true" 
+                     aria-labelledby="modal-title"
+                     aria-describedby="modal-description"
+                     tabindex="-1"
+                     aria-hidden="true">
+                    
+                    <div class="modal-content">
+                        <h2 id="modal-title">Confirm Action</h2>
+                        <p id="modal-description">
+                            Are you sure you want to perform this action?
+                        </p>
+                        <button onclick="closeModal()">Cancel</button>
+                        <button onclick="confirmAction()">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 5: Tab Interface -->
+        <div class="example">
+            <h3>5. Tab Interface with Keyboard Navigation</h3>
+            <p>This example shows a tab interface with arrow key navigation.</p>
+            
+            <div class="code-block">
+                <pre><code>&lt;div role="tablist" aria-label="Settings"&gt;
+    &lt;button role="tab" 
+            aria-selected="true" 
+            aria-controls="panel1"
+            id="tab1"
+            onclick="switchTab('tab1', 'panel1')"&gt;
+        General
+    &lt;/button&gt;
+    &lt;button role="tab" 
+            aria-selected="false" 
+            aria-controls="panel2"
+            id="tab2"
+            onclick="switchTab('tab2', 'panel2')"&gt;
+        Advanced
+    &lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div role="tabpanel" 
+     id="panel1" 
+     aria-labelledby="tab1"&gt;
+    General settings content...
+&lt;/div&gt;
+
+&lt;div role="tabpanel" 
+     id="panel2" 
+     aria-labelledby="tab2"
+     aria-hidden="true"&gt;
+    Advanced settings content...
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="demo">
+                <h4>Live Demo:</h4>
+                <p>Keyboard instructions:</p>
+                <ul>
+                    <li>Tab to the tab buttons</li>
+                    <li>Use Left/Right arrow keys to switch tabs</li>
+                    <li>Press Enter or Space to activate a tab</li>
+                </ul>
+                
+                <div role="tablist" aria-label="Settings">
+                    <button role="tab" 
+                            aria-selected="true" 
+                            aria-controls="panel1"
+                            id="tab1"
+                            onclick="switchTab('tab1', 'panel1')"
+                            onkeydown="handleTabKeydown(event, 'tab1', 'panel1')">
+                        General
+                    </button>
+                    <button role="tab" 
+                            aria-selected="false" 
+                            aria-controls="panel2"
+                            id="tab2"
+                            onclick="switchTab('tab2', 'panel2')"
+                            onkeydown="handleTabKeydown(event, 'tab2', 'panel2')">
+                        Advanced
+                    </button>
+                </div>
+                
+                <div role="tabpanel" 
+                     id="panel1" 
+                     aria-labelledby="tab1"
+                     class="tab-panel">
+                    General settings content...
+                </div>
+                
+                <div role="tabpanel" 
+                     id="panel2" 
+                     aria-labelledby="tab2"
+                     aria-hidden="true"
+                     class="tab-panel">
+                    Advanced settings content...
+                </div>
+            </div>
+        </div>
+
+        <!-- Example 6: Form with Keyboard Navigation -->
+        <div class="example">
+            <h3>6. Form with Keyboard Navigation</h3>
+            <p>This example shows a form with proper keyboard navigation and focus management.</p>
+            
+            <div class="code-block">
+                <pre><code>&lt;form&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;Contact Information&lt;/legend&gt;
+        
+        &lt;div&gt;
+            &lt;label for="name"&gt;Name *&lt;/label&gt;
+            &lt;input type="text" id="name" name="name" required&gt;
+        &lt;/div&gt;
+        
+        &lt;div&gt;
+            &lt;label for="email"&gt;Email *&lt;/label&gt;
+            &lt;input type="email" id="email" name="email" required&gt;
+        &lt;/div&gt;
+        
+        &lt;div&gt;
+            &lt;label for="message"&gt;Message&lt;/label&gt;
+            &lt;textarea id="message" name="message" rows="4"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+    &lt;/fieldset&gt;
+    
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+    &lt;button type="button" onclick="resetForm()"&gt;Reset&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+            
+            <div class="demo">
+                <h4>Live Demo:</h4>
+                <p>Keyboard instructions:</p>
+                <ul>
+                    <li>Tab to navigate between form fields</li>
+                    <li>Use Shift+Tab to go backwards</li>
+                    <li>Press Enter to submit the form</li>
+                </ul>
+                
+                <form onsubmit="handleFormSubmit(event)">
+                    <fieldset>
+                        <legend>Contact Information</legend>
+                        
+                        <div>
+                            <label for="demo-name">Name *</label>
+                            <input type="text" id="demo-name" name="name" required>
+                        </div>
+                        
+                        <div>
+                            <label for="demo-email">Email *</label>
+                            <input type="email" id="demo-email" name="email" required>
+                        </div>
+                        
+                        <div>
+                            <label for="demo-message">Message</label>
+                            <textarea id="demo-message" name="message" rows="4"></textarea>
+                        </div>
+                    </fieldset>
+                    
+                    <button type="submit">Submit</button>
+                    <button type="button" onclick="resetForm()">Reset</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Example 7: List Navigation -->
+        <div class="example">
+            <h3>7. List Navigation with Arrow Keys</h3>
+            <p>This example demonstrates list navigation using arrow keys.</p>
+            
+            <div class="code-block">
+                <pre><code>&lt;ul role="listbox" aria-label="Options"&gt;
+    &lt;li role="option" 
+        aria-selected="false" 
+        tabindex="0"
+        onclick="selectOption(this)"
+        onkeydown="handleListKeydown(event, this)"&gt;
+        Option 1
+    &lt;/li&gt;
+    &lt;li role="option" 
+        aria-selected="false" 
+        tabindex="-1"
+        onclick="selectOption(this)"
+        onkeydown="handleListKeydown(event, this)"&gt;
+        Option 2
+    &lt;/li&gt;
+    &lt;li role="option" 
+        aria-selected="false" 
+        tabindex="-1"
+        onclick="selectOption(this)"
+        onkeydown="handleListKeydown(event, this)"&gt;
+        Option 3
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+            </div>
+            
+            <div class="demo">
+                <h4>Live Demo:</h4>
+                <p>Keyboard instructions:</p>
+                <ul>
+                    <li>Tab to the list</li>
+                    <li>Use Arrow keys to navigate between options</li>
+                    <li>Press Enter or Space to select an option</li>
+                </ul>
+                
+                <ul role="listbox" aria-label="Options" style="list-style: none; padding: 0; border: 1px solid #ddd; max-width: 300px;">
+                    <li role="option" 
+                        aria-selected="false" 
+                        tabindex="0"
+                        onclick="selectOption(this)"
+                        onkeydown="handleListKeydown(event, this)"
+                        style="padding: 8px 16px; cursor: pointer; border-bottom: 1px solid #eee;">
+                        Option 1
+                    </li>
+                    <li role="option" 
+                        aria-selected="false" 
+                        tabindex="-1"
+                        onclick="selectOption(this)"
+                        onkeydown="handleListKeydown(event, this)"
+                        style="padding: 8px 16px; cursor: pointer; border-bottom: 1px solid #eee;">
+                        Option 2
+                    </li>
+                    <li role="option" 
+                        aria-selected="false" 
+                        tabindex="-1"
+                        onclick="selectOption(this)"
+                        onkeydown="handleListKeydown(event, this)"
+                        style="padding: 8px 16px; cursor: pointer;">
+                        Option 3
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Example 8: Focus Indicators -->
+        <div class="example">
+            <h3>8. Focus Indicators and Visual Feedback</h3>
+            <p>This example shows different focus indicator styles and visual feedback.</p>
+            
+            <div class="code-block">
+                <pre><code>&lt;!-- Default focus --&gt;
+&lt;button&gt;Default Focus&lt;/button&gt;
+
+&lt;!-- Custom focus --&gt;
+&lt;button class="custom-focus"&gt;Custom Focus&lt;/button&gt;
+
+&lt;!-- High contrast focus --&gt;
+&lt;button class="high-contrast-focus"&gt;High Contrast Focus&lt;/button&gt;
+
+&lt;style&gt;
+.custom-focus:focus {
+    outline: 3px solid #ff6b35;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+}
+
+.high-contrast-focus:focus {
+    outline: 3px solid;
+    outline-offset: 3px;
+}
+
+@media (prefers-contrast: high) {
+    :focus {
+        outline: 3px solid;
+        outline-offset: 3px;
+    }
+}
+&lt;/style&gt;</code></pre>
+            </div>
+            
+            <div class="demo">
+                <h4>Live Demo:</h4>
+                <p>Tab to these buttons to see different focus indicator styles:</p>
+                <button>Default Focus</button>
+                <button class="custom-focus" style="outline: 3px solid #ff6b35; outline-offset: 2px; box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);">Custom Focus</button>
+                <button class="high-contrast-focus" style="outline: 3px solid; outline-offset: 3px;">High Contrast Focus</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <p>&copy; 2024 Frontend Mastery Hub - Level 6 Examples</p>
+    </footer>
+
+    <script>
+        // Dropdown functionality
+        function toggleDropdown(menuId) {
+            const menu = document.getElementById(menuId);
+            const trigger = menu.previousElementSibling;
+            const isOpen = menu.getAttribute('aria-hidden') === 'false';
+            
+            if (isOpen) {
+                menu.style.display = 'none';
+                menu.setAttribute('aria-hidden', 'true');
+                trigger.setAttribute('aria-expanded', 'false');
+            } else {
+                menu.style.display = 'block';
+                menu.setAttribute('aria-hidden', 'false');
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+        }
+        
+        function handleDropdownKeydown(event, menuId) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleDropdown(menuId);
+            }
+        }
+        
+        function handleMenuAction(action) {
+            alert(`Menu action: ${action}`);
+        }
+        
+        // Modal functionality
+        function openModal() {
+            const modal = document.getElementById('demo-modal');
+            modal.style.display = 'flex';
+            modal.setAttribute('aria-hidden', 'false');
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('demo-modal');
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+        }
+        
+        function confirmAction() {
+            alert('Action confirmed!');
+            closeModal();
+        }
+        
+        // Tab functionality
+        function switchTab(tabId, panelId) {
+            // Update tab states
+            const tabs = document.querySelectorAll('[role="tab"]');
+            tabs.forEach(tab => {
+                tab.setAttribute('aria-selected', 'false');
+                tab.setAttribute('tabindex', '-1');
+            });
+            document.getElementById(tabId).setAttribute('aria-selected', 'true');
+            document.getElementById(tabId).setAttribute('tabindex', '0');
+            
+            // Update panel states
+            const panels = document.querySelectorAll('[role="tabpanel"]');
+            panels.forEach(panel => {
+                panel.setAttribute('aria-hidden', 'true');
+                panel.style.display = 'none';
+            });
+            const activePanel = document.getElementById(panelId);
+            activePanel.setAttribute('aria-hidden', 'false');
+            activePanel.style.display = 'block';
+        }
+        
+        function handleTabKeydown(event, tabId, panelId) {
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+                event.preventDefault();
+                const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+                const currentIndex = tabs.findIndex(tab => tab.id === tabId);
+                const direction = event.key === 'ArrowLeft' ? -1 : 1;
+                const nextIndex = (currentIndex + direction + tabs.length) % tabs.length;
+                const nextTab = tabs[nextIndex];
+                const nextPanelId = nextTab.getAttribute('aria-controls');
+                switchTab(nextTab.id, nextPanelId);
+            }
+        }
+        
+        // Form functionality
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('Form submitted! (This is just a demo)');
+        }
+        
+        function resetForm() {
+            const form = document.querySelector('form');
+            form.reset();
+        }
+        
+        // List functionality
+        function selectOption(element) {
+            // Remove selection from all options
+            const options = document.querySelectorAll('[role="option"]');
+            options.forEach(option => {
+                option.setAttribute('aria-selected', 'false');
+                option.setAttribute('tabindex', '-1');
+            });
+            
+            // Select current option
+            element.setAttribute('aria-selected', 'true');
+            element.setAttribute('tabindex', '0');
+            
+            alert(`Selected: ${element.textContent}`);
+        }
+        
+        function handleListKeydown(event, element) {
+            const options = Array.from(document.querySelectorAll('[role="option"]'));
+            const currentIndex = options.indexOf(element);
+            
+            switch (event.key) {
+                case 'ArrowDown':
+                    event.preventDefault();
+                    const nextIndex = (currentIndex + 1) % options.length;
+                    options[nextIndex].focus();
+                    break;
+                case 'ArrowUp':
+                    event.preventDefault();
+                    const prevIndex = (currentIndex - 1 + options.length) % options.length;
+                    options[prevIndex].focus();
+                    break;
+                case 'Enter':
+                case ' ':
+                    event.preventDefault();
+                    selectOption(element);
+                    break;
+                case 'Home':
+                    event.preventDefault();
+                    options[0].focus();
+                    break;
+                case 'End':
+                    event.preventDefault();
+                    options[options.length - 1].focus();
+                    break;
+            }
+        }
+        
+        // Custom button click handler
+        function handleClick() {
+            alert('Element clicked!');
+        }
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown')) {
+                const openMenus = document.querySelectorAll('.dropdown-menu[aria-hidden="false"]');
+                openMenus.forEach(menu => {
+                    menu.style.display = 'none';
+                    menu.setAttribute('aria-hidden', 'true');
+                    menu.previousElementSibling.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const openModals = document.querySelectorAll('.modal[aria-hidden="false"]');
+                openModals.forEach(modal => {
+                    modal.style.display = 'none';
+                    modal.setAttribute('aria-hidden', 'true');
+                });
+            }
+        });
+        
+        // Skip links functionality
+        const skipLinks = document.querySelectorAll('.skip-link');
+        skipLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.focus();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .skip-links {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            z-index: 1000;
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 6px;
+        }
+        
+        .skip-link:not(:focus) {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
+            position: absolute;
+            white-space: nowrap;
+            width: 1px;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #007bff;
+            padding: 0.5rem;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }
+        
+        nav a[aria-current="page"] {
+            font-weight: bold;
+        }
+        
+        form {
+            max-width: 400px;
+        }
+        
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        legend {
+            font-weight: bold;
+            padding: 0 0.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: 2px solid #007bff;
+            outline-offset: 2px;
+        }
+        
+        button {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+        }
+        
+        button:hover {
+            background: #c82333;
+        }
+        
+        button:focus {
+            outline: 2px solid #007bff;
+            outline-offset: 2px;
+        }
+        
+        .custom-focus:focus {
+            outline: 3px solid #ff6b35;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+        }
+        
+        .high-contrast-focus:focus {
+            outline: 3px solid;
+            outline-offset: 3px;
+        }
+        
+        @media (prefers-contrast: high) {
+            :focus {
+                outline: 3px solid;
+                outline-offset: 3px;
+            }
+        }
+    </style>
+</body>
+</html>
+

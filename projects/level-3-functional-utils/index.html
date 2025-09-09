@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functional Programming Utility Library - Level 3</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Functional Programming Utility Library</h1>
+            <p>Level 3 Mini-Project: Master JavaScript Functions, Closures, and Composition</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-button active" data-tab="overview">Overview</button>
+            <button class="tab-button" data-tab="core">Core Utilities</button>
+            <button class="tab-button" data-tab="arrays">Array Utilities</button>
+            <button class="tab-button" data-tab="objects">Object Utilities</button>
+            <button class="tab-button" data-tab="async">Async Utilities</button>
+            <button class="tab-button" data-tab="validation">Validation</button>
+            <button class="tab-button" data-tab="examples">Examples</button>
+        </nav>
+
+        <main>
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <h2>Project Overview</h2>
+                <p>This project demonstrates advanced JavaScript functional programming concepts including:</p>
+                <ul>
+                    <li>Function composition and currying</li>
+                    <li>Closures and scope management</li>
+                    <li>Higher-order functions</li>
+                    <li>Memory management</li>
+                    <li>Async programming patterns</li>
+                    <li>Validation pipelines</li>
+                </ul>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>Core Utilities</h3>
+                        <p>Function composition, currying, memoization, and debouncing</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Array Utilities</h3>
+                        <p>Custom map, filter, reduce, and transformation functions</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Object Utilities</h3>
+                        <p>Object transformation, validation, and composition</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Async Utilities</h3>
+                        <p>Promise composition, retry logic, and timeout handling</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Validation</h3>
+                        <p>Schema validation, error collection, and validation pipelines</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Examples</h3>
+                        <p>Real-world examples and usage patterns</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Utilities Tab -->
+            <div id="core" class="tab-content">
+                <h2>Core Utilities</h2>
+                
+                <section class="utility-section">
+                    <h3>Function Composition</h3>
+                    <div class="code-example">
+                        <pre><code>// Compose functions from right to left
+const composed = compose(square, multiplyByTwo, addOne);
+console.log(composed(3)); // ((3 + 1) * 2)² = 64
+
+// Pipe functions from left to right
+const piped = pipe(addOne, multiplyByTwo, square);
+console.log(piped(3)); // ((3 + 1) * 2)² = 64</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoComposition()">Run Demo</button>
+                    <div id="composition-result" class="result"></div>
+                </section>
+
+                <section class="utility-section">
+                    <h3>Currying</h3>
+                    <div class="code-example">
+                        <pre><code>// Basic currying
+const add = curry((a, b, c) => a + b + c);
+const add5 = add(5);
+const add5And10 = add5(10);
+console.log(add5And10(3)); // 18
+
+// Partial application
+const multiply = curry((a, b, c) => a * b * c);
+const multiplyBy2 = multiply(2);
+const multiplyBy2And3 = multiplyBy2(3);
+console.log(multiplyBy2And3(4)); // 24</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoCurrying()">Run Demo</button>
+                    <div id="currying-result" class="result"></div>
+                </section>
+
+                <section class="utility-section">
+                    <h3>Memoization</h3>
+                    <div class="code-example">
+                        <pre><code>// Memoized function
+const expensiveFunction = memoize(n => {
+    console.log('Calculating...');
+    return n * n * n;
+});
+
+console.log(expensiveFunction(5)); // Calculating... 125
+console.log(expensiveFunction(5)); // 125 (cached)</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoMemoization()">Run Demo</button>
+                    <div id="memoization-result" class="result"></div>
+                </section>
+
+                <section class="utility-section">
+                    <h3>Debouncing & Throttling</h3>
+                    <div class="code-example">
+                        <pre><code>// Debounced function
+const debouncedSearch = debounce(searchFunction, 300);
+
+// Throttled function
+const throttledScroll = throttle(scrollHandler, 100);</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoDebounceThrottle()">Run Demo</button>
+                    <div id="debounce-throttle-result" class="result"></div>
+                </section>
+            </div>
+
+            <!-- Array Utilities Tab -->
+            <div id="arrays" class="tab-content">
+                <h2>Array Utilities</h2>
+                
+                <section class="utility-section">
+                    <h3>Custom Array Methods</h3>
+                    <div class="code-example">
+                        <pre><code>// Custom map implementation
+const numbers = [1, 2, 3, 4, 5];
+const doubled = map(numbers, x => x * 2);
+console.log(doubled); // [2, 4, 6, 8, 10]
+
+// Custom filter implementation
+const evens = filter(numbers, x => x % 2 === 0);
+console.log(evens); // [2, 4]
+
+// Custom reduce implementation
+const sum = reduce(numbers, (acc, x) => acc + x, 0);
+console.log(sum); // 15</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoArrayMethods()">Run Demo</button>
+                    <div id="array-methods-result" class="result"></div>
+                </section>
+
+                <section class="utility-section">
+                    <h3>Array Transformations</h3>
+                    <div class="code-example">
+                        <pre><code>// Array composition
+const processNumbers = pipe(
+    filter(x => x % 2 === 0),
+    map(x => x * x),
+    reduce((acc, x) => acc + x, 0)
+);
+
+const result = processNumbers([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+console.log(result); // 220</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoArrayTransformations()">Run Demo</button>
+                    <div id="array-transformations-result" class="result"></div>
+                </section>
+            </div>
+
+            <!-- Object Utilities Tab -->
+            <div id="objects" class="tab-content">
+                <h2>Object Utilities</h2>
+                
+                <section class="utility-section">
+                    <h3>Object Transformations</h3>
+                    <div class="code-example">
+                        <pre><code>// Object mapping
+const users = [
+    { name: "John", age: 30, active: true },
+    { name: "Jane", age: 25, active: false }
+];
+
+const activeUsers = filter(users, user => user.active);
+const userNames = map(activeUsers, user => user.name);
+console.log(userNames); // ["John"]</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoObjectTransformations()">Run Demo</button>
+                    <div id="object-transformations-result" class="result"></div>
+                </section>
+
+                <section class="utility-section">
+                    <h3>Object Validation</h3>
+                    <div class="code-example">
+                        <pre><code>// Object validation
+const userValidator = createValidator()
+    .addRule(data => data.name && data.name.length > 0)
+    .addRule(data => data.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
+    .addRule(data => data.age && data.age >= 18);
+
+const user = { name: "John", email: "john@example.com", age: 30 };
+const validation = userValidator.validate(user);
+console.log(validation); // { isValid: true, errors: [] }</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoObjectValidation()">Run Demo</button>
+                    <div id="object-validation-result" class="result"></div>
+                </section>
+            </div>
+
+            <!-- Async Utilities Tab -->
+            <div id="async" class="tab-content">
+                <h2>Async Utilities</h2>
+                
+                <section class="utility-section">
+                    <h3>Promise Composition</h3>
+                    <div class="code-example">
+                        <pre><code>// Async function composition
+const processUserAsync = composeAsync(
+    processUser,
+    validateUser,
+    fetchUser
+);
+
+processUserAsync(123)
+    .then(user => console.log(user))
+    .catch(error => console.error(error));</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoAsyncComposition()">Run Demo</button>
+                    <div id="async-composition-result" class="result"></div>
+                </section>
+
+                <section class="utility-section">
+                    <h3>Retry Logic</h3>
+                    <div class="code-example">
+                        <pre><code>// Retry with exponential backoff
+const retryWithBackoff = retry(fetchData, 3, 1000);
+
+retryWithBackoff()
+    .then(data => console.log(data))
+    .catch(error => console.error(error));</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoRetryLogic()">Run Demo</button>
+                    <div id="retry-logic-result" class="result"></div>
+                </section>
+            </div>
+
+            <!-- Validation Tab -->
+            <div id="validation" class="tab-content">
+                <h2>Validation System</h2>
+                
+                <section class="utility-section">
+                    <h3>Validation Pipeline</h3>
+                    <div class="code-example">
+                        <pre><code>// Validation pipeline
+const userValidator = createValidator()
+    .addRule(data => data.name && data.name.length > 0)
+    .addRule(data => data.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
+    .addRule(data => data.age && data.age >= 18);
+
+const validation = userValidator.validate(user);
+console.log(validation); // { isValid: true, errors: [] }</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoValidationPipeline()">Run Demo</button>
+                    <div id="validation-pipeline-result" class="result"></div>
+                </section>
+
+                <section class="utility-section">
+                    <h3>Schema Validation</h3>
+                    <div class="code-example">
+                        <pre><code>// Schema definition
+const userSchema = {
+    name: { type: 'string', required: true, minLength: 2 },
+    email: { type: 'string', required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+    age: { type: 'number', required: true, min: 18 }
+};
+
+const validation = validateSchema(userSchema, user);
+console.log(validation); // { isValid: true, errors: [] }</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoSchemaValidation()">Run Demo</button>
+                    <div id="schema-validation-result" class="result"></div>
+                </section>
+            </div>
+
+            <!-- Examples Tab -->
+            <div id="examples" class="tab-content">
+                <h2>Real-World Examples</h2>
+                
+                <section class="utility-section">
+                    <h3>Data Processing Pipeline</h3>
+                    <div class="code-example">
+                        <pre><code>// Data processing with composition
+const processUsers = createPipeline()
+    .addStep(users => users.filter(user => user.active))
+    .addStep(users => users.map(user => ({ ...user, processed: true })))
+    .addStep(users => users.sort((a, b) => a.name.localeCompare(b.name)));
+
+const users = [
+    { name: "John", email: "john@example.com", age: 30, active: true },
+    { name: "Jane", email: "jane@example.com", age: 25, active: false },
+    { name: "Bob", email: "bob@example.com", age: 35, active: true }
+];
+
+const processedUsers = processUsers(users);
+console.log(processedUsers);</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoDataProcessing()">Run Demo</button>
+                    <div id="data-processing-result" class="result"></div>
+                </section>
+
+                <section class="utility-section">
+                    <h3>API Request Builder</h3>
+                    <div class="code-example">
+                        <pre><code>// API request builder
+const api = createApiBuilder()
+    .baseURL('https://api.example.com')
+    .header('Content-Type', 'application/json')
+    .header('Authorization', 'Bearer token')
+    .timeout(10000)
+    .build();
+
+const getUsers = () => api('/users');
+const createUser = (userData) => api('/users', {
+    method: 'POST',
+    body: JSON.stringify(userData)
+});</code></pre>
+                    </div>
+                    <button class="demo-button" onclick="demoApiBuilder()">Run Demo</button>
+                    <div id="api-builder-result" class="result"></div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <p>Level 3 Mini-Project: Functional Programming Utility Library</p>
+            <p>Master JavaScript Functions, Closures, and Composition</p>
+        </footer>
+    </div>
+
+    <script src="src/index.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

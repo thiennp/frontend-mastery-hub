@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Composition & Currying Examples - Level 3</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .example {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .example h3 {
+            color: #495057;
+            margin-top: 0;
+        }
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .output {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .function-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .function-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .function-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        .highlight {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            color: #856404;
+        }
+        .pipeline {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            color: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Function Composition & Currying Examples</h1>
+        <p>This page demonstrates function composition and currying techniques for building complex logic from simple functions.</p>
+
+        <div class="function-types">
+            <div class="function-card">
+                <h4>Basic Composition</h4>
+                <p>Combining functions to create new functionality</p>
+                <button onclick="demoBasicComposition()">Run Example</button>
+            </div>
+            <div class="function-card">
+                <h4>Composition Utilities</h4>
+                <p>Compose and pipe functions for different directions</p>
+                <button onclick="demoCompositionUtilities()">Run Example</button>
+            </div>
+            <div class="function-card">
+                <h4>Array Composition</h4>
+                <p>Composing array transformation functions</p>
+                <button onclick="demoArrayComposition()">Run Example</button>
+            </div>
+            <div class="function-card">
+                <h4>Basic Currying</h4>
+                <p>Transforming multi-argument functions</p>
+                <button onclick="demoBasicCurrying()">Run Example</button>
+            </div>
+            <div class="function-card">
+                <h4>Advanced Currying</h4>
+                <p>Placeholders and partial application</p>
+                <button onclick="demoAdvancedCurrying()">Run Example</button>
+            </div>
+            <div class="function-card">
+                <h4>Practical Applications</h4>
+                <p>Real-world composition and currying patterns</p>
+                <button onclick="demoPracticalApplications()">Run Example</button>
+            </div>
+        </div>
+
+        <div id="output" class="output" style="display: none;"></div>
+    </div>
+
+    <script>
+        // Basic Composition
+        function demoBasicComposition() {
+            const output = document.getElementById('output');
+            output.style.display = 'block';
+            
+            // Simple functions
+            function addOne(x) {
+                return x + 1;
+            }
+            
+            function multiplyByTwo(x) {
+                return x * 2;
+            }
+            
+            function square(x) {
+                return x * x;
+            }
+            
+            // Manual composition
+            function composed(x) {
+                return square(multiplyByTwo(addOne(x)));
+            }
+            
+            // Using arrow functions
+            const composedArrow = x => square(multiplyByTwo(addOne(x)));
+            
+            const input = 3;
+            const result1 = composed(input);
+            const result2 = composedArrow(input);
+            
+            // Step-by-step breakdown
+            const step1 = addOne(input);
+            const step2 = multiplyByTwo(step1);
+            const step3 = square(step2);
+            
+            output.textContent = `Basic Composition Demo:
+
+Input: ${input}
+
+Step-by-step:
+1. addOne(${input}) = ${step1}
+2. multiplyByTwo(${step1}) = ${step2}
+3. square(${step2}) = ${step3}
+
+Composed result: ${result1}
+Arrow function result: ${result2}
+
+Composition allows building complex logic from simple functions.`;
+        }
+
+        // Composition Utilities
+        function demoCompositionUtilities() {
+            const output = document.getElementById('output');
+            output.style.display = 'block';
+            
+            // Compose function (right to left)
+            function compose(...functions) {
+                return function(value) {
+                    return functions.reduceRight((acc, fn) => fn(acc), value);
+                };
+            }
+            
+            // Pipe function (left to right)
+            function pipe(...functions) {
+                return function(value) {
+                    return functions.reduce((acc, fn) => fn(acc), value);
+                };
+            }
+            
+            // Test functions
+            function addOne(x) {
+                console.log(`addOne(${x}) = ${x + 1}`);
+                return x + 1;
+            }
+            
+            function multiplyByTwo(x) {
+                console.log(`multiplyByTwo(${x}) = ${x * 2}`);
+                return x * 2;
+            }
+            
+            function square(x) {
+                console.log(`square(${x}) = ${x * x}`);
+                return x * x;
+            }
+            
+            // Using compose (right to left)
+            const composed = compose(square, multiplyByTwo, addOne);
+            
+            // Using pipe (left to right)
+            const piped = pipe(addOne, multiplyByTwo, square);
+            
+            const input = 3;
+            const composedResult = composed(input);
+            const pipedResult = piped(input);
+            
+            output.textContent = `Composition Utilities Demo:
+
+Input: ${input}
+
+Compose (right to left):
+- Functions: square, multiplyByTwo, addOne
+- Execution order: addOne → multiplyByTwo → square
+- Result: ${composedResult}
+
+Pipe (left to right):
+- Functions: addOne, multiplyByTwo, square
+- Execution order: addOne → multiplyByTwo → square
+- Result: ${pipedResult}
+
+Both give the same result: ((3 + 1) * 2)² = 64
+Check console for step-by-step execution.`;
+        }
+
+        // Array Composition
+        function demoArrayComposition() {
+            const output = document.getElementById('output');
+            output.style.display = 'block';
+            
+            // Array transformation functions
+            function map(fn) {
+                return function(array) {
+                    return array.map(fn);
+                };
+            }
+            
+            function filter(predicate) {
+                return function(array) {
+                    return array.filter(predicate);
+                };
+            }
+            
+            function reduce(reducer, initialValue) {
+                return function(array) {
+                    return array.reduce(reducer, initialValue);
+                };
+            }
+            
+            function sort(compareFn) {
+                return function(array) {
+                    return [...array].sort(compareFn);
+                };
+            }
+            
+            // Composing array operations
+            function pipe(...functions) {
+                return function(value) {
+                    return functions.reduce((acc, fn) => fn(acc), value);
+                };
+            }
+            
+            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            
+            // Different composition patterns
+            const processNumbers1 = pipe(
+                filter(x => x % 2 === 0),
+                map(x => x * x),
+                reduce((acc, x) => acc + x, 0)
+            );
+            
+            const processNumbers2 = pipe(
+                filter(x => x > 5),
+                map(x => x * 2),
+                sort((a, b) => b - a)
+            );
+            
+            const processNumbers3 = pipe(
+                map(x => x * x),
+                filter(x => x > 20),
+                reduce((acc, x) => acc + x, 0)
+            );
+            
+            const result1 = processNumbers1(numbers);
+            const result2 = processNumbers2(numbers);
+            const result3 = processNumbers3(numbers);
+            
+            output.textContent = `Array Composition Demo:
+
+Original array: [${numbers.join(', ')}]
+
+Pipeline 1 (evens squared and summed):
+- Filter evens: [2, 4, 6, 8, 10]
+- Square each: [4, 16, 36, 64, 100]
+- Sum all: ${result1}
+
+Pipeline 2 (greater than 5, doubled, sorted desc):
+- Filter > 5: [6, 7, 8, 9, 10]
+- Double each: [12, 14, 16, 18, 20]
+- Sort desc: [${result2.join(', ')}]
+
+Pipeline 3 (squared, greater than 20, summed):
+- Square each: [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+- Filter > 20: [25, 36, 49, 64, 81, 100]
+- Sum all: ${result3}
+
+Array composition enables powerful data transformation pipelines.`;
+        }
+
+        // Basic Currying
+        function demoBasicCurrying() {
+            const output = document.getElementById('output');
+            output.style.display = 'block';
+            
+            // Non-curried function
+            function add(a, b, c) {
+                return a + b + c;
+            }
+            
+            // Manual currying
+            function curriedAdd(a) {
+                return function(b) {
+                    return function(c) {
+                        return a + b + c;
+                    };
+                };
+            }
+            
+            // Auto-currying
+            function curry(fn) {
+                return function curried(...args) {
+                    if (args.length >= fn.length) {
+                        return fn(...args);
+                    }
+                    return function(...nextArgs) {
+                        return curried(...args, ...nextArgs);
+                    };
+                };
+            }
+            
+            const curriedAdd = curry(add);
+            
+            // Using curried functions
+            const result1 = curriedAdd(1)(2)(3);
+            const result2 = curriedAdd(1, 2)(3);
+            const result3 = curriedAdd(1)(2, 3);
+            const result4 = curriedAdd(1, 2, 3);
+            
+            // Partial application
+            const add5 = curriedAdd(5);
+            const add5And10 = add5(10);
+            const finalResult = add5And10(3);
+            
+            // Different function example
+            function multiply(a, b, c) {
+                return a * b * c;
+            }
+            
+            const curriedMultiply = curry(multiply);
+            const multiplyBy2 = curriedMultiply(2);
+            const multiplyBy2And3 = multiplyBy2(3);
+            const multiplyResult = multiplyBy2And3(4);
+            
+            output.textContent = `Basic Currying Demo:
+
+Non-curried function:
+- add(1, 2, 3) = ${add(1, 2, 3)}
+
+Curried function:
+- curriedAdd(1)(2)(3) = ${result1}
+- curriedAdd(1, 2)(3) = ${result2}
+- curriedAdd(1)(2, 3) = ${result3}
+- curriedAdd(1, 2, 3) = ${result4}
+
+Partial Application:
+- add5 = curriedAdd(5)
+- add5And10 = add5(10)
+- add5And10(3) = ${finalResult}
+
+Multiply Example:
+- multiply(2, 3, 4) = ${multiplyResult}
+
+Currying enables partial application and function specialization.`;
+        }
+
+        // Advanced Currying
+        function demoAdvancedCurrying() {
+            const output = document.getElementById('output');
+            output.style.display = 'block';
+            
+            // Currying with placeholder support
+            function curryWithPlaceholder(fn) {
+                return function curried(...args) {
+                    const hasPlaceholder = args.some(arg => arg === curryWithPlaceholder.placeholder);
+                    
+                    if (args.length >= fn.length && !hasPlaceholder) {
+                        return fn(...args);
+                    }
+                    
+                    return function(...nextArgs) {
+                        const newArgs = args.map(arg => 
+                            arg === curryWithPlaceholder.placeholder ? nextArgs.shift() : arg
+                        );
+                        return curried(...newArgs, ...nextArgs);
+                    };
+                };
+            }
+            
+            curryWithPlaceholder.placeholder = Symbol('placeholder');
+            const _ = curryWithPlaceholder.placeholder;
+            
+            // Test function
+            function add(a, b, c) {
+                return a + b + c;
+            }
+            
+            const curriedWithPlaceholder = curryWithPlaceholder(add);
+            
+            // Using placeholder currying
+            const addToMiddle = curriedWithPlaceholder(_, 2, _);
+            const result1 = addToMiddle(1, 3);
+            
+            const addToEnd = curriedWithPlaceholder(1, 2, _);
+            const result2 = addToEnd(3);
+            
+            // Currying with default values
+            function curryWithDefaults(fn, defaults = {}) {
+                return function curried(...args) {
+                    const mergedArgs = { ...defaults, ...args };
+                    
+                    if (Object.keys(mergedArgs).length >= fn.length) {
+                        return fn(...Object.values(mergedArgs));
+                    }
+                    
+                    return function(...nextArgs) {
+                        return curried(...nextArgs);
+                    };
+                };
+            }
+            
+            function createUser(name, age, email, isActive = true) {
+                return { name, age, email, isActive };
+            }
+            
+            const curriedCreateUser = curryWithDefaults(createUser, { isActive: true });
+            const createActiveUser = curriedCreateUser(_, _, _);
+            const user = createActiveUser("John", 30, "john@example.com");
+            
+            output.textContent = `Advanced Currying Demo:
+
+Placeholder Currying:
+- add(_, 2, _) with (1, 3) = ${result1}
+- add(1, 2, _) with (3) = ${result2}
+
+Default Values:
+- createUser with defaults: ${JSON.stringify(user, null, 2)}
+
+Advanced currying features:
+1. Placeholder support for flexible argument positioning
+2. Default values for common parameters
+3. Partial application with any argument combination
+4. Function specialization and customization
+
+Currying enables powerful function composition patterns.`;
+        }
+
+        // Practical Applications
+        function demoPracticalApplications() {
+            const output = document.getElementById('output');
+            output.style.display = 'block';
+            
+            // Data processing pipeline
+            function createDataProcessor() {
+                const steps = [];
+                
+                return {
+                    addStep: function(step) {
+                        steps.push(step);
+                        return this;
+                    },
+                    process: function(data) {
+                        return steps.reduce((acc, step) => step(acc), data);
+                    }
+                };
+            }
+            
+            // Processing steps
+            const processor = createDataProcessor()
+                .addStep(data => data.filter(item => item && item.id))
+                .addStep(data => data.map(item => ({ ...item, timestamp: new Date() })))
+                .addStep(data => data.sort((a, b) => a.id - b.id));
+            
+            const rawData = [
+                { id: 3, name: "John" },
+                { id: 1, name: "Jane" },
+                { id: 2, name: "Bob" },
+                null,
+                { id: 4, name: "Alice" }
+            ];
+            
+            const processedData = processor.process(rawData);
+            
+            // API request builder
+            function createApiBuilder() {
+                let config = {
+                    baseURL: '',
+                    headers: {},
+                    timeout: 5000
+                };
+                
+                return {
+                    baseURL: function(url) {
+                        config.baseURL = url;
+                        return this;
+                    },
+                    header: function(key, value) {
+                        config.headers[key] = value;
+                        return this;
+                    },
+                    timeout: function(ms) {
+                        config.timeout = ms;
+                        return this;
+                    },
+                    build: function() {
+                        return function(endpoint, options = {}) {
+                            const url = `${config.baseURL}${endpoint}`;
+                            const requestConfig = {
+                                ...config,
+                                ...options,
+                                headers: { ...config.headers, ...options.headers }
+                            };
+                            
+                            return {
+                                url,
+                                config: requestConfig,
+                                method: requestConfig.method || 'GET'
+                            };
+                        };
+                    }
+                };
+            }
+            
+            const api = createApiBuilder()
+                .baseURL('https://api.example.com')
+                .header('Content-Type', 'application/json')
+                .header('Authorization', 'Bearer token')
+                .timeout(10000)
+                .build();
+            
+            const getUsers = () => api('/users');
+            const createUser = (userData) => api('/users', {
+                method: 'POST',
+                body: JSON.stringify(userData)
+            });
+            
+            // Validation pipeline
+            function createValidator() {
+                const rules = [];
+                
+                return {
+                    addRule: function(rule) {
+                        rules.push(rule);
+                        return this;
+                    },
+                    validate: function(data) {
+                        const errors = [];
+                        
+                        for (const rule of rules) {
+                            try {
+                                rule(data);
+                            } catch (error) {
+                                errors.push(error.message);
+                            }
+                        }
+                        
+                        return {
+                            isValid: errors.length === 0,
+                            errors
+                        };
+                    }
+                };
+            }
+            
+            const userValidator = createValidator()
+                .addRule(data => {
+                    if (!data.name || data.name.length === 0) {
+                        throw new Error('Name is required');
+                    }
+                })
+                .addRule(data => {
+                    if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+                        throw new Error('Valid email is required');
+                    }
+                })
+                .addRule(data => {
+                    if (!data.age || data.age < 18) {
+                        throw new Error('Age must be at least 18');
+                    }
+                });
+            
+            const user = { name: "John", email: "john@example.com", age: 30 };
+            const validation = userValidator.validate(user);
+            
+            output.textContent = `Practical Applications Demo:
+
+Data Processing Pipeline:
+- Original data: ${JSON.stringify(rawData, null, 2)}
+- Processed data: ${JSON.stringify(processedData, null, 2)}
+
+API Request Builder:
+- GET /users: ${JSON.stringify(getUsers(), null, 2)}
+- POST /users: ${JSON.stringify(createUser({ name: "John" }), null, 2)}
+
+Validation Pipeline:
+- User data: ${JSON.stringify(user, null, 2)}
+- Validation result: ${JSON.stringify(validation, null, 2)}
+
+Composition and currying enable:
+1. Data processing pipelines
+2. API request builders
+3. Validation systems
+4. Plugin architectures
+5. Functional programming patterns
+6. Code reuse and modularity`;
+        }
+    </script>
+</body>
+</html>
+

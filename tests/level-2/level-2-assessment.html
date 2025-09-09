@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 2 Assessment - JavaScript Control Flow & Data Modeling</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .assessment {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #007bff;
+        }
+        .question {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .question h3 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .code-block {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            border: 1px solid #e9ecef;
+            overflow-x: auto;
+        }
+        .answer-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-size: 16px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .button.secondary {
+            background: #6c757d;
+        }
+        .button.secondary:hover {
+            background: #545b62;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .result.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .result.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .score {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .score h2 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <h1>Level 2 Assessment: JavaScript Control Flow & Data Modeling</h1>
+    <p>Test your understanding of control flow, data structures, object-oriented programming, functional programming, and error handling.</p>
+    
+    <div class="score">
+        <h2>Your Score</h2>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <p id="scoreText">0 / 0 questions answered</p>
+    </div>
+
+    <div class="assessment">
+        <h2>Multiple Choice Questions</h2>
+        
+        <div class="question">
+            <h3>Question 1: Control Flow</h3>
+            <p>What will be the output of the following code?</p>
+            <div class="code-block">
+let x = 10;
+if (x > 5) {
+    console.log("A");
+} else if (x > 8) {
+    console.log("B");
+} else {
+    console.log("C");
+}
+            </div>
+            <select class="answer-input" id="q1">
+                <option value="">Select an answer</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="undefined">undefined</option>
+            </select>
+            <div id="q1-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="question">
+            <h3>Question 2: Arrays</h3>
+            <p>Which array method creates a new array with all elements that pass a test?</p>
+            <select class="answer-input" id="q2">
+                <option value="">Select an answer</option>
+                <option value="map">map()</option>
+                <option value="filter">filter()</option>
+                <option value="reduce">reduce()</option>
+                <option value="forEach">forEach()</option>
+            </select>
+            <div id="q2-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="question">
+            <h3>Question 3: Objects</h3>
+            <p>What is the correct way to access a property with a space in its name?</p>
+            <div class="code-block">
+let person = { "full name": "John Doe" };
+            </div>
+            <select class="answer-input" id="q3">
+                <option value="">Select an answer</option>
+                <option value="person.full name">person.full name</option>
+                <option value="person['full name']">person['full name']</option>
+                <option value="person.full_name">person.full_name</option>
+                <option value="person[full name]">person[full name]</option>
+            </select>
+            <div id="q3-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="question">
+            <h3>Question 4: Classes</h3>
+            <p>What keyword is used to call the parent class constructor?</p>
+            <select class="answer-input" id="q4">
+                <option value="">Select an answer</option>
+                <option value="parent">parent</option>
+                <option value="super">super</option>
+                <option value="this">this</option>
+                <option value="extends">extends</option>
+            </select>
+            <div id="q4-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="question">
+            <h3>Question 5: Functional Programming</h3>
+            <p>Which characteristic makes a function "pure"?</p>
+            <select class="answer-input" id="q5">
+                <option value="">Select an answer</option>
+                <option value="no-side-effects">No side effects and same input always produces same output</option>
+                <option value="uses-arrow-syntax">Uses arrow function syntax</option>
+                <option value="returns-value">Always returns a value</option>
+                <option value="takes-parameters">Takes parameters</option>
+            </select>
+            <div id="q5-result" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div class="assessment">
+        <h2>Coding Challenges</h2>
+        
+        <div class="question">
+            <h3>Challenge 1: Array Processing</h3>
+            <p>Write a function that takes an array of numbers and returns an object with the sum, average, and count of even numbers.</p>
+            <div class="code-block">
+function processNumbers(numbers) {
+    // Your code here
+}
+            </div>
+            <textarea class="answer-input" id="c1" rows="10" placeholder="Write your solution here..."></textarea>
+            <button class="button" onclick="testChallenge1()">Test Solution</button>
+            <div id="c1-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="question">
+            <h3>Challenge 2: Class Implementation</h3>
+            <p>Create a BankAccount class with deposit, withdraw, and getBalance methods. Include proper error handling.</p>
+            <div class="code-block">
+class BankAccount {
+    // Your code here
+}
+            </div>
+            <textarea class="answer-input" id="c2" rows="15" placeholder="Write your solution here..."></textarea>
+            <button class="button" onclick="testChallenge2()">Test Solution</button>
+            <div id="c2-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="question">
+            <h3>Challenge 3: Functional Programming</h3>
+            <p>Write a function that takes an array of objects and returns a new array with only the objects that have a specific property value, using functional programming principles.</p>
+            <div class="code-block">
+function filterByProperty(objects, property, value) {
+    // Your code here
+}
+            </div>
+            <textarea class="answer-input" id="c3" rows="8" placeholder="Write your solution here..."></textarea>
+            <button class="button" onclick="testChallenge3()">Test Solution</button>
+            <div id="c3-result" class="result" style="display: none;"></div>
+        </div>
+
+        <div class="question">
+            <h3>Challenge 4: Error Handling</h3>
+            <p>Create a function that validates user input and throws appropriate custom errors for different validation failures.</p>
+            <div class="code-block">
+function validateUser(user) {
+    // Your code here
+}
+            </div>
+            <textarea class="answer-input" id="c4" rows="12" placeholder="Write your solution here..."></textarea>
+            <button class="button" onclick="testChallenge4()">Test Solution</button>
+            <div id="c4-result" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div class="assessment">
+        <h2>Practical Application</h2>
+        
+        <div class="question">
+            <h3>Final Challenge: Task Manager</h3>
+            <p>Implement a simple task manager with the following requirements:</p>
+            <ul>
+                <li>Create a Task class with properties: id, title, description, priority, status, createdAt</li>
+                <li>Create a TaskManager class that can add, remove, update, and list tasks</li>
+                <li>Include filtering by status and priority</li>
+                <li>Include proper error handling</li>
+                <li>Use functional programming principles where appropriate</li>
+            </ul>
+            <textarea class="answer-input" id="final" rows="20" placeholder="Write your complete solution here..."></textarea>
+            <button class="button" onclick="testFinalChallenge()">Test Solution</button>
+            <div id="final-result" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <button class="button" onclick="submitAssessment()">Submit Assessment</button>
+        <button class="button secondary" onclick="resetAssessment()">Reset</button>
+    </div>
+
+    <script>
+        // Assessment state
+        let answers = {
+            q1: '', q2: '', q3: '', q4: '', q5: '',
+            c1: '', c2: '', c3: '', c4: '', final: ''
+        };
+        
+        let scores = {
+            multipleChoice: 0,
+            coding: 0,
+            total: 0
+        };
+
+        // Multiple choice answers
+        const correctAnswers = {
+            q1: 'A',
+            q2: 'filter',
+            q3: "person['full name']",
+            q4: 'super',
+            q5: 'no-side-effects'
+        };
+
+        // Event listeners for multiple choice questions
+        document.querySelectorAll('.answer-input').forEach(input => {
+            if (input.tagName === 'SELECT') {
+                input.addEventListener('change', function() {
+                    checkMultipleChoice(this.id);
+                });
+            }
+        });
+
+        function checkMultipleChoice(questionId) {
+            const answer = document.getElementById(questionId).value;
+            const resultDiv = document.getElementById(questionId + '-result');
+            
+            if (answer === correctAnswers[questionId]) {
+                resultDiv.className = 'result correct';
+                resultDiv.textContent = 'Correct!';
+                resultDiv.style.display = 'block';
+                if (!answers[questionId]) {
+                    scores.multipleChoice++;
+                }
+            } else if (answer) {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Incorrect. Try again.';
+                resultDiv.style.display = 'block';
+            }
+            
+            answers[questionId] = answer;
+            updateScore();
+        }
+
+        function testChallenge1() {
+            const code = document.getElementById('c1').value;
+            const resultDiv = document.getElementById('c1-result');
+            
+            try {
+                // Create a safe evaluation context
+                const func = new Function('numbers', code + '; return processNumbers;');
+                const processNumbers = func();
+                
+                // Test cases
+                const test1 = processNumbers([1, 2, 3, 4, 5]);
+                const test2 = processNumbers([2, 4, 6, 8]);
+                const test3 = processNumbers([1, 3, 5]);
+                
+                const expected1 = { sum: 15, average: 3, evenCount: 2 };
+                const expected2 = { sum: 20, average: 5, evenCount: 4 };
+                const expected3 = { sum: 9, average: 3, evenCount: 0 };
+                
+                let passed = 0;
+                let total = 3;
+                
+                if (JSON.stringify(test1) === JSON.stringify(expected1)) passed++;
+                if (JSON.stringify(test2) === JSON.stringify(expected2)) passed++;
+                if (JSON.stringify(test3) === JSON.stringify(expected3)) passed++;
+                
+                if (passed === total) {
+                    resultDiv.className = 'result correct';
+                    resultDiv.textContent = `Excellent! All tests passed (${passed}/${total})`;
+                    scores.coding += 2;
+                } else {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = `Some tests failed (${passed}/${total}). Check your logic.`;
+                }
+                
+                resultDiv.style.display = 'block';
+                answers.c1 = code;
+                updateScore();
+                
+            } catch (error) {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = `Error: ${error.message}`;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        function testChallenge2() {
+            const code = document.getElementById('c2').value;
+            const resultDiv = document.getElementById('c2-result');
+            
+            try {
+                // Create a safe evaluation context
+                const func = new Function(code + '; return BankAccount;');
+                const BankAccount = func();
+                
+                // Test cases
+                const account = new BankAccount(1000);
+                
+                let passed = 0;
+                let total = 4;
+                
+                // Test initial balance
+                if (account.getBalance() === 1000) passed++;
+                
+                // Test deposit
+                account.deposit(500);
+                if (account.getBalance() === 1500) passed++;
+                
+                // Test withdraw
+                account.withdraw(200);
+                if (account.getBalance() === 1300) passed++;
+                
+                // Test error handling
+                try {
+                    account.withdraw(2000);
+                } catch (error) {
+                    if (error.message.includes('Insufficient') || error.message.includes('insufficient')) {
+                        passed++;
+                    }
+                }
+                
+                if (passed === total) {
+                    resultDiv.className = 'result correct';
+                    resultDiv.textContent = `Great! All tests passed (${passed}/${total})`;
+                    scores.coding += 2;
+                } else {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = `Some tests failed (${passed}/${total}). Check your implementation.`;
+                }
+                
+                resultDiv.style.display = 'block';
+                answers.c2 = code;
+                updateScore();
+                
+            } catch (error) {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = `Error: ${error.message}`;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        function testChallenge3() {
+            const code = document.getElementById('c3').value;
+            const resultDiv = document.getElementById('c3-result');
+            
+            try {
+                // Create a safe evaluation context
+                const func = new Function('objects', 'property', 'value', code + '; return filterByProperty;');
+                const filterByProperty = func();
+                
+                // Test cases
+                const objects = [
+                    { name: 'John', age: 30, city: 'New York' },
+                    { name: 'Jane', age: 25, city: 'Boston' },
+                    { name: 'Bob', age: 30, city: 'Chicago' }
+                ];
+                
+                const result1 = filterByProperty(objects, 'age', 30);
+                const result2 = filterByProperty(objects, 'city', 'Boston');
+                
+                let passed = 0;
+                let total = 2;
+                
+                if (result1.length === 2 && result1.every(obj => obj.age === 30)) passed++;
+                if (result2.length === 1 && result2[0].name === 'Jane') passed++;
+                
+                if (passed === total) {
+                    resultDiv.className = 'result correct';
+                    resultDiv.textContent = `Perfect! All tests passed (${passed}/${total})`;
+                    scores.coding += 2;
+                } else {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = `Some tests failed (${passed}/${total}). Check your filtering logic.`;
+                }
+                
+                resultDiv.style.display = 'block';
+                answers.c3 = code;
+                updateScore();
+                
+            } catch (error) {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = `Error: ${error.message}`;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        function testChallenge4() {
+            const code = document.getElementById('c4').value;
+            const resultDiv = document.getElementById('c4-result');
+            
+            try {
+                // Create a safe evaluation context
+                const func = new Function('user', code + '; return validateUser;');
+                const validateUser = func();
+                
+                let passed = 0;
+                let total = 4;
+                
+                // Test valid user
+                try {
+                    validateUser({ name: 'John', email: 'john@example.com', age: 30 });
+                    passed++;
+                } catch (error) {
+                    // Should not throw error
+                }
+                
+                // Test missing name
+                try {
+                    validateUser({ email: 'john@example.com', age: 30 });
+                } catch (error) {
+                    if (error.message.includes('name') || error.message.includes('Name')) {
+                        passed++;
+                    }
+                }
+                
+                // Test invalid email
+                try {
+                    validateUser({ name: 'John', email: 'invalid-email', age: 30 });
+                } catch (error) {
+                    if (error.message.includes('email') || error.message.includes('Email')) {
+                        passed++;
+                    }
+                }
+                
+                // Test negative age
+                try {
+                    validateUser({ name: 'John', email: 'john@example.com', age: -5 });
+                } catch (error) {
+                    if (error.message.includes('age') || error.message.includes('Age')) {
+                        passed++;
+                    }
+                }
+                
+                if (passed === total) {
+                    resultDiv.className = 'result correct';
+                    resultDiv.textContent = `Excellent! All tests passed (${passed}/${total})`;
+                    scores.coding += 2;
+                } else {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = `Some tests failed (${passed}/${total}). Check your validation logic.`;
+                }
+                
+                resultDiv.style.display = 'block';
+                answers.c4 = code;
+                updateScore();
+                
+            } catch (error) {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = `Error: ${error.message}`;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        function testFinalChallenge() {
+            const code = document.getElementById('final').value;
+            const resultDiv = document.getElementById('final-result');
+            
+            try {
+                // Create a safe evaluation context
+                const func = new Function(code + '; return { Task, TaskManager };');
+                const { Task, TaskManager } = func();
+                
+                let passed = 0;
+                let total = 6;
+                
+                // Test Task class
+                const task = new Task('Test Task', 'Test Description', 'high', 'pending');
+                if (task.title === 'Test Task' && task.priority === 'high') passed++;
+                
+                // Test TaskManager class
+                const manager = new TaskManager();
+                if (typeof manager.addTask === 'function') passed++;
+                
+                // Test adding task
+                const addedTask = manager.addTask(task);
+                if (addedTask && manager.tasks.length === 1) passed++;
+                
+                // Test updating task
+                if (typeof manager.updateTask === 'function') passed++;
+                
+                // Test filtering
+                if (typeof manager.filterTasks === 'function' || typeof manager.getTasks === 'function') passed++;
+                
+                // Test error handling
+                try {
+                    manager.addTask({});
+                } catch (error) {
+                    passed++;
+                }
+                
+                if (passed >= 4) {
+                    resultDiv.className = 'result correct';
+                    resultDiv.textContent = `Great work! Passed ${passed}/${total} tests.`;
+                    scores.coding += 3;
+                } else {
+                    resultDiv.className = 'result incorrect';
+                    resultDiv.textContent = `Passed ${passed}/${total} tests. Keep working on it!`;
+                }
+                
+                resultDiv.style.display = 'block';
+                answers.final = code;
+                updateScore();
+                
+            } catch (error) {
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = `Error: ${error.message}`;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        function updateScore() {
+            scores.total = scores.multipleChoice + scores.coding;
+            const totalQuestions = 5 + 5; // 5 multiple choice + 5 coding challenges
+            
+            document.getElementById('scoreText').textContent = `${scores.total} / ${totalQuestions} points`;
+            document.getElementById('progressFill').style.width = `${(scores.total / totalQuestions) * 100}%`;
+        }
+
+        function submitAssessment() {
+            const totalQuestions = 5 + 5;
+            const percentage = (scores.total / totalQuestions) * 100;
+            
+            let message = `Assessment Complete!\n\n`;
+            message += `Multiple Choice: ${scores.multipleChoice}/5\n`;
+            message += `Coding Challenges: ${scores.coding}/5\n`;
+            message += `Total Score: ${scores.total}/${totalQuestions} (${percentage.toFixed(1)}%)\n\n`;
+            
+            if (percentage >= 80) {
+                message += `🎉 Excellent! You've mastered Level 2 concepts!`;
+            } else if (percentage >= 60) {
+                message += `👍 Good job! Review the areas you missed and try again.`;
+            } else {
+                message += `📚 Keep studying! Review the Level 2 materials and practice more.`;
+            }
+            
+            alert(message);
+        }
+
+        function resetAssessment() {
+            // Reset all answers
+            document.querySelectorAll('.answer-input').forEach(input => {
+                input.value = '';
+            });
+            
+            // Hide all results
+            document.querySelectorAll('.result').forEach(result => {
+                result.style.display = 'none';
+            });
+            
+            // Reset scores
+            scores = { multipleChoice: 0, coding: 0, total: 0 };
+            answers = {
+                q1: '', q2: '', q3: '', q4: '', q5: '',
+                c1: '', c2: '', c3: '', c4: '', final: ''
+            };
+            
+            updateScore();
+        }
+
+        // Initialize
+        updateScore();
+    </script>
+</body>
+</html>
+

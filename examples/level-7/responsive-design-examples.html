@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 7: Responsive Design Examples</title>
+    <style>
+        /* CSS Custom Properties */
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #6c757d;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --border-radius: 8px;
+            --spacing-unit: 8px;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem 0;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            font-size: clamp(1.25rem, 3vw, 2rem);
+        }
+
+        /* Fluid Typography */
+        .fluid-typography {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .fluid-heading {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .fluid-text {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .fluid-small {
+            font-size: clamp(0.875rem, 2vw, 1rem);
+            color: var(--secondary-color);
+        }
+
+        /* Media Query Examples */
+        .media-query-demo {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .responsive-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+
+        .responsive-item {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-size: clamp(0.875rem, 2vw, 1rem);
+        }
+
+        /* Container Query Examples */
+        .container-query-demo {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .card-container {
+            container-type: inline-size;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-color), var(--success-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .card-text {
+            color: var(--secondary-color);
+            line-height: 1.6;
+        }
+
+        /* Container query styles */
+        @container (min-width: 300px) {
+            .card {
+                display: flex;
+                flex-direction: row;
+            }
+            
+            .card-image {
+                width: 200px;
+                height: 150px;
+                flex-shrink: 0;
+            }
+            
+            .card-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
+        @container (min-width: 600px) {
+            .card {
+                display: block;
+            }
+            
+            .card-image {
+                width: 100%;
+                height: 250px;
+            }
+        }
+
+        /* Responsive Navigation */
+        .nav-demo {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--primary-color);
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+        }
+
+        .nav-brand {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive Images */
+        .image-demo {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .responsive-image {
+            width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .image-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Responsive Forms */
+        .form-demo {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: var(--font-family);
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+        }
+
+        .form-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-family: var(--font-family);
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .form-button:hover {
+            background: #0052a3;
+        }
+
+        /* Responsive Tables */
+        .table-demo {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .table tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Responsive Design Patterns */
+        .pattern-demo {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin: 1rem 0;
+        }
+
+        .pattern-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .pattern-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .pattern-description {
+            color: var(--secondary-color);
+            line-height: 1.6;
+        }
+
+        /* Media Queries */
+        @media (min-width: 768px) {
+            .responsive-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+            
+            .form .form-group:last-child {
+                grid-column: 1 / -1;
+            }
+            
+            .pattern-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .responsive-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .pattern-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+            
+            .nav-toggle {
+                display: block;
+            }
+            
+            .table {
+                font-size: 0.875rem;
+            }
+            
+            .table th,
+            .table td {
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #4dabf7;
+                --secondary-color: #adb5bd;
+                --success-color: #51cf66;
+                --warning-color: #ffd43b;
+                --error-color: #ff6b6b;
+            }
+            
+            body {
+                background: #1a1a1a;
+                color: #ffffff;
+            }
+            
+            .card,
+            .fluid-typography,
+            .media-query-demo,
+            .container-query-demo,
+            .nav-demo,
+            .image-demo,
+            .form-demo,
+            .table-demo,
+            .pattern-demo {
+                background: #2d2d2d;
+                color: #ffffff;
+            }
+            
+            .form-input {
+                background: #3d3d3d;
+                border-color: #555;
+                color: #ffffff;
+            }
+            
+            .table th {
+                background: var(--primary-color);
+            }
+            
+            .table tr:hover {
+                background: #3d3d3d;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Level 7: Responsive Design Examples</h1>
+        
+        <!-- Fluid Typography -->
+        <section class="fluid-typography">
+            <h2>Fluid Typography</h2>
+            <p>This section demonstrates fluid typography using clamp() and viewport units.</p>
+            
+            <h3 class="fluid-heading">Responsive Heading</h3>
+            <p class="fluid-text">This text scales smoothly between different screen sizes using clamp(). The font size adapts from 1rem to 1.25rem based on viewport width.</p>
+            <p class="fluid-small">Small text that also scales responsively for optimal readability.</p>
+        </section>
+
+        <!-- Media Query Examples -->
+        <section class="media-query-demo">
+            <h2>Media Query Examples</h2>
+            <p>This grid demonstrates responsive behavior using media queries.</p>
+            
+            <div class="responsive-grid">
+                <div class="responsive-item">Mobile: 1 column</div>
+                <div class="responsive-item">Tablet: 2 columns</div>
+                <div class="responsive-item">Desktop: 3 columns</div>
+                <div class="responsive-item">Responsive Item 4</div>
+                <div class="responsive-item">Responsive Item 5</div>
+                <div class="responsive-item">Responsive Item 6</div>
+            </div>
+        </section>
+
+        <!-- Container Query Examples -->
+        <section class="container-query-demo">
+            <h2>Container Query Examples</h2>
+            <p>These cards demonstrate container queries for component-level responsiveness.</p>
+            
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-image">Image 1</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Card Title 1</h3>
+                        <p class="card-text">This card adapts its layout based on container size using container queries.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-image">Image 2</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Card Title 2</h3>
+                        <p class="card-text">When the container is wide enough, cards display in a row layout.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-image">Image 3</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Card Title 3</h3>
+                        <p class="card-text">When the container is narrow, cards stack vertically.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Responsive Navigation -->
+        <section class="nav-demo">
+            <h2>Responsive Navigation</h2>
+            <p>This navigation adapts to different screen sizes using Flexbox and media queries.</p>
+            
+            <nav class="nav">
+                <a href="#" class="nav-brand">Brand</a>
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link">Home</a></li>
+                    <li><a href="#" class="nav-link">About</a></li>
+                    <li><a href="#" class="nav-link">Services</a></li>
+                    <li><a href="#" class="nav-link">Contact</a></li>
+                </ul>
+                <button class="nav-toggle">☰</button>
+            </nav>
+        </section>
+
+        <!-- Responsive Images -->
+        <section class="image-demo">
+            <h2>Responsive Images</h2>
+            <p>These images demonstrate responsive image techniques.</p>
+            
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDA2NmNjIi8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5SZXNwb25zaXZlIEltYWdlPC90ZXh0Pgo8L3N2Zz4K" alt="Responsive Image" class="responsive-image">
+            
+            <div class="image-grid">
+                <div class="image-item">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMTBiOTgxIi8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSAxPC90ZXh0Pgo8L3N2Zz4K" alt="Image 1">
+                </div>
+                <div class="image-item">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjU5ZTBiIi8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSAyPC90ZXh0Pgo8L3N2Zz4K" alt="Image 2">
+                </div>
+                <div class="image-item">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZWY0NDQ0Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSAzPC90ZXh0Pgo8L3N2Zz4K" alt="Image 3">
+                </div>
+            </div>
+        </section>
+
+        <!-- Responsive Forms -->
+        <section class="form-demo">
+            <h2>Responsive Forms</h2>
+            <p>This form demonstrates responsive form design patterns.</p>
+            
+            <form class="form">
+                <div class="form-group">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" id="firstName" name="firstName" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" class="form-input" rows="4" required></textarea>
+                </div>
+                
+                <button type="submit" class="form-button">Submit</button>
+            </form>
+        </section>
+
+        <!-- Responsive Tables -->
+        <section class="table-demo">
+            <h2>Responsive Tables</h2>
+            <p>This table demonstrates responsive table design patterns.</p>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>john@example.com</td>
+                        <td>Developer</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith</td>
+                        <td>jane@example.com</td>
+                        <td>Designer</td>
+                        <td>Active</td>
+                    </tr>
+                    <tr>
+                        <td>Bob Johnson</td>
+                        <td>bob@example.com</td>
+                        <td>Manager</td>
+                        <td>Inactive</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Responsive Design Patterns -->
+        <section class="pattern-demo">
+            <h2>Responsive Design Patterns</h2>
+            <p>These patterns demonstrate common responsive design techniques.</p>
+            
+            <div class="pattern-grid">
+                <div class="pattern-item">
+                    <h3 class="pattern-title">Mobile First</h3>
+                    <p class="pattern-description">Start with mobile styles and enhance for larger screens using min-width media queries.</p>
+                </div>
+                
+                <div class="pattern-item">
+                    <h3 class="pattern-title">Fluid Typography</h3>
+                    <p class="pattern-description">Use clamp() and viewport units to create text that scales smoothly across devices.</p>
+                </div>
+                
+                <div class="pattern-item">
+                    <h3 class="pattern-title">Container Queries</h3>
+                    <p class="pattern-description">Use container queries for component-level responsiveness instead of viewport-based breakpoints.</p>
+                </div>
+                
+                <div class="pattern-item">
+                    <h3 class="pattern-title">Flexible Grids</h3>
+                    <p class="pattern-description">Use CSS Grid and Flexbox to create layouts that adapt to different screen sizes.</p>
+                </div>
+                
+                <div class="pattern-item">
+                    <h3 class="pattern-title">Responsive Images</h3>
+                    <p class="pattern-description">Use srcset, sizes, and object-fit to ensure images look great on all devices.</p>
+                </div>
+                
+                <div class="pattern-item">
+                    <h3 class="pattern-title">Accessibility</h3>
+                    <p class="pattern-description">Ensure responsive designs work well with assistive technologies and respect user preferences.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile navigation toggle
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (navToggle && navLinks) {
+                navToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('show');
+                });
+            }
+
+            // Form submission
+            const form = document.querySelector('.form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Form submitted! (This is a demo)');
+                });
+            }
+
+            // Card hover effects
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Image hover effects
+            const imageItems = document.querySelectorAll('.image-item');
+            imageItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    const img = this.querySelector('img');
+                    if (img) {
+                        img.style.transform = 'scale(1.05)';
+                    }
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    const img = this.querySelector('img');
+                    if (img) {
+                        img.style.transform = 'scale(1)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

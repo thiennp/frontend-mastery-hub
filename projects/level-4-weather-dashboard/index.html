@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard - Level 4</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <i class="fas fa-cloud-sun"></i>
+                    Weather Dashboard
+                </h1>
+                <div class="header-controls">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="refresh-btn" id="refreshBtn">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Location Section -->
+            <section class="location-section">
+                <div class="location-search">
+                    <input type="text" id="locationInput" placeholder="Search for a city..." class="location-input">
+                    <button id="searchBtn" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="current-location">
+                    <button id="currentLocationBtn" class="current-location-btn">
+                        <i class="fas fa-location-arrow"></i>
+                        Use Current Location
+                    </button>
+                </div>
+            </section>
+
+            <!-- Loading State -->
+            <div class="loading-state" id="loadingState">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <p>Loading weather data...</p>
+            </div>
+
+            <!-- Error State -->
+            <div class="error-state" id="errorState" style="display: none;">
+                <div class="error-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>Oops! Something went wrong</h3>
+                <p id="errorMessage">Unable to load weather data. Please try again.</p>
+                <button id="retryBtn" class="retry-btn">Try Again</button>
+            </div>
+
+            <!-- Weather Content -->
+            <div class="weather-content" id="weatherContent">
+                <!-- Current Weather -->
+                <section class="current-weather">
+                    <div class="weather-card current-weather-card">
+                        <div class="weather-header">
+                            <h2 class="location-name" id="locationName">Loading...</h2>
+                            <p class="location-details" id="locationDetails">Loading...</p>
+                        </div>
+                        <div class="weather-main">
+                            <div class="weather-icon" id="weatherIcon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <div class="weather-temp">
+                                <span class="temp-value" id="tempValue">--</span>
+                                <span class="temp-unit">°C</span>
+                            </div>
+                            <div class="weather-description" id="weatherDescription">Loading...</div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="detail-item">
+                                <i class="fas fa-eye"></i>
+                                <span class="detail-label">Visibility</span>
+                                <span class="detail-value" id="visibility">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-wind"></i>
+                                <span class="detail-label">Wind</span>
+                                <span class="detail-value" id="windSpeed">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-tint"></i>
+                                <span class="detail-label">Humidity</span>
+                                <span class="detail-value" id="humidity">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-thermometer-half"></i>
+                                <span class="detail-label">Feels Like</span>
+                                <span class="detail-value" id="feelsLike">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Hourly Forecast -->
+                <section class="hourly-forecast">
+                    <h3 class="section-title">Hourly Forecast</h3>
+                    <div class="hourly-list" id="hourlyList">
+                        <!-- Hourly items will be populated here -->
+                    </div>
+                </section>
+
+                <!-- 5-Day Forecast -->
+                <section class="forecast-section">
+                    <h3 class="section-title">5-Day Forecast</h3>
+                    <div class="forecast-list" id="forecastList">
+                        <!-- Forecast items will be populated here -->
+                    </div>
+                </section>
+
+                <!-- Weather Alerts -->
+                <section class="alerts-section" id="alertsSection" style="display: none;">
+                    <h3 class="section-title">Weather Alerts</h3>
+                    <div class="alerts-list" id="alertsList">
+                        <!-- Alerts will be populated here -->
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Weather Dashboard - Level 4 Mini-Project</p>
+            <p>Built with modern JavaScript and Web APIs</p>
+        </footer>
+    </div>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Scripts -->
+    <script src="src/utils/error-handler.js"></script>
+    <script src="src/utils/retry-logic.js"></script>
+    <script src="src/utils/cache-manager.js"></script>
+    <script src="src/utils/performance-monitor.js"></script>
+    <script src="src/api/weather-api.js"></script>
+    <script src="src/api/geolocation-api.js"></script>
+    <script src="src/api/storage-api.js"></script>
+    <script src="src/services/weather-service.js"></script>
+    <script src="src/services/location-service.js"></script>
+    <script src="src/services/notification-service.js"></script>
+    <script src="src/components/weather-card.js"></script>
+    <script src="src/components/forecast-list.js"></script>
+    <script src="src/components/location-search.js"></script>
+    <script src="src/components/theme-toggle.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

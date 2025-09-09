@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 7: Responsive Marketing Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav__container">
+            <div class="nav__brand">
+                <a href="#" class="nav__logo">FrontendHub</a>
+            </div>
+            <ul class="nav__links">
+                <li class="nav__item">
+                    <a href="#features" class="nav__link">Features</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#pricing" class="nav__link">Pricing</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#about" class="nav__link">About</a>
+                </li>
+                <li class="nav__item">
+                    <a href="#contact" class="nav__link">Contact</a>
+                </li>
+            </ul>
+            <button class="nav__toggle" aria-label="Toggle navigation">
+                <span class="nav__hamburger"></span>
+                <span class="nav__hamburger"></span>
+                <span class="nav__hamburger"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero__container">
+            <div class="hero__content">
+                <h1 class="hero__title">
+                    Master Modern CSS with
+                    <span class="hero__title--highlight">Frontend Mastery Hub</span>
+                </h1>
+                <p class="hero__description">
+                    Learn advanced CSS techniques, modern layout systems, and responsive design patterns. 
+                    Build beautiful, performant web applications with confidence.
+                </p>
+                <div class="hero__actions">
+                    <button class="btn btn--primary btn--large">Get Started</button>
+                    <button class="btn btn--outline btn--large">Watch Demo</button>
+                </div>
+            </div>
+            <div class="hero__visual">
+                <div class="hero__card hero__card--1">
+                    <div class="hero__card-content">
+                        <h3>CSS Grid</h3>
+                        <p>Master two-dimensional layouts</p>
+                    </div>
+                </div>
+                <div class="hero__card hero__card--2">
+                    <div class="hero__card-content">
+                        <h3>Flexbox</h3>
+                        <p>Create flexible one-dimensional layouts</p>
+                    </div>
+                </div>
+                <div class="hero__card hero__card--3">
+                    <div class="hero__card-content">
+                        <h3>Animations</h3>
+                        <p>Build smooth, performant animations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="features__container">
+            <div class="features__header">
+                <h2 class="features__title">Why Choose Frontend Mastery Hub?</h2>
+                <p class="features__description">
+                    Our comprehensive curriculum covers everything from CSS fundamentals to advanced animation techniques.
+                </p>
+            </div>
+            <div class="features__grid">
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Modern CSS</h3>
+                    <p class="feature-card__description">
+                        Learn the latest CSS features including Grid, Flexbox, Custom Properties, and Container Queries.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2"/>
+                            <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Responsive Design</h3>
+                    <p class="feature-card__description">
+                        Master mobile-first design, fluid typography, and responsive layout patterns.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Performance</h3>
+                    <p class="feature-card__description">
+                        Optimize your CSS for performance with best practices and modern techniques.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Accessibility</h3>
+                    <p class="feature-card__description">
+                        Build accessible interfaces that work for everyone, including users with disabilities.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Animations</h3>
+                    <p class="feature-card__description">
+                        Create smooth, performant animations using CSS and the Web Animations API.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Best Practices</h3>
+                    <p class="feature-card__description">
+                        Follow industry best practices for maintainable, scalable CSS architecture.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="pricing__container">
+            <div class="pricing__header">
+                <h2 class="pricing__title">Choose Your Learning Path</h2>
+                <p class="pricing__description">
+                    Select the plan that fits your learning goals and budget.
+                </p>
+            </div>
+            <div class="pricing__grid">
+                <div class="pricing-card">
+                    <div class="pricing-card__header">
+                        <h3 class="pricing-card__title">Free</h3>
+                        <div class="pricing-card__price">
+                            <span class="pricing-card__currency">$</span>
+                            <span class="pricing-card__amount">0</span>
+                            <span class="pricing-card__period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li class="pricing-card__feature">Basic CSS fundamentals</li>
+                        <li class="pricing-card__feature">Limited examples</li>
+                        <li class="pricing-card__feature">Community support</li>
+                    </ul>
+                    <button class="btn btn--outline btn--full">Get Started</button>
+                </div>
+                
+                <div class="pricing-card pricing-card--featured">
+                    <div class="pricing-card__badge">Most Popular</div>
+                    <div class="pricing-card__header">
+                        <h3 class="pricing-card__title">Pro</h3>
+                        <div class="pricing-card__price">
+                            <span class="pricing-card__currency">$</span>
+                            <span class="pricing-card__amount">29</span>
+                            <span class="pricing-card__period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li class="pricing-card__feature">All CSS fundamentals</li>
+                        <li class="pricing-card__feature">Advanced layouts</li>
+                        <li class="pricing-card__feature">Animations & performance</li>
+                        <li class="pricing-card__feature">Priority support</li>
+                        <li class="pricing-card__feature">Downloadable resources</li>
+                    </ul>
+                    <button class="btn btn--primary btn--full">Get Started</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-card__header">
+                        <h3 class="pricing-card__title">Enterprise</h3>
+                        <div class="pricing-card__price">
+                            <span class="pricing-card__currency">$</span>
+                            <span class="pricing-card__amount">99</span>
+                            <span class="pricing-card__period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-card__features">
+                        <li class="pricing-card__feature">Everything in Pro</li>
+                        <li class="pricing-card__feature">Team collaboration</li>
+                        <li class="pricing-card__feature">Custom training</li>
+                        <li class="pricing-card__feature">24/7 support</li>
+                        <li class="pricing-card__feature">Analytics dashboard</li>
+                    </ul>
+                    <button class="btn btn--outline btn--full">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about__container">
+            <div class="about__content">
+                <h2 class="about__title">About Frontend Mastery Hub</h2>
+                <p class="about__description">
+                    We're passionate about helping developers master modern CSS and build beautiful, 
+                    performant web applications. Our curriculum is designed by industry experts 
+                    and updated regularly to reflect the latest best practices.
+                </p>
+                <div class="about__stats">
+                    <div class="about__stat">
+                        <div class="about__stat-number">10,000+</div>
+                        <div class="about__stat-label">Students</div>
+                    </div>
+                    <div class="about__stat">
+                        <div class="about__stat-number">50+</div>
+                        <div class="about__stat-label">Lessons</div>
+                    </div>
+                    <div class="about__stat">
+                        <div class="about__stat-number">95%</div>
+                        <div class="about__stat-label">Success Rate</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about__visual">
+                <div class="about__card">
+                    <div class="about__card-content">
+                        <h3>Expert Instructors</h3>
+                        <p>Learn from industry professionals with years of experience</p>
+                    </div>
+                </div>
+                <div class="about__card">
+                    <div class="about__card-content">
+                        <h3>Hands-on Projects</h3>
+                        <p>Build real-world projects to reinforce your learning</p>
+                    </div>
+                </div>
+                <div class="about__card">
+                    <div class="about__card-content">
+                        <h3>Community Support</h3>
+                        <p>Join a vibrant community of learners and mentors</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact__container">
+            <div class="contact__content">
+                <h2 class="contact__title">Get in Touch</h2>
+                <p class="contact__description">
+                    Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                </p>
+                <div class="contact__info">
+                    <div class="contact__item">
+                        <div class="contact__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2"/>
+                                <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="contact__details">
+                            <h3>Email</h3>
+                            <p>hello@frontendmasteryhub.com</p>
+                        </div>
+                    </div>
+                    <div class="contact__item">
+                        <div class="contact__icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 16.92V19.92C22.0011 20.1985 21.9441 20.4742 21.8325 20.7293C21.7209 20.9844 21.5573 21.2136 21.3521 21.4019C21.1469 21.5901 20.9046 21.7335 20.6407 21.8227C20.3769 21.9119 20.0974 21.9451 19.82 21.92C16.7428 21.5856 13.787 20.5341 11.19 18.85C8.77382 17.3147 6.72533 15.2662 5.18999 12.85C3.49997 10.2412 2.44824 7.271 2.11999 4.18C2.095 3.90347 2.12787 3.62476 2.21649 3.36162C2.30512 3.09849 2.44756 2.85669 2.63476 2.65162C2.82196 2.44655 3.0498 2.28271 3.30379 2.17052C3.55777 2.05833 3.83233 2.00026 4.10999 2H7.10999C7.59531 1.99522 8.06679 2.16708 8.43376 2.48353C8.80073 2.79999 9.03996 3.23945 9.10999 3.72C9.23662 4.68007 9.47144 5.62273 9.80999 6.53C9.94454 6.88792 9.97366 7.27691 9.89391 7.65088C9.81415 8.02485 9.62886 8.36811 9.35999 8.64L8.08999 9.91C9.51355 12.4135 11.5865 14.4864 14.09 15.91L15.36 14.64C15.6319 14.3711 15.9751 14.1858 16.3491 14.1061C16.7231 14.0263 17.1121 14.0555 17.47 14.19C18.3773 14.5286 19.3199 14.7634 20.28 14.89C20.7658 14.9605 21.2094 15.2032 21.5265 15.5735C21.8437 15.9438 22.0122 16.4181 22 16.92Z" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="contact__details">
+                            <h3>Phone</h3>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="contact__form">
+                <div class="contact__form-group">
+                    <label for="name" class="contact__label">Name</label>
+                    <input type="text" id="name" name="name" class="contact__input" required>
+                </div>
+                <div class="contact__form-group">
+                    <label for="email" class="contact__label">Email</label>
+                    <input type="email" id="email" name="email" class="contact__input" required>
+                </div>
+                <div class="contact__form-group">
+                    <label for="message" class="contact__label">Message</label>
+                    <textarea id="message" name="message" class="contact__textarea" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <a href="#" class="footer__logo">FrontendHub</a>
+                    <p class="footer__description">
+                        Master modern CSS and build beautiful, performant web applications.
+                    </p>
+                </div>
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h3 class="footer__title">Learn</h3>
+                        <ul class="footer__list">
+                            <li><a href="#" class="footer__link">CSS Fundamentals</a></li>
+                            <li><a href="#" class="footer__link">Modern Layouts</a></li>
+                            <li><a href="#" class="footer__link">Responsive Design</a></li>
+                            <li><a href="#" class="footer__link">Animations</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__column">
+                        <h3 class="footer__title">Resources</h3>
+                        <ul class="footer__list">
+                            <li><a href="#" class="footer__link">Documentation</a></li>
+                            <li><a href="#" class="footer__link">Examples</a></li>
+                            <li><a href="#" class="footer__link">Tutorials</a></li>
+                            <li><a href="#" class="footer__link">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer__column">
+                        <h3 class="footer__title">Support</h3>
+                        <ul class="footer__list">
+                            <li><a href="#" class="footer__link">Help Center</a></li>
+                            <li><a href="#" class="footer__link">Community</a></li>
+                            <li><a href="#" class="footer__link">Contact</a></li>
+                            <li><a href="#" class="footer__link">Status</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">
+                    © 2024 Frontend Mastery Hub. All rights reserved.
+                </p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77a5.07 5.07 0 00-.41-1.91V3s-1.4-.35-4.6 1.48a15.9 15.9 0 00-8 0C3.4 2.65 2 3 2 3v.55a5.07 5.07 0 00-.41 1.91A5.44 5.44 0 00.94 8.52a3.37 3.37 0 00-.94 2.61V19c0 1.1.9 2 2 2h14a2 2 0 002-2z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

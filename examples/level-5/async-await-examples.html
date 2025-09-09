@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async/Await & Error Handling Examples - Level 5</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .example {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .example h3 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .output {
+            background: #e8f5e8;
+            border: 1px solid #28a745;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .error {
+            background: #f8d7da;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Async/Await & Error Handling Examples - Level 5</h1>
+    <p>These examples demonstrate async/await syntax and error handling patterns.</p>
+
+    <!-- Example 1: Basic Async/Await -->
+    <div class="example">
+        <h3>1. Basic Async/Await Syntax</h3>
+        <p>This example shows the basic async/await syntax and how it works.</p>
+        
+        <div class="code-block">
+            <pre><code>// Basic async function
+async function fetchData() {
+    try {
+        const result = await new Promise((resolve) => {
+            setTimeout(() => resolve('Data fetched successfully!'), 1000);
+        });
+        return result;
+    } catch (error) {
+        throw new Error('Failed to fetch data: ' + error.message);
+    }
+}
+
+// Using async/await
+async function main() {
+    try {
+        const data = await fetchData();
+        console.log('Result:', data);
+    } catch (error) {
+        console.log('Error:', error.message);
+    }
+}
+
+main();</code></pre>
+        </div>
+        
+        <button onclick="runBasicAsyncAwait()">Run Example</button>
+        <div id="basicAsyncAwaitOutput" class="output"></div>
+    </div>
+
+    <!-- Example 2: Async/Await with Multiple Operations -->
+    <div class="example">
+        <h3>2. Async/Await with Multiple Operations</h3>
+        <p>This example demonstrates sequential and parallel execution with async/await.</p>
+        
+        <div class="code-block">
+            <pre><code>// Sequential execution
+async function sequentialExecution() {
+    console.log('Starting sequential execution...');
+    
+    const user = await fetchUser(1);
+    console.log('User:', user);
+    
+    const posts = await fetchPosts(user.id);
+    console.log('Posts:', posts);
+    
+    const comments = await fetchComments(posts[0].id);
+    console.log('Comments:', comments);
+    
+    return { user, posts, comments };
+}
+
+// Parallel execution
+async function parallelExecution() {
+    console.log('Starting parallel execution...');
+    
+    const [user, posts, comments] = await Promise.all([
+        fetchUser(1),
+        fetchPosts(1),
+        fetchComments(1)
+    ]);
+    
+    console.log('All data:', { user, posts, comments });
+    return { user, posts, comments };
+}
+
+// Mixed execution
+async function mixedExecution() {
+    console.log('Starting mixed execution...');
+    
+    const user = await fetchUser(1);
+    console.log('User:', user);
+    
+    const [posts, comments] = await Promise.all([
+        fetchPosts(user.id),
+        fetchComments(user.id)
+    ]);
+    
+    console.log('Posts and comments:', { posts, comments });
+    return { user, posts, comments };
+}</code></pre>
+        </div>
+        
+        <button onclick="runMultipleOperations()">Run Example</button>
+        <div id="multipleOperationsOutput" class="output"></div>
+    </div>
+
+    <!-- Example 3: Error Handling Patterns -->
+    <div class="example">
+        <h3>3. Error Handling Patterns</h3>
+        <p>This example shows different error handling patterns with async/await.</p>
+        
+        <div class="code-block">
+            <pre><code>// Error handling with try/catch
+async function handleErrorsWithTryCatch() {
+    try {
+        const result = await fetchDataWithError();
+        console.log('Success:', result);
+    } catch (error) {
+        console.log('Error caught:', error.message);
+    }
+}
+
+// Error handling with individual try/catch
+async function handleErrorsIndividually() {
+    let user, posts, comments;
+    
+    try {
+        user = await fetchUser(1);
+        console.log('User fetched:', user);
+    } catch (error) {
+        console.log('User fetch failed:', error.message);
+        user = { id: 0, name: 'Default User' };
+    }
+    
+    try {
+        posts = await fetchPosts(user.id);
+        console.log('Posts fetched:', posts);
+    } catch (error) {
+        console.log('Posts fetch failed:', error.message);
+        posts = [];
+    }
+    
+    try {
+        comments = await fetchComments(user.id);
+        console.log('Comments fetched:', comments);
+    } catch (error) {
+        console.log('Comments fetch failed:', error.message);
+        comments = [];
+    }
+    
+    return { user, posts, comments };
+}
+
+// Error handling with fallback
+async function handleErrorsWithFallback() {
+    try {
+        return await fetchDataWithError();
+    } catch (error) {
+        console.log('Primary fetch failed, using fallback');
+        return await fetchFallbackData();
+    }
+}</code></pre>
+        </div>
+        
+        <button onclick="runErrorHandling()">Run Example</button>
+        <div id="errorHandlingOutput" class="output"></div>
+    </div>
+
+    <!-- Example 4: Async Iteration -->
+    <div class="example">
+        <h3>4. Async Iteration and Generators</h3>
+        <p>This example demonstrates async iteration and async generators.</p>
+        
+        <div class="code-block">
+            <pre><code>// Async generator
+async function* fetchDataStream() {
+    for (let i = 1; i <= 5; i++) {
+        yield await fetchData(i);
+    }
+}
+
+// Using async iteration
+async function processDataStream() {
+    console.log('Processing data stream...');
+    
+    for await (const data of fetchDataStream()) {
+        console.log('Received:', data);
+    }
+}
+
+// Async generator with error handling
+async function* fetchDataStreamWithErrorHandling() {
+    for (let i = 1; i <= 5; i++) {
+        try {
+            yield await fetchData(i);
+        } catch (error) {
+            console.log(`Error fetching data ${i}:`, error.message);
+            yield { id: i, error: error.message };
+        }
+    }
+}
+
+// Async iteration with error handling
+async function processDataStreamWithErrorHandling() {
+    console.log('Processing data stream with error handling...');
+    
+    for await (const data of fetchDataStreamWithErrorHandling()) {
+        if (data.error) {
+            console.log('Error data:', data);
+        } else {
+            console.log('Success data:', data);
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <button onclick="runAsyncIteration()">Run Example</button>
+        <div id="asyncIterationOutput" class="output"></div>
+    </div>
+
+    <!-- Example 5: Async/Await with Classes -->
+    <div class="example">
+        <h3>5. Async/Await with Classes</h3>
+        <p>This example shows how to use async/await with classes and methods.</p>
+        
+        <div class="code-block">
+            <pre><code>// Class with async methods
+class DataService {
+    constructor(baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+    
+    async fetchUser(userId) {
+        const response = await this.makeRequest(`/users/${userId}`);
+        return response;
+    }
+    
+    async fetchPosts(userId) {
+        const response = await this.makeRequest(`/users/${userId}/posts`);
+        return response;
+    }
+    
+    async fetchComments(postId) {
+        const response = await this.makeRequest(`/posts/${postId}/comments`);
+        return response;
+    }
+    
+    async fetchUserData(userId) {
+        try {
+            const user = await this.fetchUser(userId);
+            const [posts, comments] = await Promise.all([
+                this.fetchPosts(userId),
+                this.fetchComments(user.posts[0].id)
+            ]);
+            
+            return { user, posts, comments };
+        } catch (error) {
+            throw new Error(`Failed to fetch user data: ${error.message}`);
+        }
+    }
+    
+    async makeRequest(endpoint) {
+        // Simulate API request
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (Math.random() < 0.1) {
+                    reject(new Error('Network error'));
+                } else {
+                    resolve({ 
+                        data: `Data from ${this.baseUrl}${endpoint}`,
+                        endpoint 
+                    });
+                }
+            }, Math.random() * 1000 + 500);
+        });
+    }
+}
+
+// Using the class
+const dataService = new DataService('https://api.example.com');
+dataService.fetchUserData(1)
+    .then(result => console.log('User data:', result))
+    .catch(error => console.log('Error:', error.message));</code></pre>
+        </div>
+        
+        <button onclick="runAsyncClasses()">Run Example</button>
+        <div id="asyncClassesOutput" class="output"></div>
+    </div>
+
+    <!-- Example 6: Async/Await with Error Boundaries -->
+    <div class="example">
+        <h3>6. Async/Await with Error Boundaries</h3>
+        <p>This example demonstrates error boundary patterns for async operations.</p>
+        
+        <div class="code-block">
+            <pre><code>// Error boundary class
+class AsyncErrorBoundary {
+    constructor() {
+        this.errorHandlers = new Map();
+    }
+    
+    // Register error handler for specific operation
+    registerHandler(operation, handler) {
+        this.errorHandlers.set(operation, handler);
+    }
+    
+    // Execute operation with error boundary
+    async execute(operation, fn) {
+        try {
+            return await fn();
+        } catch (error) {
+            const handler = this.errorHandlers.get(operation);
+            if (handler) {
+                return await handler(error);
+            }
+            throw error;
+        }
+    }
+}
+
+// Error recovery strategies
+class ErrorRecoveryStrategies {
+    // Retry strategy
+    static async retry(fn, maxRetries = 3, delay = 1000) {
+        for (let i = 0; i < maxRetries; i++) {
+            try {
+                return await fn();
+            } catch (error) {
+                if (i === maxRetries - 1) throw error;
+                console.log(`Attempt ${i + 1} failed, retrying...`);
+                await new Promise(resolve => setTimeout(resolve, delay * (i + 1)));
+            }
+        }
+    }
+    
+    // Fallback strategy
+    static async fallback(fn, fallbackFn) {
+        try {
+            return await fn();
+        } catch (error) {
+            console.log('Primary operation failed, using fallback');
+            return await fallbackFn();
+        }
+    }
+    
+    // Circuit breaker strategy
+    static circuitBreaker(fn, threshold = 5, timeout = 60000) {
+        let failures = 0;
+        let lastFailure = 0;
+        let state = 'CLOSED'; // CLOSED, OPEN, HALF_OPEN
+        
+        return async function(...args) {
+            if (state === 'OPEN') {
+                if (Date.now() - lastFailure > timeout) {
+                    state = 'HALF_OPEN';
+                } else {
+                    throw new Error('Circuit breaker is OPEN');
+                }
+            }
+            
+            try {
+                const result = await fn(...args);
+                if (state === 'HALF_OPEN') {
+                    state = 'CLOSED';
+                    failures = 0;
+                }
+                return result;
+            } catch (error) {
+                failures++;
+                lastFailure = Date.now();
+                
+                if (failures >= threshold) {
+                    state = 'OPEN';
+                }
+                
+                throw error;
+            }
+        };
+    }
+}</code></pre>
+        </div>
+        
+        <button onclick="runErrorBoundaries()">Run Example</button>
+        <div id="errorBoundariesOutput" class="output"></div>
+    </div>
+
+    <!-- Example 7: Async/Await Performance Patterns -->
+    <div class="example">
+        <h3>7. Async/Await Performance Patterns</h3>
+        <p>This example shows performance optimization patterns with async/await.</p>
+        
+        <div class="code-block">
+            <pre><code>// Performance monitoring
+class AsyncPerformanceMonitor {
+    constructor() {
+        this.metrics = new Map();
+    }
+    
+    async measure(name, fn) {
+        const start = Date.now();
+        try {
+            const result = await fn();
+            const duration = Date.now() - start;
+            this.recordMetric(name, duration, true);
+            return result;
+        } catch (error) {
+            const duration = Date.now() - start;
+            this.recordMetric(name, duration, false);
+            throw error;
+        }
+    }
+    
+    recordMetric(name, duration, success) {
+        if (!this.metrics.has(name)) {
+            this.metrics.set(name, { total: 0, count: 0, successes: 0, failures: 0 });
+        }
+        
+        const metric = this.metrics.get(name);
+        metric.total += duration;
+        metric.count++;
+        if (success) metric.successes++;
+        else metric.failures++;
+    }
+    
+    getStats(name) {
+        const metric = this.metrics.get(name);
+        if (!metric) return null;
+        
+        return {
+            average: metric.total / metric.count,
+            successRate: metric.successes / metric.count,
+            total: metric.total,
+            count: metric.count
+        };
+    }
+}
+
+// Batch processing
+class AsyncBatchProcessor {
+    constructor(batchSize = 10) {
+        this.batchSize = batchSize;
+    }
+    
+    async processBatch(items, processor) {
+        const results = [];
+        
+        for (let i = 0; i < items.length; i += this.batchSize) {
+            const batch = items.slice(i, i + this.batchSize);
+            const batchResults = await Promise.all(
+                batch.map(item => processor(item))
+            );
+            results.push(...batchResults);
+        }
+        
+        return results;
+    }
+    
+    async processBatchSequential(items, processor) {
+        const results = [];
+        
+        for (let i = 0; i < items.length; i += this.batchSize) {
+            const batch = items.slice(i, i + this.batchSize);
+            const batchResults = [];
+            
+            for (const item of batch) {
+                const result = await processor(item);
+                batchResults.push(result);
+            }
+            
+            results.push(...batchResults);
+        }
+        
+        return results;
+    }
+}</code></pre>
+        </div>
+        
+        <button onclick="runPerformancePatterns()">Run Example</button>
+        <div id="performancePatternsOutput" class="output"></div>
+    </div>
+
+    <!-- Example 8: Advanced Async Patterns -->
+    <div class="example">
+        <h3>8. Advanced Async Patterns</h3>
+        <p>This example demonstrates advanced async patterns and techniques.</p>
+        
+        <div class="code-block">
+            <pre><code>// Async queue
+class AsyncQueue {
+    constructor(concurrency = 1) {
+        this.concurrency = concurrency;
+        this.running = 0;
+        this.queue = [];
+    }
+    
+    async add(fn) {
+        return new Promise((resolve, reject) => {
+            this.queue.push({ fn, resolve, reject });
+            this.process();
+        });
+    }
+    
+    async process() {
+        if (this.running >= this.concurrency || this.queue.length === 0) {
+            return;
+        }
+        
+        this.running++;
+        const { fn, resolve, reject } = this.queue.shift();
+        
+        try {
+            const result = await fn();
+            resolve(result);
+        } catch (error) {
+            reject(error);
+        } finally {
+            this.running--;
+            this.process();
+        }
+    }
+}
+
+// Async semaphore
+class AsyncSemaphore {
+    constructor(count) {
+        this.count = count;
+        this.waiting = [];
+    }
+    
+    async acquire() {
+        return new Promise((resolve) => {
+            if (this.count > 0) {
+                this.count--;
+                resolve();
+            } else {
+                this.waiting.push(resolve);
+            }
+        });
+    }
+    
+    release() {
+        if (this.waiting.length > 0) {
+            const resolve = this.waiting.shift();
+            resolve();
+        } else {
+            this.count++;
+        }
+    }
+}
+
+// Async mutex
+class AsyncMutex {
+    constructor() {
+        this.locked = false;
+        this.waiting = [];
+    }
+    
+    async lock() {
+        return new Promise((resolve) => {
+            if (!this.locked) {
+                this.locked = true;
+                resolve();
+            } else {
+                this.waiting.push(resolve);
+            }
+        });
+    }
+    
+    unlock() {
+        if (this.waiting.length > 0) {
+            const resolve = this.waiting.shift();
+            resolve();
+        } else {
+            this.locked = false;
+        }
+    }
+}</code></pre>
+        </div>
+        
+        <button onclick="runAdvancedAsyncPatterns()">Run Example</button>
+        <div id="advancedAsyncPatternsOutput" class="output"></div>
+    </div>
+
+    <script>
+        // Helper functions
+        function fetchUser(id) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (id < 0) {
+                        reject(new Error('Invalid user ID'));
+                    } else {
+                        resolve({ id, name: `User ${id}`, email: `user${id}@example.com` });
+                    }
+                }, 500);
+            });
+        }
+        
+        function fetchPosts(userId) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (Math.random() < 0.1) {
+                        reject(new Error('Failed to fetch posts'));
+                    } else {
+                        resolve([
+                            { id: 1, userId, title: 'Post 1' },
+                            { id: 2, userId, title: 'Post 2' }
+                        ]);
+                    }
+                }, 300);
+            });
+        }
+        
+        function fetchComments(postId) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (Math.random() < 0.1) {
+                        reject(new Error('Failed to fetch comments'));
+                    } else {
+                        resolve([
+                            { id: 1, postId, text: 'Comment 1' },
+                            { id: 2, postId, text: 'Comment 2' }
+                        ]);
+                    }
+                }, 200);
+            });
+        }
+        
+        function fetchData(id) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (Math.random() < 0.1) {
+                        reject(new Error(`Failed to fetch data ${id}`));
+                    } else {
+                        resolve({ id, data: `Data ${id}` });
+                    }
+                }, Math.random() * 500 + 200);
+            });
+        }
+        
+        function fetchDataWithError() {
+            return new Promise((_, reject) => {
+                setTimeout(() => {
+                    reject(new Error('Simulated error'));
+                }, 500);
+            });
+        }
+        
+        function fetchFallbackData() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({ data: 'Fallback data' });
+                }, 300);
+            });
+        }
+
+        // Example 1: Basic Async/Await
+        function runBasicAsyncAwait() {
+            const output = document.getElementById('basicAsyncAwaitOutput');
+            output.innerHTML = '';
+            
+            const logs = [];
+            const originalLog = console.log;
+            console.log = (...args) => {
+                logs.push(args.join(' '));
+                originalLog(...args);
+            };
+            
+            async function fetchData() {
+                try {
+                    const result = await new Promise((resolve) => {
+                        setTimeout(() => resolve('Data fetched successfully!'), 1000);
+                    });
+                    return result;
+                } catch (error) {
+                    throw new Error('Failed to fetch data: ' + error.message);
+                }
+            }
+            
+            async function main() {
+                try {
+                    const data = await fetchData();
+                    console.log('Result:', data);
+                } catch (error) {
+                    console.log('Error:', error.message);
+                }
+            }
+            
+            main();
+            
+            console.log = originalLog;
+            
+            setTimeout(() => {
+                output.innerHTML = logs.join('<br>');
+            }, 1500);
+        }
+
+        // Example 2: Multiple Operations
+        function runMultipleOperations() {
+            const output = document.getElementById('multipleOperationsOutput');
+            output.innerHTML = '';
+            
+            const logs = [];
+            const originalLog = console.log;
+            console.log = (...args) => {
+                logs.push(args.join(' '));
+                originalLog(...args);
+            };
+            
+            async function sequentialExecution() {
+                console.log('Starting sequential execution...');
+                
+                const user = await fetchUser(1);
+                console.log('User:', user);
+                
+                const posts = await fetchPosts(user.id);
+                console.log('Posts:', posts);
+                
+                const comments = await fetchComments(posts[0].id);
+                console.log('Comments:', comments);
+                
+                return { user, posts, comments };
+            }
+            
+            async function parallelExecution() {
+                console.log('Starting parallel execution...');
+                
+                const [user, posts, comments] = await Promise.all([
+                    fetchUser(1),
+                    fetchPosts(1),
+                    fetchComments(1)
+                ]);
+                
+                console.log('All data:', { user, posts, comments });
+                return { user, posts, comments };
+            }
+            
+            // Run both examples
+            sequentialExecution().then(() => {
+                console.log('---');
+                return parallelExecution();
+            });
+            
+            console.log = originalLog;
+            
+            setTimeout(() => {
+                output.innerHTML = logs.join('<br>');
+            }, 2000);
+        }
+
+        // Example 3: Error Handling
+        function runErrorHandling() {
+            const output = document.getElementById('errorHandlingOutput');
+            output.innerHTML = '';
+            
+            const logs = [];
+            const originalLog = console.log;
+            console.log = (...args) => {
+                logs.push(args.join(' '));
+                originalLog(...args);
+            };
+            
+            async function handleErrorsWithTryCatch() {
+                try {
+                    const result = await fetchDataWithError();
+                    console.log('Success:', result);
+                } catch (error) {
+                    console.log('Error caught:', error.message);
+                }
+            }
+            
+            async function handleErrorsIndividually() {
+                let user, posts, comments;
+                
+                try {
+                    user = await fetchUser(1);
+                    console.log('User fetched:', user);
+                } catch (error) {
+                    console.log('User fetch failed:', error.message);
+                    user = { id: 0, name: 'Default User' };
+                }
+                
+                try {
+                    posts = await fetchPosts(user.id);
+                    console.log('Posts fetched:', posts);
+                } catch (error) {
+                    console.log('Posts fetch failed:', error.message);
+                    posts = [];
+                }
+                
+                try {
+                    comments = await fetchComments(user.id);
+                    console.log('Comments fetched:', comments);
+                } catch (error) {
+                    console.log('Comments fetch failed:', error.message);
+                    comments = [];
+                }
+                
+                return { user, posts, comments };
+            }
+            
+            async function handleErrorsWithFallback() {
+                try {
+                    return await fetchDataWithError();
+                } catch (error) {
+                    console.log('Primary fetch failed, using fallback');
+                    return await fetchFallbackData();
+                }
+            }
+            
+            // Run examples
+            handleErrorsWithTryCatch().then(() => {
+                console.log('---');
+                return handleErrorsIndividually();
+            }).then(() => {
+                console.log('---');
+                return handleErrorsWithFallback();
+            });
+            
+            console.log = originalLog;
+            
+            setTimeout(() => {
+                output.innerHTML = logs.join('<br>');
+            }, 2000);
+        }
+
+        // Example 4: Async Iteration
+        function runAsyncIteration() {
+            const output = document.getElementById('asyncIterationOutput');
+            output.innerHTML = '';
+            
+            const logs = [];
+            const originalLog = console.log;
+            console.log = (...args) => {
+                logs.push(args.join(' '));
+                originalLog(...args);
+            };
+            
+            async function* fetchDataStream() {
+                for (let i = 1; i <= 5; i++) {
+                    yield await fetchData(i);
+                }
+            }
+            
+            async function processDataStream() {
+                console.log('Processing data stream...');
+                
+                for await (const data of fetchDataStream()) {
+                    console.log('Received:', data);
+                }
+            }
+            
+            processDataStream();
+            
+            console.log = originalLog;
+            
+            setTimeout(() => {
+                output.innerHTML = logs.join('<br>');
+            }, 3000);
+        }
+
+        // Example 5: Async Classes
+        function runAsyncClasses() {
+            const output = document.getElementById('asyncClassesOutput');
+            output.innerHTML = '';
+            
+            const logs = [];
+            const originalLog = console.log;
+            console.log = (...args) => {
+                logs.push(args.join(' '));
+                originalLog(...args);
+            };
+            
+            class DataService {
+                constructor(baseUrl) {
+                    this.baseUrl = baseUrl;
+                }
+                
+                async fetchUser(userId) {
+                    const response = await this.makeRequest(`/users/${userId}`);
+                    return response;
+                }
+                
+                async fetchPosts(userId) {
+                    const response = await this.makeRequest(`/users/${userId}/posts`);
+                    return response;
+                }
+                
+                async fetchComments(postId) {
+                    const response = await this.makeRequest(`/posts/${postId}/comments`);
+                    return response;
+                }
+                
+                async fetchUserData(userId) {
+                    try {
+                        const user = await this.fetchUser(userId);
+                        const [posts, comments] = await Promise.all([
+                            this.fetchPosts(userId),
+                            this.fetchComments(1)
+                        ]);
+                        
+                        return { user, posts, comments };
+                    } catch (error) {
+                        throw new Error(`Failed to fetch user data: ${error.message}`);
+                    }
+                }
+                
+                async makeRequest(endpoint) {
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            if (Math.random() < 0.1) {
+                                reject(new Error('Network error'));
+                            } else {
+                                resolve({ 
+                                    data: `Data from ${this.baseUrl}${endpoint}`,
+                                    endpoint 
+                                });
+                            }
+                        }, Math.random() * 1000 + 500);
+                    });
+                }
+            }
+            
+            const dataService = new DataService('https://api.example.com');
+            dataService.fetchUserData(1)
+                .then(result => console.log('User data:', result))
+                .catch(error => console.log('Error:', error.message));
+            
+            console.log = originalLog;
+            
+            setTimeout(() => {
+                output.innerHTML = logs.join('<br>');
+            }, 2000);
+        }
+
+        // Example 6: Error Boundaries
+        function runErrorBoundaries() {
+            const output = document.getElementById('errorBoundariesOutput');
+            output.innerHTML = '';
+            
+            const logs = [];
+            const originalLog = console.log;
+            console.log = (...args) => {
+                logs.push(args.join(' '));
+                originalLog(...args);
+            };
+            
+            class AsyncErrorBoundary {
+                constructor() {
+                    this.errorHandlers = new Map();
+                }
+                
+                registerHandler(operation, handler) {
+                    this.errorHandlers.set(operation, handler);
+                }
+                
+                async execute(operation, fn) {
+                    try {
+                        return await fn();
+                    } catch (error) {
+                        const handler = this.errorHandlers.get(operation);
+                        if (handler) {
+                            return await handler(error);
+                        }
+                        throw error;
+                    }
+                }
+            }
+            
+            class ErrorRecoveryStrategies {
+                static async retry(fn, maxRetries = 3, delay = 1000) {
+                    for (let i = 0; i < maxRetries; i++) {
+                        try {
+                            return await fn();
+                        } catch (error) {
+                            if (i === maxRetries - 1) throw error;
+                            console.log(`Attempt ${i + 1} failed, retrying...`);
+                            await new Promise(resolve => setTimeout(resolve, delay * (i + 1)));
+                        }
+                    }
+                }
+                
+                static async fallback(fn, fallbackFn) {
+                    try {
+                        return await fn();
+                    } catch (error) {
+                        console.log('Primary operation failed, using fallback');
+                        return await fallbackFn();
+                    }
+                }
+            }
+            
+            // Test retry strategy
+            let retryAttempts = 0;
+            const flakyFunction = () => {
+                retryAttempts++;
+                if (retryAttempts < 3) {
+                    return Promise.reject(new Error('Temporary failure'));
+                } else {
+                    return Promise.resolve('Success after retries');
+                }
+            };
+            
+            ErrorRecoveryStrategies.retry(flakyFunction, 3, 500)
+                .then(result => console.log('Retry result:', result))
+                .catch(error => console.log('Retry failed:', error.message));
+            
+            console.log = originalLog;
+            
+            setTimeout(() => {
+                output.innerHTML = logs.join('<br>');
+            }, 3000);
+        }
+
+        // Example 7: Performance Patterns
+        function runPerformancePatterns() {
+            const output = document.getElementById('performancePatternsOutput');
+            output.innerHTML = '';
+            
+            const logs = [];
+            const originalLog = console.log;
+            console.log = (...args) => {
+                logs.push(args.join(' '));
+                originalLog(...args);
+            };
+            
+            class AsyncPerformanceMonitor {
+                constructor() {
+                    this.metrics = new Map();
+                }
+                
+                async measure(name, fn) {
+                    const start = Date.now();
+                    try {
+                        const result = await fn();
+                        const duration = Date.now() - start;
+                        this.recordMetric(name, duration, true);
+                        return result;
+                    } catch (error) {
+                        const duration = Date.now() - start;
+                        this.recordMetric(name, duration, false);
+                        throw error;
+                    }
+                }
+                
+                recordMetric(name, duration, success) {
+                    if (!this.metrics.has(name)) {
+                        this.metrics.set(name, { total: 0, count: 0, successes: 0, failures: 0 });
+                    }
+                    
+                    const metric = this.metrics.get(name);
+                    metric.total += duration;
+                    metric.count++;
+                    if (success) metric.successes++;
+                    else metric.failures++;
+                }
+                
+                getStats(name) {
+                    const metric = this.metrics.get(name);
+                    if (!metric) return null;
+                    
+                    return {
+                        average: metric.total / metric.count,
+                        successRate: metric.successes / metric.count,
+                        total: metric.total,
+                        count: metric.count
+                    };
+                }
+            }
+            
+            const monitor = new AsyncPerformanceMonitor();
+            
+            // Test performance monitoring
+            monitor.measure('test-operation', async () => {
+                await new Promise(resolve => setTimeout(resolve, 500));
+                return 'Operation completed';
+            }).then(result => {
+                console.log('Result:', result);
+                console.log('Stats:', monitor.getStats('test-operation'));
+            });
+            
+            console.log = originalLog;
+            
+            setTimeout(() => {
+                output.innerHTML = logs.join('<br>');
+            }, 1000);
+        }
+
+        // Example 8: Advanced Async Patterns
+        function runAdvancedAsyncPatterns() {
+            const output = document.getElementById('advancedAsyncPatternsOutput');
+            output.innerHTML = '';
+            
+            const logs = [];
+            const originalLog = console.log;
+            console.log = (...args) => {
+                logs.push(args.join(' '));
+                originalLog(...args);
+            };
+            
+            class AsyncQueue {
+                constructor(concurrency = 1) {
+                    this.concurrency = concurrency;
+                    this.running = 0;
+                    this.queue = [];
+                }
+                
+                async add(fn) {
+                    return new Promise((resolve, reject) => {
+                        this.queue.push({ fn, resolve, reject });
+                        this.process();
+                    });
+                }
+                
+                async process() {
+                    if (this.running >= this.concurrency || this.queue.length === 0) {
+                        return;
+                    }
+                    
+                    this.running++;
+                    const { fn, resolve, reject } = this.queue.shift();
+                    
+                    try {
+                        const result = await fn();
+                        resolve(result);
+                    } catch (error) {
+                        reject(error);
+                    } finally {
+                        this.running--;
+                        this.process();
+                    }
+                }
+            }
+            
+            // Test async queue
+            const queue = new AsyncQueue(2);
+            
+            for (let i = 0; i < 5; i++) {
+                queue.add(async () => {
+                    const delay = Math.random() * 1000 + 500;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    console.log(`Task ${i} completed after ${delay}ms`);
+                    return `Result ${i}`;
+                });
+            }
+            
+            console.log = originalLog;
+            
+            setTimeout(() => {
+                output.innerHTML = logs.join('<br>');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1 Assessment: Web Platform Fundamentals</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        .assessment {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        .question h3 {
+            color: #495057;
+            margin-top: 0;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .answer-options {
+            margin: 15px 0;
+        }
+        .answer-option {
+            margin: 8px 0;
+            padding: 10px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .answer-option:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        .answer-option input[type="radio"] {
+            margin-right: 10px;
+        }
+        .answer-option.selected {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .button.secondary {
+            background: #6c757d;
+        }
+        .button.secondary:hover {
+            background: #545b62;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .result.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .result.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .score {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .score h2 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Level 1 Assessment</h1>
+        <p>Web Platform Fundamentals - HTML, CSS, JavaScript, and Tooling</p>
+    </div>
+
+    <div class="score">
+        <h2>Your Score</h2>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <p id="scoreText">0 / 0 questions answered</p>
+    </div>
+
+    <form id="assessment-form">
+        <div class="assessment">
+            <h2>Multiple Choice Questions</h2>
+            
+            <div class="question">
+                <h3>Question 1: HTML Semantics</h3>
+                <p>Which HTML element should be used to represent the main content of a page?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q1" value="a">
+                        <span>&lt;div&gt;</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q1" value="b">
+                        <span>&lt;main&gt;</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q1" value="c">
+                        <span>&lt;section&gt;</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q1" value="d">
+                        <span>&lt;article&gt;</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 2: CSS Selectors</h3>
+                <p>Which CSS selector has the highest specificity?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q2" value="a">
+                        <span>#header .nav-item</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q2" value="b">
+                        <span>.nav-item:hover</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q2" value="c">
+                        <span>div p</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q2" value="d">
+                        <span>p</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 3: JavaScript Variables</h3>
+                <p>What will be the output of the following code?</p>
+                <div class="code-block">let x = 5;
+console.log(x);
+let x = 10;
+console.log(x);</div>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q3" value="a">
+                        <span>5, 10</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q3" value="b">
+                        <span>5, 5</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q3" value="c">
+                        <span>ReferenceError</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q3" value="d">
+                        <span>10, 10</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 4: CSS Box Model</h3>
+                <p>Which CSS property controls the space between an element's content and its border?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q4" value="a">
+                        <span>margin</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q4" value="b">
+                        <span>padding</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q4" value="c">
+                        <span>border</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q4" value="d">
+                        <span>outline</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 5: JavaScript Functions</h3>
+                <p>What is the difference between function declarations and function expressions?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q5" value="a">
+                        <span>Function declarations are hoisted, function expressions are not</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q5" value="b">
+                        <span>Function expressions are hoisted, function declarations are not</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q5" value="c">
+                        <span>There is no difference</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q5" value="d">
+                        <span>Function declarations can only be called after they are defined</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 6: HTML Forms</h3>
+                <p>Which input type should be used for collecting an email address?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q6" value="a">
+                        <span>type="text"</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q6" value="b">
+                        <span>type="email"</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q6" value="c">
+                        <span>type="url"</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q6" value="d">
+                        <span>type="input"</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 7: CSS Layout</h3>
+                <p>Which CSS property is used to create a flexbox layout?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q7" value="a">
+                        <span>display: grid</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q7" value="b">
+                        <span>display: flex</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q7" value="c">
+                        <span>display: block</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q7" value="d">
+                        <span>display: inline</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 8: JavaScript Arrays</h3>
+                <p>What will be the output of the following code?</p>
+                <div class="code-block">const arr = [1, 2, 3];
+arr.push(4);
+console.log(arr.length);</div>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q8" value="a">
+                        <span>3</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q8" value="b">
+                        <span>4</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q8" value="c">
+                        <span>undefined</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q8" value="d">
+                        <span>Error</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 9: CSS Responsive Design</h3>
+                <p>Which CSS unit is best for creating responsive typography?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q9" value="a">
+                        <span>px</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q9" value="b">
+                        <span>em</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q9" value="c">
+                        <span>rem</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q9" value="d">
+                        <span>pt</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 10: Development Tools</h3>
+                <p>Which tool is commonly used for version control in web development?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q10" value="a">
+                        <span>npm</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q10" value="b">
+                        <span>Git</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q10" value="c">
+                        <span>Webpack</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q10" value="d">
+                        <span>Babel</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <button class="button" onclick="submitAssessment()">Submit Assessment</button>
+        <button class="button secondary" onclick="resetAssessment()">Reset</button>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: 'b', // main
+            q2: 'a', // #header .nav-item
+            q3: 'c', // ReferenceError
+            q4: 'b', // padding
+            q5: 'a', // Function declarations are hoisted
+            q6: 'b', // type="email"
+            q7: 'b', // display: flex
+            q8: 'b', // 4
+            q9: 'c', // rem
+            q10: 'b' // Git
+        };
+
+        let score = 0;
+        const totalQuestions = Object.keys(correctAnswers).length;
+
+        // Add event listeners to radio buttons
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                checkAnswer(this.name, this.value);
+            });
+        });
+
+        function checkAnswer(questionName, selectedValue) {
+            const questionDiv = document.querySelector(`input[name="${questionName}"]:checked`).closest('.question');
+            const resultDiv = questionDiv.querySelector('.result') || createResultDiv(questionDiv);
+            
+            if (selectedValue === correctAnswers[questionName]) {
+                if (!questionDiv.classList.contains('answered-correctly')) {
+                    score++;
+                    questionDiv.classList.add('answered-correctly');
+                }
+                resultDiv.className = 'result correct';
+                resultDiv.textContent = 'Correct! ✓';
+            } else {
+                if (questionDiv.classList.contains('answered-correctly')) {
+                    score--;
+                    questionDiv.classList.remove('answered-correctly');
+                }
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Incorrect. Try again.';
+            }
+            
+            updateScore();
+        }
+
+        function createResultDiv(questionDiv) {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'result';
+            questionDiv.appendChild(resultDiv);
+            return resultDiv;
+        }
+
+        function updateScore() {
+            document.getElementById('scoreText').textContent = `${score} / ${totalQuestions} questions correct`;
+            document.getElementById('progressFill').style.width = `${(score / totalQuestions) * 100}%`;
+        }
+
+        function submitAssessment() {
+            const percentage = Math.round((score / totalQuestions) * 100);
+            
+            let message = `Assessment Complete!\n\n`;
+            message += `Score: ${score}/${totalQuestions} (${percentage}%)\n\n`;
+            
+            if (percentage >= 80) {
+                message += `🎉 Excellent! You've mastered Level 1 fundamentals!`;
+            } else if (percentage >= 60) {
+                message += `👍 Good job! Review the areas you missed and try again.`;
+            } else {
+                message += `📚 Keep studying! Review the Level 1 materials and practice more.`;
+            }
+            
+            alert(message);
+        }
+
+        function resetAssessment() {
+            // Reset all radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+            
+            // Remove result divs
+            document.querySelectorAll('.result').forEach(result => {
+                result.remove();
+            });
+            
+            // Remove answered classes
+            document.querySelectorAll('.question').forEach(question => {
+                question.classList.remove('answered-correctly');
+            });
+            
+            // Reset score
+            score = 0;
+            updateScore();
+        }
+    </script>
+</body>
+</html>

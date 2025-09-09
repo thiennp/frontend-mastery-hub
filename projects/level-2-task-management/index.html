@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management System - Level 2 Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Management System</h1>
+            <p>Level 2 JavaScript Project - Control Flow, Data Structures, OOP, Functional Programming</p>
+        </header>
+
+        <main>
+            <!-- Task Form -->
+            <section class="task-form-section">
+                <h2>Add New Task</h2>
+                <form id="taskForm" class="task-form">
+                    <div class="form-group">
+                        <label for="taskTitle">Task Title *</label>
+                        <input type="text" id="taskTitle" name="title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskDescription">Description</label>
+                        <textarea id="taskDescription" name="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskPriority">Priority</label>
+                            <select id="taskPriority" name="priority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="taskCategory">Category</label>
+                            <select id="taskCategory" name="category">
+                                <option value="work">Work</option>
+                                <option value="personal">Personal</option>
+                                <option value="shopping">Shopping</option>
+                                <option value="health">Health</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskDueDate">Due Date</label>
+                            <input type="date" id="taskDueDate" name="dueDate">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="taskStatus">Status</label>
+                            <select id="taskStatus" name="status">
+                                <option value="pending" selected>Pending</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                </form>
+            </section>
+
+            <!-- Filters and Search -->
+            <section class="filters-section">
+                <h2>Filters & Search</h2>
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="searchInput">Search Tasks</label>
+                        <input type="text" id="searchInput" placeholder="Search by title or description...">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="statusFilter">Filter by Status</label>
+                        <select id="statusFilter">
+                            <option value="">All Statuses</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="priorityFilter">Filter by Priority</label>
+                        <select id="priorityFilter">
+                            <option value="">All Priorities</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="categoryFilter">Filter by Category</label>
+                        <select id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="work">Work</option>
+                            <option value="personal">Personal</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="health">Health</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="sortBy">Sort by</label>
+                        <select id="sortBy">
+                            <option value="created">Creation Date</option>
+                            <option value="dueDate">Due Date</option>
+                            <option value="priority">Priority</option>
+                            <option value="title">Title</option>
+                        </select>
+                    </div>
+                    
+                    <button id="clearFilters" class="btn btn-secondary">Clear Filters</button>
+                </div>
+            </section>
+
+            <!-- Task Statistics -->
+            <section class="stats-section">
+                <h2>Task Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Tasks</h3>
+                        <span id="totalTasks">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Completed</h3>
+                        <span id="completedTasks">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>In Progress</h3>
+                        <span id="inProgressTasks">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pending</h3>
+                        <span id="pendingTasks">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>High Priority</h3>
+                        <span id="highPriorityTasks">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Overdue</h3>
+                        <span id="overdueTasks">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Task List -->
+            <section class="tasks-section">
+                <h2>Tasks</h2>
+                <div id="taskList" class="task-list">
+                    <div class="no-tasks">
+                        <p>No tasks found. Add a new task to get started!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Error Modal -->
+        <div id="errorModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Error</h3>
+                <p id="errorMessage"></p>
+            </div>
+        </div>
+
+        <!-- Success Toast -->
+        <div id="successToast" class="toast">
+            <span id="successMessage"></span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

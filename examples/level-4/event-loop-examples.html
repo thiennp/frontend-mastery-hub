@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Loop Examples - Level 4</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+        
+        .section h2 {
+            color: #333;
+            margin-top: 0;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .demo-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .demo-button:active {
+            transform: translateY(0);
+        }
+        
+        .result {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            border: 1px solid #feb2b2;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .success {
+            background: #c6f6d5;
+            color: #2f855a;
+            border: 1px solid #9ae6b4;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            margin-top: 0;
+            color: #2d3748;
+        }
+        
+        .event-loop-visualization {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .queue {
+            display: inline-block;
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px;
+            min-width: 150px;
+            vertical-align: top;
+        }
+        
+        .queue h4 {
+            margin: 0 0 10px 0;
+            color: #1976d2;
+        }
+        
+        .queue-item {
+            background: white;
+            border: 1px solid #bbdefb;
+            border-radius: 4px;
+            padding: 8px;
+            margin: 5px 0;
+            font-size: 12px;
+        }
+        
+        .call-stack {
+            background: #fff3e0;
+            border: 2px solid #ff9800;
+        }
+        
+        .call-stack h4 {
+            color: #f57c00;
+        }
+        
+        .microtask-queue {
+            background: #e8f5e8;
+            border: 2px solid #4caf50;
+        }
+        
+        .microtask-queue h4 {
+            color: #388e3c;
+        }
+        
+        .macrotask-queue {
+            background: #fce4ec;
+            border: 2px solid #e91e63;
+        }
+        
+        .macrotask-queue h4 {
+            color: #c2185b;
+        }
+        
+        .execution-order {
+            background: #f3e5f5;
+            border: 2px solid #9c27b0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .execution-order h4 {
+            margin: 0 0 10px 0;
+            color: #7b1fa2;
+        }
+        
+        .execution-step {
+            background: white;
+            border: 1px solid #ce93d8;
+            border-radius: 4px;
+            padding: 8px;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        
+        .step-number {
+            background: #9c27b0;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .tip {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .warning {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Event Loop Examples</h1>
+            <p>Level 4 - Frontend Mastery Hub</p>
+        </div>
+        
+        <div class="content">
+            <!-- Event Loop Overview Section -->
+            <div class="section">
+                <h2>1. Event Loop Overview</h2>
+                <p>The JavaScript Event Loop is responsible for executing code, collecting and processing events, and executing queued sub-tasks.</p>
+                
+                <div class="event-loop-visualization">
+                    <h3>Event Loop Visualization</h3>
+                    <div class="queue call-stack">
+                        <h4>Call Stack</h4>
+                        <div class="queue-item">main()</div>
+                        <div class="queue-item">console.log()</div>
+                    </div>
+                    
+                    <div class="queue microtask-queue">
+                        <h4>Microtask Queue</h4>
+                        <div class="queue-item">Promise.then()</div>
+                        <div class="queue-item">queueMicrotask()</div>
+                    </div>
+                    
+                    <div class="queue macrotask-queue">
+                        <h4>Macrotask Queue</h4>
+                        <div class="queue-item">setTimeout()</div>
+                        <div class="queue-item">setInterval()</div>
+                        <div class="queue-item">I/O operations</div>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+// Event Loop execution order
+console.log('1. Synchronous code');
+
+setTimeout(() => console.log('2. Macrotask (setTimeout)'), 0);
+
+Promise.resolve().then(() => console.log('3. Microtask (Promise)'));
+
+console.log('4. Synchronous code');
+
+// Output:
+// 1. Synchronous code
+// 4. Synchronous code
+// 3. Microtask (Promise)
+// 2. Macrotask (setTimeout)
+                </div>
+                
+                <button class="demo-button" onclick="demoEventLoopOverview()">Demo Event Loop Overview</button>
+                <div id="overview-result" class="result"></div>
+            </div>
+            
+            <!-- Call Stack Section -->
+            <div class="section">
+                <h2>2. Call Stack</h2>
+                <p>The Call Stack is a LIFO (Last In, First Out) data structure that stores function calls and execution contexts.</p>
+                
+                <div class="code-block">
+// Call Stack example
+function first() {
+    console.log('First function');
+    second();
+    console.log('First function - after second()');
+}
+
+function second() {
+    console.log('Second function');
+    third();
+    console.log('Second function - after third()');
+}
+
+function third() {
+    console.log('Third function');
+}
+
+first();
+
+// Call Stack execution:
+// 1. first() is pushed to stack
+// 2. second() is pushed to stack (first() is paused)
+// 3. third() is pushed to stack (second() is paused)
+// 4. third() completes and is popped
+// 5. second() resumes and is popped
+// 6. first() resumes and is popped
+                </div>
+                
+                <button class="demo-button" onclick="demoCallStack()">Demo Call Stack</button>
+                <div id="callstack-result" class="result"></div>
+            </div>
+            
+            <!-- Microtask Queue Section -->
+            <div class="section">
+                <h2>3. Microtask Queue</h2>
+                <p>Microtasks have higher priority than macrotasks and are executed after each macrotask completes.</p>
+                
+                <div class="code-block">
+// Microtask Queue examples
+console.log('1. Start');
+
+setTimeout(() => console.log('2. setTimeout (macrotask)'), 0);
+
+Promise.resolve().then(() => console.log('3. Promise.then (microtask)'));
+
+queueMicrotask(() => console.log('4. queueMicrotask (microtask)'));
+
+Promise.resolve().then(() => console.log('5. Another Promise.then (microtask)'));
+
+console.log('6. End');
+
+// Execution order:
+// 1. Start
+// 6. End
+// 3. Promise.then (microtask)
+// 4. queueMicrotask (microtask)
+// 5. Another Promise.then (microtask)
+// 2. setTimeout (macrotask)
+                </div>
+                
+                <button class="demo-button" onclick="demoMicrotaskQueue()">Demo Microtask Queue</button>
+                <div id="microtask-result" class="result"></div>
+            </div>
+            
+            <!-- Macrotask Queue Section -->
+            <div class="section">
+                <h2>4. Macrotask Queue</h2>
+                <p>Macrotasks include setTimeout, setInterval, I/O operations, and other asynchronous operations.</p>
+                
+                <div class="code-block">
+// Macrotask Queue examples
+console.log('1. Start');
+
+setTimeout(() => console.log('2. setTimeout 0ms'), 0);
+setTimeout(() => console.log('3. setTimeout 100ms'), 100);
+setTimeout(() => console.log('4. setTimeout 0ms (second)'), 0);
+
+setInterval(() => {
+    console.log('5. setInterval');
+    clearInterval(intervalId);
+}, 50);
+
+const intervalId = setInterval(() => {}, 50);
+
+// Note: setInterval creates a recurring macrotask
+// clearInterval stops the recurring execution
+                </div>
+                
+                <button class="demo-button" onclick="demoMacrotaskQueue()">Demo Macrotask Queue</button>
+                <div id="macrotask-result" class="result"></div>
+            </div>
+            
+            <!-- Execution Order Section -->
+            <div class="section">
+                <h2>5. Execution Order</h2>
+                <p>Understanding the precise order of execution in the Event Loop.</p>
+                
+                <div class="execution-order">
+                    <h4>Event Loop Execution Steps:</h4>
+                    <div class="execution-step">
+                        <span class="step-number">1</span>
+                        Execute all synchronous code
+                    </div>
+                    <div class="execution-step">
+                        <span class="step-number">2</span>
+                        Execute all microtasks (Promise.then, queueMicrotask)
+                    </div>
+                    <div class="execution-step">
+                        <span class="step-number">3</span>
+                        Execute one macrotask (setTimeout, setInterval, I/O)
+                    </div>
+                    <div class="execution-step">
+                        <span class="step-number">4</span>
+                        Repeat steps 2-3 until all queues are empty
+                    </div>
+                </div>
+                
+                <div class="code-block">
+// Complex execution order example
+console.log('1. Synchronous start');
+
+setTimeout(() => console.log('2. setTimeout 1'), 0);
+setTimeout(() => console.log('3. setTimeout 2'), 0);
+
+Promise.resolve().then(() => {
+    console.log('4. Promise 1');
+    return Promise.resolve();
+}).then(() => {
+    console.log('5. Promise 2');
+});
+
+queueMicrotask(() => console.log('6. queueMicrotask 1'));
+
+Promise.resolve().then(() => console.log('7. Promise 3'));
+
+setTimeout(() => console.log('8. setTimeout 3'), 0);
+
+console.log('9. Synchronous end');
+
+// Expected output:
+// 1. Synchronous start
+// 9. Synchronous end
+// 4. Promise 1
+// 5. Promise 2
+// 6. queueMicrotask 1
+// 7. Promise 3
+// 2. setTimeout 1
+// 3. setTimeout 2
+// 8. setTimeout 3
+                </div>
+                
+                <button class="demo-button" onclick="demoExecutionOrder()">Demo Execution Order</button>
+                <div id="execution-result" class="result"></div>
+            </div>
+            
+            <!-- Blocking vs Non-blocking Section -->
+            <div class="section">
+                <h2>6. Blocking vs Non-blocking Operations</h2>
+                <p>Understanding how blocking operations affect the Event Loop.</p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>Blocking Operations</h3>
+                        <ul>
+                            <li>Synchronous I/O operations</li>
+                            <li>Heavy computations</li>
+                            <li>Infinite loops</li>
+                            <li>Blocking DOM operations</li>
+                        </ul>
+                        <div class="warning">
+                            <strong>Warning:</strong> Blocking operations freeze the UI and prevent other tasks from executing.
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Non-blocking Operations</h3>
+                        <ul>
+                            <li>Asynchronous I/O operations</li>
+                            <li>setTimeout/setInterval</li>
+                            <li>Promises and async/await</li>
+                            <li>Event listeners</li>
+                        </ul>
+                        <div class="tip">
+                            <strong>Tip:</strong> Non-blocking operations allow the Event Loop to continue processing other tasks.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+// Blocking vs Non-blocking example
+console.log('1. Start');
+
+// Blocking operation (bad)
+function blockingOperation() {
+    const start = Date.now();
+    while (Date.now() - start < 2000) {
+        // Blocking for 2 seconds
+    }
+    console.log('2. Blocking operation completed');
+}
+
+// Non-blocking operation (good)
+function nonBlockingOperation() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            console.log('3. Non-blocking operation completed');
+            resolve();
+        }, 2000);
+    });
+}
+
+// This will block the Event Loop
+// blockingOperation();
+
+// This won't block the Event Loop
+nonBlockingOperation().then(() => {
+    console.log('4. Non-blocking operation finished');
+});
+
+console.log('5. End');
+                </div>
+                
+                <button class="demo-button" onclick="demoBlockingVsNonBlocking()">Demo Blocking vs Non-blocking</button>
+                <div id="blocking-result" class="result"></div>
+            </div>
+            
+            <!-- Performance Considerations Section -->
+            <div class="section">
+                <h2>7. Performance Considerations</h2>
+                <p>Optimizing code for better Event Loop performance.</p>
+                
+                <div class="code-block">
+// Performance optimization examples
+
+// Bad: Blocking the Event Loop
+function badPerformance() {
+    const data = [];
+    for (let i = 0; i < 1000000; i++) {
+        data.push(i * i);
+    }
+    return data;
+}
+
+// Good: Non-blocking with chunks
+function goodPerformance() {
+    return new Promise(resolve => {
+        const data = [];
+        let i = 0;
+        
+        function processChunk() {
+            const chunkSize = 10000;
+            const end = Math.min(i + chunkSize, 1000000);
+            
+            while (i < end) {
+                data.push(i * i);
+                i++;
+            }
+            
+            if (i < 1000000) {
+                // Use setTimeout to yield control back to Event Loop
+                setTimeout(processChunk, 0);
+            } else {
+                resolve(data);
+            }
+        }
+        
+        processChunk();
+    });
+}
+
+// Using Web Workers for heavy computations
+function useWebWorker() {
+    return new Promise((resolve, reject) => {
+        const worker = new Worker('worker.js');
+        worker.postMessage({ type: 'heavyComputation', data: 1000000 });
+        
+        worker.onmessage = (event) => {
+            resolve(event.data);
+            worker.terminate();
+        };
+        
+        worker.onerror = (error) => {
+            reject(error);
+            worker.terminate();
+        };
+    });
+}
+                </div>
+                
+                <button class="demo-button" onclick="demoPerformanceConsiderations()">Demo Performance Considerations</button>
+                <div id="performance-result" class="result"></div>
+            </div>
+            
+            <!-- Real-world Example Section -->
+            <div class="section">
+                <h2>8. Real-world Example: Async Data Loading</h2>
+                <p>A practical example of Event Loop concepts in a real application.</p>
+                
+                <div class="code-block">
+// Real-world example: Async data loading
+class DataLoader {
+    constructor() {
+        this.cache = new Map();
+        this.loadingPromises = new Map();
+    }
+    
+    async loadData(key) {
+        // Check cache first
+        if (this.cache.has(key)) {
+            console.log(`Cache hit for ${key}`);
+            return this.cache.get(key);
+        }
+        
+        // Check if already loading
+        if (this.loadingPromises.has(key)) {
+            console.log(`Already loading ${key}, waiting...`);
+            return this.loadingPromises.get(key);
+        }
+        
+        // Start loading
+        console.log(`Loading ${key}...`);
+        const promise = this.fetchData(key);
+        this.loadingPromises.set(key, promise);
+        
+        try {
+            const data = await promise;
+            this.cache.set(key, data);
+            this.loadingPromises.delete(key);
+            return data;
+        } catch (error) {
+            this.loadingPromises.delete(key);
+            throw error;
+        }
+    }
+    
+    async fetchData(key) {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+        
+        if (Math.random() > 0.1) {
+            return { key, data: `Data for ${key}`, timestamp: Date.now() };
+        } else {
+            throw new Error(`Failed to load ${key}`);
+        }
+    }
+    
+    // Batch loading with proper Event Loop handling
+    async loadMultiple(keys) {
+        console.log('Starting batch load...');
+        
+        const promises = keys.map(key => this.loadData(key));
+        const results = await Promise.allSettled(promises);
+        
+        const successful = results
+            .filter(result => result.status === 'fulfilled')
+            .map(result => result.value);
+        
+        const failed = results
+            .filter(result => result.status === 'rejected')
+            .map(result => result.reason);
+        
+        console.log('Batch load completed');
+        return { successful, failed };
+    }
+}
+
+// Usage
+const dataLoader = new DataLoader();
+
+// Load data asynchronously
+dataLoader.loadData('user-1')
+    .then(data => console.log('User data:', data))
+    .catch(error => console.error('Error:', error));
+
+// Load multiple data items
+dataLoader.loadMultiple(['user-1', 'user-2', 'user-3'])
+    .then(results => console.log('Batch results:', results));
+                </div>
+                
+                <button class="demo-button" onclick="demoRealWorldExample()">Demo Real-world Example</button>
+                <div id="realworld-result" class="result"></div>
+            </div>
+            
+            <!-- Common Pitfalls Section -->
+            <div class="section">
+                <h2>9. Common Pitfalls</h2>
+                <p>Common mistakes and how to avoid them when working with the Event Loop.</p>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h3>❌ Common Mistakes</h3>
+                        <ul>
+                            <li>Blocking the Event Loop with heavy computations</li>
+                            <li>Creating infinite loops in microtasks</li>
+                            <li>Not handling promise rejections</li>
+                            <li>Mixing blocking and non-blocking operations</li>
+                            <li>Not understanding execution order</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>✅ Best Practices</h3>
+                        <ul>
+                            <li>Use setTimeout for yielding control</li>
+                            <li>Break up heavy computations into chunks</li>
+                            <li>Use Web Workers for CPU-intensive tasks</li>
+                            <li>Handle all promise rejections</li>
+                            <li>Understand the Event Loop execution order</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+// Common pitfalls and solutions
+
+// ❌ Bad: Blocking the Event Loop
+function badExample() {
+    const data = [];
+    for (let i = 0; i < 1000000; i++) {
+        data.push(i * i);
+    }
+    return data;
+}
+
+// ✅ Good: Non-blocking with chunks
+function goodExample() {
+    return new Promise(resolve => {
+        const data = [];
+        let i = 0;
+        
+        function processChunk() {
+            const chunkSize = 10000;
+            const end = Math.min(i + chunkSize, 1000000);
+            
+            while (i < end) {
+                data.push(i * i);
+                i++;
+            }
+            
+            if (i < 1000000) {
+                setTimeout(processChunk, 0);
+            } else {
+                resolve(data);
+            }
+        }
+        
+        processChunk();
+    });
+}
+
+// ❌ Bad: Infinite microtask loop
+function badMicrotaskLoop() {
+    Promise.resolve().then(() => {
+        console.log('Microtask');
+        badMicrotaskLoop(); // This will block the Event Loop!
+    });
+}
+
+// ✅ Good: Controlled microtask execution
+function goodMicrotaskLoop(count = 0) {
+    if (count < 10) {
+        Promise.resolve().then(() => {
+            console.log('Microtask', count);
+            goodMicrotaskLoop(count + 1);
+        });
+    }
+}
+                </div>
+                
+                <button class="demo-button" onclick="demoCommonPitfalls()">Demo Common Pitfalls</button>
+                <div id="pitfalls-result" class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Utility function to display results
+        function displayResult(elementId, content, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.textContent = content;
+            element.className = `result ${type}`;
+        }
+        
+        // Event Loop overview demo
+        function demoEventLoopOverview() {
+            displayResult('overview-result', 'Loading...', 'info');
+            
+            let output = '';
+            
+            function log(message) {
+                output += message + '\n';
+            }
+            
+            log('1. Synchronous code');
+            
+            setTimeout(() => log('2. Macrotask (setTimeout)'), 0);
+            
+            Promise.resolve().then(() => log('3. Microtask (Promise)'));
+            
+            log('4. Synchronous code');
+            
+            // Update result after all async operations complete
+            setTimeout(() => {
+                displayResult('overview-result', output, 'success');
+            }, 100);
+        }
+        
+        // Call Stack demo
+        function demoCallStack() {
+            displayResult('callstack-result', 'Loading...', 'info');
+            
+            let output = '';
+            
+            function log(message) {
+                output += message + '\n';
+            }
+            
+            function first() {
+                log('First function');
+                second();
+                log('First function - after second()');
+            }
+            
+            function second() {
+                log('Second function');
+                third();
+                log('Second function - after third()');
+            }
+            
+            function third() {
+                log('Third function');
+            }
+            
+            first();
+            
+            displayResult('callstack-result', output, 'success');
+        }
+        
+        // Microtask Queue demo
+        function demoMicrotaskQueue() {
+            displayResult('microtask-result', 'Loading...', 'info');
+            
+            let output = '';
+            
+            function log(message) {
+                output += message + '\n';
+            }
+            
+            log('1. Start');
+            
+            setTimeout(() => log('2. setTimeout (macrotask)'), 0);
+            
+            Promise.resolve().then(() => log('3. Promise.then (microtask)'));
+            
+            queueMicrotask(() => log('4. queueMicrotask (microtask)'));
+            
+            Promise.resolve().then(() => log('5. Another Promise.then (microtask)'));
+            
+            log('6. End');
+            
+            // Update result after all async operations complete
+            setTimeout(() => {
+                displayResult('microtask-result', output, 'success');
+            }, 100);
+        }
+        
+        // Macrotask Queue demo
+        function demoMacrotaskQueue() {
+            displayResult('macrotask-result', 'Loading...', 'info');
+            
+            let output = '';
+            
+            function log(message) {
+                output += message + '\n';
+            }
+            
+            log('1. Start');
+            
+            setTimeout(() => log('2. setTimeout 0ms'), 0);
+            setTimeout(() => log('3. setTimeout 100ms'), 100);
+            setTimeout(() => log('4. setTimeout 0ms (second)'), 0);
+            
+            const intervalId = setInterval(() => {
+                log('5. setInterval');
+                clearInterval(intervalId);
+            }, 50);
+            
+            // Update result after all async operations complete
+            setTimeout(() => {
+                displayResult('macrotask-result', output, 'success');
+            }, 200);
+        }
+        
+        // Execution Order demo
+        function demoExecutionOrder() {
+            displayResult('execution-result', 'Loading...', 'info');
+            
+            let output = '';
+            
+            function log(message) {
+                output += message + '\n';
+            }
+            
+            log('1. Synchronous start');
+            
+            setTimeout(() => log('2. setTimeout 1'), 0);
+            setTimeout(() => log('3. setTimeout 2'), 0);
+            
+            Promise.resolve().then(() => {
+                log('4. Promise 1');
+                return Promise.resolve();
+            }).then(() => {
+                log('5. Promise 2');
+            });
+            
+            queueMicrotask(() => log('6. queueMicrotask 1'));
+            
+            Promise.resolve().then(() => log('7. Promise 3'));
+            
+            setTimeout(() => log('8. setTimeout 3'), 0);
+            
+            log('9. Synchronous end');
+            
+            // Update result after all async operations complete
+            setTimeout(() => {
+                displayResult('execution-result', output, 'success');
+            }, 100);
+        }
+        
+        // Blocking vs Non-blocking demo
+        function demoBlockingVsNonBlocking() {
+            displayResult('blocking-result', 'Loading...', 'info');
+            
+            let output = '';
+            
+            function log(message) {
+                output += message + '\n';
+            }
+            
+            log('1. Start');
+            
+            // Non-blocking operation (good)
+            function nonBlockingOperation() {
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        log('3. Non-blocking operation completed');
+                        resolve();
+                    }, 1000);
+                });
+            }
+            
+            // This won't block the Event Loop
+            nonBlockingOperation().then(() => {
+                log('4. Non-blocking operation finished');
+            });
+            
+            log('2. End (this appears immediately)');
+            
+            // Update result after all async operations complete
+            setTimeout(() => {
+                displayResult('blocking-result', output, 'success');
+            }, 1500);
+        }
+        
+        // Performance Considerations demo
+        function demoPerformanceConsiderations() {
+            displayResult('performance-result', 'Loading...', 'info');
+            
+            let output = '';
+            
+            function log(message) {
+                output += message + '\n';
+            }
+            
+            // Good: Non-blocking with chunks
+            function goodPerformance() {
+                return new Promise(resolve => {
+                    const data = [];
+                    let i = 0;
+                    
+                    function processChunk() {
+                        const chunkSize = 1000;
+                        const end = Math.min(i + chunkSize, 10000);
+                        
+                        while (i < end) {
+                            data.push(i * i);
+                            i++;
+                        }
+                        
+                        if (i < 10000) {
+                            // Use setTimeout to yield control back to Event Loop
+                            setTimeout(processChunk, 0);
+                        } else {
+                            log(`Processed ${data.length} items in chunks`);
+                            resolve(data);
+                        }
+                    }
+                    
+                    processChunk();
+                });
+            }
+            
+            log('Starting non-blocking computation...');
+            
+            goodPerformance().then(() => {
+                log('Computation completed without blocking the Event Loop');
+                displayResult('performance-result', output, 'success');
+            });
+        }
+        
+        // Real-world Example demo
+        function demoRealWorldExample() {
+            displayResult('realworld-result', 'Loading...', 'info');
+            
+            let output = '';
+            
+            function log(message) {
+                output += message + '\n';
+            }
+            
+            class DataLoader {
+                constructor() {
+                    this.cache = new Map();
+                    this.loadingPromises = new Map();
+                }
+                
+                async loadData(key) {
+                    // Check cache first
+                    if (this.cache.has(key)) {
+                        log(`Cache hit for ${key}`);
+                        return this.cache.get(key);
+                    }
+                    
+                    // Check if already loading
+                    if (this.loadingPromises.has(key)) {
+                        log(`Already loading ${key}, waiting...`);
+                        return this.loadingPromises.get(key);
+                    }
+                    
+                    // Start loading
+                    log(`Loading ${key}...`);
+                    const promise = this.fetchData(key);
+                    this.loadingPromises.set(key, promise);
+                    
+                    try {
+                        const data = await promise;
+                        this.cache.set(key, data);
+                        this.loadingPromises.delete(key);
+                        return data;
+                    } catch (error) {
+                        this.loadingPromises.delete(key);
+                        throw error;
+                    }
+                }
+                
+                async fetchData(key) {
+                    // Simulate API call
+                    await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 500));
+                    
+                    if (Math.random() > 0.1) {
+                        return { key, data: `Data for ${key}`, timestamp: Date.now() };
+                    } else {
+                        throw new Error(`Failed to load ${key}`);
+                    }
+                }
+            }
+            
+            const dataLoader = new DataLoader();
+            
+            log('Starting data loading...');
+            
+            // Load data asynchronously
+            dataLoader.loadData('user-1')
+                .then(data => {
+                    log(`User data: ${JSON.stringify(data)}`);
+                    
+                    // Load the same data again (should hit cache)
+                    return dataLoader.loadData('user-1');
+                })
+                .then(data => {
+                    log(`Cached data: ${JSON.stringify(data)}`);
+                    displayResult('realworld-result', output, 'success');
+                })
+                .catch(error => {
+                    log(`Error: ${error.message}`);
+                    displayResult('realworld-result', output, 'error');
+                });
+        }
+        
+        // Common Pitfalls demo
+        function demoCommonPitfalls() {
+            displayResult('pitfalls-result', 'Loading...', 'info');
+            
+            let output = '';
+            
+            function log(message) {
+                output += message + '\n';
+            }
+            
+            log('Demonstrating common pitfalls and solutions:\n');
+            
+            // Good: Controlled microtask execution
+            function goodMicrotaskLoop(count = 0) {
+                if (count < 5) {
+                    Promise.resolve().then(() => {
+                        log(`Microtask ${count}`);
+                        goodMicrotaskLoop(count + 1);
+                    });
+                } else {
+                    log('Microtask loop completed');
+                }
+            }
+            
+            log('1. Controlled microtask execution:');
+            goodMicrotaskLoop();
+            
+            // Good: Non-blocking computation
+            function goodComputation() {
+                return new Promise(resolve => {
+                    const data = [];
+                    let i = 0;
+                    
+                    function processChunk() {
+                        const chunkSize = 1000;
+                        const end = Math.min(i + chunkSize, 5000);
+                        
+                        while (i < end) {
+                            data.push(i * i);
+                            i++;
+                        }
+                        
+                        if (i < 5000) {
+                            setTimeout(processChunk, 0);
+                        } else {
+                            log(`2. Non-blocking computation completed: ${data.length} items`);
+                            resolve(data);
+                        }
+                    }
+                    
+                    processChunk();
+                });
+            }
+            
+            log('\n2. Non-blocking computation:');
+            goodComputation().then(() => {
+                log('All examples completed successfully!');
+                displayResult('pitfalls-result', output, 'success');
+            });
+        }
+    </script>
+</body>
+</html>
+

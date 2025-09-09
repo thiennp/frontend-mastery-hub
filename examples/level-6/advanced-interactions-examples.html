@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Interactions Examples - Level 6</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background: #f5f5f5; }
+        .example { background: white; margin: 20px 0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .example h3 { color: #333; border-bottom: 2px solid #dc3545; padding-bottom: 10px; }
+        .code-block { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; padding: 15px; margin: 10px 0; overflow-x: auto; }
+        .demo { background: #e8f5e8; border: 1px solid #28a745; border-radius: 4px; padding: 15px; margin: 10px 0; }
+        button { background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #c82333; }
+        button:focus { outline: 2px solid #007bff; outline-offset: 2px; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal[aria-hidden="false"] { display: flex; }
+        .modal-content { background: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%; }
+        .tooltip { position: relative; display: inline-block; }
+        .tooltip-content { visibility: hidden; width: 200px; background-color: #333; color: #fff; text-align: center; border-radius: 6px; padding: 8px; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -100px; opacity: 0; transition: opacity 0.3s; }
+        .tooltip:hover .tooltip-content { visibility: visible; opacity: 1; }
+        .carousel { position: relative; max-width: 600px; margin: 0 auto; }
+        .carousel-container { overflow: hidden; border-radius: 8px; }
+        .carousel-track { display: flex; transition: transform 0.3s ease; }
+        .carousel-slide { min-width: 100%; }
+        .carousel-slide img { width: 100%; height: 300px; object-fit: cover; }
+        .carousel-controls { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
+        .carousel-indicators { display: flex; justify-content: center; gap: 5px; margin-top: 10px; }
+        .carousel-indicator { width: 12px; height: 12px; border-radius: 50%; background: #ccc; border: none; cursor: pointer; }
+        .carousel-indicator.active { background: #dc3545; }
+        .accordion { border: 1px solid #ddd; border-radius: 4px; }
+        .accordion-header { background: #f8f9fa; padding: 15px; cursor: pointer; border-bottom: 1px solid #ddd; }
+        .accordion-header:hover { background: #e9ecef; }
+        .accordion-header[aria-expanded="true"] { background: #dc3545; color: white; }
+        .accordion-content { padding: 15px; display: none; }
+        .accordion-content[aria-hidden="false"] { display: block; }
+        .tabs { border: 1px solid #ddd; border-radius: 4px; }
+        .tab-list { display: flex; list-style: none; margin: 0; padding: 0; }
+        .tab-button { padding: 10px 20px; background: #f8f9fa; border: none; cursor: pointer; border-right: 1px solid #ddd; }
+        .tab-button:hover { background: #e9ecef; }
+        .tab-button[aria-selected="true"] { background: #dc3545; color: white; }
+        .tab-panel { padding: 20px; display: none; }
+        .tab-panel[aria-hidden="false"] { display: block; }
+        .drag-drop { border: 2px dashed #ccc; padding: 20px; text-align: center; margin: 10px 0; }
+        .drag-drop.dragover { border-color: #dc3545; background: #f8f9fa; }
+        .draggable { background: #dc3545; color: white; padding: 10px; margin: 5px; cursor: move; display: inline-block; }
+        .draggable.dragging { opacity: 0.5; }
+        .notification { position: fixed; top: 20px; right: 20px; background: #28a745; color: white; padding: 15px; border-radius: 4px; z-index: 1000; display: none; }
+        .notification.error { background: #dc3545; }
+        .notification.warning { background: #ffc107; color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Advanced Interactions Examples - Level 6</h1>
+    <p>These examples demonstrate advanced accessible interactions and complex widgets.</p>
+
+    <!-- Example 1: Accessible Modal Dialog -->
+    <div class="example">
+        <h3>1. Accessible Modal Dialog</h3>
+        <p>This example shows a fully accessible modal dialog with focus trapping and keyboard navigation.</p>
+        
+        <div class="code-block">
+            <pre><code>&lt;div class="modal" 
+     role="dialog" 
+     aria-modal="true" 
+     aria-labelledby="modal-title"
+     aria-describedby="modal-description"
+     tabindex="-1"
+     aria-hidden="true"&gt;
+    
+    &lt;div class="modal-content"&gt;
+        &lt;h2 id="modal-title"&gt;Confirm Action&lt;/h2&gt;
+        &lt;p id="modal-description"&gt;
+            Are you sure you want to perform this action?
+        &lt;/p&gt;
+        &lt;button onclick="closeModal()"&gt;Cancel&lt;/button&gt;
+        &lt;button onclick="confirmAction()"&gt;Confirm&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        
+        <div class="demo">
+            <button onclick="openModal()">Open Modal</button>
+            
+            <div class="modal" 
+                 id="demo-modal"
+                 role="dialog" 
+                 aria-modal="true" 
+                 aria-labelledby="modal-title"
+                 aria-describedby="modal-description"
+                 tabindex="-1"
+                 aria-hidden="true">
+                
+                <div class="modal-content">
+                    <h2 id="modal-title">Confirm Action</h2>
+                    <p id="modal-description">
+                        Are you sure you want to perform this action?
+                    </p>
+                    <button onclick="closeModal()">Cancel</button>
+                    <button onclick="confirmAction()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 2: Accessible Dropdown Menu -->
+    <div class="example">
+        <h3>2. Accessible Dropdown Menu</h3>
+        <p>This example demonstrates a dropdown menu with full keyboard support and ARIA attributes.</p>
+        
+        <div class="code-block">
+            <pre><code>&lt;div class="dropdown"&gt;
+    &lt;button class="dropdown-trigger" 
+            aria-expanded="false" 
+            aria-haspopup="menu" 
+            aria-controls="menu1"
+            onclick="toggleDropdown('menu1')"&gt;
+        Actions
+    &lt;/button&gt;
+    &lt;ul class="dropdown-menu" 
+        id="menu1" 
+        role="menu" 
+        aria-labelledby="trigger1"
+        aria-hidden="true"&gt;
+        &lt;li role="none"&gt;
+            &lt;a href="#" role="menuitem" tabindex="-1"&gt;Edit&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li role="none"&gt;
+            &lt;a href="#" role="menuitem" tabindex="-1"&gt;Delete&lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        
+        <div class="demo">
+            <div class="dropdown">
+                <button class="dropdown-trigger" 
+                        aria-expanded="false" 
+                        aria-haspopup="menu" 
+                        aria-controls="menu1"
+                        onclick="toggleDropdown('menu1')"
+                        onkeydown="handleDropdownKeydown(event, 'menu1')">
+                    Actions
+                </button>
+                <ul class="dropdown-menu" 
+                    id="menu1" 
+                    role="menu" 
+                    aria-labelledby="trigger1"
+                    aria-hidden="true">
+                    <li role="none">
+                        <a href="#" role="menuitem" tabindex="-1" onclick="handleMenuAction('Edit'); return false;">Edit</a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" tabindex="-1" onclick="handleMenuAction('Delete'); return false;">Delete</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 3: Accessible Accordion -->
+    <div class="example">
+        <h3>3. Accessible Accordion</h3>
+        <p>This example shows an accordion component with proper ARIA attributes and keyboard navigation.</p>
+        
+        <div class="code-block">
+            <pre><code>&lt;div class="accordion"&gt;
+    &lt;div class="accordion-header" 
+         role="button" 
+         aria-expanded="false" 
+         aria-controls="panel1"
+         tabindex="0"
+         onclick="toggleAccordion('panel1')"&gt;
+        Section 1
+    &lt;/div&gt;
+    &lt;div class="accordion-content" 
+         id="panel1" 
+         aria-hidden="true"&gt;
+        Content for section 1...
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        
+        <div class="demo">
+            <div class="accordion">
+                <div class="accordion-header" 
+                     role="button" 
+                     aria-expanded="false" 
+                     aria-controls="panel1"
+                     tabindex="0"
+                     onclick="toggleAccordion('panel1')"
+                     onkeydown="handleAccordionKeydown(event, 'panel1')">
+                    Section 1
+                </div>
+                <div class="accordion-content" 
+                     id="panel1" 
+                     aria-hidden="true">
+                    Content for section 1...
+                </div>
+                
+                <div class="accordion-header" 
+                     role="button" 
+                     aria-expanded="false" 
+                     aria-controls="panel2"
+                     tabindex="0"
+                     onclick="toggleAccordion('panel2')"
+                     onkeydown="handleAccordionKeydown(event, 'panel2')">
+                    Section 2
+                </div>
+                <div class="accordion-content" 
+                     id="panel2" 
+                     aria-hidden="true">
+                    Content for section 2...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 4: Accessible Tabs -->
+    <div class="example">
+        <h3>4. Accessible Tab Interface</h3>
+        <p>This example demonstrates a tab interface with proper ARIA attributes and keyboard navigation.</p>
+        
+        <div class="code-block">
+            <pre><code>&lt;div class="tabs"&gt;
+    &lt;ul class="tab-list" role="tablist"&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button role="tab" 
+                    aria-selected="true" 
+                    aria-controls="tabpanel1"
+                    id="tab1"
+                    onclick="switchTab('tab1', 'tabpanel1')"&gt;
+                Tab 1
+            &lt;/button&gt;
+        &lt;/li&gt;
+        &lt;li role="presentation"&gt;
+            &lt;button role="tab" 
+                    aria-selected="false" 
+                    aria-controls="tabpanel2"
+                    id="tab2"
+                    onclick="switchTab('tab2', 'tabpanel2')"&gt;
+                Tab 2
+            &lt;/button&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    
+    &lt;div role="tabpanel" 
+         id="tabpanel1" 
+         aria-labelledby="tab1"&gt;
+        Content for tab 1...
+    &lt;/div&gt;
+    
+    &lt;div role="tabpanel" 
+         id="tabpanel2" 
+         aria-labelledby="tab2"
+         aria-hidden="true"&gt;
+        Content for tab 2...
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        
+        <div class="demo">
+            <div class="tabs">
+                <ul class="tab-list" role="tablist">
+                    <li role="presentation">
+                        <button role="tab" 
+                                aria-selected="true" 
+                                aria-controls="tabpanel1"
+                                id="tab1"
+                                onclick="switchTab('tab1', 'tabpanel1')"
+                                onkeydown="handleTabKeydown(event, 'tab1', 'tabpanel1')">
+                            Tab 1
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button role="tab" 
+                                aria-selected="false" 
+                                aria-controls="tabpanel2"
+                                id="tab2"
+                                onclick="switchTab('tab2', 'tabpanel2')"
+                                onkeydown="handleTabKeydown(event, 'tab2', 'tabpanel2')">
+                            Tab 2
+                        </button>
+                    </li>
+                </ul>
+                
+                <div role="tabpanel" 
+                     id="tabpanel1" 
+                     aria-labelledby="tab1"
+                     class="tab-panel">
+                    Content for tab 1...
+                </div>
+                
+                <div role="tabpanel" 
+                     id="tabpanel2" 
+                     aria-labelledby="tab2"
+                     aria-hidden="true"
+                     class="tab-panel">
+                    Content for tab 2...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 5: Accessible Carousel -->
+    <div class="example">
+        <h3>5. Accessible Carousel</h3>
+        <p>This example shows a carousel with proper ARIA attributes and keyboard navigation.</p>
+        
+        <div class="code-block">
+            <pre><code>&lt;div class="carousel" role="region" aria-label="Image carousel"&gt;
+    &lt;div class="carousel-container"&gt;
+        &lt;div class="carousel-track"&gt;
+            &lt;div class="carousel-slide"&gt;
+                &lt;img src="image1.jpg" alt="Image 1"&gt;
+            &lt;/div&gt;
+            &lt;div class="carousel-slide"&gt;
+                &lt;img src="image2.jpg" alt="Image 2"&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="carousel-controls"&gt;
+        &lt;button onclick="previousSlide()" aria-label="Previous slide"&gt;❮&lt;/button&gt;
+        &lt;button onclick="nextSlide()" aria-label="Next slide"&gt;❯&lt;/button&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="carousel-indicators" role="tablist"&gt;
+        &lt;button class="carousel-indicator active" 
+                role="tab" 
+                aria-selected="true"
+                onclick="goToSlide(0)"&gt;&lt;/button&gt;
+        &lt;button class="carousel-indicator" 
+                role="tab" 
+                aria-selected="false"
+                onclick="goToSlide(1)"&gt;&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        
+        <div class="demo">
+            <div class="carousel" role="region" aria-label="Image carousel">
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGYyZDIyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSAxPC90ZXh0Pjwvc3ZnPg==" alt="Image 1">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMjg4NDQ0Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSAyPC90ZXh0Pjwvc3ZnPg==" alt="Image 2">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-controls">
+                    <button onclick="previousSlide()" aria-label="Previous slide">❮</button>
+                    <button onclick="nextSlide()" aria-label="Next slide">❯</button>
+                </div>
+                
+                <div class="carousel-indicators" role="tablist">
+                    <button class="carousel-indicator active" 
+                            role="tab" 
+                            aria-selected="true"
+                            onclick="goToSlide(0)"></button>
+                    <button class="carousel-indicator" 
+                            role="tab" 
+                            aria-selected="false"
+                            onclick="goToSlide(1)"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 6: Drag and Drop -->
+    <div class="example">
+        <h3>6. Drag and Drop Interface</h3>
+        <p>This example demonstrates a drag and drop interface with proper ARIA attributes.</p>
+        
+        <div class="code-block">
+            <pre><code>&lt;div class="drag-drop" 
+     role="region" 
+     aria-label="Drop zone"
+     ondrop="handleDrop(event)" 
+     ondragover="handleDragOver(event)" 
+     ondragenter="handleDragEnter(event)" 
+     ondragleave="handleDragLeave(event)"&gt;
+    Drop items here
+&lt;/div&gt;
+
+&lt;div class="draggable" 
+     draggable="true" 
+     role="button" 
+     tabindex="0"
+     ondragstart="handleDragStart(event)" 
+     onkeydown="handleDragKeydown(event)"&gt;
+    Draggable Item 1
+&lt;/div&gt;</code></pre>
+        </div>
+        
+        <div class="demo">
+            <div class="drag-drop" 
+                 role="region" 
+                 aria-label="Drop zone"
+                 ondrop="handleDrop(event)" 
+                 ondragover="handleDragOver(event)" 
+                 ondragenter="handleDragEnter(event)" 
+                 ondragleave="handleDragLeave(event)">
+                Drop items here
+            </div>
+            
+            <div class="draggable" 
+                 draggable="true" 
+                 role="button" 
+                 tabindex="0"
+                 ondragstart="handleDragStart(event)" 
+                 onkeydown="handleDragKeydown(event)">
+                Draggable Item 1
+            </div>
+            
+            <div class="draggable" 
+                 draggable="true" 
+                 role="button" 
+                 tabindex="0"
+                 ondragstart="handleDragStart(event)" 
+                 onkeydown="handleDragKeydown(event)">
+                Draggable Item 2
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 7: Tooltip -->
+    <div class="example">
+        <h3>7. Accessible Tooltip</h3>
+        <p>This example shows a tooltip with proper ARIA attributes and keyboard support.</p>
+        
+        <div class="code-block">
+            <pre><code>&lt;div class="tooltip"&gt;
+    &lt;button aria-describedby="tooltip1"&gt;Hover for tooltip&lt;/button&gt;
+    &lt;div class="tooltip-content" 
+         id="tooltip1" 
+         role="tooltip" 
+         aria-hidden="true"&gt;
+        This is a tooltip
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+        
+        <div class="demo">
+            <div class="tooltip">
+                <button aria-describedby="tooltip1" 
+                        onmouseenter="showTooltip('tooltip1')" 
+                        onmouseleave="hideTooltip('tooltip1')"
+                        onfocus="showTooltip('tooltip1')" 
+                        onblur="hideTooltip('tooltip1')">
+                    Hover for tooltip
+                </button>
+                <div class="tooltip-content" 
+                     id="tooltip1" 
+                     role="tooltip" 
+                     aria-hidden="true">
+                    This is a tooltip
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 8: Notification System -->
+    <div class="example">
+        <h3>8. Accessible Notification System</h3>
+        <p>This example demonstrates a notification system with proper ARIA attributes and announcements.</p>
+        
+        <div class="code-block">
+            <pre><code>&lt;div class="notification" 
+     role="alert" 
+     aria-live="polite" 
+     aria-atomic="true"&gt;
+    Notification message
+&lt;/div&gt;
+
+&lt;button onclick="showNotification('Success!', 'success')"&gt;
+    Show Success
+&lt;/button&gt;
+&lt;button onclick="showNotification('Error!', 'error')"&gt;
+    Show Error
+&lt;/button&gt;</code></pre>
+        </div>
+        
+        <div class="demo">
+            <button onclick="showNotification('Success!', 'success')">Show Success</button>
+            <button onclick="showNotification('Error!', 'error')">Show Error</button>
+            <button onclick="showNotification('Warning!', 'warning')">Show Warning</button>
+            
+            <div class="notification" 
+                 id="notification"
+                 role="alert" 
+                 aria-live="polite" 
+                 aria-atomic="true">
+                Notification message
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function openModal() {
+            const modal = document.getElementById('demo-modal');
+            modal.style.display = 'flex';
+            modal.setAttribute('aria-hidden', 'false');
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('demo-modal');
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+        }
+        
+        function confirmAction() {
+            alert('Action confirmed!');
+            closeModal();
+        }
+        
+        // Dropdown functionality
+        function toggleDropdown(menuId) {
+            const menu = document.getElementById(menuId);
+            const trigger = menu.previousElementSibling;
+            const isOpen = menu.getAttribute('aria-hidden') === 'false';
+            
+            if (isOpen) {
+                menu.style.display = 'none';
+                menu.setAttribute('aria-hidden', 'true');
+                trigger.setAttribute('aria-expanded', 'false');
+            } else {
+                menu.style.display = 'block';
+                menu.setAttribute('aria-hidden', 'false');
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+        }
+        
+        function handleDropdownKeydown(event, menuId) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleDropdown(menuId);
+            }
+        }
+        
+        function handleMenuAction(action) {
+            alert(`Menu action: ${action}`);
+        }
+        
+        // Accordion functionality
+        function toggleAccordion(panelId) {
+            const panel = document.getElementById(panelId);
+            const header = panel.previousElementSibling;
+            const isOpen = panel.getAttribute('aria-hidden') === 'false';
+            
+            if (isOpen) {
+                panel.style.display = 'none';
+                panel.setAttribute('aria-hidden', 'true');
+                header.setAttribute('aria-expanded', 'false');
+            } else {
+                panel.style.display = 'block';
+                panel.setAttribute('aria-hidden', 'false');
+                header.setAttribute('aria-expanded', 'true');
+            }
+        }
+        
+        function handleAccordionKeydown(event, panelId) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleAccordion(panelId);
+            }
+        }
+        
+        // Tab functionality
+        function switchTab(tabId, panelId) {
+            // Update tab states
+            const tabs = document.querySelectorAll('[role="tab"]');
+            tabs.forEach(tab => {
+                tab.setAttribute('aria-selected', 'false');
+                tab.setAttribute('tabindex', '-1');
+            });
+            document.getElementById(tabId).setAttribute('aria-selected', 'true');
+            document.getElementById(tabId).setAttribute('tabindex', '0');
+            
+            // Update panel states
+            const panels = document.querySelectorAll('[role="tabpanel"]');
+            panels.forEach(panel => {
+                panel.setAttribute('aria-hidden', 'true');
+                panel.style.display = 'none';
+            });
+            const activePanel = document.getElementById(panelId);
+            activePanel.setAttribute('aria-hidden', 'false');
+            activePanel.style.display = 'block';
+        }
+        
+        function handleTabKeydown(event, tabId, panelId) {
+            if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+                event.preventDefault();
+                const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+                const currentIndex = tabs.findIndex(tab => tab.id === tabId);
+                const direction = event.key === 'ArrowLeft' ? -1 : 1;
+                const nextIndex = (currentIndex + direction + tabs.length) % tabs.length;
+                const nextTab = tabs[nextIndex];
+                const nextPanelId = nextTab.getAttribute('aria-controls');
+                switchTab(nextTab.id, nextPanelId);
+            }
+        }
+        
+        // Carousel functionality
+        let currentSlide = 0;
+        const totalSlides = 2;
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+        
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+        
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateCarousel();
+        }
+        
+        function updateCarousel() {
+            const track = document.getElementById('carousel-track');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            indicators.forEach((indicator, index) => {
+                if (index === currentSlide) {
+                    indicator.classList.add('active');
+                    indicator.setAttribute('aria-selected', 'true');
+                } else {
+                    indicator.classList.remove('active');
+                    indicator.setAttribute('aria-selected', 'false');
+                }
+            });
+        }
+        
+        // Drag and drop functionality
+        function handleDragStart(event) {
+            event.dataTransfer.setData('text/plain', event.target.textContent);
+            event.target.classList.add('dragging');
+        }
+        
+        function handleDragOver(event) {
+            event.preventDefault();
+        }
+        
+        function handleDragEnter(event) {
+            event.preventDefault();
+            event.target.classList.add('dragover');
+        }
+        
+        function handleDragLeave(event) {
+            event.target.classList.remove('dragover');
+        }
+        
+        function handleDrop(event) {
+            event.preventDefault();
+            event.target.classList.remove('dragover');
+            const data = event.dataTransfer.getData('text/plain');
+            alert(`Dropped: ${data}`);
+        }
+        
+        function handleDragKeydown(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                alert(`Activated: ${event.target.textContent}`);
+            }
+        }
+        
+        // Tooltip functionality
+        function showTooltip(tooltipId) {
+            const tooltip = document.getElementById(tooltipId);
+            tooltip.style.visibility = 'visible';
+            tooltip.style.opacity = '1';
+            tooltip.setAttribute('aria-hidden', 'false');
+        }
+        
+        function hideTooltip(tooltipId) {
+            const tooltip = document.getElementById(tooltipId);
+            tooltip.style.visibility = 'hidden';
+            tooltip.style.opacity = '0';
+            tooltip.setAttribute('aria-hidden', 'true');
+        }
+        
+        // Notification functionality
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown')) {
+                const openMenus = document.querySelectorAll('.dropdown-menu[aria-hidden="false"]');
+                openMenus.forEach(menu => {
+                    menu.style.display = 'none';
+                    menu.setAttribute('aria-hidden', 'true');
+                    menu.previousElementSibling.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const openModals = document.querySelectorAll('.modal[aria-hidden="false"]');
+                openModals.forEach(modal => {
+                    modal.style.display = 'none';
+                    modal.setAttribute('aria-hidden', 'true');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

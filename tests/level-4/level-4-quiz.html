@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 4 Quiz - Asynchronous JavaScript & Promises</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+        
+        .question h3 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .question p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: #2196f3;
+        }
+        
+        .option.correct {
+            background-color: #c8e6c9;
+            border-color: #4caf50;
+        }
+        
+        .option.incorrect {
+            background-color: #ffcdd2;
+            border-color: #f44336;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 20px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .result {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .result h2 {
+            margin-top: 0;
+            color: #2d3748;
+        }
+        
+        .score {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .score.excellent {
+            color: #4caf50;
+        }
+        
+        .score.good {
+            color: #ff9800;
+        }
+        
+        .score.needs-improvement {
+            color: #f44336;
+        }
+        
+        .explanation {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .explanation h4 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .quiz-info {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .quiz-info h3 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        
+        .quiz-info ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .quiz-info li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Level 4 Quiz</h1>
+            <p>Asynchronous JavaScript & Promises</p>
+        </div>
+        
+        <div class="content">
+            <div class="quiz-info">
+                <h3>Quiz Instructions</h3>
+                <ul>
+                    <li>This quiz contains 15 questions about asynchronous JavaScript and Promises</li>
+                    <li>You have 20 minutes to complete the quiz</li>
+                    <li>Select the best answer for each question</li>
+                    <li>You can change your answers before submitting</li>
+                    <li>Your score will be displayed at the end</li>
+                </ul>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            
+            <form id="quiz-form">
+                <!-- Question 1 -->
+                <div class="question" data-question="1">
+                    <h3>Question 1: Promise Creation</h3>
+                    <p>How do you create a Promise that resolves with the value "Hello"?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> Promise.resolve("Hello")
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> new Promise("Hello")
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> Promise("Hello")
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> new Promise.resolve("Hello")
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 2 -->
+                <div class="question" data-question="2">
+                    <h3>Question 2: Async/Await Syntax</h3>
+                    <p>Which keyword is used to declare an async function?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> async
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> await
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> promise
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> then
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 3 -->
+                <div class="question" data-question="3">
+                    <h3>Question 3: Promise States</h3>
+                    <p>What are the three states of a Promise?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> pending, resolved, rejected
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> pending, fulfilled, rejected
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> waiting, success, error
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> initial, complete, failed
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 4 -->
+                <div class="question" data-question="4">
+                    <h3>Question 4: Event Loop Priority</h3>
+                    <p>In the JavaScript Event Loop, which has higher priority?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> setTimeout callbacks
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> Promise.then callbacks
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> setInterval callbacks
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> They have equal priority
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 5 -->
+                <div class="question" data-question="5">
+                    <h3>Question 5: Promise.all()</h3>
+                    <p>What happens if one Promise in Promise.all() rejects?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> The entire Promise.all() rejects
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> Only the rejected Promise fails
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> All Promises are retried
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> The rejected Promise is ignored
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 6 -->
+                <div class="question" data-question="6">
+                    <h3>Question 6: Fetch API</h3>
+                    <p>What does the Fetch API return?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> A Promise that resolves to a Response object
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> The actual data from the server
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> A callback function
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> A string containing the response
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 7 -->
+                <div class="question" data-question="7">
+                    <h3>Question 7: Error Handling</h3>
+                    <p>How do you handle errors in a Promise chain?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> Using .catch()
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> Using .error()
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> Using .fail()
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> Using .reject()
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 8 -->
+                <div class="question" data-question="8">
+                    <h3>Question 8: Async Function Return</h3>
+                    <p>What does an async function always return?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> The actual value
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> A Promise
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> undefined
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> A callback
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 9 -->
+                <div class="question" data-question="9">
+                    <h3>Question 9: Promise.race()</h3>
+                    <p>What does Promise.race() do?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> Waits for all promises to complete
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> Returns the first promise that settles
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> Returns the fastest promise
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> Returns the slowest promise
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 10 -->
+                <div class="question" data-question="10">
+                    <h3>Question 10: Web APIs</h3>
+                    <p>Which of the following is a Web API?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> setTimeout
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> console.log
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> alert
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> All of the above
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 11 -->
+                <div class="question" data-question="11">
+                    <h3>Question 11: Promise Chaining</h3>
+                    <p>What will be the output of this code?</p>
+                    <div class="code-block">
+Promise.resolve(1)
+    .then(x => x + 1)
+    .then(x => x * 2)
+    .then(console.log);
+                    </div>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> 1
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> 2
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> 4
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> 6
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 12 -->
+                <div class="question" data-question="12">
+                    <h3>Question 12: Async/Await Error Handling</h3>
+                    <p>How do you handle errors in async/await?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> Using try/catch
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> Using .catch()
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> Using .error()
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> Using .fail()
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 13 -->
+                <div class="question" data-question="13">
+                    <h3>Question 13: Promise.allSettled()</h3>
+                    <p>What does Promise.allSettled() return?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> An array of resolved values
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> An array of objects with status and value/reason
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> The first settled promise
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> A single resolved value
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 14 -->
+                <div class="question" data-question="14">
+                    <h3>Question 14: Event Loop Execution</h3>
+                    <p>What is the correct execution order?</p>
+                    <div class="code-block">
+console.log('1');
+setTimeout(() => console.log('2'), 0);
+Promise.resolve().then(() => console.log('3'));
+console.log('4');
+                    </div>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> 1, 2, 3, 4
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> 1, 4, 3, 2
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> 1, 4, 2, 3
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> 4, 1, 3, 2
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Question 15 -->
+                <div class="question" data-question="15">
+                    <h3>Question 15: Fetch Error Handling</h3>
+                    <p>How do you check if a fetch request was successful?</p>
+                    <div class="options">
+                        <div class="option" data-answer="a">
+                            <strong>A)</strong> Check response.ok
+                        </div>
+                        <div class="option" data-answer="b">
+                            <strong>B)</strong> Check response.status
+                        </div>
+                        <div class="option" data-answer="c">
+                            <strong>C)</strong> Check response.success
+                        </div>
+                        <div class="option" data-answer="d">
+                            <strong>D)</strong> Check response.valid
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submit-btn">Submit Quiz</button>
+            </form>
+            
+            <div class="result" id="result" style="display: none;">
+                <h2>Quiz Results</h2>
+                <div class="score" id="score">0/15</div>
+                <p id="feedback"></p>
+                <div class="explanation" id="explanation" style="display: none;">
+                    <h4>Explanations:</h4>
+                    <div id="explanations-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data
+        const questions = [
+            {
+                id: 1,
+                correct: 'a',
+                explanation: 'Promise.resolve("Hello") creates a Promise that immediately resolves with the value "Hello".'
+            },
+            {
+                id: 2,
+                correct: 'a',
+                explanation: 'The async keyword is used to declare an async function.'
+            },
+            {
+                id: 3,
+                correct: 'b',
+                explanation: 'The three states of a Promise are pending, fulfilled, and rejected.'
+            },
+            {
+                id: 4,
+                correct: 'b',
+                explanation: 'Promise.then callbacks (microtasks) have higher priority than setTimeout callbacks (macrotasks).'
+            },
+            {
+                id: 5,
+                correct: 'a',
+                explanation: 'If any Promise in Promise.all() rejects, the entire Promise.all() rejects.'
+            },
+            {
+                id: 6,
+                correct: 'a',
+                explanation: 'The Fetch API returns a Promise that resolves to a Response object.'
+            },
+            {
+                id: 7,
+                correct: 'a',
+                explanation: 'Errors in Promise chains are handled using .catch().'
+            },
+            {
+                id: 8,
+                correct: 'b',
+                explanation: 'Async functions always return a Promise, even if you return a regular value.'
+            },
+            {
+                id: 9,
+                correct: 'b',
+                explanation: 'Promise.race() returns the first promise that settles (either resolves or rejects).'
+            },
+            {
+                id: 10,
+                correct: 'd',
+                explanation: 'All of the above are Web APIs provided by the browser.'
+            },
+            {
+                id: 11,
+                correct: 'c',
+                explanation: 'The Promise chain: 1 → 1+1=2 → 2*2=4. So the output is 4.'
+            },
+            {
+                id: 12,
+                correct: 'a',
+                explanation: 'Errors in async/await are handled using try/catch blocks.'
+            },
+            {
+                id: 13,
+                correct: 'b',
+                explanation: 'Promise.allSettled() returns an array of objects with status and value/reason properties.'
+            },
+            {
+                id: 14,
+                correct: 'b',
+                explanation: 'The correct order is 1, 4, 3, 2. Synchronous code runs first, then microtasks, then macrotasks.'
+            },
+            {
+                id: 15,
+                correct: 'a',
+                explanation: 'response.ok is a boolean that indicates whether the response was successful (status 200-299).'
+            }
+        ];
+        
+        let timeLeft = 20 * 60; // 20 minutes in seconds
+        let timerInterval;
+        let userAnswers = {};
+        
+        // Initialize quiz
+        function initQuiz() {
+            // Start timer
+            startTimer();
+            
+            // Add event listeners
+            document.getElementById('quiz-form').addEventListener('submit', handleSubmit);
+            
+            // Add click listeners to options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const question = this.closest('.question');
+                    const questionId = question.dataset.question;
+                    
+                    // Remove previous selection
+                    question.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selection to clicked option
+                    this.classList.add('selected');
+                    
+                    // Store answer
+                    userAnswers[questionId] = this.dataset.answer;
+                    
+                    // Update progress
+                    updateProgress();
+                });
+            });
+        }
+        
+        // Start timer
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleSubmit();
+                }
+            }, 1000);
+        }
+        
+        // Update timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update timer display if it exists
+            const timeDisplay = document.getElementById('time-display');
+            if (timeDisplay) {
+                timeDisplay.textContent = timeString;
+            }
+        }
+        
+        // Update progress bar
+        function updateProgress() {
+            const totalQuestions = questions.length;
+            const answeredQuestions = Object.keys(userAnswers).length;
+            const progress = (answeredQuestions / totalQuestions) * 100;
+            
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+        }
+        
+        // Handle form submission
+        function handleSubmit(event) {
+            if (event) {
+                event.preventDefault();
+            }
+            
+            // Stop timer
+            clearInterval(timerInterval);
+            
+            // Calculate score
+            const score = calculateScore();
+            const percentage = (score / questions.length) * 100;
+            
+            // Show results
+            showResults(score, percentage);
+            
+            // Disable form
+            document.getElementById('submit-btn').disabled = true;
+        }
+        
+        // Calculate score
+        function calculateScore() {
+            let score = 0;
+            
+            questions.forEach(question => {
+                if (userAnswers[question.id] === question.correct) {
+                    score++;
+                }
+            });
+            
+            return score;
+        }
+        
+        // Show results
+        function showResults(score, percentage) {
+            const resultDiv = document.getElementById('result');
+            const scoreDiv = document.getElementById('score');
+            const feedbackDiv = document.getElementById('feedback');
+            const explanationDiv = document.getElementById('explanation');
+            const explanationsContent = document.getElementById('explanations-content');
+            
+            // Show result div
+            resultDiv.style.display = 'block';
+            
+            // Update score
+            scoreDiv.textContent = `${score}/${questions.length}`;
+            
+            // Add score class
+            if (percentage >= 80) {
+                scoreDiv.classList.add('excellent');
+                feedbackDiv.textContent = 'Excellent! You have a strong understanding of asynchronous JavaScript and Promises.';
+            } else if (percentage >= 60) {
+                scoreDiv.classList.add('good');
+                feedbackDiv.textContent = 'Good job! You have a solid understanding, but there\'s room for improvement.';
+            } else {
+                scoreDiv.classList.add('needs-improvement');
+                feedbackDiv.textContent = 'Keep studying! Review the asynchronous JavaScript concepts and try again.';
+            }
+            
+            // Show explanations
+            explanationDiv.style.display = 'block';
+            explanationsContent.innerHTML = '';
+            
+            questions.forEach(question => {
+                const explanationDiv = document.createElement('div');
+                explanationDiv.innerHTML = `
+                    <h5>Question ${question.id}:</h5>
+                    <p>${question.explanation}</p>
+                `;
+                explanationsContent.appendChild(explanationDiv);
+            });
+            
+            // Scroll to results
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>
+

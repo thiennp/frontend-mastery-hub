@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 2 - Functional Programming Examples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .example {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #6f42c1;
+            border-radius: 4px;
+        }
+        .output {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        button {
+            background: #6f42c1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5a32a3;
+        }
+        .code {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Level 2 - Functional Programming Examples</h1>
+    
+    <div class="example">
+        <h3>1. Pure Functions</h3>
+        <p>Demonstrates pure functions and their benefits</p>
+        <button onclick="runPureFunctionExamples()">Run Examples</button>
+        <div id="pure-output" class="output"></div>
+    </div>
+
+    <div class="example">
+        <h3>2. Immutability</h3>
+        <p>Demonstrates immutable data operations</p>
+        <button onclick="runImmutabilityExamples()">Run Examples</button>
+        <div id="immutability-output" class="output"></div>
+    </div>
+
+    <div class="example">
+        <h3>3. Higher-Order Functions</h3>
+        <p>Demonstrates functions that take or return other functions</p>
+        <button onclick="runHigherOrderExamples()">Run Examples</button>
+        <div id="higherorder-output" class="output"></div>
+    </div>
+
+    <div class="example">
+        <h3>4. Function Composition and Advanced Patterns</h3>
+        <p>Demonstrates function composition, currying, and advanced functional patterns</p>
+        <button onclick="runCompositionExamples()">Run Examples</button>
+        <div id="composition-output" class="output"></div>
+    </div>
+
+    <script>
+        // Utility function to display output
+        function displayOutput(elementId, content) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = content;
+        }
+
+        // 1. Pure Functions Examples
+        function runPureFunctionExamples() {
+            let output = '';
+            
+            // Pure functions
+            output += '=== Pure Functions ===\n';
+            function add(a, b) {
+                return a + b;
+            }
+            
+            function multiply(x, y) {
+                return x * y;
+            }
+            
+            function getFullName(firstName, lastName) {
+                return `${firstName} ${lastName}`;
+            }
+            
+            output += `add(5, 3): ${add(5, 3)}\n`;
+            output += `multiply(4, 6): ${multiply(4, 6)}\n`;
+            output += `getFullName('John', 'Doe'): ${getFullName('John', 'Doe')}\n`;
+            
+            // Impure functions (for comparison)
+            output += '\n=== Impure Functions (for comparison) ===\n';
+            let counter = 0;
+            
+            function impureAdd(x) {
+                counter++; // Side effect
+                return x + counter;
+            }
+            
+            function impureGetTime() {
+                return new Date().toISOString(); // Depends on external state
+            }
+            
+            output += `impureAdd(5): ${impureAdd(5)}\n`;
+            output += `impureAdd(5): ${impureAdd(5)}\n`;
+            output += `impureGetTime(): ${impureGetTime()}\n`;
+            
+            // Benefits of pure functions
+            output += '\n=== Benefits of Pure Functions ===\n';
+            
+            // Easy to test
+            function isEven(number) {
+                return number % 2 === 0;
+            }
+            
+            output += `isEven(4): ${isEven(4)}\n`;
+            output += `isEven(5): ${isEven(5)}\n`;
+            
+            // Easy to cache/memoize
+            function fibonacci(n) {
+                if (n <= 1) return n;
+                return fibonacci(n - 1) + fibonacci(n - 2);
+            }
+            
+            // Memoization example
+            function memoize(fn) {
+                const cache = new Map();
+                return function(...args) {
+                    const key = JSON.stringify(args);
+                    if (cache.has(key)) {
+                        return cache.get(key);
+                    }
+                    const result = fn(...args);
+                    cache.set(key, result);
+                    return result;
+                };
+            }
+            
+            const memoizedFibonacci = memoize(fibonacci);
+            
+            let start = performance.now();
+            let result1 = memoizedFibonacci(10);
+            let time1 = performance.now() - start;
+            
+            start = performance.now();
+            let result2 = memoizedFibonacci(10);
+            let time2 = performance.now() - start;
+            
+            output += `First call: ${result1} (${time1.toFixed(4)}ms)\n`;
+            output += `Second call: ${result2} (${time2.toFixed(4)}ms)\n`;
+            
+            displayOutput('pure-output', output);
+        }
+
+        // 2. Immutability Examples
+        function runImmutabilityExamples() {
+            let output = '';
+            
+            // Immutable array operations
+            output += '=== Immutable Array Operations ===\n';
+            let numbers = [1, 2, 3, 4, 5];
+            
+            // Add element
+            let withSix = [...numbers, 6];
+            let withZero = [0, ...numbers];
+            
+            output += `Original: ${numbers}\n`;
+            output += `With 6: ${withSix}\n`;
+            output += `With 0: ${withZero}\n`;
+            
+            // Remove element
+            let withoutThree = numbers.filter(n => n !== 3);
+            output += `Without 3: ${withoutThree}\n`;
+            
+            // Update element
+            let doubled = numbers.map(n => n * 2);
+            output += `Doubled: ${doubled}\n`;
+            
+            // Insert element at specific index
+            let withSeven = [...numbers.slice(0, 2), 7, ...numbers.slice(2)];
+            output += `With 7 at index 2: ${withSeven}\n`;
+            
+            // Immutable object operations
+            output += '\n=== Immutable Object Operations ===\n';
+            let person = { name: 'John', age: 30, city: 'New York' };
+            
+            // Add property
+            let withEmail = { ...person, email: 'john@example.com' };
+            output += `With email: ${JSON.stringify(withEmail)}\n`;
+            
+            // Update property
+            let olderPerson = { ...person, age: 31 };
+            output += `Older person: ${JSON.stringify(olderPerson)}\n`;
+            
+            // Remove property
+            let {age, ...personWithoutAge} = person;
+            output += `Without age: ${JSON.stringify(personWithoutAge)}\n`;
+            
+            // Nested object updates
+            let user = {
+                name: 'John',
+                age: 30,
+                address: {
+                    city: 'New York',
+                    country: 'USA'
+                }
+            };
+            
+            let userWithNewAddress = {
+                ...user,
+                address: {
+                    ...user.address,
+                    city: 'Boston'
+                }
+            };
+            
+            output += `Updated address: ${JSON.stringify(userWithNewAddress)}\n`;
+            
+            // Object.freeze() for immutability
+            output += '\n=== Object.freeze() ===\n';
+            let frozenPerson = Object.freeze({ name: 'Jane', age: 25 });
+            
+            // This won't work in strict mode
+            try {
+                frozenPerson.age = 26;
+                output += `Frozen person age: ${frozenPerson.age}\n`;
+            } catch (error) {
+                output += `Error: ${error.message}\n`;
+            }
+            
+            // Deep freeze function
+            function deepFreeze(obj) {
+                Object.getOwnPropertyNames(obj).forEach(prop => {
+                    if (obj[prop] !== null && typeof obj[prop] === 'object') {
+                        deepFreeze(obj[prop]);
+                    }
+                });
+                return Object.freeze(obj);
+            }
+            
+            let deepFrozenPerson = deepFreeze({
+                name: 'Bob',
+                age: 35,
+                address: {
+                    city: 'Chicago',
+                    country: 'USA'
+                }
+            });
+            
+            output += `Deep frozen person: ${JSON.stringify(deepFrozenPerson)}\n`;
+            
+            displayOutput('immutability-output', output);
+        }
+
+        // 3. Higher-Order Functions Examples
+        function runHigherOrderExamples() {
+            let output = '';
+            
+            // Functions as arguments
+            output += '=== Functions as Arguments ===\n';
+            function processArray(arr, processor) {
+                return arr.map(processor);
+            }
+            
+            let numbers = [1, 2, 3, 4, 5];
+            let doubled = processArray(numbers, x => x * 2);
+            let squared = processArray(numbers, x => x * x);
+            
+            output += `Original: ${numbers}\n`;
+            output += `Doubled: ${doubled}\n`;
+            output += `Squared: ${squared}\n`;
+            
+            // Built-in higher-order functions
+            output += '\n=== Built-in Higher-Order Functions ===\n';
+            let users = [
+                { name: 'John', age: 30, active: true },
+                { name: 'Jane', age: 25, active: false },
+                { name: 'Bob', age: 35, active: true }
+            ];
+            
+            // map
+            let names = users.map(user => user.name);
+            output += `Names: ${names.join(', ')}\n`;
+            
+            // filter
+            let activeUsers = users.filter(user => user.active);
+            output += `Active users: ${activeUsers.map(u => u.name).join(', ')}\n`;
+            
+            // reduce
+            let totalAge = users.reduce((sum, user) => sum + user.age, 0);
+            output += `Total age: ${totalAge}\n`;
+            
+            // forEach
+            output += 'User details:\n';
+            users.forEach(user => {
+                output += `  ${user.name}, age ${user.age}, ${user.active ? 'active' : 'inactive'}\n`;
+            });
+            
+            // Functions as return values
+            output += '\n=== Functions as Return Values ===\n';
+            function createMultiplier(factor) {
+                return function(number) {
+                    return number * factor;
+                };
+            }
+            
+            let double = createMultiplier(2);
+            let triple = createMultiplier(3);
+            
+            output += `Double 5: ${double(5)}\n`;
+            output += `Triple 5: ${triple(5)}\n`;
+            
+            // Function factories
+            output += '\n=== Function Factories ===\n';
+            function createValidator(rules) {
+                return function(data) {
+                    return rules.every(rule => rule(data));
+                };
+            }
+            
+            let isEmail = (data) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+            let isRequired = (data) => data.name && data.email;
+            let isAdult = (data) => data.age >= 18;
+            
+            let validateUser = createValidator([isEmail, isRequired, isAdult]);
+            
+            let validUser = { name: 'John', email: 'john@example.com', age: 30 };
+            let invalidUser = { name: 'Jane', email: 'invalid-email', age: 16 };
+            
+            output += `Valid user: ${validateUser(validUser)}\n`;
+            output += `Invalid user: ${validateUser(invalidUser)}\n`;
+            
+            // Currying
+            output += '\n=== Currying ===\n';
+            function add(a) {
+                return function(b) {
+                    return a + b;
+                };
+            }
+            
+            let add5 = add(5);
+            output += `add(5)(3): ${add(5)(3)}\n`;
+            output += `add5(3): ${add5(3)}\n`;
+            
+            // Arrow function currying
+            const multiply = a => b => a * b;
+            const multiplyBy3 = multiply(3);
+            output += `multiply(3)(4): ${multiply(3)(4)}\n`;
+            output += `multiplyBy3(4): ${multiplyBy3(4)}\n`;
+            
+            displayOutput('higherorder-output', output);
+        }
+
+        // 4. Function Composition and Advanced Patterns Examples
+        function runCompositionExamples() {
+            let output = '';
+            
+            // Basic composition
+            output += '=== Basic Composition ===\n';
+            function addOne(x) {
+                return x + 1;
+            }
+            
+            function multiplyByTwo(x) {
+                return x * 2;
+            }
+            
+            function square(x) {
+                return x * x;
+            }
+            
+            // Manual composition
+            function processNumber(x) {
+                return square(multiplyByTwo(addOne(x)));
+            }
+            
+            output += `processNumber(3): ${processNumber(3)}\n`;
+            
+            // Generic compose function
+            function compose(...functions) {
+                return function(value) {
+                    return functions.reduceRight((acc, fn) => fn(acc), value);
+                };
+            }
+            
+            let processNumberComposed = compose(square, multiplyByTwo, addOne);
+            output += `Composed: ${processNumberComposed(3)}\n`;
+            
+            // Pipe function (left to right)
+            function pipe(...functions) {
+                return function(value) {
+                    return functions.reduce((acc, fn) => fn(acc), value);
+                };
+            }
+            
+            let processNumberPiped = pipe(addOne, multiplyByTwo, square);
+            output += `Piped: ${processNumberPiped(3)}\n`;
+            
+            // Advanced composition with error handling
+            output += '\n=== Advanced Composition ===\n';
+            function safeCompose(...functions) {
+                return function(value) {
+                    try {
+                        return functions.reduceRight((acc, fn) => fn(acc), value);
+                    } catch (error) {
+                        console.error('Composition error:', error);
+                        return null;
+                    }
+                };
+            }
+            
+            function safeDivide(x) {
+                if (x === 0) throw new Error('Division by zero');
+                return 10 / x;
+            }
+            
+            let safeProcess = safeCompose(square, safeDivide, addOne);
+            output += `Safe process(2): ${safeProcess(2)}\n`;
+            output += `Safe process(-1): ${safeProcess(-1)}\n`;
+            
+            // Memoization
+            output += '\n=== Memoization ===\n';
+            function memoize(fn) {
+                const cache = new Map();
+                return function(...args) {
+                    const key = JSON.stringify(args);
+                    if (cache.has(key)) {
+                        return cache.get(key);
+                    }
+                    const result = fn(...args);
+                    cache.set(key, result);
+                    return result;
+                };
+            }
+            
+            function expensiveCalculation(n) {
+                console.log(`Calculating for ${n}`);
+                return n * n * n;
+            }
+            
+            let memoizedCalculation = memoize(expensiveCalculation);
+            
+            output += `First call: ${memoizedCalculation(5)}\n`;
+            output += `Second call: ${memoizedCalculation(5)}\n`;
+            
+            // Partial application
+            output += '\n=== Partial Application ===\n';
+            function partial(fn, ...args) {
+                return function(...remainingArgs) {
+                    return fn(...args, ...remainingArgs);
+                };
+            }
+            
+            function greet(greeting, name, punctuation) {
+                return `${greeting} ${name}${punctuation}`;
+            }
+            
+            let sayHello = partial(greet, 'Hello');
+            let sayHelloToJohn = partial(sayHello, 'John');
+            
+            output += `sayHello('Jane', '!'): ${sayHello('Jane', '!')}\n`;
+            output += `sayHelloToJohn('!'): ${sayHelloToJohn('!')}\n`;
+            
+            // Function utilities
+            output += '\n=== Function Utilities ===\n';
+            function debounce(fn, delay) {
+                let timeoutId;
+                return function(...args) {
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(() => fn.apply(this, args), delay);
+                };
+            }
+            
+            function throttle(fn, delay) {
+                let lastCall = 0;
+                return function(...args) {
+                    const now = Date.now();
+                    if (now - lastCall >= delay) {
+                        lastCall = now;
+                        return fn.apply(this, args);
+                    }
+                };
+            }
+            
+            // Data transformation utilities
+            output += '\n=== Data Transformation Utilities ===\n';
+            function groupBy(array, keyFn) {
+                return array.reduce((groups, item) => {
+                    const key = typeof keyFn === 'function' ? keyFn(item) : item[keyFn];
+                    groups[key] = groups[key] || [];
+                    groups[key].push(item);
+                    return groups;
+                }, {});
+            }
+            
+            function sortBy(array, keyFn) {
+                return [...array].sort((a, b) => {
+                    const aVal = typeof keyFn === 'function' ? keyFn(a) : a[keyFn];
+                    const bVal = typeof keyFn === 'function' ? keyFn(b) : b[keyFn];
+                    return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
+                });
+            }
+            
+            function uniqueBy(array, keyFn) {
+                const seen = new Set();
+                return array.filter(item => {
+                    const key = typeof keyFn === 'function' ? keyFn(item) : item[keyFn];
+                    if (seen.has(key)) {
+                        return false;
+                    }
+                    seen.add(key);
+                    return true;
+                });
+            }
+            
+            let data = [
+                { name: 'John', age: 30, city: 'New York' },
+                { name: 'Jane', age: 25, city: 'Boston' },
+                { name: 'Bob', age: 35, city: 'New York' },
+                { name: 'Alice', age: 28, city: 'Chicago' }
+            ];
+            
+            let groupedByCity = groupBy(data, 'city');
+            output += `Grouped by city: ${JSON.stringify(groupedByCity, null, 2)}\n`;
+            
+            let sortedByAge = sortBy(data, 'age');
+            output += `Sorted by age: ${JSON.stringify(sortedByAge.map(u => u.name), null, 2)}\n`;
+            
+            displayOutput('composition-output', output);
+        }
+    </script>
+</body>
+</html>
+
