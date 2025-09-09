@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 9 Quiz - Modern Build Systems & Developer Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .quiz-content {
+            padding: 2rem;
+        }
+
+        .question {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        .question h3 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .option:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .option.selected {
+            border-color: #3b82f6;
+            background: #dbeafe;
+        }
+
+        .option.correct {
+            border-color: #10b981;
+            background: #d1fae5;
+        }
+
+        .option.incorrect {
+            border-color: #ef4444;
+            background: #fee2e2;
+        }
+
+        .option input[type="radio"] {
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: #2563eb;
+        }
+
+        .btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #4b5563;
+        }
+
+        .progress {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            transition: width 0.3s ease;
+        }
+
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1f2937;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .results {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .results.excellent {
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            color: #065f46;
+            border-radius: 8px;
+        }
+
+        .results.good {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            color: #1e40af;
+            border-radius: 8px;
+        }
+
+        .results.average {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            color: #92400e;
+            border-radius: 8px;
+        }
+
+        .results.poor {
+            background: #fee2e2;
+            border: 1px solid #ef4444;
+            color: #991b1b;
+            border-radius: 8px;
+        }
+
+        .score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .feedback {
+            margin-bottom: 1.5rem;
+        }
+
+        .explanation {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+
+        .explanation h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .explanation ul {
+            margin-left: 1.5rem;
+        }
+
+        .explanation li {
+            margin-bottom: 0.5rem;
+        }
+
+        .question-counter {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #1f2937;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                border-radius: 8px;
+            }
+
+            .header {
+                padding: 1.5rem;
+            }
+
+            .quiz-content {
+                padding: 1.5rem;
+            }
+
+            .timer, .question-counter {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+
+            .controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .progress {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .progress-bar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="question-counter" id="questionCounter">Question 1 of 10</div>
+    <div class="timer" id="timer">Time: 10:00</div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Level 9 Quiz</h1>
+            <p>Modern Build Systems & Developer Experience</p>
+        </div>
+
+        <div class="quiz-content">
+            <form id="quizForm">
+                <!-- Question 1 -->
+                <div class="question active">
+                    <h3>1. Which bundler uses ES modules natively and provides the fastest development server startup?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q1" value="a">
+                            <span>A) Webpack</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="b">
+                            <span>B) Vite</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="c">
+                            <span>C) Rollup</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="d">
+                            <span>D) Parcel</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question">
+                    <h3>2. What is the main purpose of code splitting in modern web applications?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q2" value="a">
+                            <span>A) To reduce the number of files</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="b">
+                            <span>B) To improve initial page load performance</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="c">
+                            <span>C) To make code more readable</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="d">
+                            <span>D) To reduce build time</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question">
+                    <h3>3. Which build tool is best known for its plugin ecosystem and extensive configuration options?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="a">
+                            <span>A) Vite</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="b">
+                            <span>B) Webpack</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="c">
+                            <span>C) Rollup</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="d">
+                            <span>D) Parcel</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question">
+                    <h3>4. What does "tree shaking" accomplish in modern bundlers?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q4" value="a">
+                            <span>A) Compresses JavaScript files</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="b">
+                            <span>B) Removes unused code from bundles</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="c">
+                            <span>C) Splits code into smaller chunks</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="d">
+                            <span>D) Optimizes CSS files</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question">
+                    <h3>5. Which feature allows developers to see changes in real-time without refreshing the browser?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q5" value="a">
+                            <span>A) Source maps</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="b">
+                            <span>B) Hot Module Replacement (HMR)</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="c">
+                            <span>C) Tree shaking</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="d">
+                            <span>D) Code splitting</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="question">
+                    <h3>6. What is the primary advantage of using ES modules over CommonJS in build systems?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q6" value="a">
+                            <span>A) Better browser compatibility</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="b">
+                            <span>B) Static analysis and tree shaking</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="c">
+                            <span>C) Faster execution</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="d">
+                            <span>D) Smaller file sizes</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="question">
+                    <h3>7. Which build tool is known for its zero-configuration approach and automatic asset optimization?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q7" value="a">
+                            <span>A) Webpack</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="b">
+                            <span>B) Vite</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="c">
+                            <span>C) Rollup</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q7" value="d">
+                            <span>D) Parcel</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="question">
+                    <h3>8. What is the main purpose of source maps in development builds?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q8" value="a">
+                            <span>A) To reduce bundle size</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="b">
+                            <span>B) To enable debugging of original source code</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="c">
+                            <span>C) To improve build performance</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q8" value="d">
+                            <span>D) To enable tree shaking</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="question">
+                    <h3>9. Which optimization technique involves loading code only when it's actually needed?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q9" value="a">
+                            <span>A) Tree shaking</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="b">
+                            <span>B) Lazy loading</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="c">
+                            <span>C) Minification</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q9" value="d">
+                            <span>D) Compression</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="question">
+                    <h3>10. What is the primary benefit of using Docker in build pipelines?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q10" value="a">
+                            <span>A) Faster build times</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="b">
+                            <span>B) Consistent build environments across teams</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="c">
+                            <span>C) Smaller bundle sizes</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q10" value="d">
+                            <span>D) Better caching</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button type="button" class="btn btn-secondary" id="prevBtn" disabled>Previous</button>
+                    <div class="progress">
+                        <span id="progressText">1/10</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 10%"></div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn" id="nextBtn">Next</button>
+                </div>
+            </form>
+
+            <div class="results" id="results">
+                <div class="score" id="score">0/10</div>
+                <div class="feedback" id="feedback"></div>
+                <div class="explanation" id="explanation"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class Level9Quiz {
+            constructor() {
+                this.currentQuestion = 0;
+                this.totalQuestions = 10;
+                this.answers = {};
+                this.timeLeft = 10 * 60; // 10 minutes in seconds
+                this.timer = null;
+                this.correctAnswers = {
+                    q1: 'b', // Vite
+                    q2: 'b', // Improve initial page load performance
+                    q3: 'b', // Webpack
+                    q4: 'b', // Remove unused code
+                    q5: 'b', // HMR
+                    q6: 'b', // Static analysis and tree shaking
+                    q7: 'd', // Parcel
+                    q8: 'b', // Enable debugging
+                    q9: 'b', // Lazy loading
+                    q10: 'b' // Consistent environments
+                };
+                
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.startTimer();
+                this.updateProgress();
+            }
+
+            setupEventListeners() {
+                // Radio button changes
+                const radioButtons = document.querySelectorAll('input[type="radio"]');
+                radioButtons.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        this.answers[`q${this.currentQuestion + 1}`] = e.target.value;
+                        this.updateProgress();
+                    });
+                });
+
+                // Navigation buttons
+                document.getElementById('prevBtn').addEventListener('click', () => {
+                    this.previousQuestion();
+                });
+
+                document.getElementById('nextBtn').addEventListener('click', () => {
+                    this.nextQuestion();
+                });
+
+                // Form submission
+                document.getElementById('quizForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.submitQuiz();
+                });
+            }
+
+            startTimer() {
+                this.timer = setInterval(() => {
+                    this.timeLeft--;
+                    this.updateTimerDisplay();
+                    
+                    if (this.timeLeft <= 0) {
+                        this.submitQuiz();
+                    }
+                }, 1000);
+            }
+
+            updateTimerDisplay() {
+                const timerElement = document.getElementById('timer');
+                const minutes = Math.floor(this.timeLeft / 60);
+                const seconds = this.timeLeft % 60;
+                timerElement.textContent = `Time: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (this.timeLeft <= 60) {
+                    timerElement.style.background = '#ef4444';
+                }
+            }
+
+            updateProgress() {
+                const progress = ((this.currentQuestion + 1) / this.totalQuestions) * 100;
+                document.getElementById('progressFill').style.width = `${progress}%`;
+                document.getElementById('progressText').textContent = `${this.currentQuestion + 1}/${this.totalQuestions}`;
+                document.getElementById('questionCounter').textContent = `Question ${this.currentQuestion + 1} of ${this.totalQuestions}`;
+            }
+
+            nextQuestion() {
+                if (this.currentQuestion < this.totalQuestions - 1) {
+                    this.currentQuestion++;
+                    this.showQuestion();
+                    this.updateProgress();
+                } else {
+                    this.submitQuiz();
+                }
+            }
+
+            previousQuestion() {
+                if (this.currentQuestion > 0) {
+                    this.currentQuestion--;
+                    this.showQuestion();
+                    this.updateProgress();
+                }
+            }
+
+            showQuestion() {
+                const questions = document.querySelectorAll('.question');
+                questions.forEach((question, index) => {
+                    question.classList.toggle('active', index === this.currentQuestion);
+                });
+
+                // Update button states
+                document.getElementById('prevBtn').disabled = this.currentQuestion === 0;
+                document.getElementById('nextBtn').textContent = 
+                    this.currentQuestion === this.totalQuestions - 1 ? 'Submit' : 'Next';
+
+                // Restore previous answer if exists
+                const questionId = `q${this.currentQuestion + 1}`;
+                if (this.answers[questionId]) {
+                    const radio = document.querySelector(`input[name="${questionId}"][value="${this.answers[questionId]}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                    }
+                }
+            }
+
+            submitQuiz() {
+                clearInterval(this.timer);
+                
+                const score = this.calculateScore();
+                const percentage = Math.round((score / this.totalQuestions) * 100);
+                
+                this.showResults(score, percentage);
+                this.highlightAnswers();
+            }
+
+            calculateScore() {
+                let score = 0;
+                Object.keys(this.correctAnswers).forEach(questionId => {
+                    if (this.answers[questionId] === this.correctAnswers[questionId]) {
+                        score++;
+                    }
+                });
+                return score;
+            }
+
+            showResults(score, percentage) {
+                // Hide quiz form
+                document.getElementById('quizForm').style.display = 'none';
+                
+                const resultsDiv = document.getElementById('results');
+                const scoreDiv = document.getElementById('score');
+                const feedbackDiv = document.getElementById('feedback');
+                const explanationDiv = document.getElementById('explanation');
+                
+                scoreDiv.textContent = `${score}/${this.totalQuestions}`;
+                
+                let grade, message, explanation;
+                
+                if (percentage >= 90) {
+                    grade = 'excellent';
+                    message = 'Excellent! You have a deep understanding of modern build systems.';
+                    explanation = 'You demonstrate mastery of build tools, optimization techniques, and developer experience principles. You\'re ready to architect complex build systems and lead development teams.';
+                } else if (percentage >= 75) {
+                    grade = 'good';
+                    message = 'Great job! You have a solid grasp of build systems and optimization.';
+                    explanation = 'You show good understanding of build tools and optimization techniques. Consider exploring advanced bundler configurations and CI/CD integration to further enhance your skills.';
+                } else if (percentage >= 60) {
+                    grade = 'average';
+                    message = 'Good effort! You understand the basics but need more practice.';
+                    explanation = 'You have a basic understanding of build systems. Focus on hands-on practice with different bundlers, optimization techniques, and build pipeline automation.';
+                } else {
+                    grade = 'poor';
+                    message = 'Keep learning! Build systems are complex but essential skills.';
+                    explanation = 'Build systems require practice and experience. Start with basic bundler configurations, learn about optimization techniques, and gradually work up to advanced build automation.';
+                }
+                
+                resultsDiv.className = `results show ${grade}`;
+                feedbackDiv.innerHTML = `
+                    <h3>${message}</h3>
+                    <p>Score: ${percentage}%</p>
+                `;
+                explanationDiv.innerHTML = `
+                    <h4>Next Steps:</h4>
+                    <p>${explanation}</p>
+                    <h4>Key Areas to Focus On:</h4>
+                    <ul>
+                        <li>Hands-on practice with Vite, Webpack, and Rollup</li>
+                        <li>Understanding optimization techniques (tree shaking, code splitting, lazy loading)</li>
+                        <li>Build pipeline automation and CI/CD integration</li>
+                        <li>Performance monitoring and bundle analysis</li>
+                        <li>Developer experience optimization</li>
+                    </ul>
+                `;
+                
+                resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            highlightAnswers() {
+                // Show all questions with correct answers highlighted
+                const questions = document.querySelectorAll('.question');
+                questions.forEach((question, index) => {
+                    question.style.display = 'block';
+                    question.classList.remove('active');
+                    
+                    const questionId = `q${index + 1}`;
+                    const correctAnswer = this.correctAnswers[questionId];
+                    const selectedAnswer = this.answers[questionId];
+                    
+                    // Highlight correct answer
+                    const correctOption = question.querySelector(`input[value="${correctAnswer}"]`);
+                    if (correctOption) {
+                        correctOption.closest('.option').classList.add('correct');
+                    }
+                    
+                    // Highlight incorrect selected answer
+                    if (selectedAnswer && selectedAnswer !== correctAnswer) {
+                        const selectedOption = question.querySelector(`input[value="${selectedAnswer}"]`);
+                        if (selectedOption) {
+                            selectedOption.closest('.option').classList.add('incorrect');
+                        }
+                    }
+                });
+            }
+        }
+
+        // Initialize quiz when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new Level9Quiz();
+        });
+    </script>
+</body>
+</html>

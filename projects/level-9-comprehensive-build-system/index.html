@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Build System - Level 9</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__brand">
+                    <h1 class="header__title">Build System</h1>
+                    <p class="header__subtitle">Level 9 - Modern Build Systems & Developer Experience</p>
+                </div>
+                <nav class="header__nav">
+                    <a href="#overview" class="nav-link">Overview</a>
+                    <a href="#tools" class="nav-link">Tools</a>
+                    <a href="#optimization" class="nav-link">Optimization</a>
+                    <a href="#automation" class="nav-link">Automation</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__content">
+                <h2 class="hero__title">Modern Build Systems</h2>
+                <p class="hero__description">
+                    A comprehensive demonstration of modern build tools, optimization techniques, 
+                    and developer experience features. Explore Vite, Webpack, Rollup, and more 
+                    with interactive examples and real-world configurations.
+                </p>
+                <div class="hero__actions">
+                    <button class="button button--primary button--lg" onclick="startDemo()">Start Demo</button>
+                    <button class="button button--outline button--lg" onclick="showConfig()">View Configs</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="section">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Build System Overview</h2>
+                <p class="section__description">
+                    Modern web development requires sophisticated build systems to transform source code 
+                    into production-ready applications. This project demonstrates various build tools 
+                    and optimization techniques.
+                </p>
+            </div>
+
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="overview-card__icon">⚡</div>
+                    <h3 class="overview-card__title">Fast Development</h3>
+                    <p class="overview-card__description">
+                        Lightning-fast development servers with Hot Module Replacement (HMR) 
+                        for instant feedback during development.
+                    </p>
+                </div>
+
+                <div class="overview-card">
+                    <div class="overview-card__icon">🔧</div>
+                    <h3 class="overview-card__title">Multiple Tools</h3>
+                    <p class="overview-card__description">
+                        Support for Vite, Webpack, Rollup, and ESBuild with optimized 
+                        configurations for different use cases.
+                    </p>
+                </div>
+
+                <div class="overview-card">
+                    <div class="overview-card__icon">📦</div>
+                    <h3 class="overview-card__title">Optimized Builds</h3>
+                    <p class="overview-card__description">
+                        Advanced optimization techniques including code splitting, 
+                        tree shaking, and asset optimization.
+                    </p>
+                </div>
+
+                <div class="overview-card">
+                    <div class="overview-card__icon">🚀</div>
+                    <h3 class="overview-card__title">CI/CD Integration</h3>
+                    <p class="overview-card__description">
+                        Complete CI/CD pipeline with automated testing, building, 
+                        and deployment using GitHub Actions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Build Tools Section -->
+    <section id="tools" class="section">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Build Tools Comparison</h2>
+                <p class="section__description">
+                    Compare different build tools and their characteristics, performance, and use cases.
+                </p>
+            </div>
+
+            <div class="tools-grid">
+                <!-- Vite Card -->
+                <div class="tool-card">
+                    <div class="tool-card__header">
+                        <h3 class="tool-card__title">Vite</h3>
+                        <span class="tool-card__badge tool-card__badge--excellent">Excellent</span>
+                    </div>
+                    <div class="tool-card__content">
+                        <p class="tool-card__description">
+                            Next generation frontend tooling with lightning-fast development server 
+                            and optimized production builds.
+                        </p>
+                        <div class="tool-card__features">
+                            <div class="feature">
+                                <span class="feature__icon">⚡</span>
+                                <span class="feature__text">Native ES modules</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature__icon">🔥</span>
+                                <span class="feature__text">Lightning-fast HMR</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature__icon">📝</span>
+                                <span class="feature__text">Built-in TypeScript</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature__icon">⚙️</span>
+                                <span class="feature__text">Zero-config setup</span>
+                            </div>
+                        </div>
+                        <div class="tool-card__metrics">
+                            <div class="metric">
+                                <span class="metric__label">Dev Server</span>
+                                <span class="metric__value">2.3s</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric__label">Build Time</span>
+                                <span class="metric__value">8.7s</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric__label">Bundle Size</span>
+                                <span class="metric__value">245KB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Webpack Card -->
+                <div class="tool-card">
+                    <div class="tool-card__header">
+                        <h3 class="tool-card__title">Webpack</h3>
+                        <span class="tool-card__badge tool-card__badge--good">Good</span>
+                    </div>
+                    <div class="tool-card__content">
+                        <p class="tool-card__description">
+                            Battle-tested bundler with extensive ecosystem and powerful customization options.
+                        </p>
+                        <div class="tool-card__features">
+                            <div class="feature">
+                                <span class="feature__icon">🔌</span>
+                                <span class="feature__text">Extensive plugins</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature__icon">📦</span>
+                                <span class="feature__text">Code splitting</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature__icon">🖼️</span>
+                                <span class="feature__text">Asset management</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature__icon">🔄</span>
+                                <span class="feature__text">Hot module replacement</span>
+                            </div>
+                        </div>
+                        <div class="tool-card__metrics">
+                            <div class="metric">
+                                <span class="metric__label">Dev Server</span>
+                                <span class="metric__value">8.7s</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric__label">Build Time</span>
+                                <span class="metric__value">15.2s</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric__label">Bundle Size</span>
+                                <span class="metric__value">312KB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rollup Card -->
+                <div class="tool-card">
+                    <div class="tool-card__header">
+                        <h3 class="tool-card__title">Rollup</h3>
+                        <span class="tool-card__badge tool-card__badge--excellent">Excellent</span>
+                    </div>
+                    <div class="tool-card__content">
+                        <p class="tool-card__description">
+                            ES module bundler optimized for libraries with excellent tree shaking capabilities.
+                        </p>
+                        <div class="tool-card__features">
+                            <div class="feature">
+                                <span class="feature__icon">🌳</span>
+                                <span class="feature__text">Tree shaking</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature__icon">📚</span>
+                                <span class="feature__text">Library development</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature__icon">📦</span>
+                                <span class="feature__text">Small bundles</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature__icon">🔧</span>
+                                <span class="feature__text">Plugin system</span>
+                            </div>
+                        </div>
+                        <div class="tool-card__metrics">
+                            <div class="metric">
+                                <span class="metric__label">Dev Server</span>
+                                <span class="metric__value">3.1s</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric__label">Build Time</span>
+                                <span class="metric__value">5.4s</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric__label">Bundle Size</span>
+                                <span class="metric__value">198KB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Optimization Section -->
+    <section id="optimization" class="section">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Build Optimization</h2>
+                <p class="section__description">
+                    Advanced optimization techniques to improve build performance and bundle sizes.
+                </p>
+            </div>
+
+            <div class="optimization-grid">
+                <!-- Code Splitting Demo -->
+                <div class="optimization-card">
+                    <h3 class="optimization-card__title">Code Splitting</h3>
+                    <p class="optimization-card__description">
+                        Split your code into smaller chunks that can be loaded on demand.
+                    </p>
+                    <div class="demo-controls">
+                        <button class="button button--primary" onclick="simulateCodeSplitting()">Simulate</button>
+                        <button class="button button--secondary" onclick="resetCodeSplitting()">Reset</button>
+                    </div>
+                    <div class="demo-result" id="codeSplittingResult">
+                        <div class="status status--info">Click "Simulate" to see code splitting in action</div>
+                    </div>
+                </div>
+
+                <!-- Tree Shaking Demo -->
+                <div class="optimization-card">
+                    <h3 class="optimization-card__title">Tree Shaking</h3>
+                    <p class="optimization-card__description">
+                        Eliminate dead code that's not being used in your application.
+                    </p>
+                    <div class="demo-controls">
+                        <button class="button button--primary" onclick="simulateTreeShaking()">Simulate</button>
+                        <button class="button button--secondary" onclick="resetTreeShaking()">Reset</button>
+                    </div>
+                    <div class="demo-result" id="treeShakingResult">
+                        <div class="status status--info">Click "Simulate" to see tree shaking in action</div>
+                    </div>
+                </div>
+
+                <!-- Bundle Analysis Demo -->
+                <div class="optimization-card">
+                    <h3 class="optimization-card__title">Bundle Analysis</h3>
+                    <p class="optimization-card__description">
+                        Analyze your bundle composition and identify optimization opportunities.
+                    </p>
+                    <div class="demo-controls">
+                        <button class="button button--primary" onclick="analyzeBundle()">Analyze</button>
+                        <button class="button button--secondary" onclick="resetBundleAnalysis()">Reset</button>
+                    </div>
+                    <div class="demo-result" id="bundleAnalysisResult">
+                        <div class="status status--info">Click "Analyze" to see bundle analysis</div>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics -->
+                <div class="optimization-card">
+                    <h3 class="optimization-card__title">Performance Metrics</h3>
+                    <p class="optimization-card__description">
+                        Track build performance and optimization results.
+                    </p>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-card__label">Build Time</div>
+                            <div class="metric-card__value" id="buildTime">0ms</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-card__label">Bundle Size</div>
+                            <div class="metric-card__value" id="bundleSize">0KB</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-card__label">Chunks</div>
+                            <div class="metric-card__value" id="chunkCount">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-card__label">Modules</div>
+                            <div class="metric-card__value" id="moduleCount">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Automation Section -->
+    <section id="automation" class="section">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Build Automation</h2>
+                <p class="section__description">
+                    Automated build processes, CI/CD integration, and deployment strategies.
+                </p>
+            </div>
+
+            <div class="automation-grid">
+                <!-- CI/CD Pipeline -->
+                <div class="automation-card">
+                    <h3 class="automation-card__title">CI/CD Pipeline</h3>
+                    <p class="automation-card__description">
+                        Automated testing, building, and deployment using GitHub Actions.
+                    </p>
+                    <div class="pipeline-steps">
+                        <div class="pipeline-step">
+                            <div class="pipeline-step__icon">📥</div>
+                            <div class="pipeline-step__content">
+                                <div class="pipeline-step__title">Checkout</div>
+                                <div class="pipeline-step__description">Get source code</div>
+                            </div>
+                        </div>
+                        <div class="pipeline-step">
+                            <div class="pipeline-step__icon">🔧</div>
+                            <div class="pipeline-step__content">
+                                <div class="pipeline-step__title">Setup</div>
+                                <div class="pipeline-step__description">Install dependencies</div>
+                            </div>
+                        </div>
+                        <div class="pipeline-step">
+                            <div class="pipeline-step__icon">🧪</div>
+                            <div class="pipeline-step__content">
+                                <div class="pipeline-step__title">Test</div>
+                                <div class="pipeline-step__description">Run test suite</div>
+                            </div>
+                        </div>
+                        <div class="pipeline-step">
+                            <div class="pipeline-step__icon">🏗️</div>
+                            <div class="pipeline-step__content">
+                                <div class="pipeline-step__title">Build</div>
+                                <div class="pipeline-step__description">Create production build</div>
+                            </div>
+                        </div>
+                        <div class="pipeline-step">
+                            <div class="pipeline-step__icon">🚀</div>
+                            <div class="pipeline-step__content">
+                                <div class="pipeline-step__title">Deploy</div>
+                                <div class="pipeline-step__description">Deploy to production</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Build Scripts -->
+                <div class="automation-card">
+                    <h3 class="automation-card__title">Build Scripts</h3>
+                    <p class="automation-card__description">
+                        Comprehensive npm scripts for different build scenarios.
+                    </p>
+                    <div class="script-list">
+                        <div class="script-item">
+                            <code class="script-command">npm run dev</code>
+                            <span class="script-description">Start development server</span>
+                        </div>
+                        <div class="script-item">
+                            <code class="script-command">npm run build</code>
+                            <span class="script-description">Build for production</span>
+                        </div>
+                        <div class="script-item">
+                            <code class="script-command">npm run test</code>
+                            <span class="script-description">Run test suite</span>
+                        </div>
+                        <div class="script-item">
+                            <code class="script-command">npm run lint</code>
+                            <span class="script-description">Lint code</span>
+                        </div>
+                        <div class="script-item">
+                            <code class="script-command">npm run analyze</code>
+                            <span class="script-description">Analyze bundle</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Docker Support -->
+                <div class="automation-card">
+                    <h3 class="automation-card__title">Docker Support</h3>
+                    <p class="automation-card__description">
+                        Containerized development and deployment with Docker.
+                    </p>
+                    <div class="docker-commands">
+                        <div class="docker-command">
+                            <code>docker build -t my-app .</code>
+                            <span>Build Docker image</span>
+                        </div>
+                        <div class="docker-command">
+                            <code>docker run -p 3000:3000 my-app</code>
+                            <span>Run container</span>
+                        </div>
+                        <div class="docker-command">
+                            <code>docker-compose up</code>
+                            <span>Start services</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Interactive Demo</h2>
+                <p class="section__description">
+                    Try different build tools and see their performance characteristics.
+                </p>
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-controls">
+                    <div class="demo-control">
+                        <label for="buildTool">Build Tool:</label>
+                        <select id="buildTool" onchange="updateBuildTool()">
+                            <option value="vite">Vite</option>
+                            <option value="webpack">Webpack</option>
+                            <option value="rollup">Rollup</option>
+                        </select>
+                    </div>
+                    <div class="demo-control">
+                        <label for="optimizationLevel">Optimization:</label>
+                        <select id="optimizationLevel" onchange="updateOptimization()">
+                            <option value="none">None</option>
+                            <option value="basic">Basic</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="demo-control">
+                        <button class="button button--primary" onclick="runBuild()">Run Build</button>
+                    </div>
+                </div>
+
+                <div class="demo-output">
+                    <div class="build-log" id="buildLog">
+                        <div class="log-entry log-entry--info">Select a build tool and click "Run Build" to start</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="buildProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <h3 class="footer__title">Build System</h3>
+                    <p class="footer__description">Modern build systems and developer experience.</p>
+                </div>
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">Tools</h4>
+                        <a href="#" class="footer__link">Vite</a>
+                        <a href="#" class="footer__link">Webpack</a>
+                        <a href="#" class="footer__link">Rollup</a>
+                        <a href="#" class="footer__link">ESBuild</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">Resources</h4>
+                        <a href="#" class="footer__link">Documentation</a>
+                        <a href="#" class="footer__link">Examples</a>
+                        <a href="#" class="footer__link">Best Practices</a>
+                        <a href="#" class="footer__link">Performance</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">Support</h4>
+                        <a href="#" class="footer__link">GitHub</a>
+                        <a href="#" class="footer__link">Issues</a>
+                        <a href="#" class="footer__link">Discussions</a>
+                        <a href="#" class="footer__link">Contact</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2024 Build System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
