@@ -1,11 +1,11 @@
-# Level 26: Vue 3 Advanced Features
+# Level 26: Vue.js Testing
 
 ## Overview
-This level focuses on vue 3 advanced features and provides comprehensive learning materials, examples, and projects.
+This level focuses on vue.js testing and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of vue 3 advanced features
+- Understand the core concepts of vue.js testing
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of vue 3 advanced features.
+Build a comprehensive project that demonstrates mastery of vue.js testing.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 26 badge.

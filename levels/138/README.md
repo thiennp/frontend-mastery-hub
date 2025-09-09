@@ -1,11 +1,11 @@
-# Level 138: Source Maps & Debugging
+# Level 138: PostCSS Processing
 
 ## Overview
-This level focuses on source maps & debugging and provides comprehensive learning materials, examples, and projects.
+This level focuses on postcss processing and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of source maps & debugging
+- Understand the core concepts of postcss processing
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of source maps & debugging.
+Build a comprehensive project that demonstrates mastery of postcss processing.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 138 badge.

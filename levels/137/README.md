@@ -1,11 +1,11 @@
-# Level 137: Tree Shaking & Dead Code Elimination
+# Level 137: Babel Configuration
 
 ## Overview
-This level focuses on tree shaking & dead code elimination and provides comprehensive learning materials, examples, and projects.
+This level focuses on babel configuration and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of tree shaking & dead code elimination
+- Understand the core concepts of babel configuration
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of tree shaking & dead code elimination.
+Build a comprehensive project that demonstrates mastery of babel configuration.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 137 badge.

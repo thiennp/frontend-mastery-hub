@@ -1,11 +1,11 @@
-# Level 148: Performance Testing & Auditing
+# Level 148: Image Optimization
 
 ## Overview
-This level focuses on performance testing & auditing and provides comprehensive learning materials, examples, and projects.
+This level focuses on image optimization and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of performance testing & auditing
+- Understand the core concepts of image optimization
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of performance testing & auditing.
+Build a comprehensive project that demonstrates mastery of image optimization.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 148 badge.

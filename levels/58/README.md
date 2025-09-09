@@ -1,11 +1,11 @@
-# Level 58: Internationalization (i18n)
+# Level 58: Architecture Patterns
 
 ## Overview
-This level focuses on internationalization (i18n) and provides comprehensive learning materials, examples, and projects.
+This level focuses on architecture patterns and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of internationalization (i18n)
+- Understand the core concepts of architecture patterns
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of internationalization (i18n).
+Build a comprehensive project that demonstrates mastery of architecture patterns.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 58 badge.

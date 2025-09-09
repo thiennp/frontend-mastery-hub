@@ -1,11 +1,11 @@
-# Level 62: GraphQL Fundamentals
+# Level 62: GraphQL Integration
 
 ## Overview
-This level focuses on graphql fundamentals and provides comprehensive learning materials, examples, and projects.
+This level focuses on graphql integration and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of graphql fundamentals
+- Understand the core concepts of graphql integration
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of graphql fundamentals.
+Build a comprehensive project that demonstrates mastery of graphql integration.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 62 badge.

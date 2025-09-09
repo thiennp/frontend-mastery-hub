@@ -1,11 +1,11 @@
-# Level 20: React Concurrent Features
+# Level 20: Micro-frontends
 
 ## Overview
-This level focuses on react concurrent features and provides comprehensive learning materials, examples, and projects.
+Building scalable applications with micro-frontend architecture
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of react concurrent features
+- Understand the core concepts of micro-frontends
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -16,14 +16,14 @@ By the end of this level, you will:
 - Familiarity with JavaScript and modern frameworks
 
 ## Modules
-1. **Fundamentals**: Core concepts and principles
-2. **Implementation**: Practical coding examples
-3. **Advanced Patterns**: Complex scenarios and optimizations
-4. **Best Practices**: Industry standards and recommendations
-5. **Real-world Applications**: Project-based learning
+1. **Micro-frontend Architecture**: Core concepts and implementation
+2. **Module Federation**: Core concepts and implementation
+3. **Communication Patterns**: Core concepts and implementation
+4. **Deployment Strategies**: Core concepts and implementation
+5. **Team Organization**: Core concepts and implementation
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of react concurrent features.
+Build a comprehensive project that demonstrates mastery of micro-frontends.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 20 badge.

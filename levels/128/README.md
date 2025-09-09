@@ -1,11 +1,11 @@
-# Level 128: CSS Frameworks & Libraries
+# Level 128: CSS Masking
 
 ## Overview
-This level focuses on css frameworks & libraries and provides comprehensive learning materials, examples, and projects.
+This level focuses on css masking and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of css frameworks & libraries
+- Understand the core concepts of css masking
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of css frameworks & libraries.
+Build a comprehensive project that demonstrates mastery of css masking.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 128 badge.

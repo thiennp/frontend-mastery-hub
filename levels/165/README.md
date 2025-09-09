@@ -1,11 +1,11 @@
-# Level 165: Mobile Performance Optimization
+# Level 165: Progressive Enhancement
 
 ## Overview
-This level focuses on mobile performance optimization and provides comprehensive learning materials, examples, and projects.
+This level focuses on progressive enhancement and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of mobile performance optimization
+- Understand the core concepts of progressive enhancement
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of mobile performance optimization.
+Build a comprehensive project that demonstrates mastery of progressive enhancement.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 165 badge.

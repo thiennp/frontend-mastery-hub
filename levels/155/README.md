@@ -1,11 +1,11 @@
-# Level 155: XSS & CSRF Prevention
+# Level 155: Output Encoding
 
 ## Overview
-This level focuses on xss & csrf prevention and provides comprehensive learning materials, examples, and projects.
+This level focuses on output encoding and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of xss & csrf prevention
+- Understand the core concepts of output encoding
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of xss & csrf prevention.
+Build a comprehensive project that demonstrates mastery of output encoding.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 155 badge.

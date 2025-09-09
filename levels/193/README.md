@@ -1,11 +1,11 @@
-# Level 193: Architecture Decision Making
+# Level 193: Project Planning
 
 ## Overview
-This level focuses on architecture decision making and provides comprehensive learning materials, examples, and projects.
+This level focuses on project planning and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of architecture decision making
+- Understand the core concepts of project planning
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of architecture decision making.
+Build a comprehensive project that demonstrates mastery of project planning.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 193 badge.

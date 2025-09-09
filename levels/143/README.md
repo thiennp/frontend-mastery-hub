@@ -1,11 +1,11 @@
-# Level 143: Performance Monitoring & Analysis
+# Level 143: Performance Budgets
 
 ## Overview
-This level focuses on performance monitoring & analysis and provides comprehensive learning materials, examples, and projects.
+This level focuses on performance budgets and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of performance monitoring & analysis
+- Understand the core concepts of performance budgets
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of performance monitoring & analysis.
+Build a comprehensive project that demonstrates mastery of performance budgets.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 143 badge.

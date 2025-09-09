@@ -1,11 +1,11 @@
-# Level 124: CSS Grid & Flexbox Advanced
+# Level 124: CSS Animations
 
 ## Overview
-This level focuses on css grid & flexbox advanced and provides comprehensive learning materials, examples, and projects.
+This level focuses on css animations and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of css grid & flexbox advanced
+- Understand the core concepts of css animations
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of css grid & flexbox advanced.
+Build a comprehensive project that demonstrates mastery of css animations.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 124 badge.

@@ -1,11 +1,11 @@
-# Level 187: IoT & Edge Computing
+# Level 187: Blockchain Integration
 
 ## Overview
-This level focuses on iot & edge computing and provides comprehensive learning materials, examples, and projects.
+This level focuses on blockchain integration and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of iot & edge computing
+- Understand the core concepts of blockchain integration
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of iot & edge computing.
+Build a comprehensive project that demonstrates mastery of blockchain integration.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 187 badge.

@@ -1,11 +1,11 @@
-# Level 66: Real-time Communication
+# Level 66: API Testing
 
 ## Overview
-This level focuses on real-time communication and provides comprehensive learning materials, examples, and projects.
+This level focuses on api testing and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of real-time communication
+- Understand the core concepts of api testing
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of real-time communication.
+Build a comprehensive project that demonstrates mastery of api testing.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 66 badge.

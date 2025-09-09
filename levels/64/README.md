@@ -1,11 +1,11 @@
-# Level 64: Authentication & Authorization
+# Level 64: Server-Sent Events
 
 ## Overview
-This level focuses on authentication & authorization and provides comprehensive learning materials, examples, and projects.
+This level focuses on server-sent events and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of authentication & authorization
+- Understand the core concepts of server-sent events
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of authentication & authorization.
+Build a comprehensive project that demonstrates mastery of server-sent events.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 64 badge.

@@ -1,11 +1,11 @@
-# Level 176: Event-Driven Architecture
+# Level 176: Event Architecture
 
 ## Overview
-This level focuses on event-driven architecture and provides comprehensive learning materials, examples, and projects.
+This level focuses on event architecture and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of event-driven architecture
+- Understand the core concepts of event architecture
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of event-driven architecture.
+Build a comprehensive project that demonstrates mastery of event architecture.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 176 badge.

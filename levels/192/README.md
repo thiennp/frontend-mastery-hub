@@ -1,11 +1,11 @@
-# Level 192: Code Review & Mentoring
+# Level 192: Team Management
 
 ## Overview
-This level focuses on code review & mentoring and provides comprehensive learning materials, examples, and projects.
+This level focuses on team management and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of code review & mentoring
+- Understand the core concepts of team management
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of code review & mentoring.
+Build a comprehensive project that demonstrates mastery of team management.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 192 badge.

@@ -1,11 +1,11 @@
-# Level 182: WebRTC & Real-time Communication
+# Level 182: Web Workers
 
 ## Overview
-This level focuses on webrtc & real-time communication and provides comprehensive learning materials, examples, and projects.
+This level focuses on web workers and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of webrtc & real-time communication
+- Understand the core concepts of web workers
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of webrtc & real-time communication.
+Build a comprehensive project that demonstrates mastery of web workers.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 182 badge.

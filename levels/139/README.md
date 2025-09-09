@@ -1,11 +1,11 @@
-# Level 139: Build Automation & Scripts
+# Level 139: Asset Optimization
 
 ## Overview
-This level focuses on build automation & scripts and provides comprehensive learning materials, examples, and projects.
+This level focuses on asset optimization and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of build automation & scripts
+- Understand the core concepts of asset optimization
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of build automation & scripts.
+Build a comprehensive project that demonstrates mastery of asset optimization.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 139 badge.

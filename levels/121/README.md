@@ -1,11 +1,11 @@
-# Level 121: CSS Architecture & Methodologies
+# Level 121: CSS Grid Advanced
 
 ## Overview
-This level focuses on css architecture & methodologies and provides comprehensive learning materials, examples, and projects.
+This level focuses on css grid advanced and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of css architecture & methodologies
+- Understand the core concepts of css grid advanced
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of css architecture & methodologies.
+Build a comprehensive project that demonstrates mastery of css grid advanced.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 121 badge.

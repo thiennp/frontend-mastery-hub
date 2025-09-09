@@ -1,11 +1,11 @@
-# Level 48: Lit Web Components
+# Level 48: Framework Comparison
 
 ## Overview
-This level focuses on lit web components and provides comprehensive learning materials, examples, and projects.
+This level focuses on framework comparison and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of lit web components
+- Understand the core concepts of framework comparison
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of lit web components.
+Build a comprehensive project that demonstrates mastery of framework comparison.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 48 badge.

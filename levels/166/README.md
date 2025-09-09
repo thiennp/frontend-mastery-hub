@@ -1,11 +1,11 @@
-# Level 166: Cross-Platform Development
+# Level 166: Adaptive Design
 
 ## Overview
-This level focuses on cross-platform development and provides comprehensive learning materials, examples, and projects.
+This level focuses on adaptive design and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of cross-platform development
+- Understand the core concepts of adaptive design
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of cross-platform development.
+Build a comprehensive project that demonstrates mastery of adaptive design.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 166 badge.

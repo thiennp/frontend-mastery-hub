@@ -1,11 +1,11 @@
-# Level 23: Vue Router & State Management
+# Level 23: Vue.js State Management
 
 ## Overview
-This level focuses on vue router & state management and provides comprehensive learning materials, examples, and projects.
+This level focuses on vue.js state management and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of vue router & state management
+- Understand the core concepts of vue.js state management
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of vue router & state management.
+Build a comprehensive project that demonstrates mastery of vue.js state management.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 23 badge.

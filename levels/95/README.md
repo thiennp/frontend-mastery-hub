@@ -1,11 +1,11 @@
-# Level 95: Behavior-Driven Development (BDD)
+# Level 95: Visual Testing
 
 ## Overview
-This level focuses on behavior-driven development (bdd) and provides comprehensive learning materials, examples, and projects.
+This level focuses on visual testing and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of behavior-driven development (bdd)
+- Understand the core concepts of visual testing
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of behavior-driven development (bdd).
+Build a comprehensive project that demonstrates mastery of visual testing.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 95 badge.

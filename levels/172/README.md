@@ -1,11 +1,11 @@
-# Level 172: Monorepo Management
+# Level 172: Monorepo Architecture
 
 ## Overview
-This level focuses on monorepo management and provides comprehensive learning materials, examples, and projects.
+This level focuses on monorepo architecture and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of monorepo management
+- Understand the core concepts of monorepo architecture
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of monorepo management.
+Build a comprehensive project that demonstrates mastery of monorepo architecture.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 172 badge.

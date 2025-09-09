@@ -1,11 +1,11 @@
-# Level 190: Future Web Technologies
+# Level 190: Future Technologies
 
 ## Overview
-This level focuses on future web technologies and provides comprehensive learning materials, examples, and projects.
+This level focuses on future technologies and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of future web technologies
+- Understand the core concepts of future technologies
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of future web technologies.
+Build a comprehensive project that demonstrates mastery of future technologies.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 190 badge.

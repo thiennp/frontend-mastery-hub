@@ -1,11 +1,11 @@
-# Level 29: Vue Performance Optimization
+# Level 29: Vue.js Best Practices
 
 ## Overview
-This level focuses on vue performance optimization and provides comprehensive learning materials, examples, and projects.
+This level focuses on vue.js best practices and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of vue performance optimization
+- Understand the core concepts of vue.js best practices
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of vue performance optimization.
+Build a comprehensive project that demonstrates mastery of vue.js best practices.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 29 badge.

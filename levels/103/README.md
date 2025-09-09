@@ -1,11 +1,11 @@
-# Level 103: Concurrency & Parallelism
+# Level 103: Modules & Imports
 
 ## Overview
-This level focuses on concurrency & parallelism and provides comprehensive learning materials, examples, and projects.
+This level focuses on modules & imports and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of concurrency & parallelism
+- Understand the core concepts of modules & imports
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of concurrency & parallelism.
+Build a comprehensive project that demonstrates mastery of modules & imports.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 103 badge.

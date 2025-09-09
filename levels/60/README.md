@@ -1,11 +1,11 @@
-# Level 60: Web Standards & Specifications
+# Level 60: Refactoring Techniques
 
 ## Overview
-This level focuses on web standards & specifications and provides comprehensive learning materials, examples, and projects.
+This level focuses on refactoring techniques and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of web standards & specifications
+- Understand the core concepts of refactoring techniques
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of web standards & specifications.
+Build a comprehensive project that demonstrates mastery of refactoring techniques.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 60 badge.

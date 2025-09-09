@@ -1,11 +1,11 @@
-# Level 102: Memory Management & Garbage Collection
+# Level 102: Async Programming
 
 ## Overview
-This level focuses on memory management & garbage collection and provides comprehensive learning materials, examples, and projects.
+This level focuses on async programming and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of memory management & garbage collection
+- Understand the core concepts of async programming
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of memory management & garbage collection.
+Build a comprehensive project that demonstrates mastery of async programming.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 102 badge.

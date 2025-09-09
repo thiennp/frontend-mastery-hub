@@ -1,11 +1,11 @@
-# Level 45: Svelte Advanced Patterns
+# Level 45: Lit Web Components
 
 ## Overview
-This level focuses on svelte advanced patterns and provides comprehensive learning materials, examples, and projects.
+This level focuses on lit web components and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of svelte advanced patterns
+- Understand the core concepts of lit web components
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of svelte advanced patterns.
+Build a comprehensive project that demonstrates mastery of lit web components.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 45 badge.

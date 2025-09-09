@@ -1,11 +1,11 @@
-# Level 175: State Management Architecture
+# Level 175: Plugin Architecture
 
 ## Overview
-This level focuses on state management architecture and provides comprehensive learning materials, examples, and projects.
+This level focuses on plugin architecture and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of state management architecture
+- Understand the core concepts of plugin architecture
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of state management architecture.
+Build a comprehensive project that demonstrates mastery of plugin architecture.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 175 badge.

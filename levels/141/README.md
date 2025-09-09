@@ -1,11 +1,11 @@
-# Level 141: Web Performance Fundamentals
+# Level 141: Core Web Vitals
 
 ## Overview
-This level focuses on web performance fundamentals and provides comprehensive learning materials, examples, and projects.
+This level focuses on core web vitals and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of web performance fundamentals
+- Understand the core concepts of core web vitals
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of web performance fundamentals.
+Build a comprehensive project that demonstrates mastery of core web vitals.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 141 badge.

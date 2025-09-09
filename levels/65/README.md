@@ -1,11 +1,11 @@
-# Level 65: Data Fetching & Caching
+# Level 65: API Design
 
 ## Overview
-This level focuses on data fetching & caching and provides comprehensive learning materials, examples, and projects.
+This level focuses on api design and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of data fetching & caching
+- Understand the core concepts of api design
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of data fetching & caching.
+Build a comprehensive project that demonstrates mastery of api design.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 65 badge.

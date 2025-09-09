@@ -1,11 +1,11 @@
-# Level 117: TypeScript Tooling & IDE
+# Level 117: Compiler Options
 
 ## Overview
-This level focuses on typescript tooling & ide and provides comprehensive learning materials, examples, and projects.
+This level focuses on compiler options and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of typescript tooling & ide
+- Understand the core concepts of compiler options
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of typescript tooling & ide.
+Build a comprehensive project that demonstrates mastery of compiler options.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 117 badge.

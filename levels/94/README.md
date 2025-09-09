@@ -1,11 +1,11 @@
-# Level 94: Test-Driven Development (TDD)
+# Level 94: End-to-End Testing
 
 ## Overview
-This level focuses on test-driven development (tdd) and provides comprehensive learning materials, examples, and projects.
+This level focuses on end-to-end testing and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of test-driven development (tdd)
+- Understand the core concepts of end-to-end testing
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of test-driven development (tdd).
+Build a comprehensive project that demonstrates mastery of end-to-end testing.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 94 badge.

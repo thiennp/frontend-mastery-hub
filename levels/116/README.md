@@ -1,11 +1,11 @@
-# Level 116: TypeScript Compiler API
+# Level 116: Modules & Namespaces
 
 ## Overview
-This level focuses on typescript compiler api and provides comprehensive learning materials, examples, and projects.
+This level focuses on modules & namespaces and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of typescript compiler api
+- Understand the core concepts of modules & namespaces
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of typescript compiler api.
+Build a comprehensive project that demonstrates mastery of modules & namespaces.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 116 badge.

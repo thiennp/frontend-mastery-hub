@@ -1,11 +1,11 @@
-# Level 28: Vue Micro-frontends
+# Level 28: Vue.js Ecosystem Tools
 
 ## Overview
-This level focuses on vue micro-frontends and provides comprehensive learning materials, examples, and projects.
+This level focuses on vue.js ecosystem tools and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of vue micro-frontends
+- Understand the core concepts of vue.js ecosystem tools
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of vue micro-frontends.
+Build a comprehensive project that demonstrates mastery of vue.js ecosystem tools.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 28 badge.

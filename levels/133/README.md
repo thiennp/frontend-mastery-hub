@@ -1,11 +1,11 @@
-# Level 133: Rollup & Library Bundling
+# Level 133: Rollup Bundler
 
 ## Overview
-This level focuses on rollup & library bundling and provides comprehensive learning materials, examples, and projects.
+This level focuses on rollup bundler and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of rollup & library bundling
+- Understand the core concepts of rollup bundler
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of rollup & library bundling.
+Build a comprehensive project that demonstrates mastery of rollup bundler.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 133 badge.

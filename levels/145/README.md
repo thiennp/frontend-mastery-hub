@@ -1,11 +1,11 @@
-# Level 145: Bundle Size Optimization
+# Level 145: Lazy Loading
 
 ## Overview
-This level focuses on bundle size optimization and provides comprehensive learning materials, examples, and projects.
+This level focuses on lazy loading and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of bundle size optimization
+- Understand the core concepts of lazy loading
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of bundle size optimization.
+Build a comprehensive project that demonstrates mastery of lazy loading.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 145 badge.

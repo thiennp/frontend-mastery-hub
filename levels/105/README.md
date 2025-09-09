@@ -1,11 +1,11 @@
-# Level 105: Functional Programming Advanced
+# Level 105: Proxies & Reflection
 
 ## Overview
-This level focuses on functional programming advanced and provides comprehensive learning materials, examples, and projects.
+This level focuses on proxies & reflection and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of functional programming advanced
+- Understand the core concepts of proxies & reflection
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of functional programming advanced.
+Build a comprehensive project that demonstrates mastery of proxies & reflection.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 105 badge.

@@ -1,11 +1,11 @@
-# Level 181: WebAssembly (WASM)
+# Level 181: WebAssembly
 
 ## Overview
-This level focuses on webassembly (wasm) and provides comprehensive learning materials, examples, and projects.
+This level focuses on webassembly and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of webassembly (wasm)
+- Understand the core concepts of webassembly
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of webassembly (wasm).
+Build a comprehensive project that demonstrates mastery of webassembly.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 181 badge.

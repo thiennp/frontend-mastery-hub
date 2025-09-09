@@ -1,11 +1,11 @@
-# Level 198: Community Building & Speaking
+# Level 198: Open Source
 
 ## Overview
-This level focuses on community building & speaking and provides comprehensive learning materials, examples, and projects.
+This level focuses on open source and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of community building & speaking
+- Understand the core concepts of open source
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of community building & speaking.
+Build a comprehensive project that demonstrates mastery of open source.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 198 badge.

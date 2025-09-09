@@ -1,11 +1,11 @@
-# Level 81: Version Control & Git
+# Level 81: Version Control
 
 ## Overview
-This level focuses on version control & git and provides comprehensive learning materials, examples, and projects.
+This level focuses on version control and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of version control & git
+- Understand the core concepts of version control
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of version control & git.
+Build a comprehensive project that demonstrates mastery of version control.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 81 badge.

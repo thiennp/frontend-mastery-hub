@@ -1,11 +1,11 @@
-# Level 51: Web Components & Custom Elements
+# Level 51: Advanced JavaScript Patterns
 
 ## Overview
-This level focuses on web components & custom elements and provides comprehensive learning materials, examples, and projects.
+This level focuses on advanced javascript patterns and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of web components & custom elements
+- Understand the core concepts of advanced javascript patterns
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of web components & custom elements.
+Build a comprehensive project that demonstrates mastery of advanced javascript patterns.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 51 badge.

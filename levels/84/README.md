@@ -1,11 +1,11 @@
-# Level 84: Cloud Platforms & Services
+# Level 84: Cloud Deployment
 
 ## Overview
-This level focuses on cloud platforms & services and provides comprehensive learning materials, examples, and projects.
+This level focuses on cloud deployment and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of cloud platforms & services
+- Understand the core concepts of cloud deployment
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of cloud platforms & services.
+Build a comprehensive project that demonstrates mastery of cloud deployment.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 84 badge.

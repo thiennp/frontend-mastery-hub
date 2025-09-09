@@ -1,11 +1,11 @@
-# Level 132: Vite & Modern Build Tools
+# Level 132: Vite Build Tool
 
 ## Overview
-This level focuses on vite & modern build tools and provides comprehensive learning materials, examples, and projects.
+This level focuses on vite build tool and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of vite & modern build tools
+- Understand the core concepts of vite build tool
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of vite & modern build tools.
+Build a comprehensive project that demonstrates mastery of vite build tool.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 132 badge.

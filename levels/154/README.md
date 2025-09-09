@@ -1,11 +1,11 @@
-# Level 154: Data Encryption & Protection
+# Level 154: Input Validation
 
 ## Overview
-This level focuses on data encryption & protection and provides comprehensive learning materials, examples, and projects.
+This level focuses on input validation and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of data encryption & protection
+- Understand the core concepts of input validation
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of data encryption & protection.
+Build a comprehensive project that demonstrates mastery of input validation.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 154 badge.

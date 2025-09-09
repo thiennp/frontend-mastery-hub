@@ -1,11 +1,11 @@
-# Level 15: React Performance Optimization
+# Level 15: Performance Optimization
 
 ## Overview
-This level focuses on react performance optimization and provides comprehensive learning materials, examples, and projects.
+Advanced performance optimization techniques and monitoring strategies
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of react performance optimization
+- Understand the core concepts of performance optimization
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -16,14 +16,14 @@ By the end of this level, you will:
 - Familiarity with JavaScript and modern frameworks
 
 ## Modules
-1. **Fundamentals**: Core concepts and principles
-2. **Implementation**: Practical coding examples
-3. **Advanced Patterns**: Complex scenarios and optimizations
-4. **Best Practices**: Industry standards and recommendations
-5. **Real-world Applications**: Project-based learning
+1. **Core Web Vitals**: Core concepts and implementation
+2. **Performance Monitoring**: Core concepts and implementation
+3. **Optimization Strategies**: Core concepts and implementation
+4. **Bundle Analysis**: Core concepts and implementation
+5. **Performance Budgets**: Core concepts and implementation
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of react performance optimization.
+Build a comprehensive project that demonstrates mastery of performance optimization.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 15 badge.

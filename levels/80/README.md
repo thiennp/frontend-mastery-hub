@@ -1,11 +1,11 @@
-# Level 80: Data Architecture Patterns
+# Level 80: Data Analytics
 
 ## Overview
-This level focuses on data architecture patterns and provides comprehensive learning materials, examples, and projects.
+This level focuses on data analytics and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of data architecture patterns
+- Understand the core concepts of data analytics
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of data architecture patterns.
+Build a comprehensive project that demonstrates mastery of data analytics.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 80 badge.

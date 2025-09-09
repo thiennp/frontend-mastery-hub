@@ -1,11 +1,11 @@
-# Level 17: React Context & Providers
+# Level 17: Accessibility & Inclusive Design
 
 ## Overview
-This level focuses on react context & providers and provides comprehensive learning materials, examples, and projects.
+Building accessible and inclusive web applications
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of react context & providers
+- Understand the core concepts of accessibility & inclusive design
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -16,14 +16,14 @@ By the end of this level, you will:
 - Familiarity with JavaScript and modern frameworks
 
 ## Modules
-1. **Fundamentals**: Core concepts and principles
-2. **Implementation**: Practical coding examples
-3. **Advanced Patterns**: Complex scenarios and optimizations
-4. **Best Practices**: Industry standards and recommendations
-5. **Real-world Applications**: Project-based learning
+1. **WCAG Guidelines**: Core concepts and implementation
+2. **ARIA Implementation**: Core concepts and implementation
+3. **Keyboard Navigation**: Core concepts and implementation
+4. **Screen Reader Support**: Core concepts and implementation
+5. **Inclusive Design Patterns**: Core concepts and implementation
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of react context & providers.
+Build a comprehensive project that demonstrates mastery of accessibility & inclusive design.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 17 badge.

@@ -1,11 +1,11 @@
-# Level 98: Performance Testing
+# Level 98: Accessibility Testing
 
 ## Overview
-This level focuses on performance testing and provides comprehensive learning materials, examples, and projects.
+This level focuses on accessibility testing and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of performance testing
+- Understand the core concepts of accessibility testing
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of performance testing.
+Build a comprehensive project that demonstrates mastery of accessibility testing.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 98 badge.

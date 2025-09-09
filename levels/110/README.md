@@ -1,11 +1,11 @@
-# Level 110: JavaScript Security & Vulnerabilities
+# Level 110: JavaScript Engines
 
 ## Overview
-This level focuses on javascript security & vulnerabilities and provides comprehensive learning materials, examples, and projects.
+This level focuses on javascript engines and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of javascript security & vulnerabilities
+- Understand the core concepts of javascript engines
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of javascript security & vulnerabilities.
+Build a comprehensive project that demonstrates mastery of javascript engines.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 110 badge.

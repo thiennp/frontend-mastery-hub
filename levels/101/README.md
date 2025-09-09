@@ -1,11 +1,11 @@
-# Level 101: JavaScript Engine Internals
+# Level 101: ES6+ Features
 
 ## Overview
-This level focuses on javascript engine internals and provides comprehensive learning materials, examples, and projects.
+This level focuses on es6+ features and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of javascript engine internals
+- Understand the core concepts of es6+ features
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of javascript engine internals.
+Build a comprehensive project that demonstrates mastery of es6+ features.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 101 badge.

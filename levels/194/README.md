@@ -1,11 +1,11 @@
-# Level 194: Team Collaboration & Communication
+# Level 194: Code Review
 
 ## Overview
-This level focuses on team collaboration & communication and provides comprehensive learning materials, examples, and projects.
+This level focuses on code review and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of team collaboration & communication
+- Understand the core concepts of code review
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of team collaboration & communication.
+Build a comprehensive project that demonstrates mastery of code review.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 194 badge.

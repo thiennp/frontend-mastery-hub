@@ -1,11 +1,11 @@
-# Level 115: TypeScript with Angular
+# Level 115: Decorators
 
 ## Overview
-This level focuses on typescript with angular and provides comprehensive learning materials, examples, and projects.
+This level focuses on decorators and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of typescript with angular
+- Understand the core concepts of decorators
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of typescript with angular.
+Build a comprehensive project that demonstrates mastery of decorators.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 115 badge.

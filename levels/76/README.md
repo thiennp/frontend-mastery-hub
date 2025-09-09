@@ -1,11 +1,11 @@
-# Level 76: Data Visualization
+# Level 76: Data Migration
 
 ## Overview
-This level focuses on data visualization and provides comprehensive learning materials, examples, and projects.
+This level focuses on data migration and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of data visualization
+- Understand the core concepts of data migration
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of data visualization.
+Build a comprehensive project that demonstrates mastery of data migration.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 76 badge.

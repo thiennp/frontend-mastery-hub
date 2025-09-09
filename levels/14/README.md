@@ -1,7 +1,7 @@
 # Level 14: Testing & Quality Assurance
 
 ## Overview
-This level focuses on testing & quality assurance and provides comprehensive learning materials, examples, and projects.
+Master testing strategies, tools, and quality assurance practices for frontend development
 
 ## Learning Objectives
 By the end of this level, you will:
@@ -16,11 +16,11 @@ By the end of this level, you will:
 - Familiarity with JavaScript and modern frameworks
 
 ## Modules
-1. **Fundamentals**: Core concepts and principles
-2. **Implementation**: Practical coding examples
-3. **Advanced Patterns**: Complex scenarios and optimizations
-4. **Best Practices**: Industry standards and recommendations
-5. **Real-world Applications**: Project-based learning
+1. **Unit Testing Fundamentals**: Core concepts and implementation
+2. **Integration Testing**: Core concepts and implementation
+3. **End-to-End Testing**: Core concepts and implementation
+4. **Test-Driven Development**: Core concepts and implementation
+5. **Quality Assurance Practices**: Core concepts and implementation
 
 ## Mini-Project
 Build a comprehensive project that demonstrates mastery of testing & quality assurance.

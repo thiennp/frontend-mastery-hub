@@ -1,11 +1,11 @@
-# Level 147: Critical Rendering Path
+# Level 147: CDN Optimization
 
 ## Overview
-This level focuses on critical rendering path and provides comprehensive learning materials, examples, and projects.
+This level focuses on cdn optimization and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of critical rendering path
+- Understand the core concepts of cdn optimization
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of critical rendering path.
+Build a comprehensive project that demonstrates mastery of cdn optimization.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 147 badge.

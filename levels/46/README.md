@@ -1,11 +1,11 @@
-# Level 46: Solid.js Framework
+# Level 46: Stencil Framework
 
 ## Overview
-This level focuses on solid.js framework and provides comprehensive learning materials, examples, and projects.
+This level focuses on stencil framework and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of solid.js framework
+- Understand the core concepts of stencil framework
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of solid.js framework.
+Build a comprehensive project that demonstrates mastery of stencil framework.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 46 badge.

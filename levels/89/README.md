@@ -1,11 +1,11 @@
-# Level 89: Disaster Recovery & Backup
+# Level 89: Security Scanning
 
 ## Overview
-This level focuses on disaster recovery & backup and provides comprehensive learning materials, examples, and projects.
+This level focuses on security scanning and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of disaster recovery & backup
+- Understand the core concepts of security scanning
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of disaster recovery & backup.
+Build a comprehensive project that demonstrates mastery of security scanning.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 89 badge.

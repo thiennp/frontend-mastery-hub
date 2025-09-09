@@ -1,11 +1,11 @@
-# Level 185: Blockchain & Web3
+# Level 185: Browser APIs
 
 ## Overview
-This level focuses on blockchain & web3 and provides comprehensive learning materials, examples, and projects.
+This level focuses on browser apis and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of blockchain & web3
+- Understand the core concepts of browser apis
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of blockchain & web3.
+Build a comprehensive project that demonstrates mastery of browser apis.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 185 badge.

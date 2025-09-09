@@ -1,11 +1,11 @@
-# Level 18: React Hooks Deep Dive
+# Level 18: Progressive Web Apps
 
 ## Overview
-This level focuses on react hooks deep dive and provides comprehensive learning materials, examples, and projects.
+Building modern Progressive Web Applications with offline capabilities
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of react hooks deep dive
+- Understand the core concepts of progressive web apps
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -16,14 +16,14 @@ By the end of this level, you will:
 - Familiarity with JavaScript and modern frameworks
 
 ## Modules
-1. **Fundamentals**: Core concepts and principles
-2. **Implementation**: Practical coding examples
-3. **Advanced Patterns**: Complex scenarios and optimizations
-4. **Best Practices**: Industry standards and recommendations
-5. **Real-world Applications**: Project-based learning
+1. **PWA Fundamentals**: Core concepts and implementation
+2. **Service Workers**: Core concepts and implementation
+3. **Web App Manifests**: Core concepts and implementation
+4. **Offline Strategies**: Core concepts and implementation
+5. **Push Notifications**: Core concepts and implementation
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of react hooks deep dive.
+Build a comprehensive project that demonstrates mastery of progressive web apps.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 18 badge.

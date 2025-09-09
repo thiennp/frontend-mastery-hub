@@ -1,11 +1,11 @@
-# Level 156: Content Security Policy (CSP)
+# Level 156: Security Headers
 
 ## Overview
-This level focuses on content security policy (csp) and provides comprehensive learning materials, examples, and projects.
+This level focuses on security headers and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of content security policy (csp)
+- Understand the core concepts of security headers
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of content security policy (csp).
+Build a comprehensive project that demonstrates mastery of security headers.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 156 badge.

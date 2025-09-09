@@ -1,11 +1,11 @@
-# Level 159: Security Testing & Auditing
+# Level 159: Security Testing
 
 ## Overview
-This level focuses on security testing & auditing and provides comprehensive learning materials, examples, and projects.
+This level focuses on security testing and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of security testing & auditing
+- Understand the core concepts of security testing
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of security testing & auditing.
+Build a comprehensive project that demonstrates mastery of security testing.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 159 badge.

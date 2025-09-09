@@ -1,11 +1,11 @@
-# Level 184: Machine Learning in Frontend
+# Level 184: Web APIs
 
 ## Overview
-This level focuses on machine learning in frontend and provides comprehensive learning materials, examples, and projects.
+This level focuses on web apis and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of machine learning in frontend
+- Understand the core concepts of web apis
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of machine learning in frontend.
+Build a comprehensive project that demonstrates mastery of web apis.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 184 badge.

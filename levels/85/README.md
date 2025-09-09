@@ -1,11 +1,11 @@
-# Level 85: Infrastructure as Code
+# Level 85: Server Configuration
 
 ## Overview
-This level focuses on infrastructure as code and provides comprehensive learning materials, examples, and projects.
+This level focuses on server configuration and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of infrastructure as code
+- Understand the core concepts of server configuration
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of infrastructure as code.
+Build a comprehensive project that demonstrates mastery of server configuration.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 85 badge.

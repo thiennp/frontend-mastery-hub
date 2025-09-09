@@ -1,11 +1,11 @@
-# Level 152: Authentication & Session Management
+# Level 152: Authentication & Authorization
 
 ## Overview
-This level focuses on authentication & session management and provides comprehensive learning materials, examples, and projects.
+This level focuses on authentication & authorization and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of authentication & session management
+- Understand the core concepts of authentication & authorization
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of authentication & session management.
+Build a comprehensive project that demonstrates mastery of authentication & authorization.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 152 badge.

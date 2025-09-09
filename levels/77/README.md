@@ -1,11 +1,11 @@
-# Level 77: Data Analytics & Metrics
+# Level 77: Data Validation
 
 ## Overview
-This level focuses on data analytics & metrics and provides comprehensive learning materials, examples, and projects.
+This level focuses on data validation and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of data analytics & metrics
+- Understand the core concepts of data validation
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of data analytics & metrics.
+Build a comprehensive project that demonstrates mastery of data validation.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 77 badge.

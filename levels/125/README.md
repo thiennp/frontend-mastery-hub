@@ -1,11 +1,11 @@
-# Level 125: CSS Animations & Transitions
+# Level 125: CSS Transitions
 
 ## Overview
-This level focuses on css animations & transitions and provides comprehensive learning materials, examples, and projects.
+This level focuses on css transitions and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of css animations & transitions
+- Understand the core concepts of css transitions
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of css animations & transitions.
+Build a comprehensive project that demonstrates mastery of css transitions.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 125 badge.

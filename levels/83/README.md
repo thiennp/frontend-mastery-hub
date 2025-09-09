@@ -1,11 +1,11 @@
-# Level 83: Docker & Containerization
+# Level 83: Docker & Containers
 
 ## Overview
-This level focuses on docker & containerization and provides comprehensive learning materials, examples, and projects.
+This level focuses on docker & containers and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of docker & containerization
+- Understand the core concepts of docker & containers
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of docker & containerization.
+Build a comprehensive project that demonstrates mastery of docker & containers.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 83 badge.

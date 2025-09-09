@@ -1,11 +1,11 @@
-# Level 144: Image Optimization & Lazy Loading
+# Level 144: Code Splitting
 
 ## Overview
-This level focuses on image optimization & lazy loading and provides comprehensive learning materials, examples, and projects.
+This level focuses on code splitting and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of image optimization & lazy loading
+- Understand the core concepts of code splitting
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of image optimization & lazy loading.
+Build a comprehensive project that demonstrates mastery of code splitting.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 144 badge.

@@ -1,11 +1,11 @@
-# Level 93: End-to-End Testing
+# Level 93: Integration Testing
 
 ## Overview
-This level focuses on end-to-end testing and provides comprehensive learning materials, examples, and projects.
+This level focuses on integration testing and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of end-to-end testing
+- Understand the core concepts of integration testing
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of end-to-end testing.
+Build a comprehensive project that demonstrates mastery of integration testing.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 93 badge.

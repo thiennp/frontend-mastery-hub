@@ -1,11 +1,11 @@
-# Level 173: Component Library Development
+# Level 173: Component Libraries
 
 ## Overview
-This level focuses on component library development and provides comprehensive learning materials, examples, and projects.
+This level focuses on component libraries and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of component library development
+- Understand the core concepts of component libraries
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of component library development.
+Build a comprehensive project that demonstrates mastery of component libraries.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 173 badge.

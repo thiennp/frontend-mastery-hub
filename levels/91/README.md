@@ -1,11 +1,11 @@
-# Level 91: Unit Testing Fundamentals
+# Level 91: Testing Fundamentals
 
 ## Overview
-This level focuses on unit testing fundamentals and provides comprehensive learning materials, examples, and projects.
+This level focuses on testing fundamentals and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of unit testing fundamentals
+- Understand the core concepts of testing fundamentals
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of unit testing fundamentals.
+Build a comprehensive project that demonstrates mastery of testing fundamentals.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 91 badge.

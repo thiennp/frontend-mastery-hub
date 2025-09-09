@@ -1,11 +1,11 @@
-# Level 16: React Router & Navigation
+# Level 16: Security Best Practices
 
 ## Overview
-This level focuses on react router & navigation and provides comprehensive learning materials, examples, and projects.
+Frontend security patterns, vulnerabilities, and protection strategies
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of react router & navigation
+- Understand the core concepts of security best practices
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -16,14 +16,14 @@ By the end of this level, you will:
 - Familiarity with JavaScript and modern frameworks
 
 ## Modules
-1. **Fundamentals**: Core concepts and principles
-2. **Implementation**: Practical coding examples
-3. **Advanced Patterns**: Complex scenarios and optimizations
-4. **Best Practices**: Industry standards and recommendations
-5. **Real-world Applications**: Project-based learning
+1. **Security Fundamentals**: Core concepts and implementation
+2. **Common Vulnerabilities**: Core concepts and implementation
+3. **Authentication & Authorization**: Core concepts and implementation
+4. **Data Protection**: Core concepts and implementation
+5. **Security Headers**: Core concepts and implementation
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of react router & navigation.
+Build a comprehensive project that demonstrates mastery of security best practices.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 16 badge.

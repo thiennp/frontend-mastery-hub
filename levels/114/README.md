@@ -1,11 +1,11 @@
-# Level 114: TypeScript with Vue
+# Level 114: Generics
 
 ## Overview
-This level focuses on typescript with vue and provides comprehensive learning materials, examples, and projects.
+This level focuses on generics and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of typescript with vue
+- Understand the core concepts of generics
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of typescript with vue.
+Build a comprehensive project that demonstrates mastery of generics.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 114 badge.

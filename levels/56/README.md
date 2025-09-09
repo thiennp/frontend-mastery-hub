@@ -1,11 +1,11 @@
-# Level 56: Web Security & Best Practices
+# Level 56: Component Architecture
 
 ## Overview
-This level focuses on web security & best practices and provides comprehensive learning materials, examples, and projects.
+This level focuses on component architecture and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of web security & best practices
+- Understand the core concepts of component architecture
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of web security & best practices.
+Build a comprehensive project that demonstrates mastery of component architecture.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 56 badge.

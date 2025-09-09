@@ -1,11 +1,11 @@
-# Level 161: Responsive Design Fundamentals
+# Level 161: Responsive Design
 
 ## Overview
-This level focuses on responsive design fundamentals and provides comprehensive learning materials, examples, and projects.
+This level focuses on responsive design and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of responsive design fundamentals
+- Understand the core concepts of responsive design
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of responsive design fundamentals.
+Build a comprehensive project that demonstrates mastery of responsive design.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 161 badge.

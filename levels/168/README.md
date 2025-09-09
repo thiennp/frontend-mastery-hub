@@ -1,11 +1,11 @@
-# Level 168: Mobile Accessibility
+# Level 168: Cross-Platform Development
 
 ## Overview
-This level focuses on mobile accessibility and provides comprehensive learning materials, examples, and projects.
+This level focuses on cross-platform development and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of mobile accessibility
+- Understand the core concepts of cross-platform development
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of mobile accessibility.
+Build a comprehensive project that demonstrates mastery of cross-platform development.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 168 badge.

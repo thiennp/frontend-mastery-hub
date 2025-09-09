@@ -1,11 +1,11 @@
-# Level 87: Security & Compliance
+# Level 87: Error Tracking
 
 ## Overview
-This level focuses on security & compliance and provides comprehensive learning materials, examples, and projects.
+This level focuses on error tracking and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of security & compliance
+- Understand the core concepts of error tracking
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of security & compliance.
+Build a comprehensive project that demonstrates mastery of error tracking.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 87 badge.

@@ -1,11 +1,11 @@
-# Level 123: CSS Custom Properties & Houdini
+# Level 123: CSS Custom Properties
 
 ## Overview
-This level focuses on css custom properties & houdini and provides comprehensive learning materials, examples, and projects.
+This level focuses on css custom properties and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of css custom properties & houdini
+- Understand the core concepts of css custom properties
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of css custom properties & houdini.
+Build a comprehensive project that demonstrates mastery of css custom properties.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 123 badge.

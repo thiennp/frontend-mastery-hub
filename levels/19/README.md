@@ -1,11 +1,11 @@
-# Level 19: React Server Components
+# Level 19: Web Components
 
 ## Overview
-This level focuses on react server components and provides comprehensive learning materials, examples, and projects.
+Creating reusable web components with modern standards
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of react server components
+- Understand the core concepts of web components
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -16,14 +16,14 @@ By the end of this level, you will:
 - Familiarity with JavaScript and modern frameworks
 
 ## Modules
-1. **Fundamentals**: Core concepts and principles
-2. **Implementation**: Practical coding examples
-3. **Advanced Patterns**: Complex scenarios and optimizations
-4. **Best Practices**: Industry standards and recommendations
-5. **Real-world Applications**: Project-based learning
+1. **Custom Elements**: Core concepts and implementation
+2. **Shadow DOM**: Core concepts and implementation
+3. **HTML Templates**: Core concepts and implementation
+4. **Component Libraries**: Core concepts and implementation
+5. **Framework Integration**: Core concepts and implementation
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of react server components.
+Build a comprehensive project that demonstrates mastery of web components.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 19 badge.

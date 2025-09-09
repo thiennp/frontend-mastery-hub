@@ -1,11 +1,11 @@
-# Level 108: Design Patterns in JavaScript
+# Level 108: Performance Optimization
 
 ## Overview
-This level focuses on design patterns in javascript and provides comprehensive learning materials, examples, and projects.
+This level focuses on performance optimization and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of design patterns in javascript
+- Understand the core concepts of performance optimization
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of design patterns in javascript.
+Build a comprehensive project that demonstrates mastery of performance optimization.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 108 badge.

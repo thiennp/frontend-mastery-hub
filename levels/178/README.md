@@ -1,11 +1,11 @@
-# Level 178: Domain-Driven Design (DDD)
+# Level 178: Data Architecture
 
 ## Overview
-This level focuses on domain-driven design (ddd) and provides comprehensive learning materials, examples, and projects.
+This level focuses on data architecture and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of domain-driven design (ddd)
+- Understand the core concepts of data architecture
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of domain-driven design (ddd).
+Build a comprehensive project that demonstrates mastery of data architecture.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 178 badge.

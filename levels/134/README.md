@@ -1,11 +1,11 @@
-# Level 134: Parcel & Zero-Config Bundling
+# Level 134: Parcel Bundler
 
 ## Overview
-This level focuses on parcel & zero-config bundling and provides comprehensive learning materials, examples, and projects.
+This level focuses on parcel bundler and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of parcel & zero-config bundling
+- Understand the core concepts of parcel bundler
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of parcel & zero-config bundling.
+Build a comprehensive project that demonstrates mastery of parcel bundler.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 134 badge.

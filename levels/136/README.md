@@ -1,11 +1,11 @@
-# Level 136: Code Splitting & Lazy Loading
+# Level 136: SWC Compiler
 
 ## Overview
-This level focuses on code splitting & lazy loading and provides comprehensive learning materials, examples, and projects.
+This level focuses on swc compiler and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of code splitting & lazy loading
+- Understand the core concepts of swc compiler
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of code splitting & lazy loading.
+Build a comprehensive project that demonstrates mastery of swc compiler.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 136 badge.

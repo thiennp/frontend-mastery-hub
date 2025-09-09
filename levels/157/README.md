@@ -1,11 +1,11 @@
-# Level 157: HTTPS & SSL/TLS
+# Level 157: Content Security Policy
 
 ## Overview
-This level focuses on https & ssl/tls and provides comprehensive learning materials, examples, and projects.
+This level focuses on content security policy and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of https & ssl/tls
+- Understand the core concepts of content security policy
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of https & ssl/tls.
+Build a comprehensive project that demonstrates mastery of content security policy.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 157 badge.

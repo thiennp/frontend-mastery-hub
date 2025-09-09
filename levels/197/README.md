@@ -1,11 +1,11 @@
-# Level 197: Open Source Contribution
+# Level 197: Public Speaking
 
 ## Overview
-This level focuses on open source contribution and provides comprehensive learning materials, examples, and projects.
+This level focuses on public speaking and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of open source contribution
+- Understand the core concepts of public speaking
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of open source contribution.
+Build a comprehensive project that demonstrates mastery of public speaking.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 197 badge.

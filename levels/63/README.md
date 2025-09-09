@@ -1,11 +1,11 @@
-# Level 63: API Integration Patterns
+# Level 63: WebSocket Communication
 
 ## Overview
-This level focuses on api integration patterns and provides comprehensive learning materials, examples, and projects.
+This level focuses on websocket communication and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of api integration patterns
+- Understand the core concepts of websocket communication
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of api integration patterns.
+Build a comprehensive project that demonstrates mastery of websocket communication.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 63 badge.

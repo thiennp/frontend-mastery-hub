@@ -1,11 +1,11 @@
-# Level 127: CSS Preprocessors & PostCSS
+# Level 127: CSS Filters
 
 ## Overview
-This level focuses on css preprocessors & postcss and provides comprehensive learning materials, examples, and projects.
+This level focuses on css filters and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of css preprocessors & postcss
+- Understand the core concepts of css filters
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of css preprocessors & postcss.
+Build a comprehensive project that demonstrates mastery of css filters.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 127 badge.

@@ -1,11 +1,11 @@
-# Level 130: CSS Best Practices
+# Level 130: CSS Houdini
 
 ## Overview
-This level focuses on css best practices and provides comprehensive learning materials, examples, and projects.
+This level focuses on css houdini and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of css best practices
+- Understand the core concepts of css houdini
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of css best practices.
+Build a comprehensive project that demonstrates mastery of css houdini.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 130 badge.

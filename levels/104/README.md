@@ -1,11 +1,11 @@
-# Level 104: Metaprogramming & Reflection
+# Level 104: Generators & Iterators
 
 ## Overview
-This level focuses on metaprogramming & reflection and provides comprehensive learning materials, examples, and projects.
+This level focuses on generators & iterators and provides comprehensive learning materials, examples, and projects.
 
 ## Learning Objectives
 By the end of this level, you will:
-- Understand the core concepts of metaprogramming & reflection
+- Understand the core concepts of generators & iterators
 - Master practical implementation techniques
 - Build real-world projects
 - Apply best practices and patterns
@@ -23,7 +23,7 @@ By the end of this level, you will:
 5. **Real-world Applications**: Project-based learning
 
 ## Mini-Project
-Build a comprehensive project that demonstrates mastery of metaprogramming & reflection.
+Build a comprehensive project that demonstrates mastery of generators & iterators.
 
 ## Assessment
 Complete the assessment and quiz to earn your Level 104 badge.
