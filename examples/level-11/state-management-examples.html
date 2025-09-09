@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Management Examples - Level 11</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .example-section {
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+
+        .example-section h3 {
+            margin: 0 0 1rem 0;
+            color: #1f2937;
+            font-size: 1.25rem;
+        }
+
+        .example-section p {
+            margin: 0 0 1rem 0;
+            color: #6b7280;
+        }
+
+        .demo-container {
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            margin: 0.25rem;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #2563eb;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .input {
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            margin: 0.25rem;
+        }
+
+        .card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: white;
+        }
+
+        .counter {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .counter-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            margin: 0.25rem 0;
+            background: white;
+        }
+
+        .todo-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .user-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: white;
+        }
+
+        .user-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: #1f2937;
+        }
+
+        .user-card p {
+            margin: 0;
+            color: #6b7280;
+        }
+
+        .form-group {
+            margin: 1rem 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+
+        .error {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .success {
+            color: #10b981;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .loading {
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3b82f6;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .theme-light {
+            background: #ffffff;
+            color: #1f2937;
+        }
+
+        .theme-dark {
+            background: #1f2937;
+            color: #f3f4f6;
+        }
+
+        .theme-dark .card {
+            background: #374151;
+            border-color: #4b5563;
+        }
+
+        .theme-dark .input {
+            background: #374151;
+            border-color: #4b5563;
+            color: #f3f4f6;
+        }
+
+        .theme-dark .btn {
+            background: #4b5563;
+        }
+
+        .theme-dark .btn:hover {
+            background: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>State Management Examples</h1>
+            <p>Advanced React state management patterns and techniques</p>
+        </div>
+
+        <div class="content">
+            <!-- Example 1: useState Hook -->
+            <div class="example-section">
+                <h3>1. useState Hook - Local State Management</h3>
+                <p>Basic state management with useState hook for component-local state.</p>
+                <div class="demo-container">
+                    <div id="useState-example"></div>
+                </div>
+                <div class="code-block">
+                    <pre><code>// useState Hook
+function Counter() {
+  const [count, setCount] = useState(0);
+  const [step, setStep] = useState(1);
+  
+  const increment = () => setCount(count + step);
+  const decrement = () => setCount(count - step);
+  const reset = () => setCount(0);
+  
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;p&gt;Step: {step}&lt;/p&gt;
+      &lt;button onClick={increment}&gt;+{step}&lt;/button&gt;
+      &lt;button onClick={decrement}&gt;-{step}&lt;/button&gt;
+      &lt;button onClick={reset}&gt;Reset&lt;/button&gt;
+      &lt;input 
+        type="number" 
+        value={step} 
+        onChange={(e) =&gt; setStep(parseInt(e.target.value) || 1)} 
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Example 2: useReducer Hook -->
+            <div class="example-section">
+                <h3>2. useReducer Hook - Complex State Logic</h3>
+                <p>Managing complex state with useReducer for predictable state updates.</p>
+                <div class="demo-container">
+                    <div id="useReducer-example"></div>
+                </div>
+                <div class="code-block">
+                    <pre><code>// useReducer Hook
+const initialState = { count: 0, step: 1, history: [] };
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {
+        ...state,
+        count: state.count + state.step,
+        history: [...state.history, { action: 'increment', value: state.step }]
+      };
+    case 'decrement':
+      return {
+        ...state,
+        count: state.count - state.step,
+        history: [...state.history, { action: 'decrement', value: state.step }]
+      };
+    case 'setStep':
+      return { ...state, step: action.payload };
+    case 'reset':
+      return { ...state, count: 0, history: [] };
+    default:
+      return state;
+  }
+}
+
+function CounterWithHistory() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Count: {state.count}&lt;/p&gt;
+      &lt;p&gt;Step: {state.step}&lt;/p&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: 'increment' })}&gt;+&lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: 'decrement' })}&gt;-&lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: 'reset' })}&gt;Reset&lt;/button&gt;
+      &lt;input 
+        type="number" 
+        value={state.step}
+        onChange={(e) =&gt; dispatch({ type: 'setStep', payload: parseInt(e.target.value) })}
+      /&gt;
+      &lt;div&gt;History: {state.history.length} actions&lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Example 3: Context API -->
+            <div class="example-section">
+                <h3>3. Context API - Global State Management</h3>
+                <p>Sharing state across components with React Context API.</p>
+                <div class="demo-container">
+                    <div id="context-example"></div>
+                </div>
+                <div class="code-block">
+                    <pre><code>// Context API
+const ThemeContext = createContext();
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light');
+  
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+  
+  return (
+    &lt;ThemeContext.Provider value={{ theme, toggleTheme }}&gt;
+      {children}
+    &lt;/ThemeContext.Provider&gt;
+  );
+}
+
+function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+}
+
+function ThemedComponent() {
+  const { theme, toggleTheme } = useTheme();
+  
+  return (
+    &lt;div className={`theme-${theme}`}&gt;
+      &lt;h3&gt;Current theme: {theme}&lt;/h3&gt;
+      &lt;button onClick={toggleTheme}&gt;Toggle Theme&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Example 4: Custom Hooks -->
+            <div class="example-section">
+                <h3>4. Custom Hooks - Reusable State Logic</h3>
+                <p>Creating custom hooks to encapsulate and reuse stateful logic.</p>
+                <div class="demo-container">
+                    <div id="custom-hooks-example"></div>
+                </div>
+                <div class="code-block">
+                    <pre><code>// Custom Hooks
+function useCounter(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+  
+  const increment = () =&gt; setCount(count + 1);
+  const decrement = () =&gt; setCount(count - 1);
+  const reset = () =&gt; setCount(initialValue);
+  
+  return { count, increment, decrement, reset };
+}
+
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() =&gt; {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      return initialValue;
+    }
+  });
+  
+  const setValue = (value) =&gt; {
+    try {
+      setStoredValue(value);
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  return [storedValue, setValue];
+}
+
+function CustomHooksExample() {
+  const { count, increment, decrement, reset } = useCounter(0);
+  const [name, setName] = useLocalStorage('name', '');
+  
+  return (
+    &lt;div&gt;
+      &lt;div&gt;
+        &lt;h4&gt;Counter: {count}&lt;/h4&gt;
+        &lt;button onClick={increment}&gt;+&lt;/button&gt;
+        &lt;button onClick={decrement}&gt;-&lt;/button&gt;
+        &lt;button onClick={reset}&gt;Reset&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;h4&gt;Local Storage:&lt;/h4&gt;
+        &lt;input 
+          value={name}
+          onChange={(e) =&gt; setName(e.target.value)}
+          placeholder="Enter name (saved to localStorage)"
+        /&gt;
+        &lt;p&gt;Stored name: {name}&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Example 5: useEffect Hook -->
+            <div class="example-section">
+                <h3>5. useEffect Hook - Side Effects</h3>
+                <p>Managing side effects with useEffect hook for data fetching and cleanup.</p>
+                <div class="demo-container">
+                    <div id="useEffect-example"></div>
+                </div>
+                <div class="code-block">
+                    <pre><code>// useEffect Hook
+function useApi(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  useEffect(() =&gt; {
+    let cancelled = false;
+    
+    const fetchData = async () =&gt; {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await fetch(url);
+        const result = await response.json();
+        
+        if (!cancelled) {
+          setData(result);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    };
+    
+    fetchData();
+    
+    return () =&gt; {
+      cancelled = true;
+    };
+  }, [url]);
+  
+  return { data, loading, error };
+}
+
+function ApiExample() {
+  const [userId, setUserId] = useState(1);
+  const { data: user, loading, error } = useApi(`https://jsonplaceholder.typicode.com/users/${userId}`);
+  
+  return (
+    &lt;div&gt;
+      &lt;input 
+        type="number" 
+        value={userId}
+        onChange={(e) =&gt; setUserId(parseInt(e.target.value) || 1)}
+        placeholder="User ID"
+      /&gt;
+      {loading && &lt;div&gt;Loading...&lt;/div&gt;}
+      {error && &lt;div&gt;Error: {error.message}&lt;/div&gt;}
+      {user && (
+        &lt;div&gt;
+          &lt;h4&gt;{user.name}&lt;/h4&gt;
+          &lt;p&gt;{user.email}&lt;/p&gt;
+          &lt;p&gt;{user.phone}&lt;/p&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Example 6: State Management Patterns -->
+            <div class="example-section">
+                <h3>6. State Management Patterns</h3>
+                <p>Advanced patterns for managing complex state in React applications.</p>
+                <div class="demo-container">
+                    <div id="patterns-example"></div>
+                </div>
+                <div class="code-block">
+                    <pre><code>// State Management Patterns
+function TodoApp() {
+  const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState('all');
+  const [newTodo, setNewTodo] = useState('');
+  
+  const addTodo = (text) =&gt; {
+    const todo = {
+      id: Date.now(),
+      text,
+      completed: false,
+      createdAt: new Date().toISOString()
+    };
+    setTodos(prev =&gt; [...prev, todo]);
+  };
+  
+  const toggleTodo = (id) =&gt; {
+    setTodos(prev =&gt; prev.map(todo =&gt;
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ));
+  };
+  
+  const deleteTodo = (id) =&gt; {
+    setTodos(prev =&gt; prev.filter(todo =&gt; todo.id !== id));
+  };
+  
+  const filteredTodos = todos.filter(todo =&gt; {
+    if (filter === 'active') return !todo.completed;
+    if (filter === 'completed') return todo.completed;
+    return true;
+  });
+  
+  const stats = {
+    total: todos.length,
+    active: todos.filter(todo =&gt; !todo.completed).length,
+    completed: todos.filter(todo =&gt; todo.completed).length
+  };
+  
+  return (
+    &lt;div&gt;
+      &lt;div&gt;
+        &lt;input 
+          value={newTodo}
+          onChange={(e) =&gt; setNewTodo(e.target.value)}
+          onKeyPress={(e) =&gt; {
+            if (e.key === 'Enter' && newTodo.trim()) {
+              addTodo(newTodo.trim());
+              setNewTodo('');
+            }
+          }}
+          placeholder="Add new todo"
+        /&gt;
+        &lt;button onClick={() =&gt; {
+          if (newTodo.trim()) {
+            addTodo(newTodo.trim());
+            setNewTodo('');
+          }
+        }}&gt;Add&lt;/button&gt;
+      &lt;/div&gt;
+      
+      &lt;div&gt;
+        &lt;button onClick={() =&gt; setFilter('all')}&gt;All&lt;/button&gt;
+        &lt;button onClick={() =&gt; setFilter('active')}&gt;Active&lt;/button&gt;
+        &lt;button onClick={() =&gt; setFilter('completed')}&gt;Completed&lt;/button&gt;
+      &lt;/div&gt;
+      
+      &lt;div&gt;
+        {filteredTodos.map(todo =&gt; (
+          &lt;div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}&gt;
+            &lt;input 
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() =&gt; toggleTodo(todo.id)}
+            /&gt;
+            &lt;span&gt;{todo.text}&lt;/span&gt;
+            &lt;button onClick={() =&gt; deleteTodo(todo.id)}&gt;Delete&lt;/button&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+      
+      &lt;div&gt;
+        &lt;p&gt;Total: {stats.total}&lt;/p&gt;
+        &lt;p&gt;Active: {stats.active}&lt;/p&gt;
+        &lt;p&gt;Completed: {stats.completed}&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useReducer, createContext, useContext, useMemo, useCallback } = React;
+
+        // Example 1: useState Hook
+        function Counter() {
+            const [count, setCount] = useState(0);
+            const [step, setStep] = useState(1);
+            
+            const increment = () => setCount(count + step);
+            const decrement = () => setCount(count - step);
+            const reset = () => setCount(0);
+            
+            return React.createElement('div', null,
+                React.createElement('p', null, `Count: ${count}`),
+                React.createElement('p', null, `Step: ${step}`),
+                React.createElement('button', { onClick: increment, className: 'btn' }, `+${step}`),
+                React.createElement('button', { onClick: decrement, className: 'btn' }, `-${step}`),
+                React.createElement('button', { onClick: reset, className: 'btn btn-secondary' }, 'Reset'),
+                React.createElement('input', {
+                    type: 'number',
+                    value: step,
+                    onChange: (e) => setStep(parseInt(e.target.value) || 1),
+                    className: 'input',
+                    placeholder: 'Step'
+                })
+            );
+        }
+
+        // Example 2: useReducer Hook
+        const initialState = { count: 0, step: 1, history: [] };
+
+        function reducer(state, action) {
+            switch (action.type) {
+                case 'increment':
+                    return {
+                        ...state,
+                        count: state.count + state.step,
+                        history: [...state.history, { action: 'increment', value: state.step }]
+                    };
+                case 'decrement':
+                    return {
+                        ...state,
+                        count: state.count - state.step,
+                        history: [...state.history, { action: 'decrement', value: state.step }]
+                    };
+                case 'setStep':
+                    return { ...state, step: action.payload };
+                case 'reset':
+                    return { ...state, count: 0, history: [] };
+                default:
+                    return state;
+            }
+        }
+
+        function CounterWithHistory() {
+            const [state, dispatch] = useReducer(reducer, initialState);
+            
+            return React.createElement('div', null,
+                React.createElement('p', null, `Count: ${state.count}`),
+                React.createElement('p', null, `Step: ${state.step}`),
+                React.createElement('button', { 
+                    onClick: () => dispatch({ type: 'increment' }),
+                    className: 'btn'
+                }, '+'),
+                React.createElement('button', { 
+                    onClick: () => dispatch({ type: 'decrement' }),
+                    className: 'btn'
+                }, '-'),
+                React.createElement('button', { 
+                    onClick: () => dispatch({ type: 'reset' }),
+                    className: 'btn btn-secondary'
+                }, 'Reset'),
+                React.createElement('input', {
+                    type: 'number',
+                    value: state.step,
+                    onChange: (e) => dispatch({ type: 'setStep', payload: parseInt(e.target.value) }),
+                    className: 'input',
+                    placeholder: 'Step'
+                }),
+                React.createElement('div', null, `History: ${state.history.length} actions`)
+            );
+        }
+
+        // Example 3: Context API
+        const ThemeContext = createContext();
+
+        function ThemeProvider({ children }) {
+            const [theme, setTheme] = useState('light');
+            
+            const toggleTheme = () => {
+                setTheme(theme === 'light' ? 'dark' : 'light');
+            };
+            
+            const value = useMemo(() => ({
+                theme,
+                toggleTheme
+            }), [theme]);
+            
+            return React.createElement(ThemeContext.Provider, { value }, children);
+        }
+
+        function useTheme() {
+            const context = useContext(ThemeContext);
+            if (!context) {
+                throw new Error('useTheme must be used within a ThemeProvider');
+            }
+            return context;
+        }
+
+        function ThemedComponent() {
+            const { theme, toggleTheme } = useTheme();
+            
+            return React.createElement('div', { className: `theme-${theme}` },
+                React.createElement('h4', null, `Current theme: ${theme}`),
+                React.createElement('button', { 
+                    onClick: toggleTheme,
+                    className: 'btn'
+                }, 'Toggle Theme'),
+                React.createElement('div', { className: 'card' },
+                    React.createElement('p', null, 'This content adapts to the theme!')
+                )
+            );
+        }
+
+        // Example 4: Custom Hooks
+        function useCounter(initialValue = 0) {
+            const [count, setCount] = useState(initialValue);
+            
+            const increment = () => setCount(count + 1);
+            const decrement = () => setCount(count - 1);
+            const reset = () => setCount(initialValue);
+            
+            return { count, increment, decrement, reset };
+        }
+
+        function useLocalStorage(key, initialValue) {
+            const [storedValue, setStoredValue] = useState(() => {
+                try {
+                    const item = window.localStorage.getItem(key);
+                    return item ? JSON.parse(item) : initialValue;
+                } catch (error) {
+                    return initialValue;
+                }
+            });
+            
+            const setValue = (value) => {
+                try {
+                    setStoredValue(value);
+                    window.localStorage.setItem(key, JSON.stringify(value));
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+            
+            return [storedValue, setValue];
+        }
+
+        function CustomHooksExample() {
+            const { count, increment, decrement, reset } = useCounter(0);
+            const [name, setName] = useLocalStorage('name', '');
+            
+            return React.createElement('div', null,
+                React.createElement('div', { className: 'card' },
+                    React.createElement('h4', null, `Counter: ${count}`),
+                    React.createElement('button', { onClick: increment, className: 'btn' }, '+'),
+                    React.createElement('button', { onClick: decrement, className: 'btn' }, '-'),
+                    React.createElement('button', { onClick: reset, className: 'btn btn-secondary' }, 'Reset')
+                ),
+                React.createElement('div', { className: 'card' },
+                    React.createElement('h4', null, 'Local Storage:'),
+                    React.createElement('input', {
+                        value: name,
+                        onChange: (e) => setName(e.target.value),
+                        placeholder: 'Enter name (saved to localStorage)',
+                        className: 'input'
+                    }),
+                    React.createElement('p', null, `Stored name: ${name}`)
+                )
+            );
+        }
+
+        // Example 5: useEffect Hook
+        function useApi(url) {
+            const [data, setData] = useState(null);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+            
+            useEffect(() => {
+                let cancelled = false;
+                
+                const fetchData = async () => {
+                    try {
+                        setLoading(true);
+                        setError(null);
+                        const response = await fetch(url);
+                        const result = await response.json();
+                        
+                        if (!cancelled) {
+                            setData(result);
+                        }
+                    } catch (err) {
+                        if (!cancelled) {
+                            setError(err);
+                        }
+                    } finally {
+                        if (!cancelled) {
+                            setLoading(false);
+                        }
+                    }
+                };
+                
+                fetchData();
+                
+                return () => {
+                    cancelled = true;
+                };
+            }, [url]);
+            
+            return { data, loading, error };
+        }
+
+        function ApiExample() {
+            const [userId, setUserId] = useState(1);
+            const { data: user, loading, error } = useApi(`https://jsonplaceholder.typicode.com/users/${userId}`);
+            
+            return React.createElement('div', null,
+                React.createElement('input', {
+                    type: 'number',
+                    value: userId,
+                    onChange: (e) => setUserId(parseInt(e.target.value) || 1),
+                    placeholder: 'User ID',
+                    className: 'input'
+                }),
+                loading && React.createElement('div', { className: 'loading' }, 'Loading...'),
+                error && React.createElement('div', { className: 'error' }, `Error: ${error.message}`),
+                user && React.createElement('div', { className: 'user-card' },
+                    React.createElement('h4', null, user.name),
+                    React.createElement('p', null, user.email),
+                    React.createElement('p', null, user.phone)
+                )
+            );
+        }
+
+        // Example 6: State Management Patterns
+        function TodoApp() {
+            const [todos, setTodos] = useState([]);
+            const [filter, setFilter] = useState('all');
+            const [newTodo, setNewTodo] = useState('');
+            
+            const addTodo = (text) => {
+                const todo = {
+                    id: Date.now(),
+                    text,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+                setTodos(prev => [...prev, todo]);
+            };
+            
+            const toggleTodo = (id) => {
+                setTodos(prev => prev.map(todo =>
+                    todo.id === id ? { ...todo, completed: !todo.completed } : todo
+                ));
+            };
+            
+            const deleteTodo = (id) => {
+                setTodos(prev => prev.filter(todo => todo.id !== id));
+            };
+            
+            const filteredTodos = todos.filter(todo => {
+                if (filter === 'active') return !todo.completed;
+                if (filter === 'completed') return todo.completed;
+                return true;
+            });
+            
+            const stats = {
+                total: todos.length,
+                active: todos.filter(todo => !todo.completed).length,
+                completed: todos.filter(todo => todo.completed).length
+            };
+            
+            return React.createElement('div', null,
+                React.createElement('div', { className: 'form-group' },
+                    React.createElement('input', {
+                        value: newTodo,
+                        onChange: (e) => setNewTodo(e.target.value),
+                        onKeyPress: (e) => {
+                            if (e.key === 'Enter' && newTodo.trim()) {
+                                addTodo(newTodo.trim());
+                                setNewTodo('');
+                            }
+                        },
+                        placeholder: 'Add new todo',
+                        className: 'input'
+                    }),
+                    React.createElement('button', {
+                        onClick: () => {
+                            if (newTodo.trim()) {
+                                addTodo(newTodo.trim());
+                                setNewTodo('');
+                            }
+                        },
+                        className: 'btn'
+                    }, 'Add')
+                ),
+                React.createElement('div', null,
+                    React.createElement('button', { 
+                        onClick: () => setFilter('all'),
+                        className: 'btn'
+                    }, 'All'),
+                    React.createElement('button', { 
+                        onClick: () => setFilter('active'),
+                        className: 'btn'
+                    }, 'Active'),
+                    React.createElement('button', { 
+                        onClick: () => setFilter('completed'),
+                        className: 'btn'
+                    }, 'Completed')
+                ),
+                React.createElement('div', null,
+                    filteredTodos.map(todo =>
+                        React.createElement('div', {
+                            key: todo.id,
+                            className: `todo-item ${todo.completed ? 'completed' : ''}`
+                        },
+                            React.createElement('input', {
+                                type: 'checkbox',
+                                checked: todo.completed,
+                                onChange: () => toggleTodo(todo.id)
+                            }),
+                            React.createElement('span', null, todo.text),
+                            React.createElement('button', {
+                                onClick: () => deleteTodo(todo.id),
+                                className: 'btn btn-secondary'
+                            }, 'Delete')
+                        )
+                    )
+                ),
+                React.createElement('div', { className: 'stats' },
+                    React.createElement('div', { className: 'stat-card' },
+                        React.createElement('div', { className: 'stat-value' }, stats.total),
+                        React.createElement('div', { className: 'stat-label' }, 'Total')
+                    ),
+                    React.createElement('div', { className: 'stat-card' },
+                        React.createElement('div', { className: 'stat-value' }, stats.active),
+                        React.createElement('div', { className: 'stat-label' }, 'Active')
+                    ),
+                    React.createElement('div', { className: 'stat-card' },
+                        React.createElement('div', { className: 'stat-value' }, stats.completed),
+                        React.createElement('div', { className: 'stat-label' }, 'Completed')
+                    )
+                )
+            );
+        }
+
+        // Render all examples
+        ReactDOM.render(React.createElement(Counter), document.getElementById('useState-example'));
+        ReactDOM.render(React.createElement(CounterWithHistory), document.getElementById('useReducer-example'));
+        ReactDOM.render(
+            React.createElement(ThemeProvider, null,
+                React.createElement(ThemedComponent)
+            ),
+            document.getElementById('context-example')
+        );
+        ReactDOM.render(React.createElement(CustomHooksExample), document.getElementById('custom-hooks-example'));
+        ReactDOM.render(React.createElement(ApiExample), document.getElementById('useEffect-example'));
+        ReactDOM.render(React.createElement(TodoApp), document.getElementById('patterns-example'));
+    </script>
+</body>
+</html>
