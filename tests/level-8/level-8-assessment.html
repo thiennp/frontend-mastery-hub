@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 8 Assessment: Design System Development</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        .assessment {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        .question h3 {
+            color: #495057;
+            margin-top: 0;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .answer-options {
+            margin: 15px 0;
+        }
+        .answer-option {
+            margin: 8px 0;
+            padding: 10px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .answer-option:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        .answer-option input[type="radio"] {
+            margin-right: 10px;
+        }
+        .answer-option.selected {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .button.secondary {
+            background: #6c757d;
+        }
+        .button.secondary:hover {
+            background: #545b62;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .result.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .result.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .score {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .score h2 {
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Level 8 Assessment</h1>
+        <p>Design System Development - Comprehensive Design Systems</p>
+    </div>
+
+    <div class="score">
+        <h2>Your Score</h2>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        <p id="scoreText">0 / 0 questions answered</p>
+    </div>
+
+    <form id="assessment-form">
+        <div class="assessment">
+            <h2>Multiple Choice Questions</h2>
+            
+            <div class="question">
+                <h3>Question 1: Design System Fundamentals</h3>
+                <p>What is the primary purpose of a design system?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q1" value="a">
+                        <span>To create beautiful visual designs</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q1" value="b">
+                        <span>To ensure consistency and scalability across products</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q1" value="c">
+                        <span>To reduce development time only</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q1" value="d">
+                        <span>To replace the need for designers</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 2: Design Tokens</h3>
+                <p>Which of the following is NOT a type of design token?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q2" value="a">
+                        <span>Color tokens</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q2" value="b">
+                        <span>Typography tokens</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q2" value="c">
+                        <span>Component tokens</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q2" value="d">
+                        <span>Spacing tokens</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 3: Component Library Architecture</h3>
+                <p>According to atomic design principles, which level comes first in the hierarchy?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q3" value="a">
+                        <span>Molecules</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q3" value="b">
+                        <span>Atoms</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q3" value="c">
+                        <span>Organisms</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q3" value="d">
+                        <span>Templates</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 4: Design System Governance</h3>
+                <p>What is the main benefit of having clear governance processes in a design system?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q4" value="a">
+                        <span>Faster development</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q4" value="b">
+                        <span>Consistency and quality control</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q4" value="c">
+                        <span>Lower costs</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q4" value="d">
+                        <span>Better performance</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 5: Storybook Documentation</h3>
+                <p>What is the primary purpose of Storybook in a design system?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q5" value="a">
+                        <span>To replace traditional documentation</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q5" value="b">
+                        <span>To create interactive component documentation and development environment</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q5" value="c">
+                        <span>To generate code automatically</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q5" value="d">
+                        <span>To test component performance</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 6: Design System Maturity</h3>
+                <p>At which maturity level does a design system typically include comprehensive governance processes?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q6" value="a">
+                        <span>Level 1: Style Guide</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q6" value="b">
+                        <span>Level 2: Component Library</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q6" value="c">
+                        <span>Level 3: Design System</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q6" value="d">
+                        <span>Level 4: Design System Platform</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 7: Component API Design</h3>
+                <p>What is the best practice for naming component props?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q7" value="a">
+                        <span>Use technical implementation names</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q7" value="b">
+                        <span>Use semantic names that describe purpose</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q7" value="c">
+                        <span>Use single letters for brevity</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q7" value="d">
+                        <span>Use random names for uniqueness</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 8: Design System Adoption</h3>
+                <p>What is the most effective strategy for increasing design system adoption?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q8" value="a">
+                        <span>Mandating usage across all teams</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q8" value="b">
+                        <span>Making it valuable and easy to use</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q8" value="c">
+                        <span>Creating complex, feature-rich components</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q8" value="d">
+                        <span>Limiting documentation to save time</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 9: Accessibility in Design Systems</h3>
+                <p>When should accessibility considerations be integrated into a design system?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q9" value="a">
+                        <span>After the system is complete</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q9" value="b">
+                        <span>From the ground up, built into every component</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q9" value="c">
+                        <span>Only for public-facing components</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q9" value="d">
+                        <span>As an optional add-on</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question">
+                <h3>Question 10: Design System Maintenance</h3>
+                <p>What is the most important factor for maintaining a successful design system over time?</p>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="q10" value="a">
+                        <span>Having the latest design trends</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q10" value="b">
+                        <span>Regular updates and user feedback integration</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q10" value="c">
+                        <span>Minimal changes to avoid disruption</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="q10" value="d">
+                        <span>Complex documentation</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div style="text-align: center; margin: 30px 0;">
+        <button class="button" onclick="submitAssessment()">Submit Assessment</button>
+        <button class="button secondary" onclick="resetAssessment()">Reset</button>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: 'b', // To ensure consistency and scalability across products
+            q2: 'c', // Component tokens
+            q3: 'b', // Atoms
+            q4: 'b', // Consistency and quality control
+            q5: 'b', // To create interactive component documentation and development environment
+            q6: 'c', // Level 3: Design System
+            q7: 'b', // Use semantic names that describe purpose
+            q8: 'b', // Making it valuable and easy to use
+            q9: 'b', // From the ground up, built into every component
+            q10: 'b' // Regular updates and user feedback integration
+        };
+
+        let score = 0;
+        const totalQuestions = Object.keys(correctAnswers).length;
+
+        // Add event listeners to radio buttons
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                checkAnswer(this.name, this.value);
+            });
+        });
+
+        function checkAnswer(questionName, selectedValue) {
+            const questionDiv = document.querySelector(`input[name="${questionName}"]:checked`).closest('.question');
+            const resultDiv = questionDiv.querySelector('.result') || createResultDiv(questionDiv);
+            
+            if (selectedValue === correctAnswers[questionName]) {
+                if (!questionDiv.classList.contains('answered-correctly')) {
+                    score++;
+                    questionDiv.classList.add('answered-correctly');
+                }
+                resultDiv.className = 'result correct';
+                resultDiv.textContent = 'Correct! ✓';
+            } else {
+                if (questionDiv.classList.contains('answered-correctly')) {
+                    score--;
+                    questionDiv.classList.remove('answered-correctly');
+                }
+                resultDiv.className = 'result incorrect';
+                resultDiv.textContent = 'Incorrect. Try again.';
+            }
+            
+            updateScore();
+        }
+
+        function createResultDiv(questionDiv) {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'result';
+            questionDiv.appendChild(resultDiv);
+            return resultDiv;
+        }
+
+        function updateScore() {
+            document.getElementById('scoreText').textContent = `${score} / ${totalQuestions} questions correct`;
+            document.getElementById('progressFill').style.width = `${(score / totalQuestions) * 100}%`;
+        }
+
+        function submitAssessment() {
+            const percentage = Math.round((score / totalQuestions) * 100);
+            
+            let message = `Assessment Complete!\n\n`;
+            message += `Score: ${score}/${totalQuestions} (${percentage}%)\n\n`;
+            
+            if (percentage >= 80) {
+                message += `🎉 Excellent! You've mastered Level 8 design system concepts!`;
+            } else if (percentage >= 60) {
+                message += `👍 Good job! Review the areas you missed and try again.`;
+            } else {
+                message += `📚 Keep studying! Review the Level 8 materials and practice more.`;
+            }
+            
+            alert(message);
+        }
+
+        function resetAssessment() {
+            // Reset all radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+            
+            // Remove result divs
+            document.querySelectorAll('.result').forEach(result => {
+                result.remove();
+            });
+            
+            // Remove answered classes
+            document.querySelectorAll('.question').forEach(question => {
+                question.classList.remove('answered-correctly');
+            });
+            
+            // Reset score
+            score = 0;
+            updateScore();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Design System - Level 8</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__brand">
+                    <h1 class="header__title">Design System</h1>
+                    <p class="header__subtitle">Level 8 - Comprehensive Design System</p>
+                </div>
+                <nav class="header__nav">
+                    <a href="#tokens" class="nav-link">Tokens</a>
+                    <a href="#components" class="nav-link">Components</a>
+                    <a href="#patterns" class="nav-link">Patterns</a>
+                    <a href="#documentation" class="nav-link">Docs</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__content">
+                <h2 class="hero__title">Build Consistent, Scalable Interfaces</h2>
+                <p class="hero__description">
+                    A comprehensive design system with design tokens, component library, 
+                    and documentation that enables teams to build beautiful, accessible, 
+                    and consistent user interfaces.
+                </p>
+                <div class="hero__actions">
+                    <button class="button button--primary button--lg">Get Started</button>
+                    <button class="button button--outline button--lg">View Components</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Tokens Section -->
+    <section id="tokens" class="section">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Design Tokens</h2>
+                <p class="section__description">
+                    Centralized design values that ensure consistency across all platforms and applications.
+                </p>
+            </div>
+
+            <div class="tokens-grid">
+                <!-- Color Tokens -->
+                <div class="token-card">
+                    <h3 class="token-card__title">Colors</h3>
+                    <p class="token-card__description">Consistent color palette with semantic naming</p>
+                    
+                    <div class="token-examples">
+                        <div class="color-palette">
+                            <h4 class="color-palette__title">Primary</h4>
+                            <div class="color-swatches">
+                                <div class="color-swatch" style="background-color: var(--color-primary-50);">
+                                    <span class="color-swatch__name">50</span>
+                                </div>
+                                <div class="color-swatch" style="background-color: var(--color-primary-100);">
+                                    <span class="color-swatch__name">100</span>
+                                </div>
+                                <div class="color-swatch" style="background-color: var(--color-primary-500);">
+                                    <span class="color-swatch__name">500</span>
+                                </div>
+                                <div class="color-swatch" style="background-color: var(--color-primary-600);">
+                                    <span class="color-swatch__name">600</span>
+                                </div>
+                                <div class="color-swatch" style="background-color: var(--color-primary-900);">
+                                    <span class="color-swatch__name">900</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="color-palette">
+                            <h4 class="color-palette__title">Semantic</h4>
+                            <div class="color-swatches">
+                                <div class="color-swatch" style="background-color: var(--color-success);">
+                                    <span class="color-swatch__name">Success</span>
+                                </div>
+                                <div class="color-swatch" style="background-color: var(--color-warning);">
+                                    <span class="color-swatch__name">Warning</span>
+                                </div>
+                                <div class="color-swatch" style="background-color: var(--color-error);">
+                                    <span class="color-swatch__name">Error</span>
+                                </div>
+                                <div class="color-swatch" style="background-color: var(--color-info);">
+                                    <span class="color-swatch__name">Info</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typography Tokens -->
+                <div class="token-card">
+                    <h3 class="token-card__title">Typography</h3>
+                    <p class="token-card__description">Consistent typography scale and font families</p>
+                    
+                    <div class="typography-examples">
+                        <div class="typography-scale">
+                            <div class="typography-item" style="font-size: var(--font-size-xs);">
+                                Extra Small (0.75rem)
+                            </div>
+                            <div class="typography-item" style="font-size: var(--font-size-sm);">
+                                Small (0.875rem)
+                            </div>
+                            <div class="typography-item" style="font-size: var(--font-size-base);">
+                                Base (1rem)
+                            </div>
+                            <div class="typography-item" style="font-size: var(--font-size-lg);">
+                                Large (1.125rem)
+                            </div>
+                            <div class="typography-item" style="font-size: var(--font-size-xl);">
+                                Extra Large (1.25rem)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spacing Tokens -->
+                <div class="token-card">
+                    <h3 class="token-card__title">Spacing</h3>
+                    <p class="token-card__description">Consistent spacing scale for visual rhythm</p>
+                    
+                    <div class="spacing-examples">
+                        <div class="spacing-scale">
+                            <div class="spacing-item" style="width: var(--spacing-1); height: var(--spacing-4);">
+                                <span class="spacing-label">1</span>
+                            </div>
+                            <div class="spacing-item" style="width: var(--spacing-2); height: var(--spacing-4);">
+                                <span class="spacing-label">2</span>
+                            </div>
+                            <div class="spacing-item" style="width: var(--spacing-4); height: var(--spacing-4);">
+                                <span class="spacing-label">4</span>
+                            </div>
+                            <div class="spacing-item" style="width: var(--spacing-8); height: var(--spacing-4);">
+                                <span class="spacing-label">8</span>
+                            </div>
+                            <div class="spacing-item" style="width: var(--spacing-16); height: var(--spacing-4);">
+                                <span class="spacing-label">16</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Components Section -->
+    <section id="components" class="section">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Component Library</h2>
+                <p class="section__description">
+                    Reusable components built with design tokens for consistency and maintainability.
+                </p>
+            </div>
+
+            <div class="components-grid">
+                <!-- Button Component -->
+                <div class="component-card">
+                    <h3 class="component-card__title">Button</h3>
+                    <p class="component-card__description">Versatile button component with multiple variants</p>
+                    
+                    <div class="component-examples">
+                        <div class="button-group">
+                            <button class="button button--primary">Primary</button>
+                            <button class="button button--secondary">Secondary</button>
+                            <button class="button button--outline">Outline</button>
+                            <button class="button button--ghost">Ghost</button>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button class="button button--primary button--sm">Small</button>
+                            <button class="button button--primary button--md">Medium</button>
+                            <button class="button button--primary button--lg">Large</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Component -->
+                <div class="component-card">
+                    <h3 class="component-card__title">Input</h3>
+                    <p class="component-card__description">Form input with validation states</p>
+                    
+                    <div class="component-examples">
+                        <div class="input-group">
+                            <label class="input-label">Email Address</label>
+                            <input type="email" class="input" placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">Password</label>
+                            <input type="password" class="input input--error" placeholder="Enter your password">
+                            <div class="input-error">Password is required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Component -->
+                <div class="component-card">
+                    <h3 class="component-card__title">Card</h3>
+                    <p class="component-card__description">Flexible card for content organization</p>
+                    
+                    <div class="component-examples">
+                        <div class="card">
+                            <div class="card__header">
+                                <h4 class="card__title">Card Title</h4>
+                                <p class="card__subtitle">Card subtitle or description</p>
+                            </div>
+                            <div class="card__content">
+                                <p>This is the main content of the card. It can contain any type of content including text, images, or other components.</p>
+                            </div>
+                            <div class="card__footer">
+                                <button class="button button--primary button--sm">Action</button>
+                                <button class="button button--outline button--sm">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Badge Component -->
+                <div class="component-card">
+                    <h3 class="component-card__title">Badge</h3>
+                    <p class="component-card__description">Status indicators and labels</p>
+                    
+                    <div class="component-examples">
+                        <div class="badge-group">
+                            <span class="badge badge--primary">Primary</span>
+                            <span class="badge badge--success">Success</span>
+                            <span class="badge badge--warning">Warning</span>
+                            <span class="badge badge--error">Error</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alert Component -->
+                <div class="component-card">
+                    <h3 class="component-card__title">Alert</h3>
+                    <p class="component-card__description">Important messages and notifications</p>
+                    
+                    <div class="component-examples">
+                        <div class="alert alert--info">
+                            <div class="alert__title">Information</div>
+                            <div class="alert__message">This is an informational alert message.</div>
+                        </div>
+                        
+                        <div class="alert alert--success">
+                            <div class="alert__title">Success</div>
+                            <div class="alert__message">Your action was completed successfully.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Component -->
+                <div class="component-card">
+                    <h3 class="component-card__title">Modal</h3>
+                    <p class="component-card__description">Overlay dialogs and confirmations</p>
+                    
+                    <div class="component-examples">
+                        <button class="button button--primary" onclick="openModal()">Open Modal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patterns Section -->
+    <section id="patterns" class="section">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Design Patterns</h2>
+                <p class="section__description">
+                    Common patterns and combinations that solve recurring design problems.
+                </p>
+            </div>
+
+            <div class="patterns-grid">
+                <!-- Form Pattern -->
+                <div class="pattern-card">
+                    <h3 class="pattern-card__title">Form Pattern</h3>
+                    <p class="pattern-card__description">Complete form with validation and error handling</p>
+                    
+                    <div class="pattern-example">
+                        <form class="form">
+                            <div class="form__group">
+                                <label class="form__label">Full Name</label>
+                                <input type="text" class="form__input" placeholder="Enter your full name">
+                            </div>
+                            
+                            <div class="form__group">
+                                <label class="form__label">Email Address</label>
+                                <input type="email" class="form__input" placeholder="Enter your email">
+                            </div>
+                            
+                            <div class="form__group">
+                                <label class="form__label">Message</label>
+                                <textarea class="form__textarea" placeholder="Enter your message" rows="4"></textarea>
+                            </div>
+                            
+                            <div class="form__actions">
+                                <button type="button" class="button button--outline">Cancel</button>
+                                <button type="submit" class="button button--primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Navigation Pattern -->
+                <div class="pattern-card">
+                    <h3 class="pattern-card__title">Navigation Pattern</h3>
+                    <p class="pattern-card__description">Header navigation with responsive behavior</p>
+                    
+                    <div class="pattern-example">
+                        <nav class="nav-pattern">
+                            <div class="nav-pattern__brand">
+                                <span class="nav-pattern__logo">Logo</span>
+                            </div>
+                            <div class="nav-pattern__links">
+                                <a href="#" class="nav-pattern__link nav-pattern__link--active">Home</a>
+                                <a href="#" class="nav-pattern__link">About</a>
+                                <a href="#" class="nav-pattern__link">Services</a>
+                                <a href="#" class="nav-pattern__link">Contact</a>
+                            </div>
+                            <div class="nav-pattern__actions">
+                                <button class="button button--outline button--sm">Login</button>
+                                <button class="button button--primary button--sm">Sign Up</button>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Data Display Pattern -->
+                <div class="pattern-card">
+                    <h3 class="pattern-card__title">Data Display Pattern</h3>
+                    <p class="pattern-card__description">Table with sorting, filtering, and pagination</p>
+                    
+                    <div class="pattern-example">
+                        <div class="data-table">
+                            <div class="data-table__header">
+                                <h4 class="data-table__title">Users</h4>
+                                <div class="data-table__actions">
+                                    <button class="button button--outline button--sm">Filter</button>
+                                    <button class="button button--primary button--sm">Add User</button>
+                                </div>
+                            </div>
+                            
+                            <div class="data-table__content">
+                                <table class="table">
+                                    <thead class="table__head">
+                                        <tr class="table__row">
+                                            <th class="table__cell">Name</th>
+                                            <th class="table__cell">Email</th>
+                                            <th class="table__cell">Status</th>
+                                            <th class="table__cell">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table__body">
+                                        <tr class="table__row">
+                                            <td class="table__cell">John Doe</td>
+                                            <td class="table__cell">john@example.com</td>
+                                            <td class="table__cell">
+                                                <span class="badge badge--success">Active</span>
+                                            </td>
+                                            <td class="table__cell">
+                                                <button class="button button--ghost button--sm">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="table__row">
+                                            <td class="table__cell">Jane Smith</td>
+                                            <td class="table__cell">jane@example.com</td>
+                                            <td class="table__cell">
+                                                <span class="badge badge--warning">Pending</span>
+                                            </td>
+                                            <td class="table__cell">
+                                                <button class="button button--ghost button--sm">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="documentation" class="section">
+        <div class="container">
+            <div class="section__header">
+                <h2 class="section__title">Documentation & Resources</h2>
+                <p class="section__description">
+                    Comprehensive documentation, guidelines, and resources for using the design system.
+                </p>
+            </div>
+
+            <div class="docs-grid">
+                <div class="doc-card">
+                    <h3 class="doc-card__title">Getting Started</h3>
+                    <p class="doc-card__description">Learn how to install and use the design system</p>
+                    <ul class="doc-card__list">
+                        <li>Installation guide</li>
+                        <li>Basic usage examples</li>
+                        <li>Configuration options</li>
+                        <li>Best practices</li>
+                    </ul>
+                    <button class="button button--outline">Read Guide</button>
+                </div>
+
+                <div class="doc-card">
+                    <h3 class="doc-card__title">Component Library</h3>
+                    <p class="doc-card__description">Browse all available components and their usage</p>
+                    <ul class="doc-card__list">
+                        <li>Interactive examples</li>
+                        <li>API documentation</li>
+                        <li>Accessibility notes</li>
+                        <li>Code snippets</li>
+                    </ul>
+                    <button class="button button--outline">View Components</button>
+                </div>
+
+                <div class="doc-card">
+                    <h3 class="doc-card__title">Design Guidelines</h3>
+                    <p class="doc-card__description">Design principles and visual guidelines</p>
+                    <ul class="doc-card__list">
+                        <li>Design principles</li>
+                        <li>Color usage</li>
+                        <li>Typography guidelines</li>
+                        <li>Spacing rules</li>
+                    </ul>
+                    <button class="button button--outline">View Guidelines</button>
+                </div>
+
+                <div class="doc-card">
+                    <h3 class="doc-card__title">Accessibility</h3>
+                    <p class="doc-card__description">Accessibility guidelines and compliance</p>
+                    <ul class="doc-card__list">
+                        <li>WCAG 2.1 compliance</li>
+                        <li>Keyboard navigation</li>
+                        <li>Screen reader support</li>
+                        <li>Testing guidelines</li>
+                    </ul>
+                    <button class="button button--outline">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <h3 class="footer__title">Design System</h3>
+                    <p class="footer__description">Building consistent, accessible, and beautiful user interfaces.</p>
+                </div>
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">Resources</h4>
+                        <a href="#" class="footer__link">Documentation</a>
+                        <a href="#" class="footer__link">Components</a>
+                        <a href="#" class="footer__link">Guidelines</a>
+                        <a href="#" class="footer__link">Examples</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">Support</h4>
+                        <a href="#" class="footer__link">Help Center</a>
+                        <a href="#" class="footer__link">Community</a>
+                        <a href="#" class="footer__link">Contact</a>
+                        <a href="#" class="footer__link">Feedback</a>
+                    </div>
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">Legal</h4>
+                        <a href="#" class="footer__link">License</a>
+                        <a href="#" class="footer__link">Privacy</a>
+                        <a href="#" class="footer__link">Terms</a>
+                        <a href="#" class="footer__link">Security</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2024 Design System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal__overlay" onclick="closeModal()"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 class="modal__title">Modal Title</h3>
+                <button class="modal__close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal__body">
+                <p>This is a modal dialog example. It demonstrates how modals can be used to display important information or capture user input.</p>
+            </div>
+            <div class="modal__footer">
+                <button class="button button--outline" onclick="closeModal()">Cancel</button>
+                <button class="button button--primary" onclick="closeModal()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
