@@ -519,3 +519,4 @@ class SearchComponent {
 // Export class
 window.SearchComponent = SearchComponent;
 
+

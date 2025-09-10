@@ -767,3 +767,4 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('All components initialized successfully');
 });
 
+

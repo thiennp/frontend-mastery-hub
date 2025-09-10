@@ -184,3 +184,4 @@ const scheduler = new TaskScheduler({ debug: true });
 
 This project is part of the Frontend Mastery Hub curriculum. Feel free to extend it with additional features or improvements.
 
+

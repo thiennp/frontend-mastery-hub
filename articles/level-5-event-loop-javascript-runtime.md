@@ -579,3 +579,4 @@ Mastering these concepts will help you write better asynchronous JavaScript code
 
 In the next article, we'll explore callbacks and callback hell, building upon the event loop knowledge to understand how JavaScript handles asynchronous operations through callback functions.
 
+

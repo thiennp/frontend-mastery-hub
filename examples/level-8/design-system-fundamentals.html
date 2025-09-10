@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 8: Design System Fundamentals</title>
+    <style>
+        /* Design System CSS Custom Properties */
+        :root {
+            /* Color Tokens - Semantic Naming */
+            --color-primary-50: #eff6ff;
+            --color-primary-100: #dbeafe;
+            --color-primary-200: #bfdbfe;
+            --color-primary-300: #93c5fd;
+            --color-primary-400: #60a5fa;
+            --color-primary-500: #3b82f6;
+            --color-primary-600: #2563eb;
+            --color-primary-700: #1d4ed8;
+            --color-primary-800: #1e40af;
+            --color-primary-900: #1e3a8a;
+            
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-300: #d1d5db;
+            --color-gray-400: #9ca3af;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+            
+            --color-success-50: #f0fdf4;
+            --color-success-100: #dcfce7;
+            --color-success-500: #22c55e;
+            --color-success-600: #16a34a;
+            --color-success-700: #15803d;
+            
+            --color-warning-50: #fffbeb;
+            --color-warning-100: #fef3c7;
+            --color-warning-500: #f59e0b;
+            --color-warning-600: #d97706;
+            --color-warning-700: #b45309;
+            
+            --color-error-50: #fef2f2;
+            --color-error-100: #fee2e2;
+            --color-error-500: #ef4444;
+            --color-error-600: #dc2626;
+            --color-error-700: #b91c1c;
+            
+            /* Semantic Color Mapping */
+            --color-background-primary: var(--color-gray-50);
+            --color-background-secondary: #ffffff;
+            --color-background-tertiary: var(--color-gray-100);
+            
+            --color-text-primary: var(--color-gray-900);
+            --color-text-secondary: var(--color-gray-600);
+            --color-text-tertiary: var(--color-gray-500);
+            --color-text-inverse: #ffffff;
+            
+            --color-border-primary: var(--color-gray-200);
+            --color-border-secondary: var(--color-gray-300);
+            --color-border-focus: var(--color-primary-500);
+            
+            --color-interactive-primary: var(--color-primary-600);
+            --color-interactive-primary-hover: var(--color-primary-700);
+            --color-interactive-secondary: var(--color-gray-200);
+            --color-interactive-secondary-hover: var(--color-gray-300);
+            
+            /* Typography Tokens */
+            --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-family-mono: 'Monaco', 'Consolas', 'Courier New', monospace;
+            
+            --font-size-xs: 0.75rem;    /* 12px */
+            --font-size-sm: 0.875rem;   /* 14px */
+            --font-size-base: 1rem;     /* 16px */
+            --font-size-lg: 1.125rem;   /* 18px */
+            --font-size-xl: 1.25rem;    /* 20px */
+            --font-size-2xl: 1.5rem;    /* 24px */
+            --font-size-3xl: 1.875rem;  /* 30px */
+            --font-size-4xl: 2.25rem;   /* 36px */
+            --font-size-5xl: 3rem;      /* 48px */
+            --font-size-6xl: 3.75rem;   /* 60px */
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --font-weight-extrabold: 800;
+            
+            --line-height-tight: 1.25;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.75;
+            
+            /* Spacing Tokens - 8px base unit */
+            --space-0: 0;
+            --space-1: 0.25rem;   /* 4px */
+            --space-2: 0.5rem;    /* 8px */
+            --space-3: 0.75rem;   /* 12px */
+            --space-4: 1rem;      /* 16px */
+            --space-5: 1.25rem;   /* 20px */
+            --space-6: 1.5rem;    /* 24px */
+            --space-8: 2rem;      /* 32px */
+            --space-10: 2.5rem;   /* 40px */
+            --space-12: 3rem;     /* 48px */
+            --space-16: 4rem;     /* 64px */
+            --space-20: 5rem;     /* 80px */
+            --space-24: 6rem;     /* 96px */
+            --space-32: 8rem;     /* 128px */
+            
+            /* Border Radius Tokens */
+            --radius-none: 0;
+            --radius-sm: 0.125rem;   /* 2px */
+            --radius-base: 0.25rem;  /* 4px */
+            --radius-md: 0.375rem;   /* 6px */
+            --radius-lg: 0.5rem;     /* 8px */
+            --radius-xl: 0.75rem;    /* 12px */
+            --radius-2xl: 1rem;      /* 16px */
+            --radius-3xl: 1.5rem;    /* 24px */
+            --radius-full: 9999px;
+            
+            /* Shadow Tokens */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Z-Index Tokens */
+            --z-dropdown: 1000;
+            --z-sticky: 1020;
+            --z-fixed: 1030;
+            --z-modal-backdrop: 1040;
+            --z-modal: 1050;
+            --z-popover: 1060;
+            --z-tooltip: 1070;
+            
+            /* Motion Tokens */
+            --motion-duration-fast: 150ms;
+            --motion-duration-normal: 300ms;
+            --motion-duration-slow: 500ms;
+            
+            --motion-easing-linear: linear;
+            --motion-easing-ease: ease;
+            --motion-easing-ease-in: ease-in;
+            --motion-easing-ease-out: ease-out;
+            --motion-easing-ease-in-out: ease-in-out;
+        }
+
+        /* Reset and Base Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            line-height: var(--line-height-normal);
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-normal);
+            line-height: var(--line-height-normal);
+            color: var(--color-text-primary);
+            background-color: var(--color-background-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography Scale */
+        .text-xs { font-size: var(--font-size-xs); }
+        .text-sm { font-size: var(--font-size-sm); }
+        .text-base { font-size: var(--font-size-base); }
+        .text-lg { font-size: var(--font-size-lg); }
+        .text-xl { font-size: var(--font-size-xl); }
+        .text-2xl { font-size: var(--font-size-2xl); }
+        .text-3xl { font-size: var(--font-size-3xl); }
+        .text-4xl { font-size: var(--font-size-4xl); }
+        .text-5xl { font-size: var(--font-size-5xl); }
+        .text-6xl { font-size: var(--font-size-6xl); }
+
+        .font-normal { font-weight: var(--font-weight-normal); }
+        .font-medium { font-weight: var(--font-weight-medium); }
+        .font-semibold { font-weight: var(--font-weight-semibold); }
+        .font-bold { font-weight: var(--font-weight-bold); }
+        .font-extrabold { font-weight: var(--font-weight-extrabold); }
+
+        .leading-tight { line-height: var(--line-height-tight); }
+        .leading-normal { line-height: var(--line-height-normal); }
+        .leading-relaxed { line-height: var(--line-height-relaxed); }
+
+        /* Layout Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+
+        .flex { display: flex; }
+        .inline-flex { display: inline-flex; }
+        .grid { display: grid; }
+        .block { display: block; }
+        .inline-block { display: inline-block; }
+        .hidden { display: none; }
+
+        .flex-col { flex-direction: column; }
+        .flex-row { flex-direction: row; }
+        .flex-wrap { flex-wrap: wrap; }
+        .flex-nowrap { flex-wrap: nowrap; }
+
+        .items-start { align-items: flex-start; }
+        .items-center { align-items: center; }
+        .items-end { align-items: flex-end; }
+        .items-stretch { align-items: stretch; }
+
+        .justify-start { justify-content: flex-start; }
+        .justify-center { justify-content: center; }
+        .justify-end { justify-content: flex-end; }
+        .justify-between { justify-content: space-between; }
+        .justify-around { justify-content: space-around; }
+
+        .gap-1 { gap: var(--space-1); }
+        .gap-2 { gap: var(--space-2); }
+        .gap-3 { gap: var(--space-3); }
+        .gap-4 { gap: var(--space-4); }
+        .gap-6 { gap: var(--space-6); }
+        .gap-8 { gap: var(--space-8); }
+        .gap-12 { gap: var(--space-12); }
+
+        /* Spacing Utilities */
+        .p-0 { padding: var(--space-0); }
+        .p-1 { padding: var(--space-1); }
+        .p-2 { padding: var(--space-2); }
+        .p-3 { padding: var(--space-3); }
+        .p-4 { padding: var(--space-4); }
+        .p-6 { padding: var(--space-6); }
+        .p-8 { padding: var(--space-8); }
+        .p-12 { padding: var(--space-12); }
+        .p-16 { padding: var(--space-16); }
+        .p-20 { padding: var(--space-20); }
+        .p-24 { padding: var(--space-24); }
+
+        .px-2 { padding-left: var(--space-2); padding-right: var(--space-2); }
+        .px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+        .px-6 { padding-left: var(--space-6); padding-right: var(--space-6); }
+        .px-8 { padding-left: var(--space-8); padding-right: var(--space-8); }
+
+        .py-2 { padding-top: var(--space-2); padding-bottom: var(--space-2); }
+        .py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+        .py-6 { padding-top: var(--space-6); padding-bottom: var(--space-6); }
+        .py-8 { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+        .py-12 { padding-top: var(--space-12); padding-bottom: var(--space-12); }
+        .py-16 { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+        .py-20 { padding-top: var(--space-20); padding-bottom: var(--space-20); }
+        .py-24 { padding-top: var(--space-24); padding-bottom: var(--space-24); }
+
+        .m-0 { margin: var(--space-0); }
+        .m-1 { margin: var(--space-1); }
+        .m-2 { margin: var(--space-2); }
+        .m-3 { margin: var(--space-3); }
+        .m-4 { margin: var(--space-4); }
+        .m-6 { margin: var(--space-6); }
+        .m-8 { margin: var(--space-8); }
+
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .my-4 { margin-top: var(--space-4); margin-bottom: var(--space-4); }
+        .my-6 { margin-top: var(--space-6); margin-bottom: var(--space-6); }
+        .my-8 { margin-top: var(--space-8); margin-bottom: var(--space-8); }
+        .my-12 { margin-top: var(--space-12); margin-bottom: var(--space-12); }
+
+        /* Color Utilities */
+        .text-primary { color: var(--color-text-primary); }
+        .text-secondary { color: var(--color-text-secondary); }
+        .text-tertiary { color: var(--color-text-tertiary); }
+        .text-inverse { color: var(--color-text-inverse); }
+
+        .bg-primary { background-color: var(--color-background-primary); }
+        .bg-secondary { background-color: var(--color-background-secondary); }
+        .bg-tertiary { background-color: var(--color-background-tertiary); }
+
+        /* Border Utilities */
+        .border { border: 1px solid var(--color-border-primary); }
+        .border-t { border-top: 1px solid var(--color-border-primary); }
+        .border-b { border-bottom: 1px solid var(--color-border-primary); }
+        .border-l { border-left: 1px solid var(--color-border-primary); }
+        .border-r { border-right: 1px solid var(--color-border-primary); }
+
+        .rounded { border-radius: var(--radius-base); }
+        .rounded-sm { border-radius: var(--radius-sm); }
+        .rounded-md { border-radius: var(--radius-md); }
+        .rounded-lg { border-radius: var(--radius-lg); }
+        .rounded-xl { border-radius: var(--radius-xl); }
+        .rounded-2xl { border-radius: var(--radius-2xl); }
+        .rounded-3xl { border-radius: var(--radius-3xl); }
+        .rounded-full { border-radius: var(--radius-full); }
+
+        /* Shadow Utilities */
+        .shadow-xs { box-shadow: var(--shadow-xs); }
+        .shadow-sm { box-shadow: var(--shadow-sm); }
+        .shadow { box-shadow: var(--shadow-base); }
+        .shadow-md { box-shadow: var(--shadow-md); }
+        .shadow-lg { box-shadow: var(--shadow-lg); }
+        .shadow-xl { box-shadow: var(--shadow-xl); }
+        .shadow-2xl { box-shadow: var(--shadow-2xl); }
+
+        /* Component Styles */
+        .card {
+            background-color: var(--color-background-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .card__header {
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        .card__title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .card__subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-1);
+        }
+
+        .card__body {
+            padding: var(--space-6);
+        }
+
+        .card__footer {
+            padding: var(--space-6);
+            border-top: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Button Component */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--line-height-tight);
+            border: 1px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--color-border-focus);
+            outline-offset: 2px;
+        }
+
+        .btn--primary {
+            background-color: var(--color-interactive-primary);
+            color: var(--color-text-inverse);
+        }
+
+        .btn--primary:hover {
+            background-color: var(--color-interactive-primary-hover);
+        }
+
+        .btn--secondary {
+            background-color: var(--color-background-secondary);
+            color: var(--color-text-primary);
+            border-color: var(--color-border-primary);
+        }
+
+        .btn--secondary:hover {
+            background-color: var(--color-interactive-secondary);
+        }
+
+        .btn--sm {
+            padding: var(--space-1) var(--space-3);
+            font-size: var(--font-size-xs);
+        }
+
+        .btn--lg {
+            padding: var(--space-3) var(--space-6);
+            font-size: var(--font-size-base);
+        }
+
+        /* Design Token Display */
+        .token-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-4);
+            margin: var(--space-6) 0;
+        }
+
+        .token-item {
+            background-color: var(--color-background-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            text-align: center;
+        }
+
+        .token-preview {
+            width: 100%;
+            height: 40px;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-2);
+        }
+
+        .token-name {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text-secondary);
+            font-family: var(--font-family-mono);
+        }
+
+        .token-value {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-primary);
+            font-family: var(--font-family-mono);
+            margin-top: var(--space-1);
+        }
+
+        /* Color Token Previews */
+        .color-primary-50 { background-color: var(--color-primary-50); }
+        .color-primary-100 { background-color: var(--color-primary-100); }
+        .color-primary-200 { background-color: var(--color-primary-200); }
+        .color-primary-300 { background-color: var(--color-primary-300); }
+        .color-primary-400 { background-color: var(--color-primary-400); }
+        .color-primary-500 { background-color: var(--color-primary-500); }
+        .color-primary-600 { background-color: var(--color-primary-600); }
+        .color-primary-700 { background-color: var(--color-primary-700); }
+        .color-primary-800 { background-color: var(--color-primary-800); }
+        .color-primary-900 { background-color: var(--color-primary-900); }
+
+        /* Responsive Design */
+        @media (min-width: 640px) {
+            .sm\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+            .sm\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+            .md\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+            .md\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        @media (min-width: 1024px) {
+            .lg\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+            .lg\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-background-primary: var(--color-gray-900);
+                --color-background-secondary: var(--color-gray-800);
+                --color-background-tertiary: var(--color-gray-700);
+                --color-text-primary: var(--color-gray-100);
+                --color-text-secondary: var(--color-gray-300);
+                --color-text-tertiary: var(--color-gray-400);
+                --color-border-primary: var(--color-gray-700);
+                --color-border-secondary: var(--color-gray-600);
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-4xl font-bold text-primary my-8 text-center">Level 8: Design System Fundamentals</h1>
+        
+        <!-- Design System Overview -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Design System Overview</h2>
+                    <p class="card__subtitle">A comprehensive system of reusable components, design tokens, and guidelines</p>
+                </div>
+                <div class="card__body">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl mb-4">🎨</div>
+                            <h3 class="text-lg font-semibold mb-2">Design Tokens</h3>
+                            <p class="text-secondary">Centralized design decisions stored as data</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl mb-4">🧩</div>
+                            <h3 class="text-lg font-semibold mb-2">Components</h3>
+                            <p class="text-secondary">Reusable UI building blocks with consistent APIs</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl mb-4">📚</div>
+                            <h3 class="text-lg font-semibold mb-2">Documentation</h3>
+                            <p class="text-secondary">Comprehensive guides and usage examples</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Color System -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Color System</h2>
+                    <p class="card__subtitle">Semantic color tokens with consistent naming and usage</p>
+                </div>
+                <div class="card__body">
+                    <h3 class="text-lg font-semibold mb-4">Primary Color Scale</h3>
+                    <div class="token-grid">
+                        <div class="token-item">
+                            <div class="token-preview color-primary-50"></div>
+                            <div class="token-name">--color-primary-50</div>
+                            <div class="token-value">#eff6ff</div>
+                        </div>
+                        <div class="token-item">
+                            <div class="token-preview color-primary-100"></div>
+                            <div class="token-name">--color-primary-100</div>
+                            <div class="token-value">#dbeafe</div>
+                        </div>
+                        <div class="token-item">
+                            <div class="token-preview color-primary-200"></div>
+                            <div class="token-name">--color-primary-200</div>
+                            <div class="token-value">#bfdbfe</div>
+                        </div>
+                        <div class="token-item">
+                            <div class="token-preview color-primary-300"></div>
+                            <div class="token-name">--color-primary-300</div>
+                            <div class="token-value">#93c5fd</div>
+                        </div>
+                        <div class="token-item">
+                            <div class="token-preview color-primary-400"></div>
+                            <div class="token-name">--color-primary-400</div>
+                            <div class="token-value">#60a5fa</div>
+                        </div>
+                        <div class="token-item">
+                            <div class="token-preview color-primary-500"></div>
+                            <div class="token-name">--color-primary-500</div>
+                            <div class="token-value">#3b82f6</div>
+                        </div>
+                        <div class="token-item">
+                            <div class="token-preview color-primary-600"></div>
+                            <div class="token-name">--color-primary-600</div>
+                            <div class="token-value">#2563eb</div>
+                        </div>
+                        <div class="token-item">
+                            <div class="token-preview color-primary-700"></div>
+                            <div class="token-name">--color-primary-700</div>
+                            <div class="token-value">#1d4ed8</div>
+                        </div>
+                        <div class="token-item">
+                            <div class="token-preview color-primary-800"></div>
+                            <div class="token-name">--color-primary-800</div>
+                            <div class="token-value">#1e40af</div>
+                        </div>
+                        <div class="token-item">
+                            <div class="token-preview color-primary-900"></div>
+                            <div class="token-name">--color-primary-900</div>
+                            <div class="token-value">#1e3a8a</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography Scale -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Typography Scale</h2>
+                    <p class="card__subtitle">Consistent text styles and sizing across the system</p>
+                </div>
+                <div class="card__body">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-tertiary rounded-lg">
+                            <span class="text-xs">Extra Small</span>
+                            <span class="text-xs font-mono">--font-size-xs (12px)</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-tertiary rounded-lg">
+                            <span class="text-sm">Small</span>
+                            <span class="text-xs font-mono">--font-size-sm (14px)</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-tertiary rounded-lg">
+                            <span class="text-base">Base</span>
+                            <span class="text-xs font-mono">--font-size-base (16px)</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-tertiary rounded-lg">
+                            <span class="text-lg">Large</span>
+                            <span class="text-xs font-mono">--font-size-lg (18px)</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-tertiary rounded-lg">
+                            <span class="text-xl">Extra Large</span>
+                            <span class="text-xs font-mono">--font-size-xl (20px)</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-tertiary rounded-lg">
+                            <span class="text-2xl">2X Large</span>
+                            <span class="text-xs font-mono">--font-size-2xl (24px)</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-tertiary rounded-lg">
+                            <span class="text-3xl">3X Large</span>
+                            <span class="text-xs font-mono">--font-size-3xl (30px)</span>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-tertiary rounded-lg">
+                            <span class="text-4xl">4X Large</span>
+                            <span class="text-xs font-mono">--font-size-4xl (36px)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spacing System -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Spacing System</h2>
+                    <p class="card__subtitle">8px base unit system for consistent spacing</p>
+                </div>
+                <div class="card__body">
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 h-8 bg-primary-500 rounded"></div>
+                            <span class="text-sm font-mono">--space-1 (4px)</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-8 bg-primary-500 rounded"></div>
+                            <span class="text-sm font-mono">--space-2 (8px)</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-24 h-8 bg-primary-500 rounded"></div>
+                            <span class="text-sm font-mono">--space-3 (12px)</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-32 h-8 bg-primary-500 rounded"></div>
+                            <span class="text-sm font-mono">--space-4 (16px)</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-40 h-8 bg-primary-500 rounded"></div>
+                            <span class="text-sm font-mono">--space-6 (24px)</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-48 h-8 bg-primary-500 rounded"></div>
+                            <span class="text-sm font-mono">--space-8 (32px)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Component Examples -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Component Examples</h2>
+                    <p class="card__subtitle">Reusable components built with design tokens</p>
+                </div>
+                <div class="card__body">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4">Buttons</h3>
+                            <div class="flex flex-wrap gap-3">
+                                <button class="btn btn--primary">Primary</button>
+                                <button class="btn btn--secondary">Secondary</button>
+                                <button class="btn btn--primary btn--sm">Small</button>
+                                <button class="btn btn--primary btn--lg">Large</button>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4">Cards</h3>
+                            <div class="card">
+                                <div class="card__body">
+                                    <h4 class="font-semibold mb-2">Card Title</h4>
+                                    <p class="text-secondary text-sm">This is a sample card component built with design tokens.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Principles -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Design Principles</h2>
+                    <p class="card__subtitle">Core principles that guide our design system</p>
+                </div>
+                <div class="card__body">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-2xl mb-3">🎯</div>
+                            <h3 class="font-semibold mb-2">Consistency</h3>
+                            <p class="text-sm text-secondary">Uniform patterns and behaviors across all components</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl mb-3">♿</div>
+                            <h3 class="font-semibold mb-2">Accessibility</h3>
+                            <p class="text-sm text-secondary">Inclusive design that works for everyone</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl mb-3">⚡</div>
+                            <h3 class="font-semibold mb-2">Performance</h3>
+                            <p class="text-sm text-secondary">Optimized for speed and efficiency</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl mb-3">🔧</div>
+                            <h3 class="font-semibold mb-2">Maintainability</h3>
+                            <p class="text-sm text-secondary">Easy to update and extend over time</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl mb-3">👥</div>
+                            <h3 class="font-semibold mb-2">Collaboration</h3>
+                            <p class="text-sm text-secondary">Shared language between design and development</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl mb-3">📱</div>
+                            <h3 class="font-semibold mb-2">Responsive</h3>
+                            <p class="text-sm text-secondary">Works seamlessly across all devices</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Button clicked:', this.textContent);
+                });
+            });
+
+            // Add hover effects to token items
+            const tokenItems = document.querySelectorAll('.token-item');
+            tokenItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = 'var(--shadow-md)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'var(--shadow-sm)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -337,3 +337,4 @@ class AdvancedCacheManager extends CacheManager {
 window.CacheManager = CacheManager;
 window.AdvancedCacheManager = AdvancedCacheManager;
 
+

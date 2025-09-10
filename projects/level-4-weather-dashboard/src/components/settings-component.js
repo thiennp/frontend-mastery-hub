@@ -612,3 +612,4 @@ class SettingsComponent {
 // Export class
 window.SettingsComponent = SettingsComponent;
 
+

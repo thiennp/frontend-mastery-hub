@@ -120,3 +120,4 @@ class ErrorHandler {
 // Global error handler instance
 window.errorHandler = new ErrorHandler();
 
+

@@ -678,3 +678,4 @@ Key takeaways:
 
 In the next article, we'll explore ARIA fundamentals and how to enhance semantic HTML with accessibility attributes for complex interactions and widgets.
 
+

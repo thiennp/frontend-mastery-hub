@@ -352,3 +352,4 @@ class WeatherCard {
 // Export class
 window.WeatherCard = WeatherCard;
 
+
