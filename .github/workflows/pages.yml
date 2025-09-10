@@ -6,73 +6,21 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
-
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - name: Prepare site for deployment
-        run: |
-          # Create a clean deployment directory
-          mkdir -p _site
-          
-          # Copy all necessary files to _site
-          cp -r levels _site/
-          cp -r examples _site/
-          cp -r projects _site/
-          cp -r articles _site/
-          cp -r badges _site/
-          cp -r tests _site/
-          cp -r playgrounds _site/
-          cp -r styles.css _site/
-          cp -r levels-showcase.html _site/
-          cp -r user-achievement-showcase.html _site/
-          cp -r LEVELS_OVERVIEW.md _site/
-          cp -r README.md _site/
-          cp -r Roadmap.md _site/
-          cp -r LICENSE _site/
-          cp -r CONTRIBUTING.md _site/
-          
-          # Create index.html that redirects to levels-showcase.html
-          cat > _site/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Frontend Mastery Hub</title>
-              <meta http-equiv="refresh" content="0; url=levels-showcase.html">
-              <link rel="canonical" href="levels-showcase.html">
-          </head>
-          <body>
-              <p>Redirecting to <a href="levels-showcase.html">Frontend Mastery Hub</a>...</p>
-          </body>
-          </html>
-          EOF
-
-      - name: Upload site as artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
-
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          destination_dir: frontend-mastery-hub
+          exclude_assets: '.git,.github,node_modules'
