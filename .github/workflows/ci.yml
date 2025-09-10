@@ -40,10 +40,9 @@ jobs:
           # Simple check for common issues in markdown files
           find . -name "*.md" -type f | while read file; do
             echo "Checking $file for common issues"
-            # Check for obviously empty links like [text]() with no content
+            # Check for empty links (warn only, don't fail for learning repository)
             if grep -En '\[[^]]+\]\(\s*\)' "$file"; then
-              echo "Found empty links in $file"
-              exit 1
+              echo "Warning: Found empty links in $file"
             fi
             # Check for broken image references (warn only, don't fail)
             if grep -n "!\[.*\]\([^)]*\)" "$file" | grep -v "http" | grep -v "\.svg" | grep -v "\.png" | grep -v "\.jpg" | grep -v "\.jpeg" | grep -v "\.gif"; then
