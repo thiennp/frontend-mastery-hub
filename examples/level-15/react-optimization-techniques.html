@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 15: React Optimization Techniques</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        /* Design System CSS Custom Properties */
+        :root {
+            --color-primary-50: #eff6ff;
+            --color-primary-100: #dbeafe;
+            --color-primary-200: #bfdbfe;
+            --color-primary-300: #93c5fd;
+            --color-primary-400: #60a5fa;
+            --color-primary-500: #3b82f6;
+            --color-primary-600: #2563eb;
+            --color-primary-700: #1d4ed8;
+            --color-primary-800: #1e40af;
+            --color-primary-900: #1e3a8a;
+            
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-300: #d1d5db;
+            --color-gray-400: #9ca3af;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+            
+            --color-success-50: #f0fdf4;
+            --color-success-100: #dcfce7;
+            --color-success-500: #22c55e;
+            --color-success-600: #16a34a;
+            
+            --color-warning-50: #fffbeb;
+            --color-warning-100: #fef3c7;
+            --color-warning-500: #f59e0b;
+            --color-warning-600: #d97706;
+            
+            --color-error-50: #fef2f2;
+            --color-error-100: #fee2e2;
+            --color-error-500: #ef4444;
+            --color-error-600: #dc2626;
+            
+            /* Semantic Colors */
+            --color-background-primary: var(--color-gray-50);
+            --color-background-secondary: #ffffff;
+            --color-background-tertiary: var(--color-gray-100);
+            
+            --color-text-primary: var(--color-gray-900);
+            --color-text-secondary: var(--color-gray-600);
+            --color-text-tertiary: var(--color-gray-500);
+            --color-text-inverse: #ffffff;
+            
+            --color-border-primary: var(--color-gray-200);
+            --color-border-secondary: var(--color-gray-300);
+            --color-border-focus: var(--color-primary-500);
+            
+            --color-interactive-primary: var(--color-primary-600);
+            --color-interactive-primary-hover: var(--color-primary-700);
+            
+            /* Typography */
+            --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-family-mono: 'Monaco', 'Consolas', 'Courier New', monospace;
+            
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            --line-height-tight: 1.25;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.75;
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.125rem;
+            --radius-base: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            /* Motion */
+            --motion-duration-fast: 150ms;
+            --motion-duration-normal: 300ms;
+            --motion-easing-ease: ease;
+        }
+
+        /* Reset and Base Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            line-height: var(--line-height-normal);
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-normal);
+            line-height: var(--line-height-normal);
+            color: var(--color-text-primary);
+            background-color: var(--color-background-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Layout Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .hidden { display: none; }
+
+        .flex-col { flex-direction: column; }
+        .items-start { align-items: flex-start; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+
+        .gap-2 { gap: var(--space-2); }
+        .gap-4 { gap: var(--space-4); }
+        .gap-6 { gap: var(--space-6); }
+        .gap-8 { gap: var(--space-8); }
+
+        .p-4 { padding: var(--space-4); }
+        .p-6 { padding: var(--space-6); }
+        .p-8 { padding: var(--space-8); }
+        .px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+        .py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+        .py-8 { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+        .py-12 { padding-top: var(--space-12); padding-bottom: var(--space-12); }
+        .py-16 { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+
+        .mb-4 { margin-bottom: var(--space-4); }
+        .mb-6 { margin-bottom: var(--space-6); }
+        .mb-8 { margin-bottom: var(--space-8); }
+
+        /* Typography */
+        .text-xs { font-size: var(--font-size-xs); }
+        .text-sm { font-size: var(--font-size-sm); }
+        .text-base { font-size: var(--font-size-base); }
+        .text-lg { font-size: var(--font-size-lg); }
+        .text-xl { font-size: var(--font-size-xl); }
+        .text-2xl { font-size: var(--font-size-2xl); }
+        .text-3xl { font-size: var(--font-size-3xl); }
+        .text-4xl { font-size: var(--font-size-4xl); }
+
+        .font-medium { font-weight: var(--font-weight-medium); }
+        .font-semibold { font-weight: var(--font-weight-semibold); }
+        .font-bold { font-weight: var(--font-weight-bold); }
+
+        .text-primary { color: var(--color-text-primary); }
+        .text-secondary { color: var(--color-text-secondary); }
+        .text-inverse { color: var(--color-text-inverse); }
+
+        .bg-primary { background-color: var(--color-background-primary); }
+        .bg-secondary { background-color: var(--color-background-secondary); }
+
+        .rounded { border-radius: var(--radius-base); }
+        .rounded-lg { border-radius: var(--radius-lg); }
+        .rounded-xl { border-radius: var(--radius-xl); }
+
+        .shadow-sm { box-shadow: var(--shadow-sm); }
+        .shadow { box-shadow: var(--shadow-base); }
+        .shadow-lg { box-shadow: var(--shadow-lg); }
+
+        /* Card Component */
+        .card {
+            background-color: var(--color-background-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card__header {
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        .card__title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .card__subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-1);
+        }
+
+        .card__body {
+            padding: var(--space-6);
+        }
+
+        .card__footer {
+            padding: var(--space-6);
+            border-top: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Code Block */
+        .code-block {
+            background-color: var(--color-gray-900);
+            color: var(--color-gray-100);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-relaxed);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-8);
+        }
+
+        /* Button Component */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--line-height-tight);
+            border: 1px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--color-border-focus);
+            outline-offset: 2px;
+        }
+
+        .btn--primary {
+            background-color: var(--color-interactive-primary);
+            color: var(--color-text-inverse);
+        }
+
+        .btn--primary:hover {
+            background-color: var(--color-interactive-primary-hover);
+        }
+
+        .btn--secondary {
+            background-color: var(--color-background-secondary);
+            color: var(--color-text-primary);
+            border-color: var(--color-border-primary);
+        }
+
+        .btn--secondary:hover {
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Performance Metrics */
+        .performance-metric {
+            background-color: var(--color-background-tertiary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin: var(--space-2) 0;
+        }
+
+        .performance-metric--good {
+            border-left: 4px solid var(--color-success-500);
+        }
+
+        .performance-metric--warning {
+            border-left: 4px solid var(--color-warning-500);
+        }
+
+        .performance-metric--poor {
+            border-left: 4px solid var(--color-error-500);
+        }
+
+        /* Demo Container */
+        .demo-container {
+            background-color: var(--color-background-tertiary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin: var(--space-4) 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-3);
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-background-primary: var(--color-gray-900);
+                --color-background-secondary: var(--color-gray-800);
+                --color-background-tertiary: var(--color-gray-700);
+                --color-text-primary: var(--color-gray-100);
+                --color-text-secondary: var(--color-gray-300);
+                --color-text-tertiary: var(--color-gray-400);
+                --color-border-primary: var(--color-gray-700);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-4xl font-bold text-primary my-8 text-center">Level 15: React Optimization Techniques</h1>
+        
+        <!-- React.memo Overview -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">React.memo for Preventing Re-renders</h2>
+                    <p class="card__subtitle">Optimize components by preventing unnecessary re-renders</p>
+                </div>
+                <div class="card__body">
+                    <div class="features-grid">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Basic React.memo</h3>
+                            <div class="code-block">
+<pre>import React, { memo } from 'react';
+
+// Without memo - re-renders on every parent update
+function ExpensiveComponent({ data, onUpdate }) {
+  console.log('ExpensiveComponent rendered');
+  
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;Data: {data}&lt;/h3&gt;
+      &lt;button onClick={onUpdate}&gt;Update&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+
+// With memo - only re-renders when props change
+const OptimizedComponent = memo(function ExpensiveComponent({ data, onUpdate }) {
+  console.log('OptimizedComponent rendered');
+  
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;Data: {data}&lt;/h3&gt;
+      &lt;button onClick={onUpdate}&gt;Update&lt;/button&gt;
+    &lt;/div&gt;
+  );
+});
+
+// Custom comparison function
+const CustomMemoComponent = memo(
+  function ExpensiveComponent({ data, onUpdate }) {
+    return (
+      &lt;div&gt;
+        &lt;h3&gt;Data: {data}&lt;/h3&gt;
+        &lt;button onClick={onUpdate}&gt;Update&lt;/button&gt;
+      &lt;/div&gt;
+    );
+  },
+  (prevProps, nextProps) => {
+    // Only re-render if data changes, ignore onUpdate
+    return prevProps.data === nextProps.data;
+  }
+);</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">useMemo Hook</h3>
+                            <div class="code-block">
+<pre>import React, { useState, useMemo } from 'react';
+
+function ExpensiveCalculation({ items, multiplier }) {
+  // Expensive calculation that only runs when dependencies change
+  const expensiveValue = useMemo(() => {
+    console.log('Expensive calculation running...');
+    return items.reduce((sum, item) => sum + item.value, 0) * multiplier;
+  }, [items, multiplier]);
+
+  return (
+    &lt;div&gt;
+      &lt;h3&gt;Expensive Value: {expensiveValue}&lt;/h3&gt;
+      &lt;p&gt;Items: {items.length}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+function MemoizedList({ items, filter }) {
+  // Memoize filtered items to prevent re-filtering
+  const filteredItems = useMemo(() => {
+    console.log('Filtering items...');
+    return items.filter(item => 
+      item.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  }, [items, filter]);
+
+  return (
+    &lt;ul&gt;
+      {filteredItems.map(item => (
+        &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- useCallback Hook -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">useCallback Hook for Event Handlers</h2>
+                    <p class="card__subtitle">Memoize event handlers to prevent unnecessary re-renders</p>
+                </div>
+                <div class="card__body">
+                    <div class="features-grid">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Basic useCallback</h3>
+                            <div class="code-block">
+<pre>import React, { useState, useCallback, memo } from 'react';
+
+// Child component that receives callback
+const Button = memo(function Button({ onClick, children }) {
+  console.log('Button rendered');
+  return &lt;button onClick={onClick}&gt;{children}&lt;/button&gt;;
+});
+
+function ParentComponent() {
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState('');
+
+  // Without useCallback - creates new function on every render
+  const handleClick = () => {
+    setCount(c => c + 1);
+  };
+
+  // With useCallback - memoizes function
+  const memoizedHandleClick = useCallback(() => {
+    setCount(c => c + 1);
+  }, []); // Empty dependency array since setCount is stable
+
+  const handleNameChange = useCallback((e) => {
+    setName(e.target.value);
+  }, []);
+
+  return (
+    &lt;div&gt;
+      &lt;input value={name} onChange={handleNameChange} /&gt;
+      &lt;p&gt;Count: {count}&lt;/p&gt;
+      &lt;Button onClick={memoizedHandleClick}&gt;Increment&lt;/Button&gt;
+    &lt;/div&gt;
+  );
+}</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">useCallback with Dependencies</h3>
+                            <div class="code-block">
+<pre>import React, { useState, useCallback, memo } from 'react';
+
+const SearchInput = memo(function SearchInput({ onSearch, placeholder }) {
+  console.log('SearchInput rendered');
+  
+  return (
+    &lt;input
+      type="text"
+      placeholder={placeholder}
+      onChange={(e) => onSearch(e.target.value)}
+    /&gt;
+  );
+});
+
+function SearchComponent() {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [filter, setFilter] = useState('all');
+
+  // Memoize search function with dependencies
+  const handleSearch = useCallback((searchQuery) => {
+    setQuery(searchQuery);
+    
+    // Simulate API call
+    const filteredResults = mockData.filter(item => 
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      (filter === 'all' || item.category === filter)
+    );
+    
+    setResults(filteredResults);
+  }, [filter]); // Re-create when filter changes
+
+  // Memoize filter change handler
+  const handleFilterChange = useCallback((newFilter) => {
+    setFilter(newFilter);
+    // Trigger search with current query
+    handleSearch(query);
+  }, [query, handleSearch]);
+
+  return (
+    &lt;div&gt;
+      &lt;SearchInput onSearch={handleSearch} placeholder="Search..." /&gt;
+      &lt;select onChange={(e) => handleFilterChange(e.target.value)}&gt;
+        &lt;option value="all"&gt;All&lt;/option&gt;
+        &lt;option value="category1"&gt;Category 1&lt;/option&gt;
+        &lt;option value="category2"&gt;Category 2&lt;/option&gt;
+      &lt;/select&gt;
+      &lt;ul&gt;
+        {results.map(item => (
+          &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Demo -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Interactive Optimization Demo</h2>
+                    <p class="card__subtitle">Live examples of React optimization techniques in action</p>
+                </div>
+                <div class="card__body">
+                    <div id="optimization-demo" class="demo-container">
+                        <!-- React components will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script type="text/babel">
+        const { useState, useMemo, useCallback, memo } = React;
+
+        // Performance tracking
+        let renderCount = 0;
+
+        // Expensive calculation function
+        function expensiveCalculation(items, multiplier) {
+            console.log('Expensive calculation running...');
+            // Simulate expensive operation
+            let result = 0;
+            for (let i = 0; i < items.length; i++) {
+                result += items[i].value * multiplier;
+            }
+            return result;
+        }
+
+        // Non-optimized component
+        function NonOptimizedComponent({ items, multiplier, onUpdate }) {
+            renderCount++;
+            console.log('NonOptimizedComponent rendered', renderCount);
+            
+            // This runs on every render
+            const expensiveValue = expensiveCalculation(items, multiplier);
+            
+            return (
+                <div className="performance-metric performance-metric--poor">
+                    <h4>Non-Optimized Component</h4>
+                    <p>Render count: {renderCount}</p>
+                    <p>Expensive value: {expensiveValue}</p>
+                    <button className="btn btn--secondary" onClick={onUpdate}>
+                        Trigger Re-render
+                    </button>
+                </div>
+            );
+        }
+
+        // Optimized component with useMemo
+        const OptimizedComponent = memo(function OptimizedComponent({ items, multiplier, onUpdate }) {
+            renderCount++;
+            console.log('OptimizedComponent rendered', renderCount);
+            
+            // This only runs when items or multiplier change
+            const expensiveValue = useMemo(() => {
+                return expensiveCalculation(items, multiplier);
+            }, [items, multiplier]);
+            
+            return (
+                <div className="performance-metric performance-metric--good">
+                    <h4>Optimized Component (useMemo)</h4>
+                    <p>Render count: {renderCount}</p>
+                    <p>Expensive value: {expensiveValue}</p>
+                    <button className="btn btn--secondary" onClick={onUpdate}>
+                        Trigger Re-render
+                    </button>
+                </div>
+            );
+        });
+
+        // Button component that receives callback
+        const MemoizedButton = memo(function MemoizedButton({ onClick, children, variant = 'primary' }) {
+            console.log('MemoizedButton rendered');
+            return (
+                <button className={`btn btn--${variant}`} onClick={onClick}>
+                    {children}
+                </button>
+            );
+        });
+
+        // Non-optimized button component
+        function NonOptimizedButton({ onClick, children, variant = 'primary' }) {
+            console.log('NonOptimizedButton rendered');
+            return (
+                <button className={`btn btn--${variant}`} onClick={onClick}>
+                    {children}
+                </button>
+            );
+        }
+
+        // Search component with useCallback
+        function SearchComponent() {
+            const [query, setQuery] = useState('');
+            const [results, setResults] = useState([]);
+            const [filter, setFilter] = useState('all');
+            const [renderCount, setRenderCount] = useState(0);
+
+            // Mock data
+            const mockData = [
+                { id: 1, name: 'Apple', category: 'fruit', value: 1 },
+                { id: 2, name: 'Banana', category: 'fruit', value: 2 },
+                { id: 3, name: 'Carrot', category: 'vegetable', value: 3 },
+                { id: 4, name: 'Broccoli', category: 'vegetable', value: 4 },
+                { id: 5, name: 'Orange', category: 'fruit', value: 5 }
+            ];
+
+            // Memoized search function
+            const handleSearch = useCallback((searchQuery) => {
+                setQuery(searchQuery);
+                setRenderCount(prev => prev + 1);
+                
+                const filteredResults = mockData.filter(item => 
+                    item.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+                    (filter === 'all' || item.category === filter)
+                );
+                
+                setResults(filteredResults);
+            }, [filter]);
+
+            // Memoized filter change handler
+            const handleFilterChange = useCallback((newFilter) => {
+                setFilter(newFilter);
+                handleSearch(query);
+            }, [query, handleSearch]);
+
+            return (
+                <div className="performance-metric">
+                    <h4>Search with useCallback</h4>
+                    <p>Render count: {renderCount}</p>
+                    <input
+                        type="text"
+                        placeholder="Search items..."
+                        value={query}
+                        onChange={(e) => handleSearch(e.target.value)}
+                        style={{ marginBottom: '0.5rem', padding: '0.5rem', width: '100%' }}
+                    />
+                    <select 
+                        value={filter} 
+                        onChange={(e) => handleFilterChange(e.target.value)}
+                        style={{ marginBottom: '0.5rem', padding: '0.5rem' }}
+                    >
+                        <option value="all">All</option>
+                        <option value="fruit">Fruit</option>
+                        <option value="vegetable">Vegetable</option>
+                    </select>
+                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                        {results.map(item => (
+                            <li key={item.id} style={{ padding: '0.25rem 0' }}>
+                                {item.name} ({item.category})
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        }
+
+        // Main demo component
+        function OptimizationDemo() {
+            const [items] = useState([
+                { id: 1, value: 10 },
+                { id: 2, value: 20 },
+                { id: 3, value: 30 }
+            ]);
+            const [multiplier, setMultiplier] = useState(1);
+            const [counter, setCounter] = useState(0);
+
+            // Memoized callback
+            const handleUpdate = useCallback(() => {
+                setCounter(prev => prev + 1);
+            }, []);
+
+            const handleMultiplierChange = useCallback((e) => {
+                setMultiplier(Number(e.target.value));
+            }, []);
+
+            return (
+                <div>
+                    <h3 style={{ marginBottom: '2rem', color: 'var(--color-text-primary)' }}>
+                        React Optimization Techniques Demo
+                    </h3>
+                    
+                    <div style={{ marginBottom: '2rem' }}>
+                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>
+                            Multiplier: {multiplier}
+                        </label>
+                        <input
+                            type="range"
+                            min="1"
+                            max="10"
+                            value={multiplier}
+                            onChange={handleMultiplierChange}
+                            style={{ width: '100%' }}
+                        />
+                    </div>
+
+                    <div style={{ display: 'grid', gap: '1rem', marginBottom: '2rem' }}>
+                        <NonOptimizedComponent 
+                            items={items} 
+                            multiplier={multiplier} 
+                            onUpdate={handleUpdate}
+                        />
+                        <OptimizedComponent 
+                            items={items} 
+                            multiplier={multiplier} 
+                            onUpdate={handleUpdate}
+                        />
+                    </div>
+
+                    <div style={{ marginBottom: '2rem' }}>
+                        <h4 style={{ marginBottom: '1rem' }}>Button Optimization</h4>
+                        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                            <MemoizedButton onClick={handleUpdate}>
+                                Memoized Button
+                            </MemoizedButton>
+                            <NonOptimizedButton onClick={handleUpdate}>
+                                Non-Optimized Button
+                            </NonOptimizedButton>
+                        </div>
+                        <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)' }}>
+                            Check console to see render differences
+                        </p>
+                    </div>
+
+                    <SearchComponent />
+                </div>
+            );
+        }
+
+        // Render the demo
+        ReactDOM.render(<OptimizationDemo />, document.getElementById('optimization-demo'));
+    </script>
+</body>
+</html>

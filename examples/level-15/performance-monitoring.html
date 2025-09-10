@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 15: Performance Monitoring</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        /* Design System CSS Custom Properties */
+        :root {
+            --color-primary-50: #eff6ff;
+            --color-primary-100: #dbeafe;
+            --color-primary-200: #bfdbfe;
+            --color-primary-300: #93c5fd;
+            --color-primary-400: #60a5fa;
+            --color-primary-500: #3b82f6;
+            --color-primary-600: #2563eb;
+            --color-primary-700: #1d4ed8;
+            --color-primary-800: #1e40af;
+            --color-primary-900: #1e3a8a;
+            
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-300: #d1d5db;
+            --color-gray-400: #9ca3af;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+            
+            --color-success-50: #f0fdf4;
+            --color-success-100: #dcfce7;
+            --color-success-500: #22c55e;
+            --color-success-600: #16a34a;
+            
+            --color-warning-50: #fffbeb;
+            --color-warning-100: #fef3c7;
+            --color-warning-500: #f59e0b;
+            --color-warning-600: #d97706;
+            
+            --color-error-50: #fef2f2;
+            --color-error-100: #fee2e2;
+            --color-error-500: #ef4444;
+            --color-error-600: #dc2626;
+            
+            /* Semantic Colors */
+            --color-background-primary: var(--color-gray-50);
+            --color-background-secondary: #ffffff;
+            --color-background-tertiary: var(--color-gray-100);
+            
+            --color-text-primary: var(--color-gray-900);
+            --color-text-secondary: var(--color-gray-600);
+            --color-text-tertiary: var(--color-gray-500);
+            --color-text-inverse: #ffffff;
+            
+            --color-border-primary: var(--color-gray-200);
+            --color-border-secondary: var(--color-gray-300);
+            --color-border-focus: var(--color-primary-500);
+            
+            --color-interactive-primary: var(--color-primary-600);
+            --color-interactive-primary-hover: var(--color-primary-700);
+            
+            /* Typography */
+            --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-family-mono: 'Monaco', 'Consolas', 'Courier New', monospace;
+            
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            --line-height-tight: 1.25;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.75;
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.125rem;
+            --radius-base: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            /* Motion */
+            --motion-duration-fast: 150ms;
+            --motion-duration-normal: 300ms;
+            --motion-easing-ease: ease;
+        }
+
+        /* Reset and Base Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            line-height: var(--line-height-normal);
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-normal);
+            line-height: var(--line-height-normal);
+            color: var(--color-text-primary);
+            background-color: var(--color-background-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Layout Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .hidden { display: none; }
+
+        .flex-col { flex-direction: column; }
+        .items-start { align-items: flex-start; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+
+        .gap-2 { gap: var(--space-2); }
+        .gap-4 { gap: var(--space-4); }
+        .gap-6 { gap: var(--space-6); }
+        .gap-8 { gap: var(--space-8); }
+
+        .p-4 { padding: var(--space-4); }
+        .p-6 { padding: var(--space-6); }
+        .p-8 { padding: var(--space-8); }
+        .px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+        .py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+        .py-8 { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+        .py-12 { padding-top: var(--space-12); padding-bottom: var(--space-12); }
+        .py-16 { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+
+        .mb-4 { margin-bottom: var(--space-4); }
+        .mb-6 { margin-bottom: var(--space-6); }
+        .mb-8 { margin-bottom: var(--space-8); }
+
+        /* Typography */
+        .text-xs { font-size: var(--font-size-xs); }
+        .text-sm { font-size: var(--font-size-sm); }
+        .text-base { font-size: var(--font-size-base); }
+        .text-lg { font-size: var(--font-size-lg); }
+        .text-xl { font-size: var(--font-size-xl); }
+        .text-2xl { font-size: var(--font-size-2xl); }
+        .text-3xl { font-size: var(--font-size-3xl); }
+        .text-4xl { font-size: var(--font-size-4xl); }
+
+        .font-medium { font-weight: var(--font-weight-medium); }
+        .font-semibold { font-weight: var(--font-weight-semibold); }
+        .font-bold { font-weight: var(--font-weight-bold); }
+
+        .text-primary { color: var(--color-text-primary); }
+        .text-secondary { color: var(--color-text-secondary); }
+        .text-inverse { color: var(--color-text-inverse); }
+
+        .bg-primary { background-color: var(--color-background-primary); }
+        .bg-secondary { background-color: var(--color-background-secondary); }
+
+        .rounded { border-radius: var(--radius-base); }
+        .rounded-lg { border-radius: var(--radius-lg); }
+        .rounded-xl { border-radius: var(--radius-xl); }
+
+        .shadow-sm { box-shadow: var(--shadow-sm); }
+        .shadow { box-shadow: var(--shadow-base); }
+        .shadow-lg { box-shadow: var(--shadow-lg); }
+
+        /* Card Component */
+        .card {
+            background-color: var(--color-background-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card__header {
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        .card__title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .card__subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-1);
+        }
+
+        .card__body {
+            padding: var(--space-6);
+        }
+
+        .card__footer {
+            padding: var(--space-6);
+            border-top: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Performance Metrics */
+        .metric-card {
+            background-color: var(--color-background-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin: var(--space-2) 0;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .metric-card--good {
+            border-left: 4px solid var(--color-success-500);
+        }
+
+        .metric-card--warning {
+            border-left: 4px solid var(--color-warning-500);
+        }
+
+        .metric-card--poor {
+            border-left: 4px solid var(--color-error-500);
+        }
+
+        .metric-value {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-1);
+        }
+
+        .metric-label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-status {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-full);
+            margin-top: var(--space-2);
+        }
+
+        .metric-status--good {
+            background-color: var(--color-success-50);
+            color: var(--color-success-600);
+        }
+
+        .metric-status--warning {
+            background-color: var(--color-warning-50);
+            color: var(--color-warning-600);
+        }
+
+        .metric-status--poor {
+            background-color: var(--color-error-50);
+            color: var(--color-error-600);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 8px;
+            background-color: var(--color-gray-200);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin: var(--space-2) 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            transition: width var(--motion-duration-normal) var(--motion-easing-ease);
+        }
+
+        .progress-fill--good {
+            background-color: var(--color-success-500);
+        }
+
+        .progress-fill--warning {
+            background-color: var(--color-warning-500);
+        }
+
+        .progress-fill--poor {
+            background-color: var(--color-error-500);
+        }
+
+        /* Button Component */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--line-height-tight);
+            border: 1px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--color-border-focus);
+            outline-offset: 2px;
+        }
+
+        .btn--primary {
+            background-color: var(--color-interactive-primary);
+            color: var(--color-text-inverse);
+        }
+
+        .btn--primary:hover {
+            background-color: var(--color-interactive-primary-hover);
+        }
+
+        .btn--secondary {
+            background-color: var(--color-background-secondary);
+            color: var(--color-text-primary);
+            border-color: var(--color-border-primary);
+        }
+
+        .btn--secondary:hover {
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Demo Container */
+        .demo-container {
+            background-color: var(--color-background-tertiary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin: var(--space-4) 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-3);
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-background-primary: var(--color-gray-900);
+                --color-background-secondary: var(--color-gray-800);
+                --color-background-tertiary: var(--color-gray-700);
+                --color-text-primary: var(--color-gray-100);
+                --color-text-secondary: var(--color-gray-300);
+                --color-text-tertiary: var(--color-gray-400);
+                --color-border-primary: var(--color-gray-700);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-4xl font-bold text-primary my-8 text-center">Level 15: Performance Monitoring</h1>
+        
+        <!-- Core Web Vitals Overview -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Core Web Vitals Monitoring</h2>
+                    <p class="card__subtitle">Essential metrics for measuring user experience and performance</p>
+                </div>
+                <div class="card__body">
+                    <div class="features-grid">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Largest Contentful Paint (LCP)</h3>
+                            <div class="code-block">
+<pre>// Measuring LCP
+function measureLCP() {
+  const observer = new PerformanceObserver((list) => {
+    const entries = list.getEntries();
+    const lastEntry = entries[entries.length - 1];
+    
+    console.log('LCP:', lastEntry.startTime);
+    
+    // Send to analytics
+    sendToAnalytics('lcp', lastEntry.startTime);
+  });
+  
+  observer.observe({ entryTypes: ['largest-contentful-paint'] });
+}
+
+// Good: < 2.5s, Needs Improvement: 2.5s - 4s, Poor: > 4s
+function getLCPStatus(lcp) {
+  if (lcp < 2500) return 'good';
+  if (lcp < 4000) return 'needs-improvement';
+  return 'poor';
+}</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">First Input Delay (FID)</h3>
+                            <div class="code-block">
+<pre>// Measuring FID
+function measureFID() {
+  const observer = new PerformanceObserver((list) => {
+    const entries = list.getEntries();
+    entries.forEach((entry) => {
+      const fid = entry.processingStart - entry.startTime;
+      
+      console.log('FID:', fid);
+      
+      // Send to analytics
+      sendToAnalytics('fid', fid);
+    });
+  });
+  
+  observer.observe({ entryTypes: ['first-input'] });
+}
+
+// Good: < 100ms, Needs Improvement: 100ms - 300ms, Poor: > 300ms
+function getFIDStatus(fid) {
+  if (fid < 100) return 'good';
+  if (fid < 300) return 'needs-improvement';
+  return 'poor';
+}</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Cumulative Layout Shift (CLS)</h3>
+                            <div class="code-block">
+<pre>// Measuring CLS
+function measureCLS() {
+  let clsValue = 0;
+  let clsEntries = [];
+  
+  const observer = new PerformanceObserver((list) => {
+    for (const entry of list.getEntries()) {
+      if (!entry.hadRecentInput) {
+        clsValue += entry.value;
+        clsEntries.push(entry);
+      }
+    }
+    
+    console.log('CLS:', clsValue);
+    
+    // Send to analytics
+    sendToAnalytics('cls', clsValue);
+  });
+  
+  observer.observe({ entryTypes: ['layout-shift'] });
+}
+
+// Good: < 0.1, Needs Improvement: 0.1 - 0.25, Poor: > 0.25
+function getCLSStatus(cls) {
+  if (cls < 0.1) return 'good';
+  if (cls < 0.25) return 'needs-improvement';
+  return 'poor';
+}</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Performance Monitoring Setup</h3>
+                            <div class="code-block">
+<pre>// Complete performance monitoring setup
+class PerformanceMonitor {
+  constructor() {
+    this.metrics = {};
+    this.setupObservers();
+  }
+  
+  setupObservers() {
+    // LCP Observer
+    if ('PerformanceObserver' in window) {
+      const lcpObserver = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        const lastEntry = entries[entries.length - 1];
+        this.metrics.lcp = lastEntry.startTime;
+        this.updateDashboard();
+      });
+      lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+      
+      // FID Observer
+      const fidObserver = new PerformanceObserver((list) => {
+        list.getEntries().forEach((entry) => {
+          this.metrics.fid = entry.processingStart - entry.startTime;
+          this.updateDashboard();
+        });
+      });
+      fidObserver.observe({ entryTypes: ['first-input'] });
+      
+      // CLS Observer
+      let clsValue = 0;
+      const clsObserver = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (!entry.hadRecentInput) {
+            clsValue += entry.value;
+          }
+        }
+        this.metrics.cls = clsValue;
+        this.updateDashboard();
+      });
+      clsObserver.observe({ entryTypes: ['layout-shift'] });
+    }
+  }
+  
+  updateDashboard() {
+    // Update UI with metrics
+    console.log('Performance Metrics:', this.metrics);
+  }
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Demo -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Interactive Performance Dashboard</h2>
+                    <p class="card__subtitle">Live performance monitoring dashboard with Core Web Vitals</p>
+                </div>
+                <div class="card__body">
+                    <div id="performance-dashboard" class="demo-container">
+                        <!-- Performance dashboard will be rendered here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useCallback } = React;
+
+        // Performance monitoring class
+        class PerformanceMonitor {
+            constructor() {
+                this.metrics = {
+                    lcp: null,
+                    fid: null,
+                    cls: 0,
+                    fcp: null,
+                    ttfb: null
+                };
+                this.callbacks = [];
+                this.setupObservers();
+            }
+
+            setupObservers() {
+                if ('PerformanceObserver' in window) {
+                    // LCP Observer
+                    try {
+                        const lcpObserver = new PerformanceObserver((list) => {
+                            const entries = list.getEntries();
+                            const lastEntry = entries[entries.length - 1];
+                            this.metrics.lcp = lastEntry.startTime;
+                            this.notifyCallbacks();
+                        });
+                        lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+                    } catch (e) {
+                        console.log('LCP observer not supported');
+                    }
+
+                    // FID Observer
+                    try {
+                        const fidObserver = new PerformanceObserver((list) => {
+                            list.getEntries().forEach((entry) => {
+                                this.metrics.fid = entry.processingStart - entry.startTime;
+                                this.notifyCallbacks();
+                            });
+                        });
+                        fidObserver.observe({ entryTypes: ['first-input'] });
+                    } catch (e) {
+                        console.log('FID observer not supported');
+                    }
+
+                    // CLS Observer
+                    try {
+                        let clsValue = 0;
+                        const clsObserver = new PerformanceObserver((list) => {
+                            for (const entry of list.getEntries()) {
+                                if (!entry.hadRecentInput) {
+                                    clsValue += entry.value;
+                                }
+                            }
+                            this.metrics.cls = clsValue;
+                            this.notifyCallbacks();
+                        });
+                        clsObserver.observe({ entryTypes: ['layout-shift'] });
+                    } catch (e) {
+                        console.log('CLS observer not supported');
+                    }
+
+                    // FCP Observer
+                    try {
+                        const fcpObserver = new PerformanceObserver((list) => {
+                            list.getEntries().forEach((entry) => {
+                                this.metrics.fcp = entry.startTime;
+                                this.notifyCallbacks();
+                            });
+                        });
+                        fcpObserver.observe({ entryTypes: ['paint'] });
+                    } catch (e) {
+                        console.log('FCP observer not supported');
+                    }
+                }
+
+                // TTFB from navigation timing
+                if (performance.timing) {
+                    this.metrics.ttfb = performance.timing.responseStart - performance.timing.navigationStart;
+                    this.notifyCallbacks();
+                }
+            }
+
+            addCallback(callback) {
+                this.callbacks.push(callback);
+            }
+
+            notifyCallbacks() {
+                this.callbacks.forEach(callback => callback(this.metrics));
+            }
+
+            getMetrics() {
+                return { ...this.metrics };
+            }
+        }
+
+        // Performance status helper
+        function getPerformanceStatus(metric, value) {
+            if (value === null || value === undefined) return 'unknown';
+            
+            switch (metric) {
+                case 'lcp':
+                    if (value < 2500) return 'good';
+                    if (value < 4000) return 'warning';
+                    return 'poor';
+                case 'fid':
+                    if (value < 100) return 'good';
+                    if (value < 300) return 'warning';
+                    return 'poor';
+                case 'cls':
+                    if (value < 0.1) return 'good';
+                    if (value < 0.25) return 'warning';
+                    return 'poor';
+                case 'fcp':
+                    if (value < 1800) return 'good';
+                    if (value < 3000) return 'warning';
+                    return 'poor';
+                case 'ttfb':
+                    if (value < 800) return 'good';
+                    if (value < 1800) return 'warning';
+                    return 'poor';
+                default:
+                    return 'unknown';
+            }
+        }
+
+        // Performance metric component
+        function PerformanceMetric({ metric, value, label, unit = 'ms' }) {
+            const status = getPerformanceStatus(metric, value);
+            const displayValue = value !== null ? Math.round(value) : '--';
+            
+            return (
+                <div className={`metric-card metric-card--${status}`}>
+                    <div className="metric-value">
+                        {displayValue}{unit}
+                    </div>
+                    <div className="metric-label">{label}</div>
+                    <div className={`metric-status metric-status--${status}`}>
+                        {status === 'good' && '✓ Good'}
+                        {status === 'warning' && '⚠ Needs Improvement'}
+                        {status === 'poor' && '✗ Poor'}
+                        {status === 'unknown' && '? Unknown'}
+                    </div>
+                </div>
+            );
+        }
+
+        // Performance dashboard component
+        function PerformanceDashboard() {
+            const [metrics, setMetrics] = useState({
+                lcp: null,
+                fid: null,
+                cls: 0,
+                fcp: null,
+                ttfb: null
+            });
+            const [isMonitoring, setIsMonitoring] = useState(false);
+
+            useEffect(() => {
+                const monitor = new PerformanceMonitor();
+                
+                monitor.addCallback((newMetrics) => {
+                    setMetrics(newMetrics);
+                });
+
+                setIsMonitoring(true);
+
+                return () => {
+                    setIsMonitoring(false);
+                };
+            }, []);
+
+            const simulateMetrics = () => {
+                setMetrics({
+                    lcp: Math.random() * 3000 + 1000,
+                    fid: Math.random() * 200 + 50,
+                    cls: Math.random() * 0.3,
+                    fcp: Math.random() * 2000 + 800,
+                    ttfb: Math.random() * 1000 + 500
+                });
+            };
+
+            return (
+                <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                        <h3 style={{ margin: 0, color: 'var(--color-text-primary)' }}>
+                            Performance Dashboard
+                        </h3>
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <button
+                                className="btn btn--secondary"
+                                onClick={simulateMetrics}
+                            >
+                                Simulate Metrics
+                            </button>
+                            <div style={{ 
+                                padding: '0.5rem 1rem', 
+                                backgroundColor: isMonitoring ? 'var(--color-success-50)' : 'var(--color-warning-50)',
+                                color: isMonitoring ? 'var(--color-success-600)' : 'var(--color-warning-600)',
+                                borderRadius: 'var(--radius-md)',
+                                fontSize: 'var(--font-size-sm)',
+                                fontWeight: 'var(--font-weight-medium)'
+                            }}>
+                                {isMonitoring ? 'Monitoring' : 'Not Monitoring'}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+                        <PerformanceMetric
+                            metric="lcp"
+                            value={metrics.lcp}
+                            label="Largest Contentful Paint"
+                            unit="ms"
+                        />
+                        <PerformanceMetric
+                            metric="fid"
+                            value={metrics.fid}
+                            label="First Input Delay"
+                            unit="ms"
+                        />
+                        <PerformanceMetric
+                            metric="cls"
+                            value={metrics.cls}
+                            label="Cumulative Layout Shift"
+                            unit=""
+                        />
+                        <PerformanceMetric
+                            metric="fcp"
+                            value={metrics.fcp}
+                            label="First Contentful Paint"
+                            unit="ms"
+                        />
+                        <PerformanceMetric
+                            metric="ttfb"
+                            value={metrics.ttfb}
+                            label="Time to First Byte"
+                            unit="ms"
+                        />
+                    </div>
+
+                    <div style={{ 
+                        backgroundColor: 'var(--color-background-secondary)', 
+                        border: '1px solid var(--color-border-primary)',
+                        borderRadius: 'var(--radius-lg)',
+                        padding: '1rem',
+                        marginTop: '2rem'
+                    }}>
+                        <h4 style={{ marginBottom: '1rem', color: 'var(--color-text-primary)' }}>
+                            Performance Tips
+                        </h4>
+                        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                            <li style={{ marginBottom: '0.5rem', fontSize: 'var(--font-size-sm)' }}>
+                                • <strong>LCP:</strong> Optimize images, use efficient loading strategies
+                            </li>
+                            <li style={{ marginBottom: '0.5rem', fontSize: 'var(--font-size-sm)' }}>
+                                • <strong>FID:</strong> Reduce JavaScript execution time, use code splitting
+                            </li>
+                            <li style={{ marginBottom: '0.5rem', fontSize: 'var(--font-size-sm)' }}>
+                                • <strong>CLS:</strong> Set dimensions for images and ads, avoid dynamic content
+                            </li>
+                            <li style={{ marginBottom: '0.5rem', fontSize: 'var(--font-size-sm)' }}>
+                                • <strong>FCP:</strong> Minimize render-blocking resources
+                            </li>
+                            <li style={{ fontSize: 'var(--font-size-sm)' }}>
+                                • <strong>TTFB:</strong> Optimize server response time, use CDN
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        }
+
+        // Render the dashboard
+        ReactDOM.render(<PerformanceDashboard />, document.getElementById('performance-dashboard'));
+    </script>
+</body>
+</html>
