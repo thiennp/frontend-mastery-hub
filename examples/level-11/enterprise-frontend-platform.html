@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 11 Mini-Project: Enterprise Frontend Platform</title>
+    <style>
+        /* Design System CSS Custom Properties */
+        :root {
+            --color-primary-50: #eff6ff;
+            --color-primary-100: #dbeafe;
+            --color-primary-200: #bfdbfe;
+            --color-primary-300: #93c5fd;
+            --color-primary-400: #60a5fa;
+            --color-primary-500: #3b82f6;
+            --color-primary-600: #2563eb;
+            --color-primary-700: #1d4ed8;
+            --color-primary-800: #1e40af;
+            --color-primary-900: #1e3a8a;
+            
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-300: #d1d5db;
+            --color-gray-400: #9ca3af;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+            
+            --color-success-50: #f0fdf4;
+            --color-success-100: #dcfce7;
+            --color-success-500: #22c55e;
+            --color-success-600: #16a34a;
+            
+            --color-warning-50: #fffbeb;
+            --color-warning-100: #fef3c7;
+            --color-warning-500: #f59e0b;
+            --color-warning-600: #d97706;
+            
+            --color-error-50: #fef2f2;
+            --color-error-100: #fee2e2;
+            --color-error-500: #ef4444;
+            --color-error-600: #dc2626;
+            
+            /* Semantic Colors */
+            --color-background-primary: var(--color-gray-50);
+            --color-background-secondary: #ffffff;
+            --color-background-tertiary: var(--color-gray-100);
+            
+            --color-text-primary: var(--color-gray-900);
+            --color-text-secondary: var(--color-gray-600);
+            --color-text-tertiary: var(--color-gray-500);
+            --color-text-inverse: #ffffff;
+            
+            --color-border-primary: var(--color-gray-200);
+            --color-border-secondary: var(--color-gray-300);
+            --color-border-focus: var(--color-primary-500);
+            
+            --color-interactive-primary: var(--color-primary-600);
+            --color-interactive-primary-hover: var(--color-primary-700);
+            
+            /* Typography */
+            --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-family-mono: 'Monaco', 'Consolas', 'Courier New', monospace;
+            
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            --line-height-tight: 1.25;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.75;
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.125rem;
+            --radius-base: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            /* Motion */
+            --motion-duration-fast: 150ms;
+            --motion-duration-normal: 300ms;
+            --motion-easing-ease: ease;
+        }
+
+        /* Reset and Base Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            line-height: var(--line-height-normal);
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-normal);
+            line-height: var(--line-height-normal);
+            color: var(--color-text-primary);
+            background-color: var(--color-background-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Layout Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .hidden { display: none; }
+
+        .flex-col { flex-direction: column; }
+        .items-start { align-items: flex-start; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+
+        .gap-2 { gap: var(--space-2); }
+        .gap-4 { gap: var(--space-4); }
+        .gap-6 { gap: var(--space-6); }
+        .gap-8 { gap: var(--space-8); }
+
+        .p-4 { padding: var(--space-4); }
+        .p-6 { padding: var(--space-6); }
+        .p-8 { padding: var(--space-8); }
+        .px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+        .py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+        .py-8 { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+        .py-12 { padding-top: var(--space-12); padding-bottom: var(--space-12); }
+        .py-16 { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+
+        .mb-4 { margin-bottom: var(--space-4); }
+        .mb-6 { margin-bottom: var(--space-6); }
+        .mb-8 { margin-bottom: var(--space-8); }
+
+        /* Typography */
+        .text-xs { font-size: var(--font-size-xs); }
+        .text-sm { font-size: var(--font-size-sm); }
+        .text-base { font-size: var(--font-size-base); }
+        .text-lg { font-size: var(--font-size-lg); }
+        .text-xl { font-size: var(--font-size-xl); }
+        .text-2xl { font-size: var(--font-size-2xl); }
+        .text-3xl { font-size: var(--font-size-3xl); }
+        .text-4xl { font-size: var(--font-size-4xl); }
+
+        .font-medium { font-weight: var(--font-weight-medium); }
+        .font-semibold { font-weight: var(--font-weight-semibold); }
+        .font-bold { font-weight: var(--font-weight-bold); }
+
+        .text-primary { color: var(--color-text-primary); }
+        .text-secondary { color: var(--color-text-secondary); }
+        .text-inverse { color: var(--color-text-inverse); }
+
+        .bg-primary { background-color: var(--color-background-primary); }
+        .bg-secondary { background-color: var(--color-background-secondary); }
+
+        .rounded { border-radius: var(--radius-base); }
+        .rounded-lg { border-radius: var(--radius-lg); }
+        .rounded-xl { border-radius: var(--radius-xl); }
+
+        .shadow-sm { box-shadow: var(--shadow-sm); }
+        .shadow { box-shadow: var(--shadow-base); }
+        .shadow-lg { box-shadow: var(--shadow-lg); }
+
+        /* App Layout */
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-areas: 
+                "header header"
+                "sidebar main"
+                "footer footer";
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        .app-header {
+            grid-area: header;
+            background-color: var(--color-background-secondary);
+            border-bottom: 1px solid var(--color-border-primary);
+            padding: var(--space-4);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .app-sidebar {
+            grid-area: sidebar;
+            background-color: var(--color-background-secondary);
+            border-right: 1px solid var(--color-border-primary);
+            padding: var(--space-4);
+        }
+
+        .app-main {
+            grid-area: main;
+            padding: var(--space-8);
+            overflow-y: auto;
+        }
+
+        .app-footer {
+            grid-area: footer;
+            background-color: var(--color-background-secondary);
+            border-top: 1px solid var(--color-border-primary);
+            padding: var(--space-6);
+        }
+
+        /* Card Component */
+        .card {
+            background-color: var(--color-background-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card__header {
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        .card__title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .card__subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-1);
+        }
+
+        .card__body {
+            padding: var(--space-6);
+        }
+
+        .card__footer {
+            padding: var(--space-6);
+            border-top: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Button Component */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--line-height-tight);
+            border: 1px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--color-border-focus);
+            outline-offset: 2px;
+        }
+
+        .btn--primary {
+            background-color: var(--color-interactive-primary);
+            color: var(--color-text-inverse);
+        }
+
+        .btn--primary:hover {
+            background-color: var(--color-interactive-primary-hover);
+        }
+
+        .btn--secondary {
+            background-color: var(--color-background-secondary);
+            color: var(--color-text-primary);
+            border-color: var(--color-border-primary);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary-600);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-6);
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            transition: color var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-primary-600);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: var(--space-2);
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: var(--space-2) var(--space-3);
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background-color: var(--color-primary-100);
+            color: var(--color-primary-600);
+        }
+
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-8);
+        }
+
+        /* Micro-frontend Container */
+        .micro-frontend {
+            border: 2px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin: var(--space-4) 0;
+            background-color: var(--color-background-secondary);
+        }
+
+        .micro-frontend--auth {
+            border-color: var(--color-success-500);
+            background-color: var(--color-success-50);
+        }
+
+        .micro-frontend--dashboard {
+            border-color: var(--color-warning-500);
+            background-color: var(--color-warning-50);
+        }
+
+        .micro-frontend--profile {
+            border-color: var(--color-error-500);
+            background-color: var(--color-error-50);
+        }
+
+        .micro-frontend__title {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .micro-frontend__description {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+
+        .stat-card {
+            background-color: var(--color-background-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-value {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary-600);
+            margin-bottom: var(--space-2);
+        }
+
+        .stat-label {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        /* Code Block */
+        .code-block {
+            background-color: var(--color-gray-900);
+            color: var(--color-gray-100);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-relaxed);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .app {
+                grid-template-areas: 
+                    "header"
+                    "main"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+            
+            .app-sidebar {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-background-primary: var(--color-gray-900);
+                --color-background-secondary: var(--color-gray-800);
+                --color-background-tertiary: var(--color-gray-700);
+                --color-text-primary: var(--color-gray-100);
+                --color-text-secondary: var(--color-gray-300);
+                --color-text-tertiary: var(--color-gray-400);
+                --color-border-primary: var(--color-gray-700);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="nav">
+                <a href="#" class="nav-brand">🏢 Enterprise Platform</a>
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active">Dashboard</a></li>
+                    <li><a href="#" class="nav-link">Analytics</a></li>
+                    <li><a href="#" class="nav-link">Settings</a></li>
+                    <li><a href="#" class="nav-link">Profile</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active">🏠 Dashboard</a></li>
+                <li><a href="#">👥 Users</a></li>
+                <li><a href="#">📊 Analytics</a></li>
+                <li><a href="#">🔧 Settings</a></li>
+                <li><a href="#">📈 Reports</a></li>
+                <li><a href="#">🔐 Security</a></li>
+                <li><a href="#">📱 Mobile</a></li>
+                <li><a href="#">🌐 API</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <h1 class="text-4xl font-bold text-primary mb-8">Enterprise Frontend Platform</h1>
+            
+            <!-- Platform Overview -->
+            <section class="mb-12">
+                <div class="card">
+                    <div class="card__header">
+                        <h2 class="card__title">Platform Overview</h2>
+                        <p class="card__subtitle">Comprehensive enterprise frontend platform with micro-frontend architecture</p>
+                    </div>
+                    <div class="card__body">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Micro-Frontends</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">45</div>
+                                <div class="stat-label">Components</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">98%</div>
+                                <div class="stat-label">Test Coverage</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">2.3s</div>
+                                <div class="stat-label">Load Time</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Micro-Frontend Architecture -->
+            <section class="mb-12">
+                <div class="card">
+                    <div class="card__header">
+                        <h2 class="card__title">Micro-Frontend Architecture</h2>
+                        <p class="card__subtitle">Independent, deployable frontend modules</p>
+                    </div>
+                    <div class="card__body">
+                        <div class="features-grid">
+                            <div class="micro-frontend micro-frontend--auth">
+                                <div class="micro-frontend__title">🔐 Authentication Module</div>
+                                <div class="micro-frontend__description">
+                                    Handles user authentication, authorization, and session management.
+                                    Built with React and Redux Toolkit.
+                                </div>
+                                <div class="code-block">
+<pre>// Module Federation Configuration
+const ModuleFederationPlugin = require('@module-federation/webpack');
+
+module.exports = {
+  plugins: [
+    new ModuleFederationPlugin({
+      name: 'auth',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './AuthComponent': './src/AuthComponent'
+      },
+      shared: {
+        react: { singleton: true },
+        'react-dom': { singleton: true }
+      }
+    })
+  ]
+};</pre>
+                                </div>
+                            </div>
+
+                            <div class="micro-frontend micro-frontend--dashboard">
+                                <div class="micro-frontend__title">📊 Dashboard Module</div>
+                                <div class="micro-frontend__description">
+                                    Analytics dashboard with real-time data visualization.
+                                    Built with Vue.js and Chart.js.
+                                </div>
+                                <div class="code-block">
+<pre>// Single-spa Configuration
+import { registerApplication, start } from 'single-spa';
+
+registerApplication({
+  name: 'dashboard',
+  app: () => System.import('dashboard'),
+  activeWhen: '/dashboard',
+  customProps: {
+    authToken: localStorage.getItem('authToken')
+  }
+});
+
+start();</pre>
+                                </div>
+                            </div>
+
+                            <div class="micro-frontend micro-frontend--profile">
+                                <div class="micro-frontend__title">👤 Profile Module</div>
+                                <div class="micro-frontend__description">
+                                    User profile management and settings.
+                                    Built with Angular and NgRx.
+                                </div>
+                                <div class="code-block">
+<pre>// Web Components Approach
+class ProfileComponent extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `
+      &lt;div class="profile-container"&gt;
+        &lt;h2&gt;User Profile&lt;/h2&gt;
+        &lt;form id="profile-form"&gt;
+          &lt;input type="text" name="name" placeholder="Full Name" /&gt;
+          &lt;input type="email" name="email" placeholder="Email" /&gt;
+          &lt;button type="submit"&gt;Update Profile&lt;/button&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    `;
+  }
+}
+
+customElements.define('profile-component', ProfileComponent);</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design System -->
+            <section class="mb-12">
+                <div class="card">
+                    <div class="card__header">
+                        <h2 class="card__title">Design System</h2>
+                        <p class="card__subtitle">Comprehensive component library and design tokens</p>
+                    </div>
+                    <div class="card__body">
+                        <div class="features-grid">
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">Component Library</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-success-500">✓</span>
+                                        <span class="text-sm">45+ reusable components</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-success-500">✓</span>
+                                        <span class="text-sm">TypeScript definitions</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-success-500">✓</span>
+                                        <span class="text-sm">Accessibility compliance</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-success-500">✓</span>
+                                        <span class="text-sm">Storybook documentation</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">Design Tokens</h3>
+                                <div class="code-block">
+<pre>// Design Tokens
+export const tokens = {
+  colors: {
+    primary: {
+      50: '#eff6ff',
+      500: '#3b82f6',
+      900: '#1e3a8a'
+    },
+    semantic: {
+      success: '#22c55e',
+      warning: '#f59e0b',
+      error: '#ef4444'
+    }
+  },
+  spacing: {
+    xs: '0.25rem',
+    sm: '0.5rem',
+    md: '1rem',
+    lg: '1.5rem',
+    xl: '2rem'
+  },
+  typography: {
+    fontFamily: {
+      primary: 'Inter, sans-serif',
+      mono: 'Monaco, monospace'
+    },
+    fontSize: {
+      sm: '0.875rem',
+      base: '1rem',
+      lg: '1.125rem'
+    }
+  }
+};</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- State Management -->
+            <section class="mb-12">
+                <div class="card">
+                    <div class="card__header">
+                        <h2 class="card__title">State Management</h2>
+                        <p class="card__subtitle">Advanced state management patterns and data flow</p>
+                    </div>
+                    <div class="card__body">
+                        <div class="features-grid">
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">Redux Toolkit</h3>
+                                <div class="code-block">
+<pre>// Store Configuration
+import { configureStore } from '@reduxjs/toolkit'
+import { authSlice } from './slices/authSlice'
+import { uiSlice } from './slices/uiSlice'
+
+export const store = configureStore({
+  reducer: {
+    auth: authSlice.reducer,
+    ui: uiSlice.reducer
+  },
+  middleware: (getDefaultMiddleware) =&gt;
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST']
+      }
+    })
+})</pre>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">React Query</h3>
+                                <div class="code-block">
+<pre>// Server State Management
+import { useQuery, useMutation } from '@tanstack/react-query'
+
+function useUsers() {
+  return useQuery({
+    queryKey: ['users'],
+    queryFn: () =&gt; fetch('/api/users').then(res =&gt; res.json()),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    cacheTime: 10 * 60 * 1000  // 10 minutes
+  })
+}
+
+function useCreateUser() {
+  return useMutation({
+    mutationFn: (userData) =&gt; 
+      fetch('/api/users', {
+        method: 'POST',
+        body: JSON.stringify(userData)
+      }),
+    onSuccess: () =&gt; {
+      queryClient.invalidateQueries(['users'])
+    }
+  })
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Monitoring -->
+            <section class="mb-12">
+                <div class="card">
+                    <div class="card__header">
+                        <h2 class="card__title">Performance Monitoring</h2>
+                        <p class="card__subtitle">Real-time performance tracking and optimization</p>
+                    </div>
+                    <div class="card__body">
+                        <div class="features-grid">
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">Core Web Vitals</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-success-500">✓</span>
+                                        <span class="text-sm">LCP: 1.2s (Good)</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-success-500">✓</span>
+                                        <span class="text-sm">FID: 45ms (Good)</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-success-500">✓</span>
+                                        <span class="text-sm">CLS: 0.05 (Good)</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">Bundle Analysis</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-success-500">✓</span>
+                                        <span class="text-sm">Total Size: 2.3MB</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-success-500">✓</span>
+                                        <span class="text-sm">Gzipped: 650KB</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-success-500">✓</span>
+                                        <span class="text-sm">Chunks: 15</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="container">
+                <div style="text-align: center; color: var(--color-text-secondary);">
+                    <p>&copy; 2024 Enterprise Frontend Platform. Built with modern web technologies.</p>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">
+                        Level 11 Mini-Project: Advanced Frontend Architecture
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to micro-frontends
+            const microFrontends = document.querySelectorAll('.micro-frontend');
+            microFrontends.forEach(mf => {
+                mf.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                    this.style.boxShadow = 'var(--shadow-xl)';
+                });
+                
+                mf.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = 'var(--shadow-lg)';
+                });
+            });
+
+            // Add click effects to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+
+            // Add hover effects to sidebar navigation
+            const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'var(--color-primary-100)';
+                    this.style.color = 'var(--color-primary-600)';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.backgroundColor = '';
+                        this.style.color = '';
+                    }
+                });
+            });
+
+            // Add hover effects to stat cards
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = 'var(--shadow-lg)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'var(--shadow-sm)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
