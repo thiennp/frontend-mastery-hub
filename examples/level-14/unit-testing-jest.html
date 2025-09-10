@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 14: Unit Testing with Jest</title>
+    <style>
+        /* Design System CSS Custom Properties */
+        :root {
+            --color-primary-50: #eff6ff;
+            --color-primary-100: #dbeafe;
+            --color-primary-200: #bfdbfe;
+            --color-primary-300: #93c5fd;
+            --color-primary-400: #60a5fa;
+            --color-primary-500: #3b82f6;
+            --color-primary-600: #2563eb;
+            --color-primary-700: #1d4ed8;
+            --color-primary-800: #1e40af;
+            --color-primary-900: #1e3a8a;
+            
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-300: #d1d5db;
+            --color-gray-400: #9ca3af;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+            
+            --color-success-50: #f0fdf4;
+            --color-success-100: #dcfce7;
+            --color-success-500: #22c55e;
+            --color-success-600: #16a34a;
+            
+            --color-warning-50: #fffbeb;
+            --color-warning-100: #fef3c7;
+            --color-warning-500: #f59e0b;
+            --color-warning-600: #d97706;
+            
+            --color-error-50: #fef2f2;
+            --color-error-100: #fee2e2;
+            --color-error-500: #ef4444;
+            --color-error-600: #dc2626;
+            
+            /* Semantic Colors */
+            --color-background-primary: var(--color-gray-50);
+            --color-background-secondary: #ffffff;
+            --color-background-tertiary: var(--color-gray-100);
+            
+            --color-text-primary: var(--color-gray-900);
+            --color-text-secondary: var(--color-gray-600);
+            --color-text-tertiary: var(--color-gray-500);
+            --color-text-inverse: #ffffff;
+            
+            --color-border-primary: var(--color-gray-200);
+            --color-border-secondary: var(--color-gray-300);
+            --color-border-focus: var(--color-primary-500);
+            
+            --color-interactive-primary: var(--color-primary-600);
+            --color-interactive-primary-hover: var(--color-primary-700);
+            
+            /* Typography */
+            --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-family-mono: 'Monaco', 'Consolas', 'Courier New', monospace;
+            
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            --line-height-tight: 1.25;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.75;
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.125rem;
+            --radius-base: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            /* Motion */
+            --motion-duration-fast: 150ms;
+            --motion-duration-normal: 300ms;
+            --motion-easing-ease: ease;
+        }
+
+        /* Reset and Base Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            line-height: var(--line-height-normal);
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-normal);
+            line-height: var(--line-height-normal);
+            color: var(--color-text-primary);
+            background-color: var(--color-background-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Layout Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .hidden { display: none; }
+
+        .flex-col { flex-direction: column; }
+        .items-start { align-items: flex-start; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+
+        .gap-2 { gap: var(--space-2); }
+        .gap-4 { gap: var(--space-4); }
+        .gap-6 { gap: var(--space-6); }
+        .gap-8 { gap: var(--space-8); }
+
+        .p-4 { padding: var(--space-4); }
+        .p-6 { padding: var(--space-6); }
+        .p-8 { padding: var(--space-8); }
+        .px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+        .py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+        .py-8 { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+        .py-12 { padding-top: var(--space-12); padding-bottom: var(--space-12); }
+        .py-16 { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+
+        .mb-4 { margin-bottom: var(--space-4); }
+        .mb-6 { margin-bottom: var(--space-6); }
+        .mb-8 { margin-bottom: var(--space-8); }
+
+        /* Typography */
+        .text-xs { font-size: var(--font-size-xs); }
+        .text-sm { font-size: var(--font-size-sm); }
+        .text-base { font-size: var(--font-size-base); }
+        .text-lg { font-size: var(--font-size-lg); }
+        .text-xl { font-size: var(--font-size-xl); }
+        .text-2xl { font-size: var(--font-size-2xl); }
+        .text-3xl { font-size: var(--font-size-3xl); }
+        .text-4xl { font-size: var(--font-size-4xl); }
+
+        .font-medium { font-weight: var(--font-weight-medium); }
+        .font-semibold { font-weight: var(--font-weight-semibold); }
+        .font-bold { font-weight: var(--font-weight-bold); }
+
+        .text-primary { color: var(--color-text-primary); }
+        .text-secondary { color: var(--color-text-secondary); }
+        .text-inverse { color: var(--color-text-inverse); }
+
+        .bg-primary { background-color: var(--color-background-primary); }
+        .bg-secondary { background-color: var(--color-background-secondary); }
+
+        .rounded { border-radius: var(--radius-base); }
+        .rounded-lg { border-radius: var(--radius-lg); }
+        .rounded-xl { border-radius: var(--radius-xl); }
+
+        .shadow-sm { box-shadow: var(--shadow-sm); }
+        .shadow { box-shadow: var(--shadow-base); }
+        .shadow-lg { box-shadow: var(--shadow-lg); }
+
+        /* Card Component */
+        .card {
+            background-color: var(--color-background-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card__header {
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        .card__title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .card__subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-1);
+        }
+
+        .card__body {
+            padding: var(--space-6);
+        }
+
+        .card__footer {
+            padding: var(--space-6);
+            border-top: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Code Block */
+        .code-block {
+            background-color: var(--color-gray-900);
+            color: var(--color-gray-100);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-relaxed);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-8);
+        }
+
+        /* Test Results */
+        .test-results {
+            background-color: var(--color-background-tertiary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin: var(--space-4) 0;
+        }
+
+        .test-pass {
+            color: var(--color-success-600);
+            background-color: var(--color-success-50);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-md);
+            margin: var(--space-1) 0;
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+        }
+
+        .test-fail {
+            color: var(--color-error-600);
+            background-color: var(--color-error-50);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-md);
+            margin: var(--space-1) 0;
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+        }
+
+        .test-pending {
+            color: var(--color-warning-600);
+            background-color: var(--color-warning-50);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-md);
+            margin: var(--space-1) 0;
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+        }
+
+        /* Button Component */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--line-height-tight);
+            border: 1px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--color-border-focus);
+            outline-offset: 2px;
+        }
+
+        .btn--primary {
+            background-color: var(--color-interactive-primary);
+            color: var(--color-text-inverse);
+        }
+
+        .btn--primary:hover {
+            background-color: var(--color-interactive-primary-hover);
+        }
+
+        .btn--secondary {
+            background-color: var(--color-background-secondary);
+            color: var(--color-text-primary);
+            border-color: var(--color-border-primary);
+        }
+
+        .btn--secondary:hover {
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-3);
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-background-primary: var(--color-gray-900);
+                --color-background-secondary: var(--color-gray-800);
+                --color-background-tertiary: var(--color-gray-700);
+                --color-text-primary: var(--color-gray-100);
+                --color-text-secondary: var(--color-gray-300);
+                --color-text-tertiary: var(--color-gray-400);
+                --color-border-primary: var(--color-gray-700);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-4xl font-bold text-primary my-8 text-center">Level 14: Unit Testing with Jest</h1>
+        
+        <!-- Jest Overview -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Jest Testing Framework Overview</h2>
+                    <p class="card__subtitle">JavaScript testing framework with built-in assertions, mocking, and test runner</p>
+                </div>
+                <div class="card__body">
+                    <div class="features-grid">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Basic Test Structure</h3>
+                            <div class="code-block">
+<pre>// math.js
+export function add(a, b) {
+  return a + b;
+}
+
+export function multiply(a, b) {
+  return a * b;
+}
+
+// math.test.js
+import { add, multiply } from './math';
+
+describe('Math functions', () => {
+  test('adds two numbers correctly', () => {
+    expect(add(2, 3)).toBe(5);
+    expect(add(-1, 1)).toBe(0);
+    expect(add(0, 0)).toBe(0);
+  });
+
+  test('multiplies two numbers correctly', () => {
+    expect(multiply(2, 3)).toBe(6);
+    expect(multiply(-2, 3)).toBe(-6);
+    expect(multiply(0, 5)).toBe(0);
+  });
+});</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Test Setup and Teardown</h3>
+                            <div class="code-block">
+<pre>describe('User Service', () => {
+  let userService;
+  let mockApi;
+
+  beforeEach(() => {
+    mockApi = {
+      get: jest.fn(),
+      post: jest.fn(),
+      put: jest.fn(),
+      delete: jest.fn()
+    };
+    userService = new UserService(mockApi);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('fetches user by id', async () => {
+    const mockUser = { id: 1, name: 'John Doe' };
+    mockApi.get.mockResolvedValue(mockUser);
+
+    const user = await userService.getUser(1);
+
+    expect(mockApi.get).toHaveBeenCalledWith('/users/1');
+    expect(user).toEqual(mockUser);
+  });
+});</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jest Matchers -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Jest Matchers and Assertions</h2>
+                    <p class="card__subtitle">Comprehensive set of matchers for different types of assertions</p>
+                </div>
+                <div class="card__body">
+                    <div class="features-grid">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Equality Matchers</h3>
+                            <div class="code-block">
+<pre>test('equality matchers', () => {
+  // Primitive values
+  expect(2 + 2).toBe(4);
+  expect('hello').toBe('hello');
+  expect(true).toBe(true);
+
+  // Object equality
+  const user = { name: 'John', age: 30 };
+  expect(user).toEqual({ name: 'John', age: 30 });
+  expect(user).not.toBe({ name: 'John', age: 30 });
+
+  // Array equality
+  expect([1, 2, 3]).toEqual([1, 2, 3]);
+  expect([1, 2, 3]).toContain(2);
+});</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Truthiness Matchers</h3>
+                            <div class="code-block">
+<pre>test('truthiness matchers', () => {
+  // Falsy values
+  expect(null).toBeNull();
+  expect(undefined).toBeUndefined();
+  expect(false).toBeFalsy();
+  expect(0).toBeFalsy();
+  expect('').toBeFalsy();
+
+  // Truthy values
+  expect(1).toBeTruthy();
+  expect('hello').toBeTruthy();
+  expect({}).toBeTruthy();
+  expect([]).toBeTruthy();
+
+  // Defined/Undefined
+  expect('value').toBeDefined();
+  expect(undefined).toBeUndefined();
+});</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Number Matchers</h3>
+                            <div class="code-block">
+<pre>test('number matchers', () => {
+  const value = 2 + 2;
+
+  expect(value).toBeGreaterThan(3);
+  expect(value).toBeGreaterThanOrEqual(4);
+  expect(value).toBeLessThan(5);
+  expect(value).toBeLessThanOrEqual(4);
+
+  // Floating point equality
+  expect(0.1 + 0.2).toBeCloseTo(0.3);
+  expect(0.1 + 0.2).not.toBe(0.3);
+});</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">String Matchers</h3>
+                            <div class="code-block">
+<pre>test('string matchers', () => {
+  const str = 'Hello World';
+
+  expect(str).toMatch(/Hello/);
+  expect(str).toMatch('World');
+  expect(str).toContain('Hello');
+  expect(str).toHaveLength(11);
+
+  // Case insensitive
+  expect(str).toMatch(/hello/i);
+});</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mocking -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Mocking with Jest</h2>
+                    <p class="card__subtitle">Mock functions, modules, and external dependencies</p>
+                </div>
+                <div class="card__body">
+                    <div class="features-grid">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Function Mocking</h3>
+                            <div class="code-block">
+<pre>// Mock functions
+const mockCallback = jest.fn();
+
+test('mock function calls', () => {
+  mockCallback('arg1', 'arg2');
+
+  expect(mockCallback).toHaveBeenCalled();
+  expect(mockCallback).toHaveBeenCalledWith('arg1', 'arg2');
+  expect(mockCallback).toHaveBeenCalledTimes(1);
+
+  // Reset mock
+  mockCallback.mockClear();
+  expect(mockCallback).not.toHaveBeenCalled();
+});
+
+// Mock return values
+const mockFn = jest.fn();
+mockFn.mockReturnValue('mocked value');
+expect(mockFn()).toBe('mocked value');
+
+// Mock implementation
+mockFn.mockImplementation((x) => x * 2);
+expect(mockFn(5)).toBe(10);</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Module Mocking</h3>
+                            <div class="code-block">
+<pre>// Mock entire modules
+jest.mock('./api', () => ({
+  fetchUser: jest.fn(),
+  updateUser: jest.fn(),
+}));
+
+// Mock specific functions
+jest.mock('./utils', () => ({
+  ...jest.requireActual('./utils'),
+  formatDate: jest.fn(() => '2023-01-01'),
+}));
+
+// Mock with implementation
+jest.mock('./logger', () => ({
+  log: jest.fn(),
+  error: jest.fn(),
+}));
+
+import { log, error } from './logger';
+
+test('module mocking', () => {
+  log('test message');
+  expect(log).toHaveBeenCalledWith('test message');
+});</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Async Mocking</h3>
+                            <div class="code-block">
+<pre>// Mock async functions
+const mockFetch = jest.fn();
+
+mockFetch.mockResolvedValue({
+  json: () => Promise.resolve({ data: 'test' })
+});
+
+test('async mocking', async () => {
+  const response = await mockFetch('/api/data');
+  const data = await response.json();
+
+  expect(mockFetch).toHaveBeenCalledWith('/api/data');
+  expect(data).toEqual({ data: 'test' });
+});
+
+// Mock rejected promises
+mockFetch.mockRejectedValue(new Error('Network error'));
+
+test('async error handling', async () => {
+  await expect(mockFetch('/api/data')).rejects.toThrow('Network error');
+});</pre>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">Timer Mocking</h3>
+                            <div class="code-block">
+<pre>// Mock timers
+jest.useFakeTimers();
+
+test('timer mocking', () => {
+  const callback = jest.fn();
+  
+  setTimeout(callback, 1000);
+  
+  // Fast-forward time
+  jest.advanceTimersByTime(1000);
+  
+  expect(callback).toHaveBeenCalled();
+});
+
+// Mock setInterval
+test('interval mocking', () => {
+  const callback = jest.fn();
+  
+  setInterval(callback, 1000);
+  
+  jest.advanceTimersByTime(3000);
+  
+  expect(callback).toHaveBeenCalledTimes(3);
+});
+
+// Cleanup
+afterEach(() => {
+  jest.useRealTimers();
+});</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Demo -->
+        <section class="my-12">
+            <div class="card">
+                <div class="card__header">
+                    <h2 class="card__title">Interactive Jest Testing Demo</h2>
+                    <p class="card__subtitle">Live examples of Jest testing in action</p>
+                </div>
+                <div class="card__body">
+                    <div id="jest-demo" class="test-results">
+                        <!-- Test results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Simple Jest-like testing framework for demo
+        class SimpleJest {
+            constructor() {
+                this.tests = [];
+                this.currentSuite = null;
+                this.results = [];
+            }
+
+            describe(name, fn) {
+                this.currentSuite = name;
+                this.tests.push({ suite: name, name: '', fn: null });
+                fn();
+                this.currentSuite = null;
+            }
+
+            test(name, fn) {
+                this.tests.push({ suite: this.currentSuite, name, fn });
+            }
+
+            expect(actual) {
+                return {
+                    toBe: (expected) => {
+                        const passed = actual === expected;
+                        this.results.push({
+                            suite: this.currentSuite,
+                            test: this.tests[this.tests.length - 1]?.name,
+                            passed,
+                            actual,
+                            expected,
+                            matcher: 'toBe'
+                        });
+                        return passed;
+                    },
+                    toEqual: (expected) => {
+                        const passed = JSON.stringify(actual) === JSON.stringify(expected);
+                        this.results.push({
+                            suite: this.currentSuite,
+                            test: this.tests[this.tests.length - 1]?.name,
+                            passed,
+                            actual,
+                            expected,
+                            matcher: 'toEqual'
+                        });
+                        return passed;
+                    },
+                    toBeTruthy: () => {
+                        const passed = !!actual;
+                        this.results.push({
+                            suite: this.currentSuite,
+                            test: this.tests[this.tests.length - 1]?.name,
+                            passed,
+                            actual,
+                            expected: 'truthy',
+                            matcher: 'toBeTruthy'
+                        });
+                        return passed;
+                    },
+                    toBeFalsy: () => {
+                        const passed = !actual;
+                        this.results.push({
+                            suite: this.currentSuite,
+                            test: this.tests[this.tests.length - 1]?.name,
+                            passed,
+                            actual,
+                            expected: 'falsy',
+                            matcher: 'toBeFalsy'
+                        });
+                        return passed;
+                    }
+                };
+            }
+
+            runTests() {
+                this.results = [];
+                this.tests.forEach(test => {
+                    if (test.fn) {
+                        try {
+                            test.fn();
+                        } catch (error) {
+                            this.results.push({
+                                suite: test.suite,
+                                test: test.name,
+                                passed: false,
+                                error: error.message
+                            });
+                        }
+                    }
+                });
+                return this.results;
+            }
+        }
+
+        // Demo functions to test
+        function add(a, b) {
+            return a + b;
+        }
+
+        function multiply(a, b) {
+            return a * b;
+        }
+
+        function isEven(num) {
+            return num % 2 === 0;
+        }
+
+        function formatName(firstName, lastName) {
+            return `${firstName} ${lastName}`.trim();
+        }
+
+        // Run demo tests
+        const jest = new SimpleJest();
+
+        jest.describe('Math Functions', () => {
+            jest.test('adds two numbers correctly', () => {
+                jest.expect(add(2, 3)).toBe(5);
+                jest.expect(add(-1, 1)).toBe(0);
+                jest.expect(add(0, 0)).toBe(0);
+            });
+
+            jest.test('multiplies two numbers correctly', () => {
+                jest.expect(multiply(2, 3)).toBe(6);
+                jest.expect(multiply(-2, 3)).toBe(-6);
+                jest.expect(multiply(0, 5)).toBe(0);
+            });
+        });
+
+        jest.describe('Utility Functions', () => {
+            jest.test('checks if number is even', () => {
+                jest.expect(isEven(4)).toBeTruthy();
+                jest.expect(isEven(3)).toBeFalsy();
+                jest.expect(isEven(0)).toBeTruthy();
+            });
+
+            jest.test('formats name correctly', () => {
+                jest.expect(formatName('John', 'Doe')).toBe('John Doe');
+                jest.expect(formatName('Jane', '')).toBe('Jane');
+                jest.expect(formatName('', 'Smith')).toBe('Smith');
+            });
+        });
+
+        // Run tests and display results
+        const results = jest.runTests();
+        const demoContainer = document.getElementById('jest-demo');
+
+        // Group results by suite
+        const groupedResults = results.reduce((acc, result) => {
+            if (!acc[result.suite]) {
+                acc[result.suite] = [];
+            }
+            acc[result.suite].push(result);
+            return acc;
+        }, {});
+
+        let html = '<h3 style="margin-bottom: 1rem; color: var(--color-text-primary);">Test Results</h3>';
+
+        Object.entries(groupedResults).forEach(([suite, tests]) => {
+            html += `<div style="margin-bottom: 1.5rem;">`;
+            html += `<h4 style="margin-bottom: 0.5rem; color: var(--color-primary-600);">${suite}</h4>`;
+            
+            tests.forEach(test => {
+                if (test.error) {
+                    html += `<div class="test-fail">❌ ${test.test}: ${test.error}</div>`;
+                } else if (test.passed) {
+                    html += `<div class="test-pass">✅ ${test.test}: ${test.matcher} passed</div>`;
+                } else {
+                    html += `<div class="test-fail">❌ ${test.test}: Expected ${test.expected}, got ${test.actual}</div>`;
+                }
+            });
+            
+            html += `</div>`;
+        });
+
+        // Summary
+        const totalTests = results.length;
+        const passedTests = results.filter(r => r.passed).length;
+        const failedTests = totalTests - passedTests;
+
+        html += `<div style="margin-top: 1.5rem; padding: 1rem; background-color: var(--color-background-secondary); border-radius: var(--radius-lg); border: 1px solid var(--color-border-primary);">`;
+        html += `<h4 style="margin-bottom: 0.5rem; color: var(--color-text-primary);">Test Summary</h4>`;
+        html += `<div style="display: flex; gap: 1rem; font-family: var(--font-family-mono); font-size: var(--font-size-sm);">`;
+        html += `<span style="color: var(--color-success-600);">✅ ${passedTests} passed</span>`;
+        html += `<span style="color: var(--color-error-600);">❌ ${failedTests} failed</span>`;
+        html += `<span style="color: var(--color-text-secondary);">📊 ${totalTests} total</span>`;
+        html += `</div>`;
+        html += `</div>`;
+
+        demoContainer.innerHTML = html;
+    </script>
+</body>
+</html>

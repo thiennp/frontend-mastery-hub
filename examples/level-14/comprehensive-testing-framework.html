@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 14 Mini-Project: Comprehensive Testing Framework</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        /* Design System CSS Custom Properties */
+        :root {
+            --color-primary-50: #eff6ff;
+            --color-primary-100: #dbeafe;
+            --color-primary-200: #bfdbfe;
+            --color-primary-300: #93c5fd;
+            --color-primary-400: #60a5fa;
+            --color-primary-500: #3b82f6;
+            --color-primary-600: #2563eb;
+            --color-primary-700: #1d4ed8;
+            --color-primary-800: #1e40af;
+            --color-primary-900: #1e3a8a;
+            
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-300: #d1d5db;
+            --color-gray-400: #9ca3af;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+            
+            --color-success-50: #f0fdf4;
+            --color-success-100: #dcfce7;
+            --color-success-500: #22c55e;
+            --color-success-600: #16a34a;
+            
+            --color-warning-50: #fffbeb;
+            --color-warning-100: #fef3c7;
+            --color-warning-500: #f59e0b;
+            --color-warning-600: #d97706;
+            
+            --color-error-50: #fef2f2;
+            --color-error-100: #fee2e2;
+            --color-error-500: #ef4444;
+            --color-error-600: #dc2626;
+            
+            /* Semantic Colors */
+            --color-background-primary: var(--color-gray-50);
+            --color-background-secondary: #ffffff;
+            --color-background-tertiary: var(--color-gray-100);
+            
+            --color-text-primary: var(--color-gray-900);
+            --color-text-secondary: var(--color-gray-600);
+            --color-text-tertiary: var(--color-gray-500);
+            --color-text-inverse: #ffffff;
+            
+            --color-border-primary: var(--color-gray-200);
+            --color-border-secondary: var(--color-gray-300);
+            --color-border-focus: var(--color-primary-500);
+            
+            --color-interactive-primary: var(--color-primary-600);
+            --color-interactive-primary-hover: var(--color-primary-700);
+            
+            /* Typography */
+            --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-family-mono: 'Monaco', 'Consolas', 'Courier New', monospace;
+            
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            --line-height-tight: 1.25;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.75;
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.125rem;
+            --radius-base: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            /* Motion */
+            --motion-duration-fast: 150ms;
+            --motion-duration-normal: 300ms;
+            --motion-easing-ease: ease;
+        }
+
+        /* Reset and Base Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            line-height: var(--line-height-normal);
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-normal);
+            line-height: var(--line-height-normal);
+            color: var(--color-text-primary);
+            background-color: var(--color-background-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Layout Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .hidden { display: none; }
+
+        .flex-col { flex-direction: column; }
+        .items-start { align-items: flex-start; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+
+        .gap-2 { gap: var(--space-2); }
+        .gap-4 { gap: var(--space-4); }
+        .gap-6 { gap: var(--space-6); }
+        .gap-8 { gap: var(--space-8); }
+
+        .p-4 { padding: var(--space-4); }
+        .p-6 { padding: var(--space-6); }
+        .p-8 { padding: var(--space-8); }
+        .px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+        .py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+        .py-8 { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+        .py-12 { padding-top: var(--space-12); padding-bottom: var(--space-12); }
+        .py-16 { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+
+        .mb-4 { margin-bottom: var(--space-4); }
+        .mb-6 { margin-bottom: var(--space-6); }
+        .mb-8 { margin-bottom: var(--space-8); }
+
+        /* Typography */
+        .text-xs { font-size: var(--font-size-xs); }
+        .text-sm { font-size: var(--font-size-sm); }
+        .text-base { font-size: var(--font-size-base); }
+        .text-lg { font-size: var(--font-size-lg); }
+        .text-xl { font-size: var(--font-size-xl); }
+        .text-2xl { font-size: var(--font-size-2xl); }
+        .text-3xl { font-size: var(--font-size-3xl); }
+        .text-4xl { font-size: var(--font-size-4xl); }
+
+        .font-medium { font-weight: var(--font-weight-medium); }
+        .font-semibold { font-weight: var(--font-weight-semibold); }
+        .font-bold { font-weight: var(--font-weight-bold); }
+
+        .text-primary { color: var(--color-text-primary); }
+        .text-secondary { color: var(--color-text-secondary); }
+        .text-inverse { color: var(--color-text-inverse); }
+
+        .bg-primary { background-color: var(--color-background-primary); }
+        .bg-secondary { background-color: var(--color-background-secondary); }
+
+        .rounded { border-radius: var(--radius-base); }
+        .rounded-lg { border-radius: var(--radius-lg); }
+        .rounded-xl { border-radius: var(--radius-xl); }
+
+        .shadow-sm { box-shadow: var(--shadow-sm); }
+        .shadow { box-shadow: var(--shadow-base); }
+        .shadow-lg { box-shadow: var(--shadow-lg); }
+
+        /* App Layout */
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-areas: 
+                "header header"
+                "sidebar main"
+                "footer footer";
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        .app-header {
+            grid-area: header;
+            background-color: var(--color-background-secondary);
+            border-bottom: 1px solid var(--color-border-primary);
+            padding: var(--space-4);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .app-sidebar {
+            grid-area: sidebar;
+            background-color: var(--color-background-secondary);
+            border-right: 1px solid var(--color-border-primary);
+            padding: var(--space-4);
+        }
+
+        .app-main {
+            grid-area: main;
+            padding: var(--space-8);
+            overflow-y: auto;
+        }
+
+        .app-footer {
+            grid-area: footer;
+            background-color: var(--color-background-secondary);
+            border-top: 1px solid var(--color-border-primary);
+            padding: var(--space-6);
+        }
+
+        /* Card Component */
+        .card {
+            background-color: var(--color-background-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card__header {
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        .card__title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .card__subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-1);
+        }
+
+        .card__body {
+            padding: var(--space-6);
+        }
+
+        .card__footer {
+            padding: var(--space-6);
+            border-top: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Test Results */
+        .test-results {
+            background-color: var(--color-background-tertiary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin: var(--space-4) 0;
+        }
+
+        .test-pass {
+            color: var(--color-success-600);
+            background-color: var(--color-success-50);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-md);
+            margin: var(--space-1) 0;
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+        }
+
+        .test-fail {
+            color: var(--color-error-600);
+            background-color: var(--color-error-50);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-md);
+            margin: var(--space-1) 0;
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+        }
+
+        .test-pending {
+            color: var(--color-warning-600);
+            background-color: var(--color-warning-50);
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--radius-md);
+            margin: var(--space-1) 0;
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+        }
+
+        /* Button Component */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--line-height-tight);
+            border: 1px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--color-border-focus);
+            outline-offset: 2px;
+        }
+
+        .btn--primary {
+            background-color: var(--color-interactive-primary);
+            color: var(--color-text-inverse);
+        }
+
+        .btn--primary:hover {
+            background-color: var(--color-interactive-primary-hover);
+        }
+
+        .btn--secondary {
+            background-color: var(--color-background-secondary);
+            color: var(--color-text-primary);
+            border-color: var(--color-border-primary);
+        }
+
+        .btn--secondary:hover {
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary-600);
+            text-decoration: none;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: var(--space-2);
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: var(--space-2) var(--space-3);
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background-color: var(--color-primary-100);
+            color: var(--color-primary-600);
+        }
+
+        /* Code Block */
+        .code-block {
+            background-color: var(--color-gray-900);
+            color: var(--color-gray-100);
+            padding: var(--space-4);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-family-mono);
+            font-size: var(--font-size-sm);
+            line-height: var(--line-height-relaxed);
+            overflow-x: auto;
+            margin: var(--space-4) 0;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        /* Test Coverage */
+        .coverage-bar {
+            height: 8px;
+            background-color: var(--color-gray-200);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin: var(--space-2) 0;
+        }
+
+        .coverage-fill {
+            height: 100%;
+            transition: width var(--motion-duration-normal) var(--motion-easing-ease);
+        }
+
+        .coverage-fill--high {
+            background-color: var(--color-success-500);
+        }
+
+        .coverage-fill--medium {
+            background-color: var(--color-warning-500);
+        }
+
+        .coverage-fill--low {
+            background-color: var(--color-error-500);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .app {
+                grid-template-areas: 
+                    "header"
+                    "main"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+            
+            .app-sidebar {
+                display: none;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-background-primary: var(--color-gray-900);
+                --color-background-secondary: var(--color-gray-800);
+                --color-background-tertiary: var(--color-gray-700);
+                --color-text-primary: var(--color-gray-100);
+                --color-text-secondary: var(--color-gray-300);
+                --color-text-tertiary: var(--color-gray-400);
+                --color-border-primary: var(--color-gray-700);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="nav">
+                <a href="#" class="nav-brand">🧪 Testing Framework</a>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="app-sidebar">
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active">🏠 Dashboard</a></li>
+                <li><a href="#">🔬 Unit Tests</a></li>
+                <li><a href="#">🔗 Integration Tests</a></li>
+                <li><a href="#">🌐 E2E Tests</a></li>
+                <li><a href="#">📊 Coverage</a></li>
+                <li><a href="#">⚡ Performance</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <h1 class="text-4xl font-bold text-primary mb-8">Comprehensive Testing Framework</h1>
+            
+            <!-- Framework Overview -->
+            <section class="mb-12">
+                <div class="card">
+                    <div class="card__header">
+                        <h2 class="card__title">Testing Framework Overview</h2>
+                        <p class="card__subtitle">Complete testing solution with unit, integration, and E2E testing capabilities</p>
+                    </div>
+                    <div class="card__body">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">Unit Testing</h3>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 0.5rem;">✓ Jest configuration and setup</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ Function and utility testing</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ Mocking and stubbing</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ Async testing patterns</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">Integration Testing</h3>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 0.5rem;">✓ React Testing Library</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ Component interaction testing</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ API mocking and testing</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ State management testing</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold mb-3">E2E Testing</h3>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 0.5rem;">✓ Cypress test automation</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ Playwright cross-browser testing</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ User journey testing</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ Visual regression testing</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Test Results Dashboard -->
+            <section class="mb-12">
+                <div class="card">
+                    <div class="card__header">
+                        <h2 class="card__title">Test Results Dashboard</h2>
+                        <p class="card__subtitle">Real-time test execution and coverage reporting</p>
+                    </div>
+                    <div class="card__body">
+                        <div id="test-dashboard" class="test-results">
+                            <!-- Test results will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testing Examples -->
+            <section class="mb-12">
+                <div class="card">
+                    <div class="card__header">
+                        <h2 class="card__title">Testing Examples</h2>
+                        <p class="card__subtitle">Live examples of different testing strategies and patterns</p>
+                    </div>
+                    <div class="card__body">
+                        <div id="testing-examples" class="demo-container">
+                            <!-- Testing examples will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="container">
+                <div style="text-align: center; color: var(--color-text-secondary);">
+                    <p>&copy; 2024 Comprehensive Testing Framework. Built with modern testing practices.</p>
+                    <p style="font-size: 0.875rem; margin-top: 0.5rem;">
+                        Level 14 Mini-Project: Testing & Quality Assurance
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Simple testing framework for demo
+        class TestingFramework {
+            constructor() {
+                this.tests = [];
+                this.results = [];
+                this.coverage = {
+                    statements: 85,
+                    branches: 78,
+                    functions: 92,
+                    lines: 88
+                };
+            }
+
+            addTest(suite, name, fn) {
+                this.tests.push({ suite, name, fn });
+            }
+
+            async runTests() {
+                this.results = [];
+                let passed = 0;
+                let failed = 0;
+
+                for (const test of this.tests) {
+                    try {
+                        await test.fn();
+                        this.results.push({
+                            suite: test.suite,
+                            name: test.name,
+                            status: 'passed',
+                            duration: Math.random() * 100 + 10
+                        });
+                        passed++;
+                    } catch (error) {
+                        this.results.push({
+                            suite: test.suite,
+                            name: test.name,
+                            status: 'failed',
+                            error: error.message,
+                            duration: Math.random() * 100 + 10
+                        });
+                        failed++;
+                    }
+                }
+
+                return { passed, failed, total: this.tests.length };
+            }
+
+            getCoverage() {
+                return this.coverage;
+            }
+        }
+
+        // Demo functions to test
+        function add(a, b) {
+            return a + b;
+        }
+
+        function multiply(a, b) {
+            return a * b;
+        }
+
+        function divide(a, b) {
+            if (b === 0) {
+                throw new Error('Division by zero');
+            }
+            return a / b;
+        }
+
+        function isEven(num) {
+            return num % 2 === 0;
+        }
+
+        function formatName(firstName, lastName) {
+            if (!firstName && !lastName) {
+                throw new Error('At least one name is required');
+            }
+            return `${firstName || ''} ${lastName || ''}`.trim();
+        }
+
+        // Test suite
+        const framework = new TestingFramework();
+
+        framework.addTest('Math Functions', 'adds two numbers correctly', () => {
+            if (add(2, 3) !== 5) throw new Error('Expected 5, got ' + add(2, 3));
+            if (add(-1, 1) !== 0) throw new Error('Expected 0, got ' + add(-1, 1));
+        });
+
+        framework.addTest('Math Functions', 'multiplies two numbers correctly', () => {
+            if (multiply(2, 3) !== 6) throw new Error('Expected 6, got ' + multiply(2, 3));
+            if (multiply(-2, 3) !== -6) throw new Error('Expected -6, got ' + multiply(-2, 3));
+        });
+
+        framework.addTest('Math Functions', 'handles division by zero', () => {
+            try {
+                divide(5, 0);
+                throw new Error('Expected error for division by zero');
+            } catch (error) {
+                if (error.message !== 'Division by zero') {
+                    throw new Error('Expected "Division by zero" error');
+                }
+            }
+        });
+
+        framework.addTest('Utility Functions', 'checks if number is even', () => {
+            if (!isEven(4)) throw new Error('Expected 4 to be even');
+            if (isEven(3)) throw new Error('Expected 3 to be odd');
+        });
+
+        framework.addTest('Utility Functions', 'formats name correctly', () => {
+            if (formatName('John', 'Doe') !== 'John Doe') {
+                throw new Error('Expected "John Doe"');
+            }
+            if (formatName('Jane', '') !== 'Jane') {
+                throw new Error('Expected "Jane"');
+            }
+        });
+
+        framework.addTest('Utility Functions', 'throws error for empty names', () => {
+            try {
+                formatName('', '');
+                throw new Error('Expected error for empty names');
+            } catch (error) {
+                if (error.message !== 'At least one name is required') {
+                    throw new Error('Expected "At least one name is required" error');
+                }
+            }
+        });
+
+        // Test Dashboard Component
+        function TestDashboard() {
+            const [testResults, setTestResults] = useState(null);
+            const [isRunning, setIsRunning] = useState(false);
+
+            const runTests = async () => {
+                setIsRunning(true);
+                const results = await framework.runTests();
+                setTestResults(results);
+                setIsRunning(false);
+            };
+
+            const coverage = framework.getCoverage();
+
+            return (
+                <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                        <h3 style={{ margin: 0, color: 'var(--color-text-primary)' }}>Test Execution</h3>
+                        <button
+                            className="btn btn--primary"
+                            onClick={runTests}
+                            disabled={isRunning}
+                        >
+                            {isRunning ? 'Running...' : 'Run Tests'}
+                        </button>
+                    </div>
+
+                    {testResults && (
+                        <div style={{ marginBottom: '2rem' }}>
+                            <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+                                <div style={{ 
+                                    padding: '1rem', 
+                                    backgroundColor: 'var(--color-success-50)', 
+                                    border: '1px solid var(--color-success-200)',
+                                    borderRadius: 'var(--radius-lg)',
+                                    flex: 1
+                                }}>
+                                    <div style={{ color: 'var(--color-success-600)', fontWeight: 'var(--font-weight-semibold)' }}>
+                                        ✅ {testResults.passed} Passed
+                                    </div>
+                                </div>
+                                <div style={{ 
+                                    padding: '1rem', 
+                                    backgroundColor: 'var(--color-error-50)', 
+                                    border: '1px solid var(--color-error-200)',
+                                    borderRadius: 'var(--radius-lg)',
+                                    flex: 1
+                                }}>
+                                    <div style={{ color: 'var(--color-error-600)', fontWeight: 'var(--font-weight-semibold)' }}>
+                                        ❌ {testResults.failed} Failed
+                                    </div>
+                                </div>
+                                <div style={{ 
+                                    padding: '1rem', 
+                                    backgroundColor: 'var(--color-background-tertiary)', 
+                                    border: '1px solid var(--color-border-primary)',
+                                    borderRadius: 'var(--radius-lg)',
+                                    flex: 1
+                                }}>
+                                    <div style={{ color: 'var(--color-text-primary)', fontWeight: 'var(--font-weight-semibold)' }}>
+                                        📊 {testResults.total} Total
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style={{ marginBottom: '1rem' }}>
+                                {framework.results.map((result, index) => (
+                                    <div key={index} className={result.status === 'passed' ? 'test-pass' : 'test-fail'}>
+                                        {result.status === 'passed' ? '✅' : '❌'} {result.suite}: {result.name} ({result.duration.toFixed(0)}ms)
+                                        {result.error && <div style={{ marginTop: '0.25rem', fontSize: '0.75rem' }}>Error: {result.error}</div>}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    <div>
+                        <h4 style={{ marginBottom: '1rem', color: 'var(--color-text-primary)' }}>Code Coverage</h4>
+                        <div style={{ display: 'grid', gap: '1rem' }}>
+                            {Object.entries(coverage).map(([metric, percentage]) => (
+                                <div key={metric}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                        <span style={{ textTransform: 'capitalize', fontWeight: 'var(--font-weight-medium)' }}>
+                                            {metric}
+                                        </span>
+                                        <span style={{ fontFamily: 'var(--font-family-mono)', fontSize: 'var(--font-size-sm)' }}>
+                                            {percentage}%
+                                        </span>
+                                    </div>
+                                    <div className="coverage-bar">
+                                        <div 
+                                            className={`coverage-fill ${
+                                                percentage >= 80 ? 'coverage-fill--high' : 
+                                                percentage >= 60 ? 'coverage-fill--medium' : 
+                                                'coverage-fill--low'
+                                            }`}
+                                            style={{ width: `${percentage}%` }}
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Testing Examples Component
+        function TestingExamples() {
+            const [activeExample, setActiveExample] = useState('unit');
+
+            const examples = {
+                unit: {
+                    title: 'Unit Testing with Jest',
+                    code: `// math.test.js
+import { add, multiply, divide } from './math';
+
+describe('Math Functions', () => {
+  test('adds two numbers correctly', () => {
+    expect(add(2, 3)).toBe(5);
+    expect(add(-1, 1)).toBe(0);
+  });
+
+  test('multiplies two numbers correctly', () => {
+    expect(multiply(2, 3)).toBe(6);
+    expect(multiply(-2, 3)).toBe(-6);
+  });
+
+  test('handles division by zero', () => {
+    expect(() => divide(5, 0)).toThrow('Division by zero');
+  });
+});`
+                },
+                integration: {
+                    title: 'Integration Testing with RTL',
+                    code: `// Button.test.js
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Button } from './Button';
+
+describe('Button Component', () => {
+  test('renders button with text', () => {
+    render(<Button>Click me</Button>);
+    
+    const button = screen.getByRole('button', { name: /click me/i });
+    expect(button).toBeInTheDocument();
+  });
+
+  test('calls onClick when clicked', () => {
+    const handleClick = jest.fn();
+    render(<Button onClick={handleClick}>Click me</Button>);
+    
+    fireEvent.click(screen.getByRole('button'));
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+});`
+                },
+                e2e: {
+                    title: 'E2E Testing with Cypress',
+                    code: `// cypress/integration/user-journey.spec.js
+describe('User Journey', () => {
+  it('completes full user flow', () => {
+    cy.visit('/');
+    
+    // Navigate to products
+    cy.get('[data-testid="products-link"]').click();
+    cy.url().should('include', '/products');
+    
+    // Add product to cart
+    cy.get('[data-testid="product-card"]').first().click();
+    cy.get('[data-testid="add-to-cart"]').click();
+    
+    // Go to cart
+    cy.get('[data-testid="cart-link"]').click();
+    cy.get('[data-testid="cart-item"]').should('be.visible');
+    
+    // Proceed to checkout
+    cy.get('[data-testid="checkout-button"]').click();
+    cy.url().should('include', '/checkout');
+  });
+});`
+                }
+            };
+
+            return (
+                <div>
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem' }}>
+                        {Object.entries(examples).map(([key, example]) => (
+                            <button
+                                key={key}
+                                className={`btn ${activeExample === key ? 'btn--primary' : 'btn--secondary'}`}
+                                onClick={() => setActiveExample(key)}
+                            >
+                                {example.title}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div>
+                        <h4 style={{ marginBottom: '1rem', color: 'var(--color-text-primary)' }}>
+                            {examples[activeExample].title}
+                        </h4>
+                        <div className="code-block">
+                            <pre>{examples[activeExample].code}</pre>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Main App Component
+        function TestingFrameworkApp() {
+            return (
+                <div>
+                    <TestDashboard />
+                    <div style={{ marginTop: '3rem' }}>
+                        <TestingExamples />
+                    </div>
+                </div>
+            );
+        }
+
+        // Render the app
+        ReactDOM.render(<TestingFrameworkApp />, document.getElementById('test-dashboard'));
+        ReactDOM.render(<TestingExamples />, document.getElementById('testing-examples'));
+    </script>
+</body>
+</html>
