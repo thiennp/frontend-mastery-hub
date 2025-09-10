@@ -17,16 +17,26 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          exclude_assets: |
-            .git
-            .github
-            node_modules
-            .DS_Store
-            .idea
-            .vscode
-          force_orphan: true
+      - name: Setup Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Create gh-pages branch
+        run: |
+          git checkout --orphan gh-pages
+          git rm -rf .
+
+      - name: Copy files
+        run: |
+          # Copy all files except .git and .github
+          find . -maxdepth 1 -not -name '.git' -not -name '.github' -not -name '.' -exec cp -r {} . \;
+          
+          # Remove unwanted files
+          rm -rf .git .github node_modules .DS_Store .idea .vscode
+
+      - name: Commit and push
+        run: |
+          git add .
+          git commit -m "Deploy Frontend Mastery Hub to GitHub Pages"
+          git push origin gh-pages --force
