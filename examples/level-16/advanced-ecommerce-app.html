@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 16 Mini-Project: Advanced E-commerce Application</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6/dist/umd/react-router-dom.development.js"></script>
+    <style>
+        /* Design System CSS Custom Properties */
+        :root {
+            --color-primary-50: #eff6ff;
+            --color-primary-100: #dbeafe;
+            --color-primary-200: #bfdbfe;
+            --color-primary-300: #93c5fd;
+            --color-primary-400: #60a5fa;
+            --color-primary-500: #3b82f6;
+            --color-primary-600: #2563eb;
+            --color-primary-700: #1d4ed8;
+            --color-primary-800: #1e40af;
+            --color-primary-900: #1e3a8a;
+            
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-300: #d1d5db;
+            --color-gray-400: #9ca3af;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
+            --color-gray-800: #1f2937;
+            --color-gray-900: #111827;
+            
+            --color-success-50: #f0fdf4;
+            --color-success-100: #dcfce7;
+            --color-success-500: #22c55e;
+            --color-success-600: #16a34a;
+            
+            --color-warning-50: #fffbeb;
+            --color-warning-100: #fef3c7;
+            --color-warning-500: #f59e0b;
+            --color-warning-600: #d97706;
+            
+            --color-error-50: #fef2f2;
+            --color-error-100: #fee2e2;
+            --color-error-500: #ef4444;
+            --color-error-600: #dc2626;
+            
+            /* Semantic Colors */
+            --color-background-primary: var(--color-gray-50);
+            --color-background-secondary: #ffffff;
+            --color-background-tertiary: var(--color-gray-100);
+            
+            --color-text-primary: var(--color-gray-900);
+            --color-text-secondary: var(--color-gray-600);
+            --color-text-tertiary: var(--color-gray-500);
+            --color-text-inverse: #ffffff;
+            
+            --color-border-primary: var(--color-gray-200);
+            --color-border-secondary: var(--color-gray-300);
+            --color-border-focus: var(--color-primary-500);
+            
+            --color-interactive-primary: var(--color-primary-600);
+            --color-interactive-primary-hover: var(--color-primary-700);
+            
+            /* Typography */
+            --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-family-mono: 'Monaco', 'Consolas', 'Courier New', monospace;
+            
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            --line-height-tight: 1.25;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.75;
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.125rem;
+            --radius-base: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            /* Motion */
+            --motion-duration-fast: 150ms;
+            --motion-duration-normal: 300ms;
+            --motion-easing-ease: ease;
+        }
+
+        /* Reset and Base Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 16px;
+            line-height: var(--line-height-normal);
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-normal);
+            line-height: var(--line-height-normal);
+            color: var(--color-text-primary);
+            background-color: var(--color-background-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Layout Utilities */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .hidden { display: none; }
+
+        .flex-col { flex-direction: column; }
+        .items-start { align-items: flex-start; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+
+        .gap-2 { gap: var(--space-2); }
+        .gap-4 { gap: var(--space-4); }
+        .gap-6 { gap: var(--space-6); }
+        .gap-8 { gap: var(--space-8); }
+
+        .p-4 { padding: var(--space-4); }
+        .p-6 { padding: var(--space-6); }
+        .p-8 { padding: var(--space-8); }
+        .px-4 { padding-left: var(--space-4); padding-right: var(--space-4); }
+        .py-4 { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+        .py-8 { padding-top: var(--space-8); padding-bottom: var(--space-8); }
+        .py-12 { padding-top: var(--space-12); padding-bottom: var(--space-12); }
+        .py-16 { padding-top: var(--space-16); padding-bottom: var(--space-16); }
+
+        .mb-4 { margin-bottom: var(--space-4); }
+        .mb-6 { margin-bottom: var(--space-6); }
+        .mb-8 { margin-bottom: var(--space-8); }
+
+        /* Typography */
+        .text-xs { font-size: var(--font-size-xs); }
+        .text-sm { font-size: var(--font-size-sm); }
+        .text-base { font-size: var(--font-size-base); }
+        .text-lg { font-size: var(--font-size-lg); }
+        .text-xl { font-size: var(--font-size-xl); }
+        .text-2xl { font-size: var(--font-size-2xl); }
+        .text-3xl { font-size: var(--font-size-3xl); }
+        .text-4xl { font-size: var(--font-size-4xl); }
+
+        .font-medium { font-weight: var(--font-weight-medium); }
+        .font-semibold { font-weight: var(--font-weight-semibold); }
+        .font-bold { font-weight: var(--font-weight-bold); }
+
+        .text-primary { color: var(--color-text-primary); }
+        .text-secondary { color: var(--color-text-secondary); }
+        .text-inverse { color: var(--color-text-inverse); }
+
+        .bg-primary { background-color: var(--color-background-primary); }
+        .bg-secondary { background-color: var(--color-background-secondary); }
+
+        .rounded { border-radius: var(--radius-base); }
+        .rounded-lg { border-radius: var(--radius-lg); }
+        .rounded-xl { border-radius: var(--radius-xl); }
+
+        .shadow-sm { box-shadow: var(--shadow-sm); }
+        .shadow { box-shadow: var(--shadow-base); }
+        .shadow-lg { box-shadow: var(--shadow-lg); }
+
+        /* App Layout */
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-areas: 
+                "header header"
+                "sidebar main"
+                "footer footer";
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        .app-header {
+            grid-area: header;
+            background-color: var(--color-background-secondary);
+            border-bottom: 1px solid var(--color-border-primary);
+            padding: var(--space-4);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .app-sidebar {
+            grid-area: sidebar;
+            background-color: var(--color-background-secondary);
+            border-right: 1px solid var(--color-border-primary);
+            padding: var(--space-4);
+        }
+
+        .app-main {
+            grid-area: main;
+            padding: var(--space-8);
+            overflow-y: auto;
+        }
+
+        .app-footer {
+            grid-area: footer;
+            background-color: var(--color-background-secondary);
+            border-top: 1px solid var(--color-border-primary);
+            padding: var(--space-6);
+        }
+
+        /* Card Component */
+        .card {
+            background-color: var(--color-background-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card__header {
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        .card__title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .card__subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            margin-top: var(--space-1);
+        }
+
+        .card__body {
+            padding: var(--space-6);
+        }
+
+        .card__footer {
+            padding: var(--space-6);
+            border-top: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-primary-600);
+            text-decoration: none;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: var(--space-2);
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: var(--space-2) var(--space-3);
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background-color: var(--color-primary-100);
+            color: var(--color-primary-600);
+        }
+
+        /* Button Component */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-2) var(--space-4);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            line-height: var(--line-height-tight);
+            border: 1px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--color-border-focus);
+            outline-offset: 2px;
+        }
+
+        .btn--primary {
+            background-color: var(--color-interactive-primary);
+            color: var(--color-text-inverse);
+        }
+
+        .btn--primary:hover {
+            background-color: var(--color-interactive-primary-hover);
+        }
+
+        .btn--secondary {
+            background-color: var(--color-background-secondary);
+            color: var(--color-text-primary);
+            border-color: var(--color-border-primary);
+        }
+
+        .btn--secondary:hover {
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-4);
+            padding: var(--space-2) 0;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .breadcrumb-item:not(:last-child)::after {
+            content: '›';
+            color: var(--color-text-tertiary);
+        }
+
+        .breadcrumb-link {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .breadcrumb-link:hover {
+            color: var(--color-primary-600);
+        }
+
+        .breadcrumb-current {
+            color: var(--color-text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--space-6);
+        }
+
+        .product-card {
+            background-color: var(--color-background-secondary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            transition: all var(--motion-duration-fast) var(--motion-easing-ease);
+        }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-color: var(--color-gray-200);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-secondary);
+        }
+
+        /* Cart */
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--color-border-primary);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            background-color: var(--color-gray-200);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-xs);
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-1);
+        }
+
+        .cart-item-price {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--color-border-primary);
+            background-color: var(--color-background-secondary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--color-background-tertiary);
+        }
+
+        /* Checkout Steps */
+        .checkout-steps {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .checkout-step {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-lg);
+            background-color: var(--color-background-tertiary);
+            color: var(--color-text-secondary);
+        }
+
+        .checkout-step.active {
+            background-color: var(--color-primary-100);
+            color: var(--color-primary-600);
+        }
+
+        .checkout-step.completed {
+            background-color: var(--color-success-100);
+            color: var(--color-success-600);
+        }
+
+        .checkout-step:not(:last-child)::after {
+            content: '→';
+            margin-left: var(--space-2);
+            color: var(--color-text-tertiary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .app {
+                grid-template-areas: 
+                    "header"
+                    "main"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+            
+            .app-sidebar {
+                display: none;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-background-primary: var(--color-gray-900);
+                --color-background-secondary: var(--color-gray-800);
+                --color-background-tertiary: var(--color-gray-700);
+                --color-text-primary: var(--color-gray-100);
+                --color-text-secondary: var(--color-gray-300);
+                --color-text-tertiary: var(--color-gray-400);
+                --color-border-primary: var(--color-gray-700);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="ecommerce-app">
+        <!-- E-commerce app will be rendered here -->
+    </div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo } = React;
+        const { BrowserRouter, Routes, Route, Link, NavLink, Outlet, useLocation, useParams, useNavigate, useSearchParams } = ReactRouterDOM;
+
+        // Mock data
+        const products = [
+            { id: 1, name: 'MacBook Pro', price: 1999, category: 'Electronics', description: 'High-performance laptop for professionals', image: '💻' },
+            { id: 2, name: 'iPhone 15', price: 999, category: 'Electronics', description: 'Latest smartphone with advanced features', image: '📱' },
+            { id: 3, name: 'Nike Air Max', price: 120, category: 'Shoes', description: 'Comfortable running shoes', image: '👟' },
+            { id: 4, name: 'Denim Jacket', price: 89, category: 'Clothing', description: 'Classic denim jacket', image: '🧥' },
+            { id: 5, name: 'Coffee Maker', price: 150, category: 'Appliances', description: 'Automatic coffee maker', image: '☕' },
+            { id: 6, name: 'Wireless Headphones', price: 200, category: 'Electronics', description: 'Noise-cancelling headphones', image: '🎧' }
+        ];
+
+        const categories = ['All', 'Electronics', 'Shoes', 'Clothing', 'Appliances'];
+
+        // Authentication context
+        const useAuth = () => {
+            const [isAuthenticated, setIsAuthenticated] = useState(false);
+            const [user, setUser] = useState(null);
+
+            const login = (userData) => {
+                setIsAuthenticated(true);
+                setUser(userData);
+            };
+
+            const logout = () => {
+                setIsAuthenticated(false);
+                setUser(null);
+            };
+
+            return { isAuthenticated, user, login, logout };
+        };
+
+        // Cart context
+        const useCart = () => {
+            const [cart, setCart] = useState([]);
+
+            const addToCart = (product) => {
+                setCart(prev => {
+                    const existingItem = prev.find(item => item.id === product.id);
+                    if (existingItem) {
+                        return prev.map(item =>
+                            item.id === product.id
+                                ? { ...item, quantity: item.quantity + 1 }
+                                : item
+                        );
+                    }
+                    return [...prev, { ...product, quantity: 1 }];
+                });
+            };
+
+            const removeFromCart = (productId) => {
+                setCart(prev => prev.filter(item => item.id !== productId));
+            };
+
+            const updateQuantity = (productId, quantity) => {
+                if (quantity <= 0) {
+                    removeFromCart(productId);
+                    return;
+                }
+                setCart(prev =>
+                    prev.map(item =>
+                        item.id === productId
+                            ? { ...item, quantity }
+                            : item
+                    )
+                );
+            };
+
+            const clearCart = () => setCart([]);
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            return {
+                cart,
+                addToCart,
+                removeFromCart,
+                updateQuantity,
+                clearCart,
+                totalItems,
+                totalPrice
+            };
+        };
+
+        // Protected Route Component
+        function ProtectedRoute({ children, isAuthenticated, redirectTo = '/login' }) {
+            const navigate = useNavigate();
+            const location = useLocation();
+
+            useEffect(() => {
+                if (!isAuthenticated) {
+                    navigate(redirectTo, { state: { from: location } });
+                }
+            }, [isAuthenticated, navigate, redirectTo, location]);
+
+            if (!isAuthenticated) {
+                return null;
+            }
+
+            return children;
+        }
+
+        // Breadcrumb Component
+        function Breadcrumb() {
+            const location = useLocation();
+            const params = useParams();
+
+            const breadcrumbConfig = {
+                '/': 'Home',
+                '/products': 'Products',
+                '/products/:id': (params) => `Product ${params.id}`,
+                '/cart': 'Shopping Cart',
+                '/checkout': 'Checkout',
+                '/checkout/shipping': 'Shipping',
+                '/checkout/payment': 'Payment',
+                '/checkout/confirmation': 'Confirmation',
+                '/orders': 'Orders',
+                '/profile': 'Profile',
+                '/admin': 'Admin Dashboard',
+                '/admin/products': 'Manage Products',
+                '/admin/orders': 'Manage Orders'
+            };
+
+            const getBreadcrumbName = (path) => {
+                if (breadcrumbConfig[path]) {
+                    return typeof breadcrumbConfig[path] === 'function' 
+                        ? breadcrumbConfig[path](params)
+                        : breadcrumbConfig[path];
+                }
+
+                for (const [route, name] of Object.entries(breadcrumbConfig)) {
+                    if (route.includes(':')) {
+                        const routePattern = route.replace(/:[^/]+/g, '[^/]+');
+                        const regex = new RegExp(`^${routePattern}$`);
+                        if (regex.test(path)) {
+                            return typeof name === 'function' ? name(params) : name;
+                        }
+                    }
+                }
+
+                return path.split('/').pop() || 'Home';
+            };
+
+            const breadcrumbs = location.pathname
+                .split('/')
+                .filter(x => x)
+                .map((_, index, array) => {
+                    const path = '/' + array.slice(0, index + 1).join('/');
+                    return {
+                        name: getBreadcrumbName(path),
+                        path: path
+                    };
+                });
+
+            return (
+                <nav className="breadcrumb">
+                    <Link to="/" className="breadcrumb-link">Home</Link>
+                    {breadcrumbs.map((breadcrumb, index) => (
+                        <div key={breadcrumb.path} className="breadcrumb-item">
+                            {index === breadcrumbs.length - 1 ? (
+                                <span className="breadcrumb-current">
+                                    {breadcrumb.name}
+                                </span>
+                            ) : (
+                                <Link to={breadcrumb.path} className="breadcrumb-link">
+                                    {breadcrumb.name}
+                                </Link>
+                            )}
+                        </div>
+                    ))}
+                </nav>
+            );
+        }
+
+        // Layout Components
+        function AppLayout() {
+            return (
+                <div className="app">
+                    <header className="app-header">
+                        <div className="nav">
+                            <Link to="/" className="nav-brand">🛍️ E-Commerce</Link>
+                            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                <Link to="/products" className="btn btn--secondary">Products</Link>
+                                <Link to="/cart" className="btn btn--secondary">Cart (0)</Link>
+                                <Link to="/login" className="btn btn--primary">Login</Link>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    <aside className="app-sidebar">
+                        <ul className="sidebar-nav">
+                            <li>
+                                <NavLink to="/" end className={({ isActive }) => isActive ? 'active' : ''}>
+                                    Home
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/products" className={({ isActive }) => isActive ? 'active' : ''}>
+                                    Products
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/cart" className={({ isActive }) => isActive ? 'active' : ''}>
+                                    Shopping Cart
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/orders" className={({ isActive }) => isActive ? 'active' : ''}>
+                                    Orders
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/profile" className={({ isActive }) => isActive ? 'active' : ''}>
+                                    Profile
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </aside>
+                    
+                    <main className="app-main">
+                        <Breadcrumb />
+                        <Outlet />
+                    </main>
+                    
+                    <footer className="app-footer">
+                        <div style={{ textAlign: 'center', color: 'var(--color-text-secondary)' }}>
+                            <p>&copy; 2024 Advanced E-commerce Application. Built with React Router.</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        // Page Components
+        function Home() {
+            return (
+                <div>
+                    <h1 className="text-4xl font-bold text-primary mb-8">Welcome to Our Store</h1>
+                    <p className="text-lg text-secondary mb-8">
+                        Discover amazing products with our advanced e-commerce platform built with React Router.
+                    </p>
+                    
+                    <div className="product-grid">
+                        {products.slice(0, 4).map(product => (
+                            <div key={product.id} className="product-card">
+                                <div className="product-image">
+                                    {product.image}
+                                </div>
+                                <h3 className="font-semibold mb-2">{product.name}</h3>
+                                <p className="text-secondary mb-2">${product.price}</p>
+                                <p className="text-sm text-tertiary mb-4">{product.description}</p>
+                                <Link to={`/products/${product.id}`} className="btn btn--primary" style={{ width: '100%' }}>
+                                    View Details
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+                        <Link to="/products" className="btn btn--primary">
+                            View All Products
+                        </Link>
+                    </div>
+                </div>
+            );
+        }
+
+        function Products() {
+            const [searchParams, setSearchParams] = useSearchParams();
+            const category = searchParams.get('category') || 'All';
+            const search = searchParams.get('search') || '';
+
+            const filteredProducts = useMemo(() => {
+                return products.filter(product => {
+                    const matchesCategory = category === 'All' || product.category === category;
+                    const matchesSearch = product.name.toLowerCase().includes(search.toLowerCase()) ||
+                                       product.description.toLowerCase().includes(search.toLowerCase());
+                    return matchesCategory && matchesSearch;
+                });
+            }, [category, search]);
+
+            const handleCategoryChange = (newCategory) => {
+                setSearchParams(prev => {
+                    if (newCategory === 'All') {
+                        prev.delete('category');
+                    } else {
+                        prev.set('category', newCategory);
+                    }
+                    return prev;
+                });
+            };
+
+            const handleSearchChange = (newSearch) => {
+                setSearchParams(prev => {
+                    if (newSearch) {
+                        prev.set('search', newSearch);
+                    } else {
+                        prev.delete('search');
+                    }
+                    return prev;
+                });
+            };
+
+            return (
+                <div>
+                    <h1 className="text-3xl font-bold text-primary mb-8">Products</h1>
+                    
+                    <div style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                        <div>
+                            <label style={{ marginRight: '0.5rem' }}>Category:</label>
+                            <select 
+                                value={category} 
+                                onChange={(e) => handleCategoryChange(e.target.value)}
+                                style={{ padding: '0.5rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-primary)' }}
+                            >
+                                {categories.map(cat => (
+                                    <option key={cat} value={cat}>{cat}</option>
+                                ))}
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label style={{ marginRight: '0.5rem' }}>Search:</label>
+                            <input
+                                type="text"
+                                value={search}
+                                onChange={(e) => handleSearchChange(e.target.value)}
+                                placeholder="Search products..."
+                                style={{ padding: '0.5rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-primary)' }}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="product-grid">
+                        {filteredProducts.map(product => (
+                            <div key={product.id} className="product-card">
+                                <div className="product-image">
+                                    {product.image}
+                                </div>
+                                <h3 className="font-semibold mb-2">{product.name}</h3>
+                                <p className="text-secondary mb-2">${product.price}</p>
+                                <p className="text-sm text-tertiary mb-4">{product.description}</p>
+                                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                    <Link to={`/products/${product.id}`} className="btn btn--primary" style={{ flex: 1 }}>
+                                        View Details
+                                    </Link>
+                                    <button 
+                                        onClick={() => {
+                                            // This would add to cart in a real app
+                                            alert('Added to cart!');
+                                        }}
+                                        className="btn btn--secondary"
+                                    >
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function ProductDetail() {
+            const { id } = useParams();
+            const navigate = useNavigate();
+            const product = products.find(p => p.id === parseInt(id));
+
+            if (!product) {
+                return (
+                    <div>
+                        <h2>Product Not Found</h2>
+                        <p>The product you're looking for doesn't exist.</p>
+                        <button onClick={() => navigate('/products')} className="btn btn--secondary">
+                            Back to Products
+                        </button>
+                    </div>
+                );
+            }
+
+            return (
+                <div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2rem' }}>
+                        <div>
+                            <div className="product-image" style={{ height: '400px', fontSize: '4rem' }}>
+                                {product.image}
+                            </div>
+                        </div>
+                        <div>
+                            <h1 className="text-3xl font-bold text-primary mb-4">{product.name}</h1>
+                            <p className="text-2xl font-semibold text-primary mb-4">${product.price}</p>
+                            <p className="text-secondary mb-4">{product.description}</p>
+                            <p className="text-sm text-tertiary mb-6">Category: {product.category}</p>
+                            
+                            <div style={{ display: 'flex', gap: '1rem' }}>
+                                <button 
+                                    onClick={() => alert('Added to cart!')}
+                                    className="btn btn--primary"
+                                >
+                                    Add to Cart
+                                </button>
+                                <button 
+                                    onClick={() => navigate('/products')}
+                                    className="btn btn--secondary"
+                                >
+                                    Back to Products
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Cart() {
+            const cart = useCart();
+
+            if (cart.cart.length === 0) {
+                return (
+                    <div>
+                        <h1 className="text-3xl font-bold text-primary mb-8">Shopping Cart</h1>
+                        <div style={{ textAlign: 'center', padding: '4rem 0' }}>
+                            <p className="text-lg text-secondary mb-4">Your cart is empty</p>
+                            <Link to="/products" className="btn btn--primary">
+                                Continue Shopping
+                            </Link>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div>
+                    <h1 className="text-3xl font-bold text-primary mb-8">Shopping Cart</h1>
+                    
+                    <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '2rem' }}>
+                        <div>
+                            {cart.cart.map(item => (
+                                <div key={item.id} className="cart-item">
+                                    <div className="cart-item-image">
+                                        {item.image}
+                                    </div>
+                                    <div className="cart-item-details">
+                                        <div className="cart-item-name">{item.name}</div>
+                                        <div className="cart-item-price">${item.price}</div>
+                                    </div>
+                                    <div className="cart-item-quantity">
+                                        <button 
+                                            className="quantity-btn"
+                                            onClick={() => cart.updateQuantity(item.id, item.quantity - 1)}
+                                        >
+                                            -
+                                        </button>
+                                        <span>{item.quantity}</span>
+                                        <button 
+                                            className="quantity-btn"
+                                            onClick={() => cart.updateQuantity(item.id, item.quantity + 1)}
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                    <button 
+                                        onClick={() => cart.removeFromCart(item.id)}
+                                        className="btn btn--secondary"
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                        
+                        <div className="card">
+                            <div className="card__header">
+                                <h3 className="card__title">Order Summary</h3>
+                            </div>
+                            <div className="card__body">
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                                    <span>Items ({cart.totalItems}):</span>
+                                    <span>${cart.totalPrice.toFixed(2)}</span>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                                    <span>Shipping:</span>
+                                    <span>$10.00</span>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', fontWeight: 'bold' }}>
+                                    <span>Total:</span>
+                                    <span>${(cart.totalPrice + 10).toFixed(2)}</span>
+                                </div>
+                                <Link to="/checkout" className="btn btn--primary" style={{ width: '100%' }}>
+                                    Proceed to Checkout
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        function Checkout() {
+            const [currentStep, setCurrentStep] = useState('shipping');
+            const cart = useCart();
+
+            const steps = [
+                { id: 'shipping', name: 'Shipping' },
+                { id: 'payment', name: 'Payment' },
+                { id: 'confirmation', name: 'Confirmation' }
+            ];
+
+            const renderStep = () => {
+                switch (currentStep) {
+                    case 'shipping':
+                        return (
+                            <div>
+                                <h2 className="text-2xl font-bold mb-4">Shipping Information</h2>
+                                <p>Enter your shipping details.</p>
+                                <div style={{ marginTop: '2rem' }}>
+                                    <button 
+                                        onClick={() => setCurrentStep('payment')}
+                                        className="btn btn--primary"
+                                    >
+                                        Continue to Payment
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    case 'payment':
+                        return (
+                            <div>
+                                <h2 className="text-2xl font-bold mb-4">Payment Information</h2>
+                                <p>Enter your payment details.</p>
+                                <div style={{ marginTop: '2rem' }}>
+                                    <button 
+                                        onClick={() => setCurrentStep('confirmation')}
+                                        className="btn btn--primary"
+                                    >
+                                        Continue to Confirmation
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    case 'confirmation':
+                        return (
+                            <div>
+                                <h2 className="text-2xl font-bold mb-4">Order Confirmation</h2>
+                                <p>Review your order and confirm.</p>
+                                <div style={{ marginTop: '2rem' }}>
+                                    <button 
+                                        onClick={() => {
+                                            alert('Order placed successfully!');
+                                            cart.clearCart();
+                                            setCurrentStep('shipping');
+                                        }}
+                                        className="btn btn--primary"
+                                    >
+                                        Place Order
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    default:
+                        return null;
+                }
+            };
+
+            return (
+                <div>
+                    <h1 className="text-3xl font-bold text-primary mb-8">Checkout</h1>
+                    
+                    <div className="checkout-steps">
+                        {steps.map((step, index) => (
+                            <div 
+                                key={step.id}
+                                className={`checkout-step ${
+                                    step.id === currentStep ? 'active' : 
+                                    steps.indexOf(steps.find(s => s.id === currentStep)) > index ? 'completed' : ''
+                                }`}
+                            >
+                                {step.name}
+                            </div>
+                        ))}
+                    </div>
+                    
+                    {renderStep()}
+                </div>
+            );
+        }
+
+        function Orders() {
+            return (
+                <div>
+                    <h1 className="text-3xl font-bold text-primary mb-8">Orders</h1>
+                    <p>Your order history will appear here.</p>
+                </div>
+            );
+        }
+
+        function Profile() {
+            return (
+                <div>
+                    <h1 className="text-3xl font-bold text-primary mb-8">Profile</h1>
+                    <p>Manage your account settings and preferences.</p>
+                </div>
+            );
+        }
+
+        function Login() {
+            const { login } = useAuth();
+            const navigate = useNavigate();
+            const location = useLocation();
+
+            const handleLogin = () => {
+                login({ name: 'John Doe', email: 'john@example.com' });
+                const from = location.state?.from?.pathname || '/';
+                navigate(from, { replace: true });
+            };
+
+            return (
+                <div>
+                    <h1 className="text-3xl font-bold text-primary mb-8">Login</h1>
+                    <p>Click the button below to login and access your account.</p>
+                    <button onClick={handleLogin} className="btn btn--primary">
+                        Login
+                    </button>
+                </div>
+            );
+        }
+
+        // Main App Component
+        function App() {
+            return (
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<AppLayout />}>
+                            <Route index element={<Home />} />
+                            <Route path="products" element={<Products />} />
+                            <Route path="products/:id" element={<ProductDetail />} />
+                            <Route path="cart" element={<Cart />} />
+                            <Route path="checkout" element={<Checkout />} />
+                            <Route path="orders" element={<Orders />} />
+                            <Route path="profile" element={<Profile />} />
+                            <Route path="login" element={<Login />} />
+                        </Route>
+                    </Routes>
+                </BrowserRouter>
+            );
+        }
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('ecommerce-app'));
+    </script>
+</body>
+</html>
