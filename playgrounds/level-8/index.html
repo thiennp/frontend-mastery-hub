@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 8: JavaScript ES6+ Features - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level8-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <h1>🎯 Frontend Mastery Hub</h1>
+                </a>
+                <p>Level 8: JavaScript ES6+ Features</p>
+            </div>
+            <nav class="nav">
+                <a href="../../index.html" class="nav-link">← Back to Hub</a>
+                <a href="#exercises" class="nav-link">Exercises</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="level-hero">
+            <div class="container">
+                <div class="level-info">
+                    <div class="level-badge">Level 8</div>
+                    <h1>JavaScript ES6+ Features</h1>
+                    <p>Master modern JavaScript features: arrow functions, destructuring, modules, and more.</p>
+                    <div class="level-stats">
+                        <div class="stat">
+                            <span class="stat-number">5</span>
+                            <span class="stat-label">Exercises</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2-3</span>
+                            <span class="stat-label">Hours</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">Intermediate</span>
+                            <span class="stat-label">Level</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exercises" class="exercises-section">
+            <div class="container">
+                <h2>ES6+ Features Exercises</h2>
+                <p>Master modern JavaScript syntax and features</p>
+                
+                <div class="exercises-grid">
+                    <!-- Exercise 1: Arrow Functions & Destructuring -->
+                    <div class="exercise-card" data-exercise="1">
+                        <div class="exercise-header">
+                            <div class="exercise-number">1</div>
+                            <h3>Arrow Functions & Destructuring</h3>
+                            <div class="exercise-status in-progress">Ready</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Master arrow functions, destructuring assignment, and template literals.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="js">JavaScript</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="js" placeholder="Write your JavaScript here...">// ES6+ Features: Arrow Functions & Destructuring
+console.log('=== Arrow Functions & Destructuring Demo ===');
+
+// 1. Arrow Functions
+const traditionalFunction = function(name) {
+    return `Hello, ${name}!`;
+};
+
+const arrowFunction = (name) => `Hello, ${name}!`;
+
+// Arrow functions with multiple parameters
+const add = (a, b) => a + b;
+const multiply = (a, b) => a * b;
+
+// Arrow functions with object return
+const createUser = (name, age) => ({ name, age, isActive: true });
+
+// 2. Destructuring Assignment
+const person = {
+    firstName: 'John',
+    lastName: 'Doe',
+    age: 30,
+    address: {
+        city: 'New York',
+        country: 'USA'
+    },
+    hobbies: ['reading', 'coding', 'gaming']
+};
+
+// Object destructuring
+const { firstName, lastName, age } = person;
+const { address: { city, country } } = person;
+const { hobbies: [firstHobby, ...otherHobbies] } = person;
+
+// Array destructuring
+const numbers = [1, 2, 3, 4, 5];
+const [first, second, ...rest] = numbers;
+
+// 3. Template Literals
+const fullName = `${firstName} ${lastName}`;
+const message = `Welcome ${fullName}! You are ${age} years old and live in ${city}, ${country}.`;
+
+// 4. Enhanced Object Literals
+const user = {
+    firstName,
+    lastName,
+    age,
+    fullName: `${firstName} ${lastName}`,
+    greet() {
+        return `Hello, I'm ${this.fullName}`;
+    },
+    // Computed property names
+    [`is${age > 18 ? 'Adult' : 'Minor'}`]: true
+};
+
+// 5. Function with destructuring parameters
+const processUser = ({ firstName, lastName, age, hobbies = [] }) => {
+    return {
+        id: Math.random().toString(36).substr(2, 9),
+        displayName: `${firstName} ${lastName}`,
+        ageGroup: age >= 18 ? 'adult' : 'minor',
+        hobbyCount: hobbies.length,
+        summary: `${firstName} is a ${age}-year-old ${age >= 18 ? 'adult' : 'minor'} with ${hobbies.length} hobbies.`
+    };
+};
+
+// 6. Array methods with arrow functions
+const products = [
+    { name: 'Laptop', price: 999, category: 'Electronics' },
+    { name: 'Book', price: 19, category: 'Education' },
+    { name: 'Phone', price: 699, category: 'Electronics' },
+    { name: 'Pen', price: 2, category: 'Office' }
+];
+
+const expensiveProducts = products
+    .filter(product => product.price > 100)
+    .map(product => ({ ...product, discounted: true }))
+    .sort((a, b) => b.price - a.price);
+
+const totalValue = products.reduce((sum, product) => sum + product.price, 0);
+
+// 7. Rest and Spread operators
+const numbers1 = [1, 2, 3];
+const numbers2 = [4, 5, 6];
+const allNumbers = [...numbers1, ...numbers2];
+
+const sum = (...args) => args.reduce((total, num) => total + num, 0);
+
+// Demo functions
+function runDemo() {
+    console.log('1. Arrow Functions:');
+    console.log(traditionalFunction('Alice'));
+    console.log(arrowFunction('Bob'));
+    console.log('Add:', add(5, 3));
+    console.log('Multiply:', multiply(4, 6));
+    console.log('User:', createUser('Charlie', 25));
+    
+    console.log('\n2. Destructuring:');
+    console.log('Name:', firstName, lastName);
+    console.log('Age:', age);
+    console.log('Location:', city, country);
+    console.log('First hobby:', firstHobby);
+    console.log('Other hobbies:', otherHobbies);
+    console.log('Array destructuring:', first, second, rest);
+    
+    console.log('\n3. Template Literals:');
+    console.log(message);
+    
+    console.log('\n4. Enhanced Object:');
+    console.log(user);
+    console.log(user.greet());
+    
+    console.log('\n5. Function with destructuring:');
+    const processedUser = processUser(person);
+    console.log(processedUser);
+    
+    console.log('\n6. Array methods:');
+    console.log('Expensive products:', expensiveProducts);
+    console.log('Total value:', totalValue);
+    
+    console.log('\n7. Rest and Spread:');
+    console.log('All numbers:', allNumbers);
+    console.log('Sum of 1,2,3,4,5:', sum(1, 2, 3, 4, 5));
+}
+
+// Run the demo
+runDemo();</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>=></code> for arrow functions</li>
+                                    <li>Use <code>{}</code> for object destructuring</li>
+                                    <li>Use <code>[]</code> for array destructuring</li>
+                                    <li>Use <code>${}</code> for template literals</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(1)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 2: Classes & Modules -->
+                    <div class="exercise-card locked" data-exercise="2">
+                        <div class="exercise-header">
+                            <div class="exercise-number">2</div>
+                            <h3>Classes & Modules</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Learn ES6 classes, inheritance, and module system.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="js">JavaScript</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="js" placeholder="Write your JavaScript here...">// ES6+ Classes and Modules Demo
+console.log('=== Classes & Modules Demo ===');
+
+// 1. ES6 Classes
+class Animal {
+    constructor(name, species) {
+        this.name = name;
+        this.species = species;
+        this.energy = 100;
+    }
+    
+    // Instance methods
+    speak() {
+        return `${this.name} makes a sound`;
+    }
+    
+    eat(food) {
+        this.energy += 10;
+        return `${this.name} eats ${food} and gains energy`;
+    }
+    
+    sleep() {
+        this.energy = 100;
+        return `${this.name} sleeps and restores energy`;
+    }
+    
+    // Getter
+    get status() {
+        return `${this.name} (${this.species}) - Energy: ${this.energy}`;
+    }
+    
+    // Setter
+    set energyLevel(value) {
+        this.energy = Math.max(0, Math.min(100, value));
+    }
+    
+    // Static method
+    static createRandomAnimal() {
+        const names = ['Buddy', 'Whiskers', 'Rex', 'Fluffy'];
+        const species = ['Dog', 'Cat', 'Bird', 'Fish'];
+        const randomName = names[Math.floor(Math.random() * names.length)];
+        const randomSpecies = species[Math.floor(Math.random() * species.length)];
+        return new Animal(randomName, randomSpecies);
+    }
+}
+
+// 2. Class Inheritance
+class Dog extends Animal {
+    constructor(name, breed) {
+        super(name, 'Dog');
+        this.breed = breed;
+    }
+    
+    speak() {
+        return `${this.name} barks: Woof! Woof!`;
+    }
+    
+    fetch() {
+        this.energy -= 20;
+        return `${this.name} fetches the ball! Energy: ${this.energy}`;
+    }
+    
+    // Override parent method
+    eat(food) {
+        if (food === 'chocolate') {
+            return `${this.name} can't eat chocolate! It's dangerous!`;
+        }
+        return super.eat(food);
+    }
+}
+
+class Cat extends Animal {
+    constructor(name, color) {
+        super(name, 'Cat');
+        this.color = color;
+        this.lives = 9;
+    }
+    
+    speak() {
+        return `${this.name} meows: Meow! Meow!`;
+    }
+    
+    climb() {
+        this.energy -= 15;
+        return `${this.name} climbs up high! Energy: ${this.energy}`;
+    }
+    
+    // Override parent method
+    sleep() {
+        this.energy += 20; // Cats sleep more efficiently
+        return `${this.name} purrs while sleeping. Energy: ${this.energy}`;
+    }
+}
+
+// 3. Private Fields (ES2022)
+class BankAccount {
+    #balance = 0;
+    #accountNumber;
+    
+    constructor(accountNumber, initialBalance = 0) {
+        this.#accountNumber = accountNumber;
+        this.#balance = initialBalance;
+    }
+    
+    deposit(amount) {
+        if (amount > 0) {
+            this.#balance += amount;
+            return `Deposited $${amount}. New balance: $${this.#balance}`;
+        }
+        return 'Invalid deposit amount';
+    }
+    
+    withdraw(amount) {
+        if (amount > 0 && amount <= this.#balance) {
+            this.#balance -= amount;
+            return `Withdrew $${amount}. New balance: $${this.#balance}`;
+        }
+        return 'Insufficient funds or invalid amount';
+    }
+    
+    get balance() {
+        return this.#balance;
+    }
+    
+    get accountNumber() {
+        return this.#accountNumber;
+    }
+}
+
+// 4. Mixins (Composition over Inheritance)
+const Flyable = {
+    fly() {
+        this.energy -= 30;
+        return `${this.name} flies high in the sky! Energy: ${this.energy}`;
+    }
+};
+
+const Swimmable = {
+    swim() {
+        this.energy -= 25;
+        return `${this.name} swims gracefully! Energy: ${this.energy}`;
+    }
+};
+
+// Apply mixins
+Object.assign(Animal.prototype, Flyable, Swimmable);
+
+// 5. Module-like structure (simulating modules)
+const PetStore = {
+    animals: [],
+    
+    addAnimal(animal) {
+        this.animals.push(animal);
+        return `Added ${animal.name} to the store`;
+    },
+    
+    findAnimal(name) {
+        return this.animals.find(animal => animal.name === name);
+    },
+    
+    listAnimals() {
+        return this.animals.map(animal => animal.status);
+    },
+    
+    feedAll(food) {
+        return this.animals.map(animal => animal.eat(food));
+    }
+};
+
+// Demo functions
+function runClassDemo() {
+    console.log('1. Basic Class:');
+    const animal = new Animal('Generic', 'Unknown');
+    console.log(animal.speak());
+    console.log(animal.eat('food'));
+    console.log(animal.status);
+    
+    console.log('\n2. Inheritance:');
+    const dog = new Dog('Rex', 'Golden Retriever');
+    console.log(dog.speak());
+    console.log(dog.fetch());
+    console.log(dog.eat('chicken'));
+    console.log(dog.eat('chocolate'));
+    
+    const cat = new Cat('Whiskers', 'Orange');
+    console.log(cat.speak());
+    console.log(cat.climb());
+    console.log(cat.sleep());
+    
+    console.log('\n3. Private Fields:');
+    const account = new BankAccount('12345', 1000);
+    console.log(account.deposit(500));
+    console.log(account.withdraw(200));
+    console.log('Balance:', account.balance);
+    
+    console.log('\n4. Mixins:');
+    const bird = new Animal('Tweety', 'Bird');
+    console.log(bird.fly());
+    console.log(bird.swim());
+    
+    console.log('\n5. Static Methods:');
+    const randomAnimal = Animal.createRandomAnimal();
+    console.log('Random animal:', randomAnimal.status);
+    
+    console.log('\n6. Pet Store:');
+    PetStore.addAnimal(dog);
+    PetStore.addAnimal(cat);
+    PetStore.addAnimal(bird);
+    console.log('Store animals:', PetStore.listAnimals());
+    console.log('Feeding all:', PetStore.feedAll('treats'));
+}
+
+// Run the demo
+runClassDemo();</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>class</code> keyword for classes</li>
+                                    <li>Use <code>extends</code> for inheritance</li>
+                                    <li>Use <code>super()</code> to call parent constructor</li>
+                                    <li>Use <code>#</code> for private fields</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(2)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 3: Promises & Async/Await -->
+                    <div class="exercise-card locked" data-exercise="3">
+                        <div class="exercise-header">
+                            <div class="exercise-number">3</div>
+                            <h3>Promises & Async/Await</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Master asynchronous JavaScript with Promises and async/await.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="js">JavaScript</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="js" placeholder="Write your JavaScript here...">// Promises & Async/Await Demo
+console.log('=== Promises & Async/Await Demo ===');
+
+// 1. Basic Promises
+function simulateAPI(delay, shouldFail = false) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (shouldFail) {
+                reject(new Error('API request failed'));
+            } else {
+                resolve({ data: `Data after ${delay}ms`, timestamp: Date.now() });
+            }
+        }, delay);
+    });
+}
+
+// 2. Promise chaining
+function fetchUserData(userId) {
+    return simulateAPI(1000)
+        .then(response => {
+            console.log('User data fetched:', response);
+            return { ...response, userId, name: `User ${userId}` };
+        })
+        .then(user => {
+            console.log('User processed:', user);
+            return simulateAPI(500).then(posts => ({
+                ...user,
+                posts: posts.data
+            }));
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+            throw error;
+        });
+}
+
+// 3. Promise.all - parallel execution
+function fetchMultipleUsers(userIds) {
+    const promises = userIds.map(id => fetchUserData(id));
+    
+    return Promise.all(promises)
+        .then(users => {
+            console.log('All users fetched:', users);
+            return users;
+        })
+        .catch(error => {
+            console.error('Error fetching multiple users:', error);
+            throw error;
+        });
+}
+
+// 4. Promise.allSettled - wait for all, regardless of success/failure
+function fetchWithFallback(userIds) {
+    const promises = userIds.map(id => 
+        fetchUserData(id).catch(error => ({ error, userId: id }))
+    );
+    
+    return Promise.allSettled(promises)
+        .then(results => {
+            const successful = results.filter(r => r.status === 'fulfilled');
+            const failed = results.filter(r => r.status === 'rejected');
+            
+            console.log('Successful:', successful.length);
+            console.log('Failed:', failed.length);
+            
+            return { successful, failed };
+        });
+}
+
+// 5. Async/Await - cleaner syntax
+async function fetchUserProfile(userId) {
+    try {
+        console.log(`Fetching profile for user ${userId}...`);
+        
+        // Sequential async operations
+        const userData = await simulateAPI(1000);
+        console.log('User data:', userData);
+        
+        const posts = await simulateAPI(800);
+        console.log('Posts:', posts);
+        
+        const comments = await simulateAPI(600);
+        console.log('Comments:', comments);
+        
+        return {
+            userId,
+            ...userData,
+            posts: posts.data,
+            comments: comments.data,
+            profileComplete: true
+        };
+    } catch (error) {
+        console.error('Error in fetchUserProfile:', error);
+        throw error;
+    }
+}
+
+// 6. Parallel async operations
+async function fetchUserProfileParallel(userId) {
+    try {
+        console.log(`Fetching profile for user ${userId} in parallel...`);
+        
+        // Parallel async operations
+        const [userData, posts, comments] = await Promise.all([
+            simulateAPI(1000),
+            simulateAPI(800),
+            simulateAPI(600)
+        ]);
+        
+        console.log('All data fetched in parallel');
+        
+        return {
+            userId,
+            ...userData,
+            posts: posts.data,
+            comments: comments.data,
+            profileComplete: true
+        };
+    } catch (error) {
+        console.error('Error in fetchUserProfileParallel:', error);
+        throw error;
+    }
+}
+
+// 7. Error handling with async/await
+async function robustDataFetch(userId) {
+    try {
+        const profile = await fetchUserProfile(userId);
+        return { success: true, data: profile };
+    } catch (error) {
+        console.error('Failed to fetch profile:', error.message);
+        
+        // Fallback data
+        return {
+            success: false,
+            error: error.message,
+            fallbackData: {
+                userId,
+                name: 'Unknown User',
+                message: 'Profile unavailable'
+            }
+        };
+    }
+}
+
+// 8. Async iteration
+async function* fetchUsersGenerator(userIds) {
+    for (const userId of userIds) {
+        try {
+            const user = await fetchUserData(userId);
+            yield { success: true, user };
+        } catch (error) {
+            yield { success: false, error: error.message, userId };
+        }
+    }
+}
+
+// Demo functions
+async function runAsyncDemo() {
+    console.log('1. Basic Promise:');
+    try {
+        const result = await simulateAPI(500);
+        console.log('Success:', result);
+    } catch (error) {
+        console.log('Error:', error.message);
+    }
+    
+    console.log('\n2. Promise Chaining:');
+    try {
+        const user = await fetchUserData(123);
+        console.log('Final user:', user);
+    } catch (error) {
+        console.log('Error:', error.message);
+    }
+    
+    console.log('\n3. Promise.all:');
+    try {
+        const users = await fetchMultipleUsers([1, 2, 3]);
+        console.log('Multiple users:', users);
+    } catch (error) {
+        console.log('Error:', error.message);
+    }
+    
+    console.log('\n4. Promise.allSettled:');
+    const results = await fetchWithFallback([1, 2, 3, 999]);
+    console.log('Settled results:', results);
+    
+    console.log('\n5. Async/Await Sequential:');
+    try {
+        const profile = await fetchUserProfile(456);
+        console.log('Profile (sequential):', profile);
+    } catch (error) {
+        console.log('Error:', error.message);
+    }
+    
+    console.log('\n6. Async/Await Parallel:');
+    try {
+        const profile = await fetchUserProfileParallel(789);
+        console.log('Profile (parallel):', profile);
+    } catch (error) {
+        console.log('Error:', error.message);
+    }
+    
+    console.log('\n7. Error Handling:');
+    const result = await robustDataFetch(999);
+    console.log('Robust fetch result:', result);
+    
+    console.log('\n8. Async Generator:');
+    const userIds = [1, 2, 3];
+    for await (const result of fetchUsersGenerator(userIds)) {
+        console.log('Generator result:', result);
+    }
+}
+
+// Run the demo
+runAsyncDemo();</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>new Promise()</code> to create promises</li>
+                                    <li>Use <code>async/await</code> for cleaner async code</li>
+                                    <li>Use <code>Promise.all()</code> for parallel operations</li>
+                                    <li>Use <code>try/catch</code> for error handling</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(3)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 4: Generators & Iterators -->
+                    <div class="exercise-card locked" data-exercise="4">
+                        <div class="exercise-header">
+                            <div class="exercise-number">4</div>
+                            <h3>Generators & Iterators</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Learn generators, iterators, and advanced iteration patterns.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="js">JavaScript</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="js" placeholder="Write your JavaScript here...">// Generators & Iterators Demo
+console.log('=== Generators & Iterators Demo ===');
+
+// 1. Basic Generator Function
+function* numberGenerator() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+    yield 5;
+}
+
+// 2. Generator with Parameters
+function* fibonacciGenerator(limit = 10) {
+    let a = 0, b = 1;
+    let count = 0;
+    
+    while (count < limit) {
+        yield a;
+        [a, b] = [b, a + b];
+        count++;
+    }
+}
+
+// 3. Generator with Dynamic Values
+function* randomNumberGenerator(count = 5) {
+    for (let i = 0; i < count; i++) {
+        yield Math.floor(Math.random() * 100);
+    }
+}
+
+// 4. Generator with Error Handling
+function* safeGenerator() {
+    try {
+        yield 1;
+        yield 2;
+        throw new Error('Something went wrong');
+        yield 3; // This won't execute
+    } catch (error) {
+        yield `Error: ${error.message}`;
+    }
+    yield 4; // This will execute
+}
+
+// 5. Custom Iterable Object
+const customIterable = {
+    data: ['apple', 'banana', 'cherry', 'date'],
+    
+    [Symbol.iterator]() {
+        let index = 0;
+        const data = this.data;
+        
+        return {
+            next() {
+                if (index < data.length) {
+                    return { value: data[index++], done: false };
+                } else {
+                    return { done: true };
+                }
+            }
+        };
+    }
+};
+
+// 6. Generator with Return Value
+function* generatorWithReturn() {
+    yield 1;
+    yield 2;
+    return 'Generator finished';
+    yield 3; // This won't execute
+}
+
+// 7. Async Generator
+async function* asyncDataGenerator() {
+    const urls = ['api/user/1', 'api/user/2', 'api/user/3'];
+    
+    for (const url of urls) {
+        try {
+            // Simulate async operation
+            await new Promise(resolve => setTimeout(resolve, 100));
+            yield { url, data: `Data from ${url}`, success: true };
+        } catch (error) {
+            yield { url, error: error.message, success: false };
+        }
+    }
+}
+
+// 8. Generator for Pagination
+function* paginatedData(pageSize = 3) {
+    const allData = Array.from({ length: 20 }, (_, i) => `Item ${i + 1}`);
+    let currentPage = 0;
+    
+    while (currentPage * pageSize < allData.length) {
+        const start = currentPage * pageSize;
+        const end = start + pageSize;
+        const pageData = allData.slice(start, end);
+        
+        yield {
+            page: currentPage + 1,
+            data: pageData,
+            hasMore: end < allData.length
+        };
+        
+        currentPage++;
+    }
+}
+
+// 9. Generator for State Machine
+function* stateMachine() {
+    let state = 'idle';
+    
+    while (true) {
+        const input = yield state;
+        
+        switch (state) {
+            case 'idle':
+                if (input === 'start') state = 'running';
+                break;
+            case 'running':
+                if (input === 'pause') state = 'paused';
+                else if (input === 'stop') state = 'stopped';
+                break;
+            case 'paused':
+                if (input === 'resume') state = 'running';
+                else if (input === 'stop') state = 'stopped';
+                break;
+            case 'stopped':
+                if (input === 'reset') state = 'idle';
+                break;
+        }
+    }
+}
+
+// 10. Generator for Data Processing Pipeline
+function* dataProcessor(data) {
+    for (const item of data) {
+        // Step 1: Filter
+        if (item > 0) {
+            // Step 2: Transform
+            const processed = item * 2;
+            // Step 3: Yield
+            yield processed;
+        }
+    }
+}
+
+// Demo functions
+function runGeneratorDemo() {
+    console.log('1. Basic Generator:');
+    const gen1 = numberGenerator();
+    console.log('Generator values:');
+    for (const value of gen1) {
+        console.log(value);
+    }
+    
+    console.log('\n2. Fibonacci Generator:');
+    const fibGen = fibonacciGenerator(8);
+    console.log('Fibonacci sequence:');
+    for (const value of fibGen) {
+        console.log(value);
+    }
+    
+    console.log('\n3. Random Numbers:');
+    const randomGen = randomNumberGenerator(5);
+    console.log('Random numbers:');
+    for (const value of randomGen) {
+        console.log(value);
+    }
+    
+    console.log('\n4. Generator with Error:');
+    const safeGen = safeGenerator();
+    console.log('Safe generator:');
+    for (const value of safeGen) {
+        console.log(value);
+    }
+    
+    console.log('\n5. Custom Iterable:');
+    console.log('Custom iterable:');
+    for (const value of customIterable) {
+        console.log(value);
+    }
+    
+    console.log('\n6. Generator with Return:');
+    const returnGen = generatorWithReturn();
+    console.log('Generator with return:');
+    let result = returnGen.next();
+    while (!result.done) {
+        console.log(result.value);
+        result = returnGen.next();
+    }
+    console.log('Return value:', result.value);
+    
+    console.log('\n7. Pagination Generator:');
+    const pageGen = paginatedData(4);
+    console.log('Paginated data:');
+    for (const page of pageGen) {
+        console.log(`Page ${page.page}:`, page.data, page.hasMore ? '(has more)' : '(last page)');
+    }
+    
+    console.log('\n8. State Machine:');
+    const stateGen = stateMachine();
+    console.log('Initial state:', stateGen.next().value);
+    console.log('After start:', stateGen.next('start').value);
+    console.log('After pause:', stateGen.next('pause').value);
+    console.log('After resume:', stateGen.next('resume').value);
+    console.log('After stop:', stateGen.next('stop').value);
+    
+    console.log('\n9. Data Processing Pipeline:');
+    const data = [1, -2, 3, -4, 5, -6, 7];
+    const processor = dataProcessor(data);
+    console.log('Processed data:');
+    for (const value of processor) {
+        console.log(value);
+    }
+}
+
+// Async generator demo
+async function runAsyncGeneratorDemo() {
+    console.log('\n10. Async Generator:');
+    const asyncGen = asyncDataGenerator();
+    console.log('Async data:');
+    for await (const result of asyncGen) {
+        console.log(result);
+    }
+}
+
+// Run the demos
+runGeneratorDemo();
+runAsyncGeneratorDemo();</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>function*</code> to create generators</li>
+                                    <li>Use <code>yield</code> to produce values</li>
+                                    <li>Use <code>Symbol.iterator</code> for custom iterables</li>
+                                    <li>Use <code>for...of</code> to iterate over generators</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(4)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 5: Proxy & Reflect -->
+                    <div class="exercise-card locked" data-exercise="5">
+                        <div class="exercise-header">
+                            <div class="exercise-number">5</div>
+                            <h3>Proxy & Reflect</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Master Proxy objects and Reflect API for advanced metaprogramming.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="js">JavaScript</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="js" placeholder="Write your JavaScript here...">// Proxy & Reflect Demo
+console.log('=== Proxy & Reflect Demo ===');
+
+// 1. Basic Proxy - Property Access Logging
+const target = {
+    name: 'John',
+    age: 30,
+    city: 'New York'
+};
+
+const loggingProxy = new Proxy(target, {
+    get(target, property, receiver) {
+        console.log(`Getting property: ${property}`);
+        return Reflect.get(target, property, receiver);
+    },
+    
+    set(target, property, value, receiver) {
+        console.log(`Setting property: ${property} = ${value}`);
+        return Reflect.set(target, property, value, receiver);
+    },
+    
+    has(target, property) {
+        console.log(`Checking if property exists: ${property}`);
+        return Reflect.has(target, property);
+    },
+    
+    deleteProperty(target, property) {
+        console.log(`Deleting property: ${property}`);
+        return Reflect.deleteProperty(target, property);
+    }
+});
+
+// 2. Validation Proxy
+const createValidatedObject = (schema) => {
+    return new Proxy({}, {
+        set(target, property, value) {
+            if (schema[property]) {
+                const validator = schema[property];
+                if (validator(value)) {
+                    target[property] = value;
+                    console.log(`✓ ${property} set to ${value}`);
+                } else {
+                    throw new Error(`Invalid value for ${property}: ${value}`);
+                }
+            } else {
+                throw new Error(`Unknown property: ${property}`);
+            }
+            return true;
+        },
+        
+        get(target, property) {
+            if (property in target) {
+                return target[property];
+            } else {
+                throw new Error(`Property ${property} not found`);
+            }
+        }
+    });
+};
+
+// 3. Immutable Proxy
+const createImmutableObject = (obj) => {
+    return new Proxy(obj, {
+        set() {
+            throw new Error('Cannot modify immutable object');
+        },
+        
+        deleteProperty() {
+            throw new Error('Cannot delete from immutable object');
+        }
+    });
+};
+
+// 4. Virtual Properties Proxy
+const createVirtualObject = () => {
+    const data = {};
+    
+    return new Proxy(data, {
+        get(target, property) {
+            if (property === 'length') {
+                return Object.keys(target).length;
+            }
+            
+            if (property === 'keys') {
+                return () => Object.keys(target);
+            }
+            
+            if (property === 'values') {
+                return () => Object.values(target);
+            }
+            
+            if (property === 'entries') {
+                return () => Object.entries(target);
+            }
+            
+            if (property === 'clear') {
+                return () => {
+                    Object.keys(target).forEach(key => delete target[key]);
+                    console.log('Object cleared');
+                };
+            }
+            
+            return target[property];
+        },
+        
+        set(target, property, value) {
+            if (typeof property === 'string' && property.startsWith('_')) {
+                throw new Error('Properties starting with _ are reserved');
+            }
+            
+            target[property] = value;
+            console.log(`Virtual property ${property} set to ${value}`);
+            return true;
+        }
+    });
+};
+
+// 5. Function Proxy
+const createLoggingFunction = (fn) => {
+    return new Proxy(fn, {
+        apply(target, thisArg, argumentsList) {
+            console.log(`Function ${target.name} called with:`, argumentsList);
+            const result = Reflect.apply(target, thisArg, argumentsList);
+            console.log(`Function ${target.name} returned:`, result);
+            return result;
+        }
+    });
+};
+
+// 6. Array Proxy with Custom Methods
+const createEnhancedArray = (initialArray = []) => {
+    const array = [...initialArray];
+    
+    return new Proxy(array, {
+        get(target, property) {
+            if (property === 'first') {
+                return target[0];
+            }
+            
+            if (property === 'last') {
+                return target[target.length - 1];
+            }
+            
+            if (property === 'isEmpty') {
+                return target.length === 0;
+            }
+            
+            if (property === 'chunk') {
+                return (size) => {
+                    const chunks = [];
+                    for (let i = 0; i < target.length; i += size) {
+                        chunks.push(target.slice(i, i + size));
+                    }
+                    return chunks;
+                };
+            }
+            
+            if (property === 'unique') {
+                return [...new Set(target)];
+            }
+            
+            return target[property];
+        },
+        
+        set(target, property, value) {
+            if (typeof property === 'string' && !isNaN(property)) {
+                target[property] = value;
+            } else {
+                throw new Error('Cannot set non-numeric properties on array');
+            }
+            return true;
+        }
+    });
+};
+
+// 7. Observable Proxy
+const createObservable = (obj) => {
+    const observers = new Set();
+    
+    const observable = new Proxy(obj, {
+        set(target, property, value) {
+            const oldValue = target[property];
+            target[property] = value;
+            
+            // Notify observers
+            observers.forEach(observer => {
+                observer({
+                    property,
+                    oldValue,
+                    newValue: value,
+                    target
+                });
+            });
+            
+            return true;
+        }
+    });
+    
+    observable.subscribe = (callback) => {
+        observers.add(callback);
+        return () => observers.delete(callback);
+    };
+    
+    return observable;
+};
+
+// Demo functions
+function runProxyDemo() {
+    console.log('1. Basic Proxy - Property Access Logging:');
+    console.log('Getting name:', loggingProxy.name);
+    loggingProxy.age = 31;
+    console.log('Has city?', 'city' in loggingProxy);
+    delete loggingProxy.city;
+    
+    console.log('\n2. Validation Proxy:');
+    const userSchema = {
+        name: (value) => typeof value === 'string' && value.length > 0,
+        age: (value) => typeof value === 'number' && value > 0,
+        email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+    };
+    
+    try {
+        const user = createValidatedObject(userSchema);
+        user.name = 'Alice';
+        user.age = 25;
+        user.email = 'alice@example.com';
+        console.log('User created successfully');
+    } catch (error) {
+        console.error('Validation error:', error.message);
+    }
+    
+    console.log('\n3. Immutable Proxy:');
+    const immutable = createImmutableObject({ x: 1, y: 2 });
+    try {
+        immutable.x = 3;
+    } catch (error) {
+        console.log('Immutable error:', error.message);
+    }
+    
+    console.log('\n4. Virtual Properties Proxy:');
+    const virtual = createVirtualObject();
+    virtual.name = 'Bob';
+    virtual.age = 30;
+    console.log('Length:', virtual.length);
+    console.log('Keys:', virtual.keys());
+    console.log('Values:', virtual.values());
+    
+    console.log('\n5. Function Proxy:');
+    const add = (a, b) => a + b;
+    const loggedAdd = createLoggingFunction(add);
+    const result = loggedAdd(5, 3);
+    
+    console.log('\n6. Enhanced Array:');
+    const enhancedArray = createEnhancedArray([1, 2, 3, 4, 5, 1, 2]);
+    console.log('First:', enhancedArray.first);
+    console.log('Last:', enhancedArray.last);
+    console.log('Is empty:', enhancedArray.isEmpty);
+    console.log('Chunks of 2:', enhancedArray.chunk(2));
+    console.log('Unique values:', enhancedArray.unique);
+    
+    console.log('\n7. Observable Proxy:');
+    const observable = createObservable({ count: 0 });
+    
+    const unsubscribe = observable.subscribe((change) => {
+        console.log(`Property ${change.property} changed from ${change.oldValue} to ${change.newValue}`);
+    });
+    
+    observable.count = 1;
+    observable.count = 2;
+    unsubscribe();
+    observable.count = 3; // This won't log
+}
+
+// Run the demo
+runProxyDemo();</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-5"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>new Proxy(target, handler)</code> to create proxies</li>
+                                    <li>Use <code>Reflect</code> methods for default behavior</li>
+                                    <li>Implement <code>get</code> and <code>set</code> traps</li>
+                                    <li>Use proxies for validation, logging, and virtual properties</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(5)">Check Answer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Frontend Mastery Hub. Keep coding! 🚀</p>
+        </div>
+    </footer>
+
+    <script src="level8-script.js"></script>
+</body>
+</html>
