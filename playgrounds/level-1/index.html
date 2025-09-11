@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1: HTML & CSS Fundamentals - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level1-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <h1>🎯 Frontend Mastery Hub</h1>
+                </a>
+                <p>Level 1: HTML & CSS Fundamentals</p>
+            </div>
+            <nav class="nav">
+                <a href="../../index.html" class="nav-link">← Back to Hub</a>
+                <a href="#exercises" class="nav-link">Exercises</a>
+                <a href="#resources" class="nav-link">Resources</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="level-hero">
+            <div class="container">
+                <div class="level-info">
+                    <div class="level-badge">Level 1</div>
+                    <h1>HTML & CSS Fundamentals</h1>
+                    <p>Master the building blocks of web development. Learn to structure content with HTML and style it beautifully with CSS.</p>
+                    <div class="level-stats">
+                        <div class="stat">
+                            <span class="stat-number">10</span>
+                            <span class="stat-label">Exercises</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2-3</span>
+                            <span class="stat-label">Hours</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">Beginner</span>
+                            <span class="stat-label">Level</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="level-progress">
+                    <h3>Your Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="level-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="progress-text" id="progress-text">0% Complete</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="exercises" class="exercises-section">
+            <div class="container">
+                <h2>Interactive Exercises</h2>
+                <p>Complete each exercise to unlock the next one and earn badges!</p>
+                
+                <div class="exercises-grid">
+                    <!-- Exercise 1: Basic HTML Structure -->
+                    <div class="exercise-card" data-exercise="1">
+                        <div class="exercise-header">
+                            <div class="exercise-number">1</div>
+                            <h3>Basic HTML Structure</h3>
+                            <div class="exercise-status in-progress">Ready</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Create a basic HTML document with proper structure including DOCTYPE, html, head, and body tags.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Web Page</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+    <p>This is my first web page.</p>
+</body>
+</html></textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <iframe id="preview-1"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Start with <code>&lt;!DOCTYPE html&gt;</code></li>
+                                    <li>Include <code>&lt;html lang="en"&gt;</code></li>
+                                    <li>Add <code>&lt;head&gt;</code> with meta tags and title</li>
+                                    <li>Create <code>&lt;body&gt;</code> with content</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(1)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 2: HTML Elements -->
+                    <div class="exercise-card locked" data-exercise="2">
+                        <div class="exercise-header">
+                            <div class="exercise-number">2</div>
+                            <h3>HTML Elements</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Use different HTML elements to structure content: headings, paragraphs, lists, and links.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Elements Practice</title>
+</head>
+<body>
+    <!-- Add your content here -->
+</body>
+</html></textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <iframe id="preview-2"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> for headings</li>
+                                    <li>Use <code>&lt;p&gt;</code> for paragraphs</li>
+                                    <li>Use <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> for lists</li>
+                                    <li>Use <code>&lt;a href="..."&gt;</code> for links</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(2)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 3: CSS Basics -->
+                    <div class="exercise-card locked" data-exercise="3">
+                        <div class="exercise-header">
+                            <div class="exercise-number">3</div>
+                            <h3>CSS Basics</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Add CSS styling to your HTML using internal stylesheets and basic selectors.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="css">CSS</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Basics</title>
+    <style>
+        /* Add your CSS here */
+    </style>
+</head>
+<body>
+    <h1>Styled Heading</h1>
+    <p>This is a styled paragraph.</p>
+</body>
+</html></textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <iframe id="preview-3"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>&lt;style&gt;</code> tag in the head</li>
+                                    <li>Target elements with selectors like <code>h1</code>, <code>p</code></li>
+                                    <li>Try properties like <code>color</code>, <code>font-size</code>, <code>background-color</code></li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(3)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 4: CSS Selectors -->
+                    <div class="exercise-card locked" data-exercise="4">
+                        <div class="exercise-header">
+                            <div class="exercise-number">4</div>
+                            <h3>CSS Selectors</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Learn different CSS selectors: element, class, ID, and descendant selectors.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="css">CSS</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Selectors</title>
+    <style>
+        /* Add your CSS selectors here */
+    </style>
+</head>
+<body>
+    <h1 id="main-title">Main Title</h1>
+    <p class="intro">This is an introduction paragraph.</p>
+    <div class="content">
+        <p>This is content inside a div.</p>
+        <span class="highlight">Highlighted text</span>
+    </div>
+</body>
+</html></textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <iframe id="preview-4"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>#main-title</code> to target ID</li>
+                                    <li>Use <code>.intro</code> to target class</li>
+                                    <li>Use <code>.content p</code> for descendant selector</li>
+                                    <li>Use <code>span.highlight</code> for element with class</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(4)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 5: CSS Box Model -->
+                    <div class="exercise-card locked" data-exercise="5">
+                        <div class="exercise-header">
+                            <div class="exercise-number">5</div>
+                            <h3>CSS Box Model</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Understand and apply the CSS box model: margin, border, padding, and content.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="css">CSS</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Box Model</title>
+    <style>
+        /* Add your box model CSS here */
+    </style>
+</head>
+<body>
+    <div class="box">This is a box</div>
+    <div class="box">Another box</div>
+</body>
+</html></textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <iframe id="preview-5"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>margin</code> for space outside the element</li>
+                                    <li>Use <code>padding</code> for space inside the element</li>
+                                    <li>Use <code>border</code> for the border around content</li>
+                                    <li>Try <code>width</code> and <code>height</code> for content size</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(5)">Check Answer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources" class="resources-section">
+            <div class="container">
+                <h2>Learning Resources</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <h3>📚 HTML Documentation</h3>
+                        <p>Comprehensive guide to HTML elements and attributes</p>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" class="resource-link">Visit MDN</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>🎨 CSS Documentation</h3>
+                        <p>Complete reference for CSS properties and selectors</p>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" class="resource-link">Visit MDN</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>💡 CSS Tricks</h3>
+                        <p>Tips, tricks, and techniques for CSS</p>
+                        <a href="https://css-tricks.com/" target="_blank" class="resource-link">Visit CSS-Tricks</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>🎯 Flexbox Guide</h3>
+                        <p>Complete guide to CSS Flexbox layout</p>
+                        <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" class="resource-link">Learn Flexbox</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Frontend Mastery Hub. Keep coding! 🚀</p>
+        </div>
+    </footer>
+
+    <script src="level1-script.js"></script>
+</body>
+</html>

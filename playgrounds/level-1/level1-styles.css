@@ -1,0 +1,457 @@
+/* Level 1 Specific Styles */
+
+/* Level Hero Section */
+.level-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 2rem;
+    margin-bottom: 2rem;
+}
+
+.level-hero .container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.level-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.level-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.level-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.level-stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.level-stats .stat {
+    text-align: center;
+}
+
+.level-stats .stat-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.level-stats .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.level-progress {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.level-progress h3 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Exercises Section */
+.exercises-section {
+    padding: 4rem 2rem;
+    background: #f8fafc;
+}
+
+.exercises-grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.exercise-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.exercise-card.locked {
+    opacity: 0.6;
+    background: #f7fafc;
+}
+
+.exercise-card.completed {
+    border-left: 5px solid #48bb78;
+}
+
+.exercise-header {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.exercise-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-right: 1rem;
+}
+
+.exercise-header h3 {
+    flex: 1;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.exercise-status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.exercise-status.locked {
+    background: #fed7d7;
+    color: #c53030;
+}
+
+.exercise-status.completed {
+    background: #c6f6d5;
+    color: #2f855a;
+}
+
+.exercise-status.in-progress {
+    background: #bee3f8;
+    color: #2b6cb0;
+}
+
+.exercise-content {
+    padding: 2rem;
+}
+
+.exercise-content p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Exercise Editor */
+.exercise-editor {
+    background: #1a202c;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.editor-tabs {
+    display: flex;
+    background: #2d3748;
+    border-bottom: 1px solid #4a5568;
+}
+
+.tab {
+    background: none;
+    border: none;
+    color: #a0aec0;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tab.active {
+    background: #1a202c;
+    color: white;
+}
+
+.tab:hover:not(.active) {
+    color: white;
+    background: #4a5568;
+}
+
+.editor-content {
+    position: relative;
+}
+
+.code-editor {
+    width: 100%;
+    height: 300px;
+    background: #1a202c;
+    color: #e2e8f0;
+    border: none;
+    padding: 1rem;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+}
+
+.code-editor::placeholder {
+    color: #718096;
+}
+
+.preview-frame {
+    height: 300px;
+    background: white;
+}
+
+.preview-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Exercise Hints */
+.exercise-hints {
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.exercise-hints h4 {
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.exercise-hints ul {
+    list-style: none;
+    padding: 0;
+}
+
+.exercise-hints li {
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.exercise-hints li::before {
+    content: '•';
+    color: #667eea;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.exercise-hints code {
+    background: #e2e8f0;
+    color: #2d3748;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 0.85rem;
+}
+
+/* Check Button */
+.check-button {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.check-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.check-button:disabled {
+    background: #cbd5e0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Resources Section */
+.resources-section {
+    padding: 4rem 2rem;
+    background: white;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.resource-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.resource-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #2d3748;
+}
+
+.resource-card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.resource-link {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+}
+
+.resource-link:hover {
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .level-hero .container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .level-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .level-stats {
+        justify-content: center;
+    }
+    
+    .exercise-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .exercise-header h3 {
+        margin: 0;
+    }
+    
+    .editor-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab {
+        flex: 1;
+        min-width: 80px;
+    }
+    
+    .code-editor {
+        height: 250px;
+    }
+    
+    .preview-frame {
+        height: 250px;
+    }
+}
+
+/* Animation for exercise unlocking */
+@keyframes unlockExercise {
+    0% {
+        opacity: 0.6;
+        transform: scale(0.95);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.exercise-card.unlocking {
+    animation: unlockExercise 0.6s ease forwards;
+}
+
+/* Success animation */
+@keyframes successPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(72, 187, 120, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(72, 187, 120, 0);
+    }
+}
+
+.exercise-card.success {
+    animation: successPulse 0.6s ease;
+}
