@@ -1,0 +1,642 @@
+/* Level 3: React Fundamentals - Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #2d3748;
+    background: linear-gradient(135deg, #61dafb 0%, #21a0c4 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Header */
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #61dafb;
+    margin-bottom: 0.25rem;
+}
+
+.logo p {
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+.nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #4a5568;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #61dafb;
+}
+
+/* Level Hero */
+.level-hero {
+    padding: 4rem 0;
+    color: white;
+    text-align: center;
+}
+
+.level-info {
+    margin-bottom: 2rem;
+}
+
+.level-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.level-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.level-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.level-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffd700;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.level-progress {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.level-progress h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.progress-bar {
+    background: rgba(255, 255, 255, 0.2);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #61dafb, #21a0c4);
+    height: 100%;
+    transition: width 0.3s ease;
+    border-radius: 4px;
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Exercises Section */
+.exercises-section {
+    padding: 4rem 0;
+    background: white;
+}
+
+.exercises-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.exercises-section > .container > p {
+    text-align: center;
+    color: #718096;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+.exercises-grid {
+    display: grid;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.exercise-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.exercise-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.exercise-card.locked {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.exercise-card.completed {
+    border-color: #61dafb;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+}
+
+.exercise-header {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    background: #f7fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.exercise-number {
+    background: #61dafb;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-right: 1rem;
+}
+
+.exercise-header h3 {
+    flex: 1;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.exercise-status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.exercise-status.in-progress {
+    background: #bee3f8;
+    color: #2b6cb0;
+}
+
+.exercise-status.completed {
+    background: #c6f6d5;
+    color: #2f855a;
+}
+
+.exercise-status.locked {
+    background: #e2e8f0;
+    color: #718096;
+}
+
+.exercise-content {
+    padding: 1.5rem;
+}
+
+.exercise-content p {
+    color: #4a5568;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Exercise Editor */
+.exercise-editor {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.editor-tabs {
+    display: flex;
+    background: #f7fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: #718096;
+    transition: all 0.3s ease;
+}
+
+.tab.active {
+    background: white;
+    color: #61dafb;
+    border-bottom: 2px solid #61dafb;
+}
+
+.tab:hover:not(.active) {
+    background: #edf2f7;
+    color: #4a5568;
+}
+
+.editor-content {
+    position: relative;
+}
+
+.code-editor {
+    width: 100%;
+    min-height: 300px;
+    padding: 1rem;
+    border: none;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    resize: vertical;
+    background: #f8f9fa;
+}
+
+.code-editor:focus {
+    outline: none;
+    background: white;
+}
+
+.preview-frame {
+    width: 100%;
+    min-height: 300px;
+    border: none;
+    background: white;
+    padding: 1rem;
+}
+
+/* React-specific preview styling */
+#preview-root-1, #preview-root-2, #preview-root-3, #preview-root-4, #preview-root-5 {
+    min-height: 200px;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+}
+
+/* Exercise Hints */
+.exercise-hints {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.exercise-hints h4 {
+    color: #0369a1;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.exercise-hints ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.exercise-hints li {
+    color: #0c4a6e;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.exercise-hints code {
+    background: #e0f2fe;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.8rem;
+}
+
+/* Check Button */
+.check-button {
+    background: #61dafb;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.check-button:hover {
+    background: #21a0c4;
+    transform: translateY(-1px);
+}
+
+.check-button:disabled {
+    background: #e2e8f0;
+    color: #a0aec0;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Exercise Feedback */
+.exercise-feedback {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.exercise-feedback.success {
+    background: #c6f6d5;
+    color: #2f855a;
+    border: 1px solid #9ae6b4;
+}
+
+.exercise-feedback.error {
+    background: #fed7d7;
+    color: #c53030;
+    border: 1px solid #feb2b2;
+}
+
+.feedback-icon {
+    font-size: 1.2rem;
+}
+
+/* Resources Section */
+.resources-section {
+    padding: 4rem 0;
+    background: #f7fafc;
+}
+
+.resources-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.resource-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-2px);
+}
+
+.resource-card h3 {
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.resource-card p {
+    color: #718096;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.resource-link {
+    color: #61dafb;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.resource-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+    background: #2d3748;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.footer p {
+    opacity: 0.8;
+}
+
+/* Animations */
+@keyframes unlockPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(97, 218, 251, 0.5); }
+    100% { transform: scale(1); }
+}
+
+.exercise-card.unlocking {
+    animation: unlockPulse 1s ease-in-out;
+}
+
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.exercise-card.success {
+    animation: successPulse 0.6s ease-in-out;
+}
+
+/* React-specific animations */
+@keyframes reactSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.react-logo {
+    animation: reactSpin 20s linear infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav {
+        gap: 1rem;
+    }
+    
+    .level-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .level-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .exercise-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .exercise-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .editor-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Notification Styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    max-width: 300px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.notification-success {
+    background: #61dafb;
+}
+
+.notification-badge {
+    background: #ed8936;
+}
+
+.notification-info {
+    background: #4299e1;
+}
+
+.notification-error {
+    background: #f56565;
+}
+
+/* React component styling in preview */
+.react-component {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.react-component button {
+    background: #61dafb;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0.25rem;
+}
+
+.react-component button:hover {
+    background: #21a0c4;
+}
+
+.react-component input {
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    margin: 0.25rem;
+}
+
+.react-component ul {
+    list-style: none;
+    padding: 0;
+}
+
+.react-component li {
+    padding: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 2: JavaScript Basics - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level2-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <h1>🎯 Frontend Mastery Hub</h1>
+                </a>
+                <p>Level 2: JavaScript Basics</p>
+            </div>
+            <nav class="nav">
+                <a href="../../index.html" class="nav-link">← Back to Hub</a>
+                <a href="#exercises" class="nav-link">Exercises</a>
+                <a href="#resources" class="nav-link">Resources</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="level-hero">
+            <div class="container">
+                <div class="level-info">
+                    <div class="level-badge">Level 2</div>
+                    <h1>JavaScript Basics</h1>
+                    <p>Add interactivity to your websites with JavaScript. Learn variables, functions, DOM manipulation, and more.</p>
+                    <div class="level-stats">
+                        <div class="stat">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Exercises</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">3-4</span>
+                            <span class="stat-label">Hours</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">Beginner</span>
+                            <span class="stat-label">Level</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="level-progress">
+                    <h3>Your Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="level-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="progress-text" id="progress-text">0% Complete</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="exercises" class="exercises-section">
+            <div class="container">
+                <h2>Interactive Exercises</h2>
+                <p>Complete each exercise to unlock the next one and earn badges!</p>
+                
+                <div class="exercises-grid">
+                    <!-- Exercise 1: Variables and Data Types -->
+                    <div class="exercise-card" data-exercise="1">
+                        <div class="exercise-header">
+                            <div class="exercise-number">1</div>
+                            <h3>Variables and Data Types</h3>
+                            <div class="exercise-status in-progress">Ready</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Learn about JavaScript variables, data types, and basic operations.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="javascript">JavaScript</button>
+                                    <button class="tab" data-tab="console">Console</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="javascript" placeholder="Write your JavaScript here...">// Declare variables with different data types
+let name = "Your Name";
+let age = 25;
+let isStudent = true;
+let hobbies = ["coding", "reading", "gaming"];
+
+// Log them to console
+console.log("Name:", name);
+console.log("Age:", age);
+console.log("Is Student:", isStudent);
+console.log("Hobbies:", hobbies);</textarea>
+                                    <div class="console-output" style="display: none;">
+                                        <div class="console-header">Console Output</div>
+                                        <div class="console-content" id="console-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>let</code>, <code>const</code>, or <code>var</code> to declare variables</li>
+                                    <li>JavaScript has 7 data types: string, number, boolean, undefined, null, symbol, object</li>
+                                    <li>Use <code>console.log()</code> to output values</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(1)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 2: Functions -->
+                    <div class="exercise-card locked" data-exercise="2">
+                        <div class="exercise-header">
+                            <div class="exercise-number">2</div>
+                            <h3>Functions</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Create and use functions to organize your code and make it reusable.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="javascript">JavaScript</button>
+                                    <button class="tab" data-tab="console">Console</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="javascript" placeholder="Write your JavaScript here...">// Create a function that adds two numbers
+function addNumbers(a, b) {
+    return a + b;
+}
+
+// Create an arrow function that multiplies two numbers
+const multiply = (x, y) => x * y;
+
+// Test your functions
+console.log("Addition:", addNumbers(5, 3));
+console.log("Multiplication:", multiply(4, 6));</textarea>
+                                    <div class="console-output" style="display: none;">
+                                        <div class="console-header">Console Output</div>
+                                        <div class="console-content" id="console-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>function</code> keyword for function declarations</li>
+                                    <li>Arrow functions: <code>const func = (params) => { }</code></li>
+                                    <li>Use <code>return</code> to return values from functions</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(2)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 3: DOM Manipulation -->
+                    <div class="exercise-card locked" data-exercise="3">
+                        <div class="exercise-header">
+                            <div class="exercise-number">3</div>
+                            <h3>DOM Manipulation</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Learn to select and modify HTML elements using JavaScript.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="javascript">JavaScript</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Manipulation</title>
+</head>
+<body>
+    <h1 id="title">Hello World</h1>
+    <p class="description">This is a paragraph</p>
+    <button id="changeButton">Change Text</button>
+    <div id="output"></div>
+</body>
+</html></textarea>
+                                    <textarea class="code-editor" data-language="javascript" placeholder="Write your JavaScript here..." style="display: none;">// Select elements by ID, class, and tag
+const title = document.getElementById('title');
+const description = document.querySelector('.description');
+const button = document.getElementById('changeButton');
+const output = document.getElementById('output');
+
+// Add event listener to button
+button.addEventListener('click', function() {
+    title.textContent = 'Text Changed!';
+    description.style.color = 'blue';
+    output.innerHTML = '<p>Button was clicked!</p>';
+});</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <iframe id="preview-3"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>getElementById()</code> to select by ID</li>
+                                    <li>Use <code>querySelector()</code> for CSS selectors</li>
+                                    <li>Use <code>addEventListener()</code> for event handling</li>
+                                    <li>Modify content with <code>textContent</code> or <code>innerHTML</code></li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(3)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 4: Arrays and Loops -->
+                    <div class="exercise-card locked" data-exercise="4">
+                        <div class="exercise-header">
+                            <div class="exercise-number">4</div>
+                            <h3>Arrays and Loops</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Work with arrays and use loops to iterate through data.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="javascript">JavaScript</button>
+                                    <button class="tab" data-tab="console">Console</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="javascript" placeholder="Write your JavaScript here...">// Create an array of numbers
+let numbers = [1, 2, 3, 4, 5];
+
+// Use for loop to double each number
+for (let i = 0; i < numbers.length; i++) {
+    numbers[i] = numbers[i] * 2;
+}
+
+// Use forEach to log each number
+numbers.forEach(function(number) {
+    console.log("Number:", number);
+});
+
+// Use map to create new array with squared numbers
+let squared = numbers.map(num => num * num);
+console.log("Squared:", squared);</textarea>
+                                    <div class="console-output" style="display: none;">
+                                        <div class="console-header">Console Output</div>
+                                        <div class="console-content" id="console-4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>for</code> loop for traditional iteration</li>
+                                    <li>Use <code>forEach()</code> for array iteration</li>
+                                    <li>Use <code>map()</code> to create new arrays</li>
+                                    <li>Access array length with <code>.length</code></li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(4)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 5: Objects and Properties -->
+                    <div class="exercise-card locked" data-exercise="5">
+                        <div class="exercise-header">
+                            <div class="exercise-number">5</div>
+                            <h3>Objects and Properties</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Create and work with JavaScript objects to store and organize data.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="javascript">JavaScript</button>
+                                    <button class="tab" data-tab="console">Console</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="javascript" placeholder="Write your JavaScript here...">// Create a person object
+let person = {
+    name: "John Doe",
+    age: 30,
+    city: "New York",
+    hobbies: ["reading", "coding", "gaming"]
+};
+
+// Access object properties
+console.log("Name:", person.name);
+console.log("Age:", person.age);
+
+// Add new property
+person.email = "john@example.com";
+
+// Create a method
+person.greet = function() {
+    return `Hello, I'm ${this.name} and I'm ${this.age} years old.`;
+};
+
+console.log(person.greet());</textarea>
+                                    <div class="console-output" style="display: none;">
+                                        <div class="console-header">Console Output</div>
+                                        <div class="console-content" id="console-5"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Objects use curly braces <code>{}</code></li>
+                                    <li>Properties are key-value pairs</li>
+                                    <li>Access with dot notation: <code>object.property</code></li>
+                                    <li>Methods are functions as object properties</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(5)">Check Answer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources" class="resources-section">
+            <div class="container">
+                <h2>Learning Resources</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <h3>📚 JavaScript Documentation</h3>
+                        <p>Complete reference for JavaScript language features</p>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="resource-link">Visit MDN</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>🎯 JavaScript.info</h3>
+                        <p>Modern JavaScript tutorial with interactive examples</p>
+                        <a href="https://javascript.info/" target="_blank" class="resource-link">Visit JavaScript.info</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>💡 Eloquent JavaScript</h3>
+                        <p>Free online book about JavaScript programming</p>
+                        <a href="https://eloquentjavascript.net/" target="_blank" class="resource-link">Read Online</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>🚀 JavaScript 30</h3>
+                        <p>30 vanilla JavaScript projects in 30 days</p>
+                        <a href="https://javascript30.com/" target="_blank" class="resource-link">Start Building</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Frontend Mastery Hub. Keep coding! 🚀</p>
+        </div>
+    </footer>
+
+    <script src="level2-script.js"></script>
+</body>
+</html>

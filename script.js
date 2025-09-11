@@ -17,11 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Progress tracking system
+    // Enhanced Progress tracking system with level completion checking
     class ProgressTracker {
         constructor() {
             this.storageKey = 'frontend-mastery-progress';
             this.progress = this.loadProgress();
+            this.checkLevelCompletions();
             this.updateUI();
         }
 
@@ -29,23 +30,83 @@ document.addEventListener('DOMContentLoaded', function() {
             const saved = localStorage.getItem(this.storageKey);
             return saved ? JSON.parse(saved) : {
                 levels: {
-                    1: { completed: 0, total: 10, unlocked: true },
-                    2: { completed: 0, total: 12, unlocked: false },
-                    3: { completed: 0, total: 15, unlocked: false },
-                    4: { completed: 0, total: 18, unlocked: false },
-                    5: { completed: 0, total: 20, unlocked: false }
+                    1: { completed: 0, total: 5, unlocked: true, levelCompleted: false },
+                    2: { completed: 0, total: 12, unlocked: false, levelCompleted: false },
+                    3: { completed: 0, total: 15, unlocked: false, levelCompleted: false },
+                    4: { completed: 0, total: 18, unlocked: false, levelCompleted: false },
+                    5: { completed: 0, total: 20, unlocked: false, levelCompleted: false }
                 },
                 badges: {
                     'first-steps': false,
                     'css-artist': false,
                     'javascript-ninja': false,
                     'react-master': false
-                }
+                },
+                lastUpdated: Date.now()
             };
         }
 
         saveProgress() {
+            this.progress.lastUpdated = Date.now();
             localStorage.setItem(this.storageKey, JSON.stringify(this.progress));
+        }
+
+        // Check for completed levels by examining individual level progress
+        checkLevelCompletions() {
+            // Check Level 1 completion
+            const level1Progress = this.getLevelProgress(1);
+            if (level1Progress && level1Progress.completed >= level1Progress.total) {
+                this.progress.levels[1].levelCompleted = true;
+                this.progress.levels[1].completed = level1Progress.total;
+                this.unlockNextLevel(1);
+            }
+
+            // Check other levels if they exist
+            for (let levelNum = 2; levelNum <= 5; levelNum++) {
+                const levelProgress = this.getLevelProgress(levelNum);
+                if (levelProgress && levelProgress.completed >= levelProgress.total) {
+                    this.progress.levels[levelNum].levelCompleted = true;
+                    this.progress.levels[levelNum].completed = levelProgress.total;
+                    this.unlockNextLevel(levelNum);
+                }
+            }
+
+            this.saveProgress();
+        }
+
+        // Get progress from individual level storage
+        getLevelProgress(levelNum) {
+            const levelKey = `level${levelNum}-progress`;
+            const saved = localStorage.getItem(levelKey);
+            if (saved) {
+                const levelData = JSON.parse(saved);
+                return {
+                    completed: levelData.completed || 0,
+                    total: levelData.total || 10
+                };
+            }
+            return null;
+        }
+
+        // Sync progress from level page to main hub
+        syncLevelProgress(levelNum, exerciseNum) {
+            if (this.progress.levels[levelNum] && this.progress.levels[levelNum].unlocked) {
+                const level = this.progress.levels[levelNum];
+                if (exerciseNum <= level.total) {
+                    level.completed = Math.max(level.completed, exerciseNum);
+                    
+                    // Check if level is complete
+                    if (level.completed >= level.total) {
+                        level.levelCompleted = true;
+                        this.unlockNextLevel(levelNum);
+                        this.checkBadges(levelNum);
+                        this.showNotification(`🎉 Level ${levelNum} completed!`, 'success');
+                    }
+                    
+                    this.saveProgress();
+                    this.updateUI();
+                }
+            }
         }
 
         updateUI() {
@@ -65,7 +126,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     if (progressText) {
                         if (level.unlocked) {
-                            progressText.textContent = `${percentage}% Complete`;
+                            if (level.levelCompleted) {
+                                progressText.textContent = 'Completed! 🎉';
+                                levelCard.classList.add('completed');
+                            } else {
+                                progressText.textContent = `${percentage}% Complete`;
+                            }
                         } else {
                             progressText.textContent = 'Locked';
                         }
@@ -78,6 +144,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (button) {
                             button.classList.remove('disabled');
                             button.disabled = false;
+                            
+                            if (level.levelCompleted) {
+                                button.textContent = 'Level Completed ✓';
+                                button.classList.add('completed');
+                            } else {
+                                button.textContent = levelNum === 1 ? 'Continue Level 1' : `Start Level ${levelNum}`;
+                            }
                         }
                     }
                 }
@@ -92,13 +165,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     const status = badgeCard.querySelector('.badge-status');
                     if (status) {
                         if (badgeEarned) {
-                            status.textContent = 'Earned!';
+                            status.textContent = 'Earned! 🏆';
                             status.classList.remove('locked');
                             status.classList.add('earned');
+                            badgeCard.classList.add('earned');
                         } else {
                             status.textContent = 'Locked';
                             status.classList.remove('earned');
                             status.classList.add('locked');
+                            badgeCard.classList.remove('earned');
                         }
                     }
                 }
@@ -113,8 +188,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Check if level is complete
                     if (level.completed >= level.total) {
+                        level.levelCompleted = true;
                         this.unlockNextLevel(levelNum);
                         this.checkBadges(levelNum);
+                        this.showNotification(`🎉 Level ${levelNum} completed!`, 'success');
                     }
                     
                     this.saveProgress();
@@ -128,7 +205,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const nextLevel = parseInt(currentLevel) + 1;
             if (this.progress.levels[nextLevel]) {
                 this.progress.levels[nextLevel].unlocked = true;
-                this.showNotification(`Level ${nextLevel} unlocked!`, 'success');
+                this.showNotification(`🚀 Level ${nextLevel} unlocked!`, 'success');
+                
+                // Add unlock animation
+                const nextLevelCard = document.querySelector(`.level-card:nth-child(${nextLevel})`);
+                if (nextLevelCard) {
+                    nextLevelCard.classList.add('unlocking');
+                    setTimeout(() => {
+                        nextLevelCard.classList.remove('unlocking');
+                    }, 1000);
+                }
             }
         }
 
@@ -208,6 +294,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 300);
             }, 3000);
         }
+
+        // Method to reset all progress
+        resetProgress() {
+            localStorage.removeItem(this.storageKey);
+            // Also reset individual level progress
+            for (let i = 1; i <= 5; i++) {
+                localStorage.removeItem(`level${i}-progress`);
+            }
+            this.progress = this.loadProgress();
+            this.updateUI();
+            this.showNotification('Progress reset successfully!', 'info');
+        }
+
+        // Method to get current progress summary
+        getProgressSummary() {
+            const completedLevels = Object.values(this.progress.levels).filter(level => level.levelCompleted).length;
+            const totalLevels = Object.keys(this.progress.levels).length;
+            const earnedBadges = Object.values(this.progress.badges).filter(badge => badge).length;
+            const totalBadges = Object.keys(this.progress.badges).length;
+            
+            return {
+                completedLevels,
+                totalLevels,
+                earnedBadges,
+                totalBadges,
+                overallProgress: Math.round((completedLevels / totalLevels) * 100)
+            };
+        }
     }
 
     // Initialize progress tracker
@@ -221,11 +335,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const levelCard = this.closest('.level-card');
             const levelNumber = levelCard.querySelector('.level-number').textContent;
             
-            // For demo purposes, simulate completing an exercise
+            // Navigate to the appropriate level page
             if (levelNumber === '1') {
-                const currentCompleted = progressTracker.progress.levels[1].completed;
-                if (currentCompleted < progressTracker.progress.levels[1].total) {
-                    progressTracker.completeExercise(1, currentCompleted + 1);
+                window.location.href = 'playgrounds/level-1/index.html';
+            } else if (levelNumber === '2') {
+                window.location.href = 'playgrounds/level-2/index.html';
+            } else if (levelNumber === '3') {
+                window.location.href = 'playgrounds/level-3/index.html';
+            } else {
+                // For demo purposes, simulate completing an exercise
+                const currentCompleted = progressTracker.progress.levels[levelNumber].completed;
+                if (currentCompleted < progressTracker.progress.levels[levelNumber].total) {
+                    progressTracker.completeExercise(parseInt(levelNumber), currentCompleted + 1);
                 }
             }
         });
@@ -270,6 +391,31 @@ document.addEventListener('DOMContentLoaded', function() {
             outline: 2px solid #667eea !important;
             outline-offset: 2px !important;
         }
+        
+        .level-card.completed {
+            border-color: #48bb78;
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+        }
+        
+        .level-card.unlocking {
+            animation: unlockPulse 1s ease-in-out;
+        }
+        
+        @keyframes unlockPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(72, 187, 120, 0.5); }
+            100% { transform: scale(1); }
+        }
+        
+        .badge-card.earned {
+            border-color: #ed8936;
+            background: linear-gradient(135deg, #fffaf0 0%, #fbd38d 100%);
+        }
+        
+        .level-button.completed {
+            background: #48bb78;
+            color: white;
+        }
     `;
     document.head.appendChild(style);
 
@@ -303,11 +449,23 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     window.demoResetProgress = function() {
-        localStorage.removeItem(progressTracker.storageKey);
-        progressTracker.progress = progressTracker.loadProgress();
-        progressTracker.updateUI();
+        progressTracker.resetProgress();
         console.log('Progress reset!');
     };
 
+    window.demoSyncLevelProgress = function(level, exercise) {
+        progressTracker.syncLevelProgress(level, exercise);
+    };
+
+    window.demoGetProgressSummary = function() {
+        const summary = progressTracker.getProgressSummary();
+        console.log('Progress Summary:', summary);
+        return summary;
+    };
+
+    // Make progress tracker globally available
+    window.progressTracker = progressTracker;
+
     console.log('Frontend Mastery Hub loaded! Try demoCompleteExercise(1, 1) to test progress tracking.');
+    console.log('Use demoGetProgressSummary() to see your current progress.');
 });
