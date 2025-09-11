@@ -342,6 +342,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'playgrounds/level-2/index.html';
             } else if (levelNumber === '3') {
                 window.location.href = 'playgrounds/level-3/index.html';
+            } else if (levelNumber === '4') {
+                window.location.href = 'playgrounds/level-4/index.html';
             } else {
                 // For demo purposes, simulate completing an exercise
                 const currentCompleted = progressTracker.progress.levels[levelNumber].completed;
