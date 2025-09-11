@@ -234,15 +234,27 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // JavaScript Ninja badge
-            if (levelNum == 2 && level.completed >= 10 && !this.progress.badges['javascript-ninja']) {
+            if (levelNum == 2 && level.completed >= 5 && !this.progress.badges['javascript-ninja']) {
                 this.progress.badges['javascript-ninja'] = true;
                 this.showNotification('⚡ Badge earned: JavaScript Ninja!', 'badge');
             }
             
             // React Master badge
-            if (levelNum == 3 && level.completed >= 15 && !this.progress.badges['react-master']) {
+            if (levelNum == 3 && level.completed >= 5 && !this.progress.badges['react-master']) {
                 this.progress.badges['react-master'] = true;
                 this.showNotification('🚀 Badge earned: React Master!', 'badge');
+            }
+            
+            // Advanced React Master badge
+            if (levelNum == 4 && level.completed >= 5 && !this.progress.badges['advanced-react-master']) {
+                this.progress.badges['advanced-react-master'] = true;
+                this.showNotification('🎯 Badge earned: Advanced React Master!', 'badge');
+            }
+            
+            // Full-Stack Master badge
+            if (levelNum == 5 && level.completed >= 5 && !this.progress.badges['full-stack-master']) {
+                this.progress.badges['full-stack-master'] = true;
+                this.showNotification('🌟 Badge earned: Full-Stack Master!', 'badge');
             }
         }
 
@@ -344,6 +356,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'playgrounds/level-3/index.html';
             } else if (levelNumber === '4') {
                 window.location.href = 'playgrounds/level-4/index.html';
+            } else if (levelNumber === '5') {
+                window.location.href = 'playgrounds/level-5/index.html';
             } else {
                 // For demo purposes, simulate completing an exercise
                 const currentCompleted = progressTracker.progress.levels[levelNumber].completed;
