@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 7: JavaScript DOM & Events - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level7-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <h1>🎯 Frontend Mastery Hub</h1>
+                </a>
+                <p>Level 7: JavaScript DOM & Events</p>
+            </div>
+            <nav class="nav">
+                <a href="../../index.html" class="nav-link">← Back to Hub</a>
+                <a href="#exercises" class="nav-link">Exercises</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="level-hero">
+            <div class="container">
+                <div class="level-info">
+                    <div class="level-badge">Level 7</div>
+                    <h1>JavaScript DOM & Events</h1>
+                    <p>Master DOM manipulation, event handling, and interactive web development.</p>
+                    <div class="level-stats">
+                        <div class="stat">
+                            <span class="stat-number">5</span>
+                            <span class="stat-label">Exercises</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2-3</span>
+                            <span class="stat-label">Hours</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">Intermediate</span>
+                            <span class="stat-label">Level</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exercises" class="exercises-section">
+            <div class="container">
+                <h2>DOM & Events Exercises</h2>
+                <p>Build interactive web applications with JavaScript</p>
+                
+                <div class="exercises-grid">
+                    <!-- Exercise 1: DOM Manipulation -->
+                    <div class="exercise-card" data-exercise="1">
+                        <div class="exercise-header">
+                            <div class="exercise-number">1</div>
+                            <h3>DOM Manipulation</h3>
+                            <div class="exercise-status in-progress">Ready</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Create, modify, and remove DOM elements dynamically.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="js">JavaScript</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!-- Create a dynamic todo list -->
+<div class="todo-container">
+  <h2>Dynamic Todo List</h2>
+  <div class="todo-input">
+    <input type="text" id="todoInput" placeholder="Add a new todo...">
+    <button id="addBtn">Add Todo</button>
+  </div>
+  <ul id="todoList" class="todo-list">
+    <!-- Todos will be added dynamically -->
+  </ul>
+  <div class="todo-stats">
+    <span id="totalTodos">Total: 0</span>
+    <span id="completedTodos">Completed: 0</span>
+  </div>
+</div></textarea>
+                                    <textarea class="code-editor" data-language="js" placeholder="Write your JavaScript here...">// DOM Manipulation - Dynamic Todo List
+document.addEventListener('DOMContentLoaded', function() {
+  const todoInput = document.getElementById('todoInput');
+  const addBtn = document.getElementById('addBtn');
+  const todoList = document.getElementById('todoList');
+  const totalTodos = document.getElementById('totalTodos');
+  const completedTodos = document.getElementById('completedTodos');
+  
+  let todos = [];
+  
+  // Add todo function
+  function addTodo() {
+    const text = todoInput.value.trim();
+    if (text === '') return;
+    
+    const todo = {
+      id: Date.now(),
+      text: text,
+      completed: false
+    };
+    
+    todos.push(todo);
+    renderTodos();
+    updateStats();
+    todoInput.value = '';
+  }
+  
+  // Render todos to DOM
+  function renderTodos() {
+    todoList.innerHTML = '';
+    
+    todos.forEach(todo => {
+      const li = document.createElement('li');
+      li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+      li.innerHTML = `
+        <span class="todo-text">${todo.text}</span>
+        <div class="todo-actions">
+          <button onclick="toggleTodo(${todo.id})" class="toggle-btn">
+            ${todo.completed ? 'Undo' : 'Complete'}
+          </button>
+          <button onclick="deleteTodo(${todo.id})" class="delete-btn">Delete</button>
+        </div>
+      `;
+      todoList.appendChild(li);
+    });
+  }
+  
+  // Toggle todo completion
+  function toggleTodo(id) {
+    const todo = todos.find(t => t.id === id);
+    if (todo) {
+      todo.completed = !todo.completed;
+      renderTodos();
+      updateStats();
+    }
+  }
+  
+  // Delete todo
+  function deleteTodo(id) {
+    todos = todos.filter(t => t.id !== id);
+    renderTodos();
+    updateStats();
+  }
+  
+  // Update statistics
+  function updateStats() {
+    const total = todos.length;
+    const completed = todos.filter(t => t.completed).length;
+    
+    totalTodos.textContent = `Total: ${total}`;
+    completedTodos.textContent = `Completed: ${completed}`;
+  }
+  
+  // Event listeners
+  addBtn.addEventListener('click', addTodo);
+  todoInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      addTodo();
+    }
+  });
+  
+  // Make functions global for onclick handlers
+  window.toggleTodo = toggleTodo;
+  window.deleteTodo = deleteTodo;
+});</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>document.createElement()</code> to create elements</li>
+                                    <li>Use <code>appendChild()</code> to add elements to DOM</li>
+                                    <li>Use <code>innerHTML</code> to set element content</li>
+                                    <li>Use <code>addEventListener()</code> for event handling</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(1)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 2: Event Handling -->
+                    <div class="exercise-card locked" data-exercise="2">
+                        <div class="exercise-header">
+                            <div class="exercise-number">2</div>
+                            <h3>Event Handling</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Master event handling, event delegation, and custom events.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="js">JavaScript</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!-- Interactive event playground -->
+<div class="event-playground">
+  <h2>Event Handling Playground</h2>
+  
+  <div class="event-section">
+    <h3>Mouse Events</h3>
+    <div id="mouseArea" class="interactive-area">
+      <p>Hover, click, and drag here!</p>
+      <div id="mouseInfo">Mouse Position: (0, 0)</div>
+    </div>
+  </div>
+  
+  <div class="event-section">
+    <h3>Keyboard Events</h3>
+    <input type="text" id="keyboardInput" placeholder="Type something...">
+    <div id="keyboardInfo">Last key pressed: None</div>
+  </div>
+  
+  <div class="event-section">
+    <h3>Form Events</h3>
+    <form id="eventForm">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <button type="submit">Submit</button>
+    </form>
+    <div id="formInfo">Form status: Ready</div>
+  </div>
+</div></textarea>
+                                    <textarea class="code-editor" data-language="js" placeholder="Write your JavaScript here...">// Event Handling - Interactive Playground
+document.addEventListener('DOMContentLoaded', function() {
+  const mouseArea = document.getElementById('mouseArea');
+  const mouseInfo = document.getElementById('mouseInfo');
+  const keyboardInput = document.getElementById('keyboardInput');
+  const keyboardInfo = document.getElementById('keyboardInfo');
+  const eventForm = document.getElementById('eventForm');
+  const formInfo = document.getElementById('formInfo');
+  
+  // Mouse Events
+  mouseArea.addEventListener('mouseenter', function() {
+    this.style.backgroundColor = '#e3f2fd';
+    this.style.transform = 'scale(1.02)';
+  });
+  
+  mouseArea.addEventListener('mouseleave', function() {
+    this.style.backgroundColor = '#f5f5f5';
+    this.style.transform = 'scale(1)';
+  });
+  
+  mouseArea.addEventListener('mousemove', function(e) {
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    mouseInfo.textContent = `Mouse Position: (${Math.round(x)}, ${Math.round(y)})`;
+  });
+  
+  mouseArea.addEventListener('click', function(e) {
+    this.style.border = '3px solid #2196f3';
+    setTimeout(() => {
+      this.style.border = '1px solid #ccc';
+    }, 500);
+  });
+  
+  mouseArea.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    alert('Right click detected!');
+  });
+  
+  // Keyboard Events
+  keyboardInput.addEventListener('keydown', function(e) {
+    keyboardInfo.textContent = `Last key pressed: ${e.key} (Code: ${e.code})`;
+    
+    // Special key combinations
+    if (e.ctrlKey && e.key === 'a') {
+      e.preventDefault();
+      this.select();
+    }
+  });
+  
+  keyboardInput.addEventListener('keyup', function(e) {
+    if (e.key === 'Enter') {
+      alert(`You typed: ${this.value}`);
+    }
+  });
+  
+  keyboardInput.addEventListener('input', function(e) {
+    const charCount = this.value.length;
+    keyboardInfo.textContent += ` | Characters: ${charCount}`;
+  });
+  
+  // Form Events
+  eventForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
+    
+    formInfo.textContent = `Form submitted with: ${JSON.stringify(data)}`;
+    formInfo.style.color = '#4caf50';
+    
+    // Reset form after 2 seconds
+    setTimeout(() => {
+      this.reset();
+      formInfo.textContent = 'Form status: Ready';
+      formInfo.style.color = '#666';
+    }, 2000);
+  });
+  
+  // Input validation
+  const inputs = eventForm.querySelectorAll('input');
+  inputs.forEach(input => {
+    input.addEventListener('blur', function() {
+      if (this.checkValidity()) {
+        this.style.borderColor = '#4caf50';
+      } else {
+        this.style.borderColor = '#f44336';
+      }
+    });
+  });
+  
+  // Custom Event
+  const customEvent = new CustomEvent('playgroundReady', {
+    detail: { message: 'Event playground is ready!' }
+  });
+  
+  document.dispatchEvent(customEvent);
+  
+  document.addEventListener('playgroundReady', function(e) {
+    console.log('Custom event received:', e.detail.message);
+  });
+});</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>addEventListener()</code> for event handling</li>
+                                    <li>Use <code>preventDefault()</code> to stop default behavior</li>
+                                    <li>Use <code>stopPropagation()</code> to prevent event bubbling</li>
+                                    <li>Use <code>CustomEvent</code> for custom events</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(2)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 3: Event Delegation -->
+                    <div class="exercise-card locked" data-exercise="3">
+                        <div class="exercise-header">
+                            <div class="exercise-number">3</div>
+                            <h3>Event Delegation</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Implement efficient event delegation for dynamic content.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="js">JavaScript</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!-- Dynamic list with event delegation -->
+<div class="delegation-demo">
+  <h2>Event Delegation Demo</h2>
+  <div class="controls">
+    <button id="addItem">Add Item</button>
+    <button id="addMany">Add 5 Items</button>
+    <button id="clearAll">Clear All</button>
+  </div>
+  
+  <ul id="dynamicList" class="dynamic-list">
+    <li class="list-item" data-id="1">
+      <span class="item-text">Item 1</span>
+      <button class="edit-btn" data-action="edit">Edit</button>
+      <button class="delete-btn" data-action="delete">Delete</button>
+    </li>
+  </ul>
+  
+  <div class="event-log">
+    <h3>Event Log</h3>
+    <div id="logOutput"></div>
+  </div>
+</div></textarea>
+                                    <textarea class="code-editor" data-language="js" placeholder="Write your JavaScript here...">// Event Delegation - Dynamic List Management
+document.addEventListener('DOMContentLoaded', function() {
+  const dynamicList = document.getElementById('dynamicList');
+  const addItemBtn = document.getElementById('addItem');
+  const addManyBtn = document.getElementById('addMany');
+  const clearAllBtn = document.getElementById('clearAll');
+  const logOutput = document.getElementById('logOutput');
+  
+  let itemCounter = 1;
+  
+  // Event delegation - single listener on parent
+  dynamicList.addEventListener('click', function(e) {
+    const target = e.target;
+    const listItem = target.closest('.list-item');
+    
+    if (!listItem) return;
+    
+    const action = target.dataset.action;
+    const itemId = listItem.dataset.id;
+    
+    logEvent(`Clicked ${action} button on item ${itemId}`);
+    
+    if (action === 'edit') {
+      editItem(listItem);
+    } else if (action === 'delete') {
+      deleteItem(listItem);
+    }
+  });
+  
+  // Event delegation for hover effects
+  dynamicList.addEventListener('mouseover', function(e) {
+    const listItem = e.target.closest('.list-item');
+    if (listItem) {
+      listItem.style.backgroundColor = '#e3f2fd';
+      logEvent(`Hovered over item ${listItem.dataset.id}`);
+    }
+  });
+  
+  dynamicList.addEventListener('mouseout', function(e) {
+    const listItem = e.target.closest('.list-item');
+    if (listItem) {
+      listItem.style.backgroundColor = '';
+    }
+  });
+  
+  // Add single item
+  addItemBtn.addEventListener('click', function() {
+    itemCounter++;
+    const newItem = createListItem(itemCounter);
+    dynamicList.appendChild(newItem);
+    logEvent(`Added item ${itemCounter}`);
+  });
+  
+  // Add multiple items
+  addManyBtn.addEventListener('click', function() {
+    for (let i = 0; i < 5; i++) {
+      itemCounter++;
+      const newItem = createListItem(itemCounter);
+      dynamicList.appendChild(newItem);
+    }
+    logEvent(`Added 5 items (${itemCounter - 4} to ${itemCounter})`);
+  });
+  
+  // Clear all items
+  clearAllBtn.addEventListener('click', function() {
+    dynamicList.innerHTML = '';
+    itemCounter = 0;
+    logEvent('Cleared all items');
+  });
+  
+  // Create list item element
+  function createListItem(id) {
+    const li = document.createElement('li');
+    li.className = 'list-item';
+    li.dataset.id = id;
+    li.innerHTML = `
+      <span class="item-text">Item ${id}</span>
+      <button class="edit-btn" data-action="edit">Edit</button>
+      <button class="delete-btn" data-action="delete">Delete</button>
+    `;
+    return li;
+  }
+  
+  // Edit item
+  function editItem(listItem) {
+    const textSpan = listItem.querySelector('.item-text');
+    const currentText = textSpan.textContent;
+    const newText = prompt('Enter new text:', currentText);
+    
+    if (newText && newText !== currentText) {
+      textSpan.textContent = newText;
+      logEvent(`Edited item ${listItem.dataset.id}: "${currentText}" → "${newText}"`);
+    }
+  }
+  
+  // Delete item
+  function deleteItem(listItem) {
+    const itemId = listItem.dataset.id;
+    listItem.remove();
+    logEvent(`Deleted item ${itemId}`);
+  }
+  
+  // Log events
+  function logEvent(message) {
+    const timestamp = new Date().toLocaleTimeString();
+    const logEntry = document.createElement('div');
+    logEntry.className = 'log-entry';
+    logEntry.textContent = `[${timestamp}] ${message}`;
+    logOutput.appendChild(logEntry);
+    logOutput.scrollTop = logOutput.scrollHeight;
+  }
+  
+  // Initial log
+  logEvent('Event delegation demo initialized');
+});</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>e.target</code> to get the clicked element</li>
+                                    <li>Use <code>closest()</code> to find parent elements</li>
+                                    <li>Use <code>dataset</code> to access data attributes</li>
+                                    <li>Attach listeners to parent containers, not individual elements</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(3)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 4: Form Handling -->
+                    <div class="exercise-card locked" data-exercise="4">
+                        <div class="exercise-header">
+                            <div class="exercise-number">4</div>
+                            <h3>Form Handling</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Handle form submission, validation, and data processing.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="js">JavaScript</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!-- Advanced form handling -->
+<div class="form-container">
+  <h2>User Registration Form</h2>
+  <form id="registrationForm" novalidate>
+    <div class="form-group">
+      <label for="firstName">First Name *</label>
+      <input type="text" id="firstName" name="firstName" required>
+      <span class="error-message"></span>
+    </div>
+    
+    <div class="form-group">
+      <label for="lastName">Last Name *</label>
+      <input type="text" id="lastName" name="lastName" required>
+      <span class="error-message"></span>
+    </div>
+    
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" required>
+      <span class="error-message"></span>
+    </div>
+    
+    <div class="form-group">
+      <label for="password">Password *</label>
+      <input type="password" id="password" name="password" required minlength="8">
+      <span class="error-message"></span>
+    </div>
+    
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password *</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required>
+      <span class="error-message"></span>
+    </div>
+    
+    <div class="form-group">
+      <label for="age">Age</label>
+      <input type="number" id="age" name="age" min="13" max="120">
+      <span class="error-message"></span>
+    </div>
+    
+    <div class="form-group">
+      <label for="country">Country</label>
+      <select id="country" name="country">
+        <option value="">Select Country</option>
+        <option value="us">United States</option>
+        <option value="ca">Canada</option>
+        <option value="uk">United Kingdom</option>
+        <option value="au">Australia</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label>
+        <input type="checkbox" id="terms" name="terms" required>
+        I agree to the terms and conditions *
+      </label>
+      <span class="error-message"></span>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit">Register</button>
+      <button type="reset">Reset</button>
+    </div>
+  </form>
+  
+  <div id="formResult" class="form-result"></div>
+</div></textarea>
+                                    <textarea class="code-editor" data-language="js" placeholder="Write your JavaScript here...">// Form Handling - Registration Form
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('registrationForm');
+  const formResult = document.getElementById('formResult');
+  
+  // Form validation rules
+  const validationRules = {
+    firstName: {
+      required: true,
+      minLength: 2,
+      pattern: /^[a-zA-Z\s]+$/,
+      message: 'First name must be at least 2 characters and contain only letters'
+    },
+    lastName: {
+      required: true,
+      minLength: 2,
+      pattern: /^[a-zA-Z\s]+$/,
+      message: 'Last name must be at least 2 characters and contain only letters'
+    },
+    email: {
+      required: true,
+      pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      message: 'Please enter a valid email address'
+    },
+    password: {
+      required: true,
+      minLength: 8,
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      message: 'Password must be at least 8 characters with uppercase, lowercase, and number'
+    },
+    confirmPassword: {
+      required: true,
+      validate: function(value, formData) {
+        return value === formData.password;
+      },
+      message: 'Passwords do not match'
+    },
+    age: {
+      min: 13,
+      max: 120,
+      message: 'Age must be between 13 and 120'
+    },
+    terms: {
+      required: true,
+      message: 'You must agree to the terms and conditions'
+    }
+  };
+  
+  // Validate single field
+  function validateField(fieldName, value, formData = {}) {
+    const rules = validationRules[fieldName];
+    if (!rules) return { isValid: true };
+    
+    const field = document.querySelector(`[name="${fieldName}"]`);
+    const errorElement = field.parentNode.querySelector('.error-message');
+    
+    // Required validation
+    if (rules.required && (!value || value.trim() === '')) {
+      showError(field, errorElement, 'This field is required');
+      return { isValid: false };
+    }
+    
+    // Skip other validations if field is empty and not required
+    if (!value || value.trim() === '') {
+      clearError(field, errorElement);
+      return { isValid: true };
+    }
+    
+    // Min length validation
+    if (rules.minLength && value.length < rules.minLength) {
+      showError(field, errorElement, rules.message);
+      return { isValid: false };
+    }
+    
+    // Pattern validation
+    if (rules.pattern && !rules.pattern.test(value)) {
+      showError(field, errorElement, rules.message);
+      return { isValid: false };
+    }
+    
+    // Custom validation
+    if (rules.validate && !rules.validate(value, formData)) {
+      showError(field, errorElement, rules.message);
+      return { isValid: false };
+    }
+    
+    // Min/Max validation for numbers
+    if (rules.min !== undefined && parseInt(value) < rules.min) {
+      showError(field, errorElement, rules.message);
+      return { isValid: false };
+    }
+    
+    if (rules.max !== undefined && parseInt(value) > rules.max) {
+      showError(field, errorElement, rules.message);
+      return { isValid: false };
+    }
+    
+    clearError(field, errorElement);
+    return { isValid: true };
+  }
+  
+  // Show error message
+  function showError(field, errorElement, message) {
+    field.classList.add('error');
+    errorElement.textContent = message;
+  }
+  
+  // Clear error message
+  function clearError(field, errorElement) {
+    field.classList.remove('error');
+    errorElement.textContent = '';
+  }
+  
+  // Validate entire form
+  function validateForm(formData) {
+    let isValid = true;
+    
+    Object.keys(validationRules).forEach(fieldName => {
+      const fieldValue = formData[fieldName] || '';
+      const result = validateField(fieldName, fieldValue, formData);
+      if (!result.isValid) {
+        isValid = false;
+      }
+    });
+    
+    return isValid;
+  }
+  
+  // Real-time validation
+  form.addEventListener('input', function(e) {
+    const fieldName = e.target.name;
+    const value = e.target.value;
+    const formData = new FormData(form);
+    const formDataObj = Object.fromEntries(formData);
+    
+    validateField(fieldName, value, formDataObj);
+  });
+  
+  // Form submission
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    const formDataObj = Object.fromEntries(formData);
+    
+    if (validateForm(formDataObj)) {
+      // Simulate form submission
+      formResult.innerHTML = '<div class="success">Form submitted successfully!</div>';
+      formResult.innerHTML += '<pre>' + JSON.stringify(formDataObj, null, 2) + '</pre>';
+      
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        form.reset();
+        formResult.innerHTML = '';
+        // Clear all error states
+        form.querySelectorAll('.error').forEach(field => {
+          field.classList.remove('error');
+        });
+        form.querySelectorAll('.error-message').forEach(error => {
+          error.textContent = '';
+        });
+      }, 3000);
+    } else {
+      formResult.innerHTML = '<div class="error">Please fix the errors above.</div>';
+    }
+  });
+  
+  // Form reset
+  form.addEventListener('reset', function() {
+    formResult.innerHTML = '';
+    form.querySelectorAll('.error').forEach(field => {
+      field.classList.remove('error');
+    });
+    form.querySelectorAll('.error-message').forEach(error => {
+      error.textContent = '';
+    });
+  });
+});</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>FormData</code> to collect form data</li>
+                                    <li>Use <code>preventDefault()</code> to stop form submission</li>
+                                    <li>Implement real-time validation with <code>input</code> events</li>
+                                    <li>Use <code>checkValidity()</code> for built-in validation</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(4)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 5: Local Storage -->
+                    <div class="exercise-card locked" data-exercise="5">
+                        <div class="exercise-header">
+                            <div class="exercise-number">5</div>
+                            <h3>Local Storage</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Persist data using localStorage and sessionStorage.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="js">JavaScript</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!-- Local Storage Demo -->
+<div class="storage-demo">
+  <h2>Local Storage Demo</h2>
+  
+  <div class="storage-section">
+    <h3>User Preferences</h3>
+    <div class="preference-controls">
+      <label>
+        <input type="checkbox" id="darkMode"> Dark Mode
+      </label>
+      <label>
+        <input type="checkbox" id="notifications"> Notifications
+      </label>
+      <label>
+        Language: 
+        <select id="language">
+          <option value="en">English</option>
+          <option value="es">Spanish</option>
+          <option value="fr">French</option>
+        </select>
+      </label>
+    </div>
+  </div>
+  
+  <div class="storage-section">
+    <h3>Notes App</h3>
+    <div class="notes-controls">
+      <input type="text" id="noteInput" placeholder="Enter a note...">
+      <button id="addNote">Add Note</button>
+      <button id="clearNotes">Clear All</button>
+    </div>
+    <ul id="notesList" class="notes-list"></ul>
+  </div>
+  
+  <div class="storage-section">
+    <h3>Storage Info</h3>
+    <div id="storageInfo">
+      <p>Local Storage: <span id="localStorageSize">0 KB</span></p>
+      <p>Session Storage: <span id="sessionStorageSize">0 KB</span></p>
+      <p>Total Items: <span id="totalItems">0</span></p>
+    </div>
+  </div>
+</div></textarea>
+                                    <textarea class="code-editor" data-language="js" placeholder="Write your JavaScript here...">// Local Storage - Data Persistence Demo
+document.addEventListener('DOMContentLoaded', function() {
+  const darkModeToggle = document.getElementById('darkMode');
+  const notificationsToggle = document.getElementById('notifications');
+  const languageSelect = document.getElementById('language');
+  const noteInput = document.getElementById('noteInput');
+  const addNoteBtn = document.getElementById('addNote');
+  const clearNotesBtn = document.getElementById('clearNotes');
+  const notesList = document.getElementById('notesList');
+  const localStorageSize = document.getElementById('localStorageSize');
+  const sessionStorageSize = document.getElementById('sessionStorageSize');
+  const totalItems = document.getElementById('totalItems');
+  
+  // Storage keys
+  const STORAGE_KEYS = {
+    PREFERENCES: 'userPreferences',
+    NOTES: 'userNotes',
+    SESSION_DATA: 'sessionData'
+  };
+  
+  // Initialize app
+  function init() {
+    loadPreferences();
+    loadNotes();
+    updateStorageInfo();
+    
+    // Store session data
+    const sessionData = {
+      lastVisit: new Date().toISOString(),
+      visitCount: getSessionVisitCount() + 1
+    };
+    sessionStorage.setItem(STORAGE_KEYS.SESSION_DATA, JSON.stringify(sessionData));
+  }
+  
+  // Load user preferences
+  function loadPreferences() {
+    const preferences = getFromStorage(STORAGE_KEYS.PREFERENCES, {
+      darkMode: false,
+      notifications: true,
+      language: 'en'
+    });
+    
+    darkModeToggle.checked = preferences.darkMode;
+    notificationsToggle.checked = preferences.notifications;
+    languageSelect.value = preferences.language;
+    
+    applyPreferences(preferences);
+  }
+  
+  // Save user preferences
+  function savePreferences() {
+    const preferences = {
+      darkMode: darkModeToggle.checked,
+      notifications: notificationsToggle.checked,
+      language: languageSelect.value
+    };
+    
+    saveToStorage(STORAGE_KEYS.PREFERENCES, preferences);
+    applyPreferences(preferences);
+    updateStorageInfo();
+  }
+  
+  // Apply preferences to UI
+  function applyPreferences(preferences) {
+    document.body.classList.toggle('dark-mode', preferences.darkMode);
+    
+    if (preferences.notifications) {
+      showNotification('Preferences updated!');
+    }
+  }
+  
+  // Load notes
+  function loadNotes() {
+    const notes = getFromStorage(STORAGE_KEYS.NOTES, []);
+    renderNotes(notes);
+  }
+  
+  // Save notes
+  function saveNotes(notes) {
+    saveToStorage(STORAGE_KEYS.NOTES, notes);
+    updateStorageInfo();
+  }
+  
+  // Render notes list
+  function renderNotes(notes) {
+    notesList.innerHTML = '';
+    
+    if (notes.length === 0) {
+      notesList.innerHTML = '<li class="no-notes">No notes yet. Add one above!</li>';
+      return;
+    }
+    
+    notes.forEach((note, index) => {
+      const li = document.createElement('li');
+      li.className = 'note-item';
+      li.innerHTML = `
+        <span class="note-text">${note.text}</span>
+        <span class="note-date">${new Date(note.timestamp).toLocaleString()}</span>
+        <button class="delete-note" data-index="${index}">Delete</button>
+      `;
+      notesList.appendChild(li);
+    });
+  }
+  
+  // Add note
+  function addNote() {
+    const text = noteInput.value.trim();
+    if (text === '') return;
+    
+    const notes = getFromStorage(STORAGE_KEYS.NOTES, []);
+    const newNote = {
+      text: text,
+      timestamp: new Date().toISOString()
+    };
+    
+    notes.unshift(newNote); // Add to beginning
+    saveNotes(notes);
+    renderNotes(notes);
+    noteInput.value = '';
+  }
+  
+  // Delete note
+  function deleteNote(index) {
+    const notes = getFromStorage(STORAGE_KEYS.NOTES, []);
+    notes.splice(index, 1);
+    saveNotes(notes);
+    renderNotes(notes);
+  }
+  
+  // Clear all notes
+  function clearAllNotes() {
+    if (confirm('Are you sure you want to clear all notes?')) {
+      localStorage.removeItem(STORAGE_KEYS.NOTES);
+      renderNotes([]);
+      updateStorageInfo();
+    }
+  }
+  
+  // Get session visit count
+  function getSessionVisitCount() {
+    const sessionData = sessionStorage.getItem(STORAGE_KEYS.SESSION_DATA);
+    return sessionData ? JSON.parse(sessionData).visitCount : 0;
+  }
+  
+  // Generic storage functions
+  function getFromStorage(key, defaultValue) {
+    try {
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item) : defaultValue;
+    } catch (error) {
+      console.error('Error reading from storage:', error);
+      return defaultValue;
+    }
+  }
+  
+  function saveToStorage(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error('Error saving to storage:', error);
+      showNotification('Storage error: ' + error.message, 'error');
+    }
+  }
+  
+  // Update storage information
+  function updateStorageInfo() {
+    const localSize = getStorageSize(localStorage);
+    const sessionSize = getStorageSize(sessionStorage);
+    const totalLocalItems = localStorage.length;
+    
+    localStorageSize.textContent = formatBytes(localSize);
+    sessionStorageSize.textContent = formatBytes(sessionSize);
+    totalItems.textContent = totalLocalItems;
+  }
+  
+  // Calculate storage size
+  function getStorageSize(storage) {
+    let total = 0;
+    for (let key in storage) {
+      if (storage.hasOwnProperty(key)) {
+        total += storage[key].length + key.length;
+      }
+    }
+    return total;
+  }
+  
+  // Format bytes
+  function formatBytes(bytes) {
+    if (bytes === 0) return '0 B';
+    const k = 1024;
+    const sizes = ['B', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+  
+  // Show notification
+  function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  }
+  
+  // Event listeners
+  darkModeToggle.addEventListener('change', savePreferences);
+  notificationsToggle.addEventListener('change', savePreferences);
+  languageSelect.addEventListener('change', savePreferences);
+  
+  addNoteBtn.addEventListener('click', addNote);
+  noteInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      addNote();
+    }
+  });
+  
+  clearNotesBtn.addEventListener('click', clearAllNotes);
+  
+  // Event delegation for delete buttons
+  notesList.addEventListener('click', function(e) {
+    if (e.target.classList.contains('delete-note')) {
+      const index = parseInt(e.target.dataset.index);
+      deleteNote(index);
+    }
+  });
+  
+  // Initialize the app
+  init();
+});</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-5"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>localStorage.setItem()</code> and <code>getItem()</code></li>
+                                    <li>Use <code>JSON.stringify()</code> and <code>JSON.parse()</code> for objects</li>
+                                    <li>Use <code>sessionStorage</code> for temporary data</li>
+                                    <li>Handle storage errors with try-catch blocks</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(5)">Check Answer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Frontend Mastery Hub. Keep coding! 🚀</p>
+        </div>
+    </footer>
+
+    <script src="level7-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 6: Advanced HTML & CSS - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level6-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="../../index.html" style="text-decoration: none; color: inherit;">
+                    <h1>🎯 Frontend Mastery Hub</h1>
+                </a>
+                <p>Level 6: Advanced HTML & CSS</p>
+            </div>
+            <nav class="nav">
+                <a href="../../index.html" class="nav-link">← Back to Hub</a>
+                <a href="#exercises" class="nav-link">Exercises</a>
+                <a href="#resources" class="nav-link">Resources</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="level-hero">
+            <div class="container">
+                <div class="level-info">
+                    <div class="level-badge">Level 6</div>
+                    <h1>Advanced HTML & CSS</h1>
+                    <p>Master semantic HTML, CSS Grid, Flexbox, and modern layout techniques.</p>
+                    <div class="level-stats">
+                        <div class="stat">
+                            <span class="stat-number">5</span>
+                            <span class="stat-label">Exercises</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2-3</span>
+                            <span class="stat-label">Hours</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">Intermediate</span>
+                            <span class="stat-label">Level</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="level-progress">
+                    <h3>Your Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="level-progress" style="width: 0%"></div>
+                    </div>
+                    <span class="progress-text" id="progress-text">0% Complete</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="exercises" class="exercises-section">
+            <div class="container">
+                <h2>Advanced HTML & CSS Exercises</h2>
+                <p>Build complex layouts with modern CSS techniques</p>
+                
+                <div class="exercises-grid">
+                    <!-- Exercise 1: CSS Grid Layout -->
+                    <div class="exercise-card" data-exercise="1">
+                        <div class="exercise-header">
+                            <div class="exercise-number">1</div>
+                            <h3>CSS Grid Layout</h3>
+                            <div class="exercise-status in-progress">Ready</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Create complex layouts using CSS Grid with named grid lines and areas.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="css">CSS</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!-- Create a magazine-style layout using CSS Grid -->
+<div class="magazine-layout">
+  <header class="header">Magazine Header</header>
+  <nav class="navigation">Navigation Menu</nav>
+  <main class="main-content">
+    <article class="featured-article">
+      <h2>Featured Article</h2>
+      <p>This is the main featured article content.</p>
+    </article>
+    <aside class="sidebar">Sidebar Content</aside>
+  </main>
+  <footer class="footer">Footer Information</footer>
+</div></textarea>
+                                    <textarea class="code-editor" data-language="css" placeholder="Write your CSS here...">/* Create a magazine-style grid layout */
+.magazine-layout {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas: 
+    "header header header"
+    "nav nav nav"
+    "sidebar main sidebar-right"
+    "footer footer footer";
+  gap: 20px;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header {
+  grid-area: header;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.navigation {
+  grid-area: nav;
+  background: #f8f9fa;
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.main-content {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.featured-article {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: #e9ecef;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.sidebar-right {
+  grid-area: sidebar-right;
+  background: #e9ecef;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.footer {
+  grid-area: footer;
+  background: #343a40;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .magazine-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "header"
+      "nav"
+      "main"
+      "sidebar"
+      "sidebar-right"
+      "footer";
+  }
+  
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+}</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>grid-template-areas</code> for named grid areas</li>
+                                    <li>Define <code>grid-template-columns</code> and <code>grid-template-rows</code></li>
+                                    <li>Use <code>gap</code> for spacing between grid items</li>
+                                    <li>Make it responsive with media queries</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(1)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 2: Flexbox Advanced -->
+                    <div class="exercise-card locked" data-exercise="2">
+                        <div class="exercise-header">
+                            <div class="exercise-number">2</div>
+                            <h3>Flexbox Advanced</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Master advanced Flexbox properties for complex layouts and alignment.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="css">CSS</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!-- Create a flexible card layout using advanced Flexbox -->
+<div class="flex-container">
+  <div class="card">
+    <div class="card-header">Card 1</div>
+    <div class="card-content">This is the main content of the first card.</div>
+    <div class="card-footer">Footer</div>
+  </div>
+  <div class="card">
+    <div class="card-header">Card 2</div>
+    <div class="card-content">This card has more content to demonstrate flex-grow and flex-shrink properties.</div>
+    <div class="card-footer">Footer</div>
+  </div>
+  <div class="card">
+    <div class="card-header">Card 3</div>
+    <div class="card-content">Short content.</div>
+    <div class="card-footer">Footer</div>
+  </div>
+</div></textarea>
+                                    <textarea class="code-editor" data-language="css" placeholder="Write your CSS here...">/* Advanced Flexbox layout */
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  min-height: 400px;
+  align-items: stretch;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 300px;
+  min-width: 250px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.card-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #f8f9fa;
+}
+
+.card-footer {
+  background: #e9ecef;
+  padding: 10px 15px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Advanced flexbox properties */
+.card:nth-child(2) {
+  flex-grow: 2;
+  flex-shrink: 0;
+}
+
+.card:nth-child(3) {
+  flex-grow: 0.5;
+  flex-shrink: 1;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .flex-container {
+    flex-direction: column;
+  }
+  
+  .card {
+    flex: 1 1 auto;
+  }
+}</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>flex-grow</code> and <code>flex-shrink</code> for flexible sizing</li>
+                                    <li>Combine <code>flex-direction: column</code> with <code>flex: 1</code></li>
+                                    <li>Use <code>align-items</code> and <code>justify-content</code> for alignment</li>
+                                    <li>Implement <code>flex-wrap</code> for responsive behavior</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(2)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 3: CSS Animations -->
+                    <div class="exercise-card locked" data-exercise="3">
+                        <div class="exercise-header">
+                            <div class="exercise-number">3</div>
+                            <h3>CSS Animations</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Create smooth animations and transitions using CSS keyframes and transforms.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="css">CSS</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!-- Create an animated loading spinner and interactive elements -->
+<div class="animation-container">
+  <div class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+  
+  <div class="interactive-elements">
+    <button class="animated-button">Hover Me</button>
+    <div class="bouncing-ball"></div>
+    <div class="pulse-element">Pulse Effect</div>
+  </div>
+</div></textarea>
+                                    <textarea class="code-editor" data-language="css" placeholder="Write your CSS here...">/* CSS Animations and Transitions */
+.animation-container {
+  padding: 40px;
+  text-align: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Loading Spinner Animation */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner p {
+  color: white;
+  font-weight: 600;
+  animation: fadeInOut 2s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Interactive Elements */
+.interactive-elements {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.animated-button {
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.animated-button:hover {
+  background: #f8f9fa;
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.bouncing-ball {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+
+.pulse-element {
+  background: white;
+  color: #667eea;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .interactive-elements {
+    flex-direction: column;
+    gap: 20px;
+  }
+}</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Use <code>@keyframes</code> to define animation sequences</li>
+                                    <li>Apply <code>animation</code> property with duration and timing</li>
+                                    <li>Use <code>transform</code> for smooth animations</li>
+                                    <li>Combine <code>transition</code> with <code>:hover</code> for interactions</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(3)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 4: CSS Custom Properties -->
+                    <div class="exercise-card locked" data-exercise="4">
+                        <div class="exercise-header">
+                            <div class="exercise-number">4</div>
+                            <h3>CSS Custom Properties</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Use CSS custom properties (variables) for maintainable and dynamic styling.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="css">CSS</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!-- Create a themeable component using CSS custom properties -->
+<div class="theme-container">
+  <div class="theme-controls">
+    <button onclick="setTheme('light')">Light Theme</button>
+    <button onclick="setTheme('dark')">Dark Theme</button>
+    <button onclick="setTheme('colorful')">Colorful Theme</button>
+  </div>
+  
+  <div class="themed-card">
+    <h3>Themed Card</h3>
+    <p>This card uses CSS custom properties for theming.</p>
+    <button class="themed-button">Action Button</button>
+  </div>
+  
+  <div class="themed-card">
+    <h3>Another Card</h3>
+    <p>All cards share the same theme variables.</p>
+    <button class="themed-button">Another Button</button>
+  </div>
+</div></textarea>
+                                    <textarea class="code-editor" data-language="css" placeholder="Write your CSS here...">/* CSS Custom Properties (Variables) */
+:root {
+  /* Light theme (default) */
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  --background-color: #ffffff;
+  --text-color: #2d3748;
+  --card-background: #f8f9fa;
+  --border-color: #e2e8f0;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --spacing: 20px;
+}
+
+[data-theme="dark"] {
+  --primary-color: #4c51bf;
+  --secondary-color: #9f7aea;
+  --background-color: #1a202c;
+  --text-color: #f7fafc;
+  --card-background: #2d3748;
+  --border-color: #4a5568;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="colorful"] {
+  --primary-color: #e53e3e;
+  --secondary-color: #38b2ac;
+  --background-color: #fef5e7;
+  --text-color: #2d3748;
+  --card-background: #ffffff;
+  --border-color: #fbd38d;
+  --shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  --border-radius: 12px;
+}
+
+.theme-container {
+  background: var(--background-color);
+  color: var(--text-color);
+  min-height: 400px;
+  padding: var(--spacing);
+  transition: all 0.3s ease;
+}
+
+.theme-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: var(--spacing);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.theme-controls button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-controls button:hover {
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.themed-card {
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing);
+  margin-bottom: var(--spacing);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.themed-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.themed-card p {
+  color: var(--text-color);
+  margin-bottom: 15px;
+  opacity: 0.8;
+}
+
+.themed-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.themed-button:hover {
+  background: var(--secondary-color);
+  transform: translateY(-1px);
+}
+
+/* JavaScript for theme switching */
+<script>
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+}
+</script></textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Define variables in <code>:root</code> for global scope</li>
+                                    <li>Use <code>var(--variable-name)</code> to apply custom properties</li>
+                                    <li>Override variables with attribute selectors like <code>[data-theme="dark"]</code></li>
+                                    <li>Use <code>calc()</code> with custom properties for dynamic values</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(4)">Check Answer</button>
+                        </div>
+                    </div>
+
+                    <!-- Exercise 5: Responsive Design -->
+                    <div class="exercise-card locked" data-exercise="5">
+                        <div class="exercise-header">
+                            <div class="exercise-number">5</div>
+                            <h3>Responsive Design</h3>
+                            <div class="exercise-status locked">Locked</div>
+                        </div>
+                        <div class="exercise-content">
+                            <p>Create fully responsive layouts that work on all device sizes.</p>
+                            <div class="exercise-editor">
+                                <div class="editor-tabs">
+                                    <button class="tab active" data-tab="html">HTML</button>
+                                    <button class="tab" data-tab="css">CSS</button>
+                                    <button class="tab" data-tab="preview">Preview</button>
+                                </div>
+                                <div class="editor-content">
+                                    <textarea class="code-editor" data-language="html" placeholder="Write your HTML here..."><!-- Create a responsive website layout -->
+<header class="site-header">
+  <div class="container">
+    <div class="logo">Logo</div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="mobile-menu-toggle">☰</button>
+  </div>
+</header>
+
+<main class="main-content">
+  <section class="hero">
+    <div class="container">
+      <h1>Responsive Design</h1>
+      <p>This layout adapts to all screen sizes</p>
+    </div>
+  </section>
+  
+  <section class="features">
+    <div class="container">
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>Mobile First</h3>
+          <p>Designed for mobile devices first</p>
+        </div>
+        <div class="feature-card">
+          <h3>Flexible Grid</h3>
+          <p>Uses CSS Grid and Flexbox</p>
+        </div>
+        <div class="feature-card">
+          <h3>Responsive Images</h3>
+          <p>Images that scale with content</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; 2024 Responsive Website</p>
+  </div>
+</footer></textarea>
+                                    <textarea class="code-editor" data-language="css" placeholder="Write your CSS here...">/* Responsive Design with Mobile-First Approach */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Mobile First - Base Styles */
+.site-header {
+  background: #2d3748;
+  color: white;
+  padding: 1rem 0;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.main-nav ul {
+  display: none;
+  list-style: none;
+  gap: 2rem;
+}
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+  color: #667eea;
+}
+
+.mobile-menu-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: block;
+}
+
+.hero {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.features {
+  padding: 4rem 0;
+  background: #f7fafc;
+}
+
+.feature-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+
+.feature-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.feature-card h3 {
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.site-footer {
+  background: #1a202c;
+  color: white;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* Tablet Styles */
+@media (min-width: 768px) {
+  .main-nav ul {
+    display: flex;
+  }
+  
+  .mobile-menu-toggle {
+    display: none;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+  }
+  
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1024px) {
+  .hero h1 {
+    font-size: 4rem;
+  }
+  
+  .feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .feature-card {
+    padding: 3rem 2rem;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+  .container {
+    padding: 0 40px;
+  }
+  
+  .hero {
+    padding: 6rem 0;
+  }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .hero {
+    background-image: linear-gradient(135deg, #667eea, #764ba2);
+  }
+}</textarea>
+                                    <div class="preview-frame" style="display: none;">
+                                        <div id="preview-root-5"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="exercise-hints">
+                                <h4>💡 Hints:</h4>
+                                <ul>
+                                    <li>Start with mobile styles first (mobile-first approach)</li>
+                                    <li>Use <code>@media</code> queries for different breakpoints</li>
+                                    <li>Use relative units like <code>rem</code> and <code>%</code></li>
+                                    <li>Test on different screen sizes and devices</li>
+                                </ul>
+                            </div>
+                            <button class="check-button" onclick="checkExercise(5)">Check Answer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources" class="resources-section">
+            <div class="container">
+                <h2>Advanced HTML & CSS Resources</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <h3>📚 CSS Grid Guide</h3>
+                        <p>Complete guide to CSS Grid Layout</p>
+                        <a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank" class="resource-link">CSS Tricks Grid</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>🎯 Flexbox Guide</h3>
+                        <p>Master CSS Flexbox layout</p>
+                        <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank" class="resource-link">CSS Tricks Flexbox</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>💡 CSS Animations</h3>
+                        <p>Learn CSS animations and transitions</p>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations" target="_blank" class="resource-link">MDN Animations</a>
+                    </div>
+                    <div class="resource-card">
+                        <h3>🚀 Responsive Design</h3>
+                        <p>Best practices for responsive web design</p>
+                        <a href="https://web.dev/responsive-web-design-basics/" target="_blank" class="resource-link">Web.dev Responsive</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Frontend Mastery Hub. Keep coding! 🚀</p>
+        </div>
+    </footer>
+
+    <script src="level6-script.js"></script>
+</body>
+</html>
