@@ -1,0 +1,22 @@
+# Repository Author Configuration
+# This file defines the allowed authors for this repository
+
+# Allowed email addresses for commits in this repository
+# Only commits from these email addresses will be accepted
+
+ALLOWED_AUTHORS=(
+    "nguyenphongthien@gmail.com"
+    "thien.nguyen@check24.de"
+)
+
+# Repository owner
+REPO_OWNER="Thien Nguyen"
+REPO_OWNER_EMAIL="nguyenphongthien@gmail.com"
+
+# Instructions for contributors:
+# 1. Set your git email to one of the allowed addresses:
+#    git config user.email "nguyenphongthien@gmail.com"
+# 2. Or set it globally:
+#    git config --global user.email "nguyenphongthien@gmail.com"
+# 3. Verify your configuration:
+#    git config user.email
