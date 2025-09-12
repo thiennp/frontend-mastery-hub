@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 11: TypeScript Fundamentals - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level11-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/typescript@4.9.5/lib/typescript.js"></script>
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>Level 11: TypeScript Fundamentals</h1>
+                <p>Master TypeScript with types, interfaces, generics, and modern JavaScript with type safety</p>
+                <div class="level-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0% Complete</span>
+                </div>
+            </div>
+            <div class="level-actions">
+                <button class="btn btn-secondary" onclick="resetProgress()">Reset Progress</button>
+                <a href="../../index.html" class="btn btn-primary">Back to Hub</a>
+            </div>
+        </header>
+
+        <main class="level-content">
+            <!-- Exercise 1: Basic Types -->
+            <section class="exercise" id="exercise1">
+                <div class="exercise-header">
+                    <h2>Exercise 1: Basic Types and Type Annotations</h2>
+                    <div class="exercise-status" id="status1">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Learn TypeScript basic types including string, number, boolean, array, and object types. Practice type annotations and type inference.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>string</code>, <code>number</code>, <code>boolean</code>, <code>string[]</code>, and <code>object</code> types.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('ts1')">TypeScript</button>
+                            <button class="tab" onclick="switchTab('js1')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('preview1')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="ts1" class="code-input" placeholder="Enter your TypeScript code here...">// Basic Types Exercise
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  isActive: boolean;
+  hobbies: string[];
+}
+
+function createUser(id: number, name: string, email: string): User {
+  return {
+    id,
+    name,
+    email,
+    isActive: true,
+    hobbies: []
+  };
+}
+
+function addHobby(user: User, hobby: string): void {
+  user.hobbies.push(hobby);
+}
+
+function getUserInfo(user: User): string {
+  return `User: ${user.name} (${user.email}) - Active: ${user.isActive}`;
+}
+
+// Example usage
+const user1 = createUser(1, "John Doe", "john@example.com");
+addHobby(user1, "Programming");
+addHobby(user1, "Reading");
+
+console.log(getUserInfo(user1));
+console.log("Hobbies:", user1.hobbies);</textarea>
+                            <textarea id="js1" class="code-input" placeholder="Compiled JavaScript will appear here...">// This will be populated by the TypeScript compiler</textarea>
+                            <div id="preview1" class="preview-container">
+                                <div class="output" id="output1">
+                                    <h4>Output:</h4>
+                                    <div class="console-output"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(1)">Compile & Run</button>
+                </div>
+            </section>
+
+            <!-- Exercise 2: Interfaces and Type Aliases -->
+            <section class="exercise" id="exercise2">
+                <div class="exercise-header">
+                    <h2>Exercise 2: Interfaces and Type Aliases</h2>
+                    <div class="exercise-status" id="status2">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Create interfaces and type aliases for complex data structures. Learn about optional properties, readonly properties, and extending interfaces.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>interface</code>, <code>type</code>, <code>?</code> for optional, <code>readonly</code>, and <code>extends</code>.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('ts2')">TypeScript</button>
+                            <button class="tab" onclick="switchTab('js2')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('preview2')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="ts2" class="code-input" placeholder="Enter your TypeScript code here...">// Interfaces and Type Aliases Exercise
+interface BaseEntity {
+  readonly id: number;
+  createdAt: Date;
+  updatedAt?: Date;
+}
+
+interface Product extends BaseEntity {
+  name: string;
+  price: number;
+  description?: string;
+  category: string;
+  inStock: boolean;
+}
+
+type ProductStatus = 'available' | 'out-of-stock' | 'discontinued';
+type ProductCategory = 'electronics' | 'clothing' | 'books' | 'home';
+
+interface ProductWithStatus extends Product {
+  status: ProductStatus;
+  category: ProductCategory;
+}
+
+function createProduct(
+  id: number,
+  name: string,
+  price: number,
+  category: ProductCategory,
+  description?: string
+): ProductWithStatus {
+  return {
+    id,
+    name,
+    price,
+    category,
+    description,
+    inStock: true,
+    status: 'available',
+    createdAt: new Date()
+  };
+}
+
+function updateProductStatus(product: ProductWithStatus, status: ProductStatus): void {
+  product.status = status;
+  product.updatedAt = new Date();
+  product.inStock = status === 'available';
+}
+
+// Example usage
+const laptop = createProduct(1, "MacBook Pro", 1999, "electronics", "High-performance laptop");
+updateProductStatus(laptop, "available");
+
+console.log("Product:", laptop);
+console.log("Status:", laptop.status);</textarea>
+                            <textarea id="js2" class="code-input" placeholder="Compiled JavaScript will appear here...">// This will be populated by the TypeScript compiler</textarea>
+                            <div id="preview2" class="preview-container">
+                                <div class="output" id="output2">
+                                    <h4>Output:</h4>
+                                    <div class="console-output"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(2)">Compile & Run</button>
+                </div>
+            </section>
+
+            <!-- Exercise 3: Generics -->
+            <section class="exercise" id="exercise3">
+                <div class="exercise-header">
+                    <h2>Exercise 3: Generics and Generic Functions</h2>
+                    <div class="exercise-status" id="status3">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Master TypeScript generics to create reusable, type-safe functions and classes. Learn about generic constraints and utility types.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>&lt;T&gt;</code>, <code>extends</code>, <code>keyof</code>, and <code>Partial&lt;T&gt;</code>.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('ts3')">TypeScript</button>
+                            <button class="tab" onclick="switchTab('js3')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('preview3')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="ts3" class="code-input" placeholder="Enter your TypeScript code here...">// Generics Exercise
+interface Identifiable {
+  id: number;
+}
+
+class Repository<T extends Identifiable> {
+  private items: T[] = [];
+
+  add(item: T): void {
+    this.items.push(item);
+  }
+
+  findById(id: number): T | undefined {
+    return this.items.find(item => item.id === id);
+  }
+
+  findAll(): T[] {
+    return [...this.items];
+  }
+
+  update(id: number, updates: Partial<T>): boolean {
+    const item = this.findById(id);
+    if (item) {
+      Object.assign(item, updates);
+      return true;
+    }
+    return false;
+  }
+
+  delete(id: number): boolean {
+    const index = this.items.findIndex(item => item.id === id);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+}
+
+// Generic utility functions
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+function createArray<T>(length: number, value: T): T[] {
+  return Array(length).fill(value);
+}
+
+// Example usage
+interface User extends Identifiable {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const userRepo = new Repository<User>();
+userRepo.add({ id: 1, name: "Alice", email: "alice@example.com" });
+userRepo.add({ id: 2, name: "Bob", email: "bob@example.com" });
+
+console.log("All users:", userRepo.findAll());
+console.log("User 1:", userRepo.findById(1));
+
+// Update user
+userRepo.update(1, { name: "Alice Smith" });
+console.log("Updated user 1:", userRepo.findById(1));
+
+// Generic function examples
+const numbers = createArray(3, 42);
+const strings = createArray(2, "hello");
+
+console.log("Numbers:", numbers);
+console.log("Strings:", strings);</textarea>
+                            <textarea id="js3" class="code-input" placeholder="Compiled JavaScript will appear here...">// This will be populated by the TypeScript compiler</textarea>
+                            <div id="preview3" class="preview-container">
+                                <div class="output" id="output3">
+                                    <h4>Output:</h4>
+                                    <div class="console-output"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(3)">Compile & Run</button>
+                </div>
+            </section>
+
+            <!-- Exercise 4: Enums and Union Types -->
+            <section class="exercise" id="exercise4">
+                <div class="exercise-header">
+                    <h2>Exercise 4: Enums and Union Types</h2>
+                    <div class="exercise-status" id="status4">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Work with enums, union types, and literal types. Learn about discriminated unions and type guards for better type safety.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>enum</code>, <code>|</code> for unions, <code>as const</code>, and <code>type guards</code>.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('ts4')">TypeScript</button>
+                            <button class="tab" onclick="switchTab('js4')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('preview4')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="ts4" class="code-input" placeholder="Enter your TypeScript code here...">// Enums and Union Types Exercise
+enum OrderStatus {
+  PENDING = "pending",
+  PROCESSING = "processing",
+  SHIPPED = "shipped",
+  DELIVERED = "delivered",
+  CANCELLED = "cancelled"
+}
+
+enum PaymentMethod {
+  CREDIT_CARD = "credit_card",
+  PAYPAL = "paypal",
+  BANK_TRANSFER = "bank_transfer"
+}
+
+type OrderPriority = "low" | "medium" | "high" | "urgent";
+
+interface Order {
+  id: number;
+  status: OrderStatus;
+  priority: OrderPriority;
+  paymentMethod: PaymentMethod;
+  total: number;
+  createdAt: Date;
+}
+
+// Type guards
+function isHighPriority(order: Order): boolean {
+  return order.priority === "high" || order.priority === "urgent";
+}
+
+function canBeCancelled(order: Order): boolean {
+  return order.status === OrderStatus.PENDING || order.status === OrderStatus.PROCESSING;
+}
+
+function getStatusColor(status: OrderStatus): string {
+  switch (status) {
+    case OrderStatus.PENDING:
+      return "yellow";
+    case OrderStatus.PROCESSING:
+      return "blue";
+    case OrderStatus.SHIPPED:
+      return "purple";
+    case OrderStatus.DELIVERED:
+      return "green";
+    case OrderStatus.CANCELLED:
+      return "red";
+    default:
+      return "gray";
+  }
+}
+
+function createOrder(
+  id: number,
+  total: number,
+  paymentMethod: PaymentMethod,
+  priority: OrderPriority = "medium"
+): Order {
+  return {
+    id,
+    status: OrderStatus.PENDING,
+    priority,
+    paymentMethod,
+    total,
+    createdAt: new Date()
+  };
+}
+
+// Example usage
+const order1 = createOrder(1, 99.99, PaymentMethod.CREDIT_CARD, "high");
+const order2 = createOrder(2, 49.99, PaymentMethod.PAYPAL, "low");
+
+console.log("Order 1:", order1);
+console.log("Is high priority?", isHighPriority(order1));
+console.log("Can be cancelled?", canBeCancelled(order1));
+console.log("Status color:", getStatusColor(order1.status));
+
+// Update order status
+order1.status = OrderStatus.PROCESSING;
+console.log("Updated order 1:", order1);</textarea>
+                            <textarea id="js4" class="code-input" placeholder="Compiled JavaScript will appear here...">// This will be populated by the TypeScript compiler</textarea>
+                            <div id="preview4" class="preview-container">
+                                <div class="output" id="output4">
+                                    <h4>Output:</h4>
+                                    <div class="console-output"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(4)">Compile & Run</button>
+                </div>
+            </section>
+
+            <!-- Exercise 5: Advanced TypeScript Features -->
+            <section class="exercise" id="exercise5">
+                <div class="exercise-header">
+                    <h2>Exercise 5: Advanced TypeScript Features</h2>
+                    <div class="exercise-status" id="status5">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Explore advanced TypeScript features including mapped types, conditional types, template literal types, and module declarations.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>keyof</code>, <code>in</code>, <code>extends</code>, conditional types, and template literals.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('ts5')">TypeScript</button>
+                            <button class="tab" onclick="switchTab('js5')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('preview5')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="ts5" class="code-input" placeholder="Enter your TypeScript code here...">// Advanced TypeScript Features Exercise
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  age: number;
+  isActive: boolean;
+}
+
+// Mapped types
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+
+type Required<T> = {
+  [P in keyof T]-?: T[P];
+};
+
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+// Conditional types
+type NonNullable<T> = T extends null | undefined ? never : T;
+
+type ApiResponse<T> = T extends string 
+  ? { message: T; status: number }
+  : { data: T; status: number };
+
+// Template literal types
+type EventName<T extends string> = `on${Capitalize<T>}`;
+type EventHandler<T> = (event: T) => void;
+
+// Utility types
+type UserKeys = keyof User;
+type UserValues = User[keyof User];
+
+// Advanced function types
+type EventMap = {
+  click: MouseEvent;
+  keydown: KeyboardEvent;
+  scroll: Event;
+};
+
+type EventListeners = {
+  [K in keyof EventMap as EventName<K>]: EventHandler<EventMap[K]>;
+};
+
+// Generic constraints with conditional types
+type ExtractArrayType<T> = T extends (infer U)[] ? U : never;
+
+// Example usage
+const user: User = {
+  id: 1,
+  name: "John Doe",
+  email: "john@example.com",
+  age: 30,
+  isActive: true
+};
+
+// Using mapped types
+const partialUser: Partial<User> = {
+  name: "Jane Doe",
+  email: "jane@example.com"
+};
+
+const requiredUser: Required<Partial<User>> = {
+  id: 2,
+  name: "Bob Smith",
+  email: "bob@example.com",
+  age: 25,
+  isActive: false
+};
+
+// Using conditional types
+const stringResponse: ApiResponse<string> = {
+  message: "Success",
+  status: 200
+};
+
+const dataResponse: ApiResponse<User> = {
+  data: user,
+  status: 200
+};
+
+// Using template literal types
+type ClickEventName = EventName<"click">; // "onClick"
+type KeydownEventName = EventName<"keydown">; // "onKeydown"
+
+console.log("User:", user);
+console.log("Partial user:", partialUser);
+console.log("Required user:", requiredUser);
+console.log("String response:", stringResponse);
+console.log("Data response:", dataResponse);</textarea>
+                            <textarea id="js5" class="code-input" placeholder="Compiled JavaScript will appear here...">// This will be populated by the TypeScript compiler</textarea>
+                            <div id="preview5" class="preview-container">
+                                <div class="output" id="output5">
+                                    <h4>Output:</h4>
+                                    <div class="console-output"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(5)">Compile & Run</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="level-footer">
+            <div class="completion-message" id="completionMessage" style="display: none;">
+                <h3>🎉 Congratulations!</h3>
+                <p>You've completed Level 11: TypeScript Fundamentals!</p>
+                <div class="badge-earned">
+                    <span class="badge-icon">📘</span>
+                    <span class="badge-text">TypeScript Master</span>
+                </div>
+                <a href="../../index.html" class="btn btn-primary">Return to Hub</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="level11-script.js"></script>
+</body>
+</html>
