@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 9: CSS Advanced Techniques - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level9-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>Level 9: CSS Advanced Techniques</h1>
+                <p>Master advanced CSS features including CSS Grid, Custom Properties, and modern layout techniques</p>
+                <div class="level-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0% Complete</span>
+                </div>
+            </div>
+            <div class="level-actions">
+                <button class="btn btn-secondary" onclick="resetProgress()">Reset Progress</button>
+                <a href="../../index.html" class="btn btn-primary">Back to Hub</a>
+            </div>
+        </header>
+
+        <main class="level-content">
+            <!-- Exercise 1: CSS Grid Advanced -->
+            <section class="exercise" id="exercise1">
+                <div class="exercise-header">
+                    <h2>Exercise 1: CSS Grid Advanced Layouts</h2>
+                    <div class="exercise-status" id="status1">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Create a complex grid layout with named grid lines, grid areas, and responsive behavior. Use CSS Grid to build a magazine-style layout.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>grid-template-areas</code>, <code>grid-template-columns</code>, and <code>grid-gap</code> properties.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('html1')">HTML</button>
+                            <button class="tab" onclick="switchTab('css1')">CSS</button>
+                            <button class="tab" onclick="switchTab('preview1')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="html1" class="code-input" placeholder="Enter your HTML here..."><div class="magazine-layout">
+  <header class="header">Header</header>
+  <nav class="nav">Navigation</nav>
+  <main class="main">Main Content</main>
+  <aside class="sidebar">Sidebar</aside>
+  <footer class="footer">Footer</footer>
+</div></textarea>
+                            <textarea id="css1" class="code-input" placeholder="Enter your CSS here...">.magazine-layout {
+  display: grid;
+  grid-template-areas: 
+    "header header header"
+    "nav main sidebar"
+    "footer footer footer";
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  gap: 20px;
+  padding: 20px;
+}
+
+.header { grid-area: header; background: #667eea; color: white; padding: 20px; text-align: center; }
+.nav { grid-area: nav; background: #f093fb; padding: 20px; }
+.main { grid-area: main; background: #4facfe; color: white; padding: 20px; }
+.sidebar { grid-area: sidebar; background: #43e97b; padding: 20px; }
+.footer { grid-area: footer; background: #fa709a; color: white; padding: 20px; text-align: center; }
+
+@media (max-width: 768px) {
+  .magazine-layout {
+    grid-template-areas: 
+      "header"
+      "nav"
+      "main"
+      "sidebar"
+      "footer";
+    grid-template-columns: 1fr;
+  }
+}</textarea>
+                            <div id="preview1" class="preview-container">
+                                <iframe id="previewFrame1" class="preview-frame"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(1)">Check Solution</button>
+                </div>
+            </section>
+
+            <!-- Exercise 2: CSS Custom Properties -->
+            <section class="exercise" id="exercise2">
+                <div class="exercise-header">
+                    <h2>Exercise 2: CSS Custom Properties (Variables)</h2>
+                    <div class="exercise-status" id="status2">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Create a theme system using CSS custom properties. Implement light/dark mode toggle and dynamic color schemes.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>:root</code> for global variables, <code>var()</code> for referencing, and <code>calc()</code> for calculations.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('html2')">HTML</button>
+                            <button class="tab" onclick="switchTab('css2')">CSS</button>
+                            <button class="tab" onclick="switchTab('preview2')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="html2" class="code-input" placeholder="Enter your HTML here..."><div class="theme-container">
+  <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  <div class="card">
+    <h3>Card Title</h3>
+    <p>This card uses CSS custom properties for theming.</p>
+    <button class="btn">Action Button</button>
+  </div>
+</div></textarea>
+                            <textarea id="css2" class="code-input" placeholder="Enter your CSS here...">:root {
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  --text-color: #333;
+  --bg-color: #fff;
+  --card-bg: #f8f9fa;
+  --border-radius: 8px;
+  --spacing: 16px;
+  --shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] {
+  --primary-color: #4facfe;
+  --secondary-color: #00f2fe;
+  --text-color: #fff;
+  --bg-color: #1a1a1a;
+  --card-bg: #2d2d2d;
+  --shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.theme-container {
+  background: var(--bg-color);
+  color: var(--text-color);
+  padding: var(--spacing);
+  min-height: 200px;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: calc(var(--spacing) / 2) var(--spacing);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  margin-bottom: var(--spacing);
+}
+
+.card {
+  background: var(--card-bg);
+  padding: var(--spacing);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  max-width: 300px;
+}
+
+.btn {
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: calc(var(--spacing) / 2) var(--spacing);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}</textarea>
+                            <div id="preview2" class="preview-container">
+                                <iframe id="previewFrame2" class="preview-frame"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(2)">Check Solution</button>
+                </div>
+            </section>
+
+            <!-- Exercise 3: CSS Animations & Transitions -->
+            <section class="exercise" id="exercise3">
+                <div class="exercise-header">
+                    <h2>Exercise 3: Advanced CSS Animations</h2>
+                    <div class="exercise-status" id="status3">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Create complex animations using keyframes, transforms, and transitions. Build an interactive card with hover effects and loading animations.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>@keyframes</code>, <code>transform</code>, <code>transition</code>, and <code>animation</code> properties.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('html3')">HTML</button>
+                            <button class="tab" onclick="switchTab('css3')">CSS</button>
+                            <button class="tab" onclick="switchTab('preview3')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="html3" class="code-input" placeholder="Enter your HTML here..."><div class="animation-container">
+  <div class="card-animated">
+    <div class="card-header">
+      <h3>Animated Card</h3>
+    </div>
+    <div class="card-content">
+      <p>Hover over me for animations!</p>
+      <div class="loading-spinner"></div>
+    </div>
+  </div>
+  <div class="floating-element"></div>
+</div></textarea>
+                            <textarea id="css3" class="code-input" placeholder="Enter your CSS here...">@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes slideIn {
+  0% { transform: translateX(-100%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+.animation-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  min-height: 300px;
+}
+
+.card-animated {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  animation: slideIn 0.8s ease-out;
+  cursor: pointer;
+}
+
+.card-animated:hover {
+  transform: translateY(-10px) rotate(2deg);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  animation: pulse 2s infinite;
+}
+
+.loading-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 10px 0;
+}
+
+.floating-element {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  border-radius: 50%;
+  animation: float 3s ease-in-out infinite;
+}</textarea>
+                            <div id="preview3" class="preview-container">
+                                <iframe id="previewFrame3" class="preview-frame"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(3)">Check Solution</button>
+                </div>
+            </section>
+
+            <!-- Exercise 4: CSS Flexbox Advanced -->
+            <section class="exercise" id="exercise4">
+                <div class="exercise-header">
+                    <h2>Exercise 4: Advanced Flexbox Layouts</h2>
+                    <div class="exercise-status" id="status4">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Master advanced Flexbox techniques including flex-grow, flex-shrink, flex-basis, and complex alignment. Create a responsive card layout.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>flex-grow</code>, <code>flex-shrink</code>, <code>flex-basis</code>, <code>align-items</code>, and <code>justify-content</code>.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('html4')">HTML</button>
+                            <button class="tab" onclick="switchTab('css4')">CSS</button>
+                            <button class="tab" onclick="switchTab('preview4')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="html4" class="code-input" placeholder="Enter your HTML here..."><div class="flex-container">
+  <div class="flex-item grow-2">
+    <h3>Grow 2</h3>
+    <p>This item grows twice as much as others</p>
+  </div>
+  <div class="flex-item grow-1">
+    <h3>Grow 1</h3>
+    <p>Standard growth</p>
+  </div>
+  <div class="flex-item no-grow">
+    <h3>No Grow</h3>
+    <p>Fixed width</p>
+  </div>
+  <div class="flex-item grow-3">
+    <h3>Grow 3</h3>
+    <p>Triple growth</p>
+  </div>
+</div></textarea>
+                            <textarea id="css4" class="code-input" placeholder="Enter your CSS here...">.flex-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  min-height: 300px;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.flex-item {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-width: 150px;
+}
+
+.grow-1 {
+  flex: 1 1 200px;
+}
+
+.grow-2 {
+  flex: 2 1 200px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.grow-3 {
+  flex: 3 1 200px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.no-grow {
+  flex: 0 0 150px;
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+@media (max-width: 768px) {
+  .flex-container {
+    flex-direction: column;
+  }
+  
+  .flex-item {
+    flex: 1 1 auto;
+  }
+}</textarea>
+                            <div id="preview4" class="preview-container">
+                                <iframe id="previewFrame4" class="preview-frame"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(4)">Check Solution</button>
+                </div>
+            </section>
+
+            <!-- Exercise 5: CSS Modules & Scoping -->
+            <section class="exercise" id="exercise5">
+                <div class="exercise-header">
+                    <h2>Exercise 5: CSS Modules & Scoping</h2>
+                    <div class="exercise-status" id="status5">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement CSS scoping techniques using BEM methodology, CSS-in-JS concepts, and component-based styling. Create a reusable component system.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use BEM naming convention, CSS custom properties, and component-scoped styles.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('html5')">HTML</button>
+                            <button class="tab" onclick="switchTab('css5')">CSS</button>
+                            <button class="tab" onclick="switchTab('preview5')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="html5" class="code-input" placeholder="Enter your HTML here..."><div class="component-library">
+  <div class="card card--primary">
+    <div class="card__header">
+      <h3 class="card__title">Primary Card</h3>
+    </div>
+    <div class="card__content">
+      <p class="card__text">This is a primary card component.</p>
+      <button class="card__button card__button--primary">Primary Action</button>
+    </div>
+  </div>
+  
+  <div class="card card--secondary">
+    <div class="card__header">
+      <h3 class="card__title">Secondary Card</h3>
+    </div>
+    <div class="card__content">
+      <p class="card__text">This is a secondary card component.</p>
+      <button class="card__button card__button--secondary">Secondary Action</button>
+    </div>
+  </div>
+</div></textarea>
+                            <textarea id="css5" class="code-input" placeholder="Enter your CSS here...">/* Component: Card */
+.card {
+  --card-padding: 20px;
+  --card-border-radius: 8px;
+  --card-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  --card-border: 1px solid #e0e0e0;
+  
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  border: var(--card-border);
+  max-width: 300px;
+  margin: 10px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Card Modifiers */
+.card--primary {
+  --card-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --card-text-color: white;
+  background: var(--card-bg);
+  color: var(--card-text-color);
+}
+
+.card--secondary {
+  --card-bg: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --card-text-color: white;
+  background: var(--card-bg);
+  color: var(--card-text-color);
+}
+
+/* Card Elements */
+.card__header {
+  margin-bottom: 15px;
+}
+
+.card__title {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card__text {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.card__button {
+  --button-padding: 10px 20px;
+  --button-border-radius: 4px;
+  --button-border: none;
+  --button-cursor: pointer;
+  
+  padding: var(--button-padding);
+  border-radius: var(--button-border-radius);
+  border: var(--button-border);
+  cursor: var(--button-cursor);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.card__button--primary {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.card__button--primary:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.card__button--secondary {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.card__button--secondary:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.component-library {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}</textarea>
+                            <div id="preview5" class="preview-container">
+                                <iframe id="previewFrame5" class="preview-frame"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(5)">Check Solution</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="level-footer">
+            <div class="completion-message" id="completionMessage" style="display: none;">
+                <h3>🎉 Congratulations!</h3>
+                <p>You've completed Level 9: CSS Advanced Techniques!</p>
+                <div class="badge-earned">
+                    <span class="badge-icon">🎨</span>
+                    <span class="badge-text">CSS Advanced Master</span>
+                </div>
+                <a href="../../index.html" class="btn btn-primary">Return to Hub</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="level9-script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>

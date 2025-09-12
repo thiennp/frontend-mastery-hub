@@ -30,17 +30,27 @@ document.addEventListener('DOMContentLoaded', function() {
             const saved = localStorage.getItem(this.storageKey);
             return saved ? JSON.parse(saved) : {
                 levels: {
-                    1: { completed: 0, total: 5, unlocked: true, levelCompleted: false },
-                    2: { completed: 0, total: 12, unlocked: false, levelCompleted: false },
-                    3: { completed: 0, total: 15, unlocked: false, levelCompleted: false },
-                    4: { completed: 0, total: 18, unlocked: false, levelCompleted: false },
-                    5: { completed: 0, total: 20, unlocked: false, levelCompleted: false }
+                    1: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    2: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    3: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    4: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    5: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    6: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    7: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    8: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    9: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    10: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    11: { completed: 0, total: 5, unlocked: false, levelCompleted: false }
                 },
                 badges: {
-                    'first-steps': false,
-                    'css-artist': false,
-                    'javascript-ninja': false,
-                    'react-master': false
+                    'first-steps': true,
+                    'css-artist': true,
+                    'javascript-ninja': true,
+                    'react-master': true,
+                    'advanced-react-master': true,
+                    'full-stack-master': true,
+                    'css-advanced-master': true,
+                    'testing-master': true
                 },
                 lastUpdated: Date.now()
             };
@@ -62,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Check other levels if they exist
-            for (let levelNum = 2; levelNum <= 5; levelNum++) {
+            for (let levelNum = 2; levelNum <= 11; levelNum++) {
                 const levelProgress = this.getLevelProgress(levelNum);
                 if (levelProgress && levelProgress.completed >= levelProgress.total) {
                     this.progress.levels[levelNum].levelCompleted = true;
@@ -311,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resetProgress() {
             localStorage.removeItem(this.storageKey);
             // Also reset individual level progress
-            for (let i = 1; i <= 5; i++) {
+            for (let i = 1; i <= 11; i++) {
                 localStorage.removeItem(`level${i}-progress`);
             }
             this.progress = this.loadProgress();
@@ -358,6 +368,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'playgrounds/level-4/index.html';
             } else if (levelNumber === '5') {
                 window.location.href = 'playgrounds/level-5/index.html';
+            } else if (levelNumber === '6') {
+                window.location.href = 'playgrounds/level-6/index.html';
+            } else if (levelNumber === '7') {
+                window.location.href = 'playgrounds/level-7/index.html';
+            } else if (levelNumber === '8') {
+                window.location.href = 'playgrounds/level-8/index.html';
+            } else if (levelNumber === '9') {
+                window.location.href = 'playgrounds/level-9/index.html';
+            } else if (levelNumber === '10') {
+                window.location.href = 'playgrounds/level-10/index.html';
+            } else if (levelNumber === '11') {
+                window.location.href = 'playgrounds/level-11/index.html';
             } else {
                 // For demo purposes, simulate completing an exercise
                 const currentCompleted = progressTracker.progress.levels[levelNumber].completed;
@@ -370,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add badge data attributes for easier selection
     const badgeCards = document.querySelectorAll('.badge-card');
-    const badgeKeys = ['first-steps', 'css-artist', 'javascript-ninja', 'react-master'];
+    const badgeKeys = ['first-steps', 'css-artist', 'javascript-ninja', 'react-master', 'advanced-react-master', 'full-stack-master', 'css-advanced-master', 'testing-master'];
     badgeCards.forEach((card, index) => {
         if (badgeKeys[index]) {
             card.setAttribute('data-badge', badgeKeys[index]);

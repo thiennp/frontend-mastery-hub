@@ -1,0 +1,460 @@
+/* Level 10: JavaScript Testing - Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+}
+
+.level-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.level-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.level-info h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+}
+
+.level-info p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.level-progress {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-weight: 600;
+    color: #4facfe;
+}
+
+.level-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Button Styles */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(79, 172, 254, 0.3);
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #4facfe;
+    border: 2px solid #4facfe;
+}
+
+.btn-secondary:hover {
+    background: #4facfe;
+    color: white;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: white;
+    margin-top: 15px;
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(67, 233, 123, 0.3);
+}
+
+/* Exercise Styles */
+.exercise {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.exercise:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.exercise-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.exercise-status {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    background: #f0f0f0;
+    color: #666;
+}
+
+.exercise-status.completed {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: white;
+}
+
+.exercise-description {
+    margin-bottom: 25px;
+}
+
+.exercise-description p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.hint {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border-left: 4px solid #ffc107;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.hint code {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+/* Code Editor Styles */
+.code-editor {
+    background: #1e1e1e;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.editor-tabs {
+    display: flex;
+    background: #2d2d2d;
+    border-bottom: 1px solid #404040;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 12px 20px;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+    color: #4facfe;
+    border-bottom-color: #4facfe;
+    background: #1e1e1e;
+}
+
+.tab:hover {
+    color: #fff;
+    background: #404040;
+}
+
+.editor-content {
+    position: relative;
+}
+
+.code-input {
+    width: 100%;
+    min-height: 300px;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border: none;
+    padding: 20px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+}
+
+.code-input:focus {
+    background: #1e1e1e;
+}
+
+.preview-container {
+    display: none;
+    padding: 20px;
+    background: #f8f9fa;
+    min-height: 300px;
+}
+
+.preview-container.active {
+    display: block;
+}
+
+.test-output {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.test-output h4 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.test-results {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.test-pass {
+    color: #28a745;
+    margin: 5px 0;
+}
+
+.test-fail {
+    color: #dc3545;
+    margin: 5px 0;
+}
+
+.test-pending {
+    color: #ffc107;
+    margin: 5px 0;
+}
+
+/* Footer Styles */
+.level-footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.completion-message {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(67, 233, 123, 0.3);
+}
+
+.completion-message h3 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.completion-message p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.badge-earned {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.badge-icon {
+    font-size: 2rem;
+}
+
+.badge-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .level-container {
+        padding: 15px;
+    }
+    
+    .level-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .level-info h1 {
+        font-size: 2rem;
+    }
+    
+    .exercise {
+        padding: 20px;
+    }
+    
+    .exercise-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .editor-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab {
+        flex: 1;
+        min-width: 80px;
+    }
+    
+    .code-input {
+        min-height: 250px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .level-info h1 {
+        font-size: 1.5rem;
+    }
+    
+    .exercise-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .btn {
+        padding: 10px 16px;
+        font-size: 12px;
+    }
+    
+    .code-input {
+        min-height: 200px;
+        font-size: 11px;
+    }
+}
+
+/* Animation Classes */
+.exercise.completed {
+    border-left: 5px solid #43e97b;
+    background: linear-gradient(135deg, rgba(67, 233, 123, 0.05) 0%, rgba(56, 249, 215, 0.05) 100%);
+}
+
+.exercise.completed .exercise-header h2 {
+    color: #43e97b;
+}
+
+/* Loading Animation */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Success Animation */
+@keyframes success {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.success {
+    animation: success 0.6s ease-in-out;
+}
+
+/* Custom Scrollbar */
+.code-input::-webkit-scrollbar {
+    width: 8px;
+}
+
+.code-input::-webkit-scrollbar-track {
+    background: #2d2d2d;
+}
+
+.code-input::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
+.code-input::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}

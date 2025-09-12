@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 10: JavaScript Testing - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level10-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>Level 10: JavaScript Testing</h1>
+                <p>Master JavaScript testing with Jest, Testing Library, and modern testing practices</p>
+                <div class="level-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0% Complete</span>
+                </div>
+            </div>
+            <div class="level-actions">
+                <button class="btn btn-secondary" onclick="resetProgress()">Reset Progress</button>
+                <a href="../../index.html" class="btn btn-primary">Back to Hub</a>
+            </div>
+        </header>
+
+        <main class="level-content">
+            <!-- Exercise 1: Unit Testing Basics -->
+            <section class="exercise" id="exercise1">
+                <div class="exercise-header">
+                    <h2>Exercise 1: Unit Testing with Jest</h2>
+                    <div class="exercise-status" id="status1">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Write unit tests for JavaScript functions using Jest. Test basic functions, edge cases, and error handling.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>describe()</code>, <code>test()</code>, <code>expect()</code>, and <code>toBe()</code> matchers.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('js1')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('test1')">Tests</button>
+                            <button class="tab" onclick="switchTab('preview1')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="js1" class="code-input" placeholder="Enter your JavaScript code here...">// Calculator functions to test
+function add(a, b) {
+  if (typeof a !== 'number' || typeof b !== 'number') {
+    throw new Error('Both arguments must be numbers');
+  }
+  return a + b;
+}
+
+function subtract(a, b) {
+  return a - b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+function divide(a, b) {
+  if (b === 0) {
+    throw new Error('Division by zero is not allowed');
+  }
+  return a / b;
+}
+
+module.exports = { add, subtract, multiply, divide };</textarea>
+                            <textarea id="test1" class="code-input" placeholder="Enter your test code here...">const { add, subtract, multiply, divide } = require('./calculator');
+
+describe('Calculator Functions', () => {
+  describe('add', () => {
+    test('should add two positive numbers', () => {
+      expect(add(2, 3)).toBe(5);
+    });
+    
+    test('should add negative numbers', () => {
+      expect(add(-2, -3)).toBe(-5);
+    });
+    
+    test('should throw error for non-number inputs', () => {
+      expect(() => add('2', 3)).toThrow('Both arguments must be numbers');
+    });
+  });
+  
+  describe('divide', () => {
+    test('should divide two numbers', () => {
+      expect(divide(10, 2)).toBe(5);
+    });
+    
+    test('should throw error for division by zero', () => {
+      expect(() => divide(10, 0)).toThrow('Division by zero is not allowed');
+    });
+  });
+});</textarea>
+                            <div id="preview1" class="preview-container">
+                                <div class="test-output" id="testOutput1">
+                                    <h4>Test Results:</h4>
+                                    <div class="test-results"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(1)">Run Tests</button>
+                </div>
+            </section>
+
+            <!-- Exercise 2: DOM Testing -->
+            <section class="exercise" id="exercise2">
+                <div class="exercise-header">
+                    <h2>Exercise 2: DOM Testing with Testing Library</h2>
+                    <div class="exercise-status" id="status2">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Test DOM interactions and user events using Testing Library concepts. Test component behavior and user interactions.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>render()</code>, <code>fireEvent</code>, <code>getByText()</code>, and <code>queryByText()</code>.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('js2')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('test2')">Tests</button>
+                            <button class="tab" onclick="switchTab('preview2')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="js2" class="code-input" placeholder="Enter your JavaScript code here...">// Counter component
+class Counter {
+  constructor(container) {
+    this.container = container;
+    this.count = 0;
+    this.render();
+  }
+  
+  render() {
+    this.container.innerHTML = `
+      <div class="counter">
+        <h3>Count: <span class="count">${this.count}</span></h3>
+        <button class="increment">+</button>
+        <button class="decrement">-</button>
+        <button class="reset">Reset</button>
+      </div>
+    `;
+    
+    this.bindEvents();
+  }
+  
+  bindEvents() {
+    this.container.querySelector('.increment').addEventListener('click', () => {
+      this.increment();
+    });
+    
+    this.container.querySelector('.decrement').addEventListener('click', () => {
+      this.decrement();
+    });
+    
+    this.container.querySelector('.reset').addEventListener('click', () => {
+      this.reset();
+    });
+  }
+  
+  increment() {
+    this.count++;
+    this.updateDisplay();
+  }
+  
+  decrement() {
+    this.count--;
+    this.updateDisplay();
+  }
+  
+  reset() {
+    this.count = 0;
+    this.updateDisplay();
+  }
+  
+  updateDisplay() {
+    this.container.querySelector('.count').textContent = this.count;
+  }
+}</textarea>
+                            <textarea id="test2" class="code-input" placeholder="Enter your test code here...">// DOM Testing with Testing Library concepts
+describe('Counter Component', () => {
+  let container;
+  let counter;
+  
+  beforeEach(() => {
+    container = document.createElement('div');
+    document.body.appendChild(container);
+    counter = new Counter(container);
+  });
+  
+  afterEach(() => {
+    document.body.removeChild(container);
+  });
+  
+  test('should render initial count of 0', () => {
+    expect(container.querySelector('.count').textContent).toBe('0');
+  });
+  
+  test('should increment count when + button is clicked', () => {
+    const incrementBtn = container.querySelector('.increment');
+    incrementBtn.click();
+    expect(container.querySelector('.count').textContent).toBe('1');
+  });
+  
+  test('should decrement count when - button is clicked', () => {
+    const decrementBtn = container.querySelector('.decrement');
+    decrementBtn.click();
+    expect(container.querySelector('.count').textContent).toBe('-1');
+  });
+  
+  test('should reset count when Reset button is clicked', () => {
+    const incrementBtn = container.querySelector('.increment');
+    const resetBtn = container.querySelector('.reset');
+    
+    incrementBtn.click();
+    incrementBtn.click();
+    expect(container.querySelector('.count').textContent).toBe('2');
+    
+    resetBtn.click();
+    expect(container.querySelector('.count').textContent).toBe('0');
+  });
+});</textarea>
+                            <div id="preview2" class="preview-container">
+                                <div class="test-output" id="testOutput2">
+                                    <h4>Test Results:</h4>
+                                    <div class="test-results"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(2)">Run Tests</button>
+                </div>
+            </section>
+
+            <!-- Exercise 3: Async Testing -->
+            <section class="exercise" id="exercise3">
+                <div class="exercise-header">
+                    <h2>Exercise 3: Async Testing</h2>
+                    <div class="exercise-status" id="status3">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Test asynchronous functions, promises, and API calls. Handle async operations in your tests.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>async/await</code>, <code>Promise.resolve()</code>, <code>Promise.reject()</code>, and <code>setTimeout()</code>.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('js3')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('test3')">Tests</button>
+                            <button class="tab" onclick="switchTab('preview3')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="js3" class="code-input" placeholder="Enter your JavaScript code here...">// Async functions to test
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function fetchUserData(userId) {
+  // Simulate API call
+  await delay(100);
+  
+  if (!userId) {
+    throw new Error('User ID is required');
+  }
+  
+  if (userId === 'invalid') {
+    throw new Error('User not found');
+  }
+  
+  return {
+    id: userId,
+    name: 'John Doe',
+    email: 'john@example.com'
+  };
+}
+
+async function processData(data) {
+  await delay(50);
+  return data.map(item => item * 2);
+}
+
+module.exports = { delay, fetchUserData, processData };</textarea>
+                            <textarea id="test3" class="code-input" placeholder="Enter your test code here...">const { delay, fetchUserData, processData } = require('./async-functions');
+
+describe('Async Functions', () => {
+  test('delay should resolve after specified time', async () => {
+    const start = Date.now();
+    await delay(100);
+    const end = Date.now();
+    
+    expect(end - start).toBeGreaterThanOrEqual(90);
+  });
+  
+  test('fetchUserData should return user data for valid ID', async () => {
+    const userData = await fetchUserData('123');
+    
+    expect(userData).toEqual({
+      id: '123',
+      name: 'John Doe',
+      email: 'john@example.com'
+    });
+  });
+  
+  test('fetchUserData should throw error for invalid ID', async () => {
+    await expect(fetchUserData('invalid')).rejects.toThrow('User not found');
+  });
+  
+  test('fetchUserData should throw error for missing ID', async () => {
+    await expect(fetchUserData()).rejects.toThrow('User ID is required');
+  });
+  
+  test('processData should process array correctly', async () => {
+    const input = [1, 2, 3, 4, 5];
+    const result = await processData(input);
+    
+    expect(result).toEqual([2, 4, 6, 8, 10]);
+  });
+});</textarea>
+                            <div id="preview3" class="preview-container">
+                                <div class="test-output" id="testOutput3">
+                                    <h4>Test Results:</h4>
+                                    <div class="test-results"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(3)">Run Tests</button>
+                </div>
+            </section>
+
+            <!-- Exercise 4: Mocking -->
+            <section class="exercise" id="exercise4">
+                <div class="exercise-header">
+                    <h2>Exercise 4: Mocking and Spying</h2>
+                    <div class="exercise-status" id="status4">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Learn to mock functions, spy on methods, and test code that depends on external services.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>jest.fn()</code>, <code>jest.spyOn()</code>, <code>mockImplementation()</code>, and <code>mockReturnValue()</code>.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('js4')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('test4')">Tests</button>
+                            <button class="tab" onclick="switchTab('preview4')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="js4" class="code-input" placeholder="Enter your JavaScript code here...">// Functions that depend on external services
+class EmailService {
+  sendEmail(to, subject, body) {
+    // Simulate external email service
+    console.log(`Sending email to ${to}: ${subject}`);
+    return Promise.resolve({ success: true, messageId: '123' });
+  }
+}
+
+class UserService {
+  constructor(emailService) {
+    this.emailService = emailService;
+  }
+  
+  async registerUser(userData) {
+    // Simulate user registration
+    const user = {
+      id: Math.random().toString(36).substr(2, 9),
+      ...userData,
+      createdAt: new Date()
+    };
+    
+    // Send welcome email
+    await this.emailService.sendEmail(
+      user.email,
+      'Welcome!',
+      'Thank you for registering!'
+    );
+    
+    return user;
+  }
+  
+  async notifyUser(userId, message) {
+    // Simulate getting user data
+    const user = { id: userId, email: 'user@example.com' };
+    
+    await this.emailService.sendEmail(
+      user.email,
+      'Notification',
+      message
+    );
+  }
+}
+
+module.exports = { EmailService, UserService };</textarea>
+                            <textarea id="test4" class="code-input" placeholder="Enter your test code here...">const { EmailService, UserService } = require('./user-service');
+
+describe('UserService with Mocking', () => {
+  let emailService;
+  let userService;
+  
+  beforeEach(() => {
+    emailService = new EmailService();
+    userService = new UserService(emailService);
+  });
+  
+  test('should register user and send welcome email', async () => {
+    // Mock the email service
+    const mockSendEmail = jest.fn().mockResolvedValue({ success: true, messageId: '123' });
+    emailService.sendEmail = mockSendEmail;
+    
+    const userData = {
+      name: 'John Doe',
+      email: 'john@example.com'
+    };
+    
+    const user = await userService.registerUser(userData);
+    
+    expect(user).toMatchObject({
+      name: 'John Doe',
+      email: 'john@example.com'
+    });
+    expect(user.id).toBeDefined();
+    expect(user.createdAt).toBeInstanceOf(Date);
+    
+    // Verify email was sent
+    expect(mockSendEmail).toHaveBeenCalledWith(
+      'john@example.com',
+      'Welcome!',
+      'Thank you for registering!'
+    );
+    expect(mockSendEmail).toHaveBeenCalledTimes(1);
+  });
+  
+  test('should notify user with custom message', async () => {
+    const mockSendEmail = jest.fn().mockResolvedValue({ success: true });
+    emailService.sendEmail = mockSendEmail;
+    
+    await userService.notifyUser('user123', 'Your order has been shipped!');
+    
+    expect(mockSendEmail).toHaveBeenCalledWith(
+      'user@example.com',
+      'Notification',
+      'Your order has been shipped!'
+    );
+  });
+});</textarea>
+                            <div id="preview4" class="preview-container">
+                                <div class="test-output" id="testOutput4">
+                                    <h4>Test Results:</h4>
+                                    <div class="test-results"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(4)">Run Tests</button>
+                </div>
+            </section>
+
+            <!-- Exercise 5: Integration Testing -->
+            <section class="exercise" id="exercise5">
+                <div class="exercise-header">
+                    <h2>Exercise 5: Integration Testing</h2>
+                    <div class="exercise-status" id="status5">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Write integration tests that test multiple components working together. Test complete user workflows.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Test complete flows, setup/teardown, and real component interactions.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('js5')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('test5')">Tests</button>
+                            <button class="tab" onclick="switchTab('preview5')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="js5" class="code-input" placeholder="Enter your JavaScript code here...">// E-commerce cart system
+class Cart {
+  constructor() {
+    this.items = [];
+    this.total = 0;
+  }
+  
+  addItem(product) {
+    const existingItem = this.items.find(item => item.id === product.id);
+    
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      this.items.push({ ...product, quantity: 1 });
+    }
+    
+    this.calculateTotal();
+  }
+  
+  removeItem(productId) {
+    this.items = this.items.filter(item => item.id !== productId);
+    this.calculateTotal();
+  }
+  
+  updateQuantity(productId, quantity) {
+    const item = this.items.find(item => item.id === productId);
+    if (item) {
+      item.quantity = quantity;
+      this.calculateTotal();
+    }
+  }
+  
+  calculateTotal() {
+    this.total = this.items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  }
+  
+  clear() {
+    this.items = [];
+    this.total = 0;
+  }
+}
+
+class OrderService {
+  constructor(cart) {
+    this.cart = cart;
+  }
+  
+  async createOrder() {
+    if (this.cart.items.length === 0) {
+      throw new Error('Cannot create order with empty cart');
+    }
+    
+    const order = {
+      id: Math.random().toString(36).substr(2, 9),
+      items: [...this.cart.items],
+      total: this.cart.total,
+      status: 'pending',
+      createdAt: new Date()
+    };
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    return order;
+  }
+}
+
+module.exports = { Cart, OrderService };</textarea>
+                            <textarea id="test5" class="code-input" placeholder="Enter your test code here...">const { Cart, OrderService } = require('./ecommerce');
+
+describe('E-commerce Integration Tests', () => {
+  let cart;
+  let orderService;
+  
+  beforeEach(() => {
+    cart = new Cart();
+    orderService = new OrderService(cart);
+  });
+  
+  test('should complete full shopping workflow', async () => {
+    // Add products to cart
+    const product1 = { id: 1, name: 'Laptop', price: 1000 };
+    const product2 = { id: 2, name: 'Mouse', price: 25 };
+    
+    cart.addItem(product1);
+    cart.addItem(product2);
+    cart.addItem(product1); // Add same product again
+    
+    // Verify cart state
+    expect(cart.items).toHaveLength(2);
+    expect(cart.items[0].quantity).toBe(2);
+    expect(cart.items[1].quantity).toBe(1);
+    expect(cart.total).toBe(2025);
+    
+    // Create order
+    const order = await orderService.createOrder();
+    
+    expect(order).toMatchObject({
+      id: expect.any(String),
+      items: expect.arrayContaining([
+        expect.objectContaining({ id: 1, quantity: 2 }),
+        expect.objectContaining({ id: 2, quantity: 1 })
+      ]),
+      total: 2025,
+      status: 'pending',
+      createdAt: expect.any(Date)
+    });
+    
+    // Verify cart is still intact
+    expect(cart.items).toHaveLength(2);
+    expect(cart.total).toBe(2025);
+  });
+  
+  test('should handle cart modifications during order process', async () => {
+    const product = { id: 1, name: 'Phone', price: 500 };
+    
+    cart.addItem(product);
+    expect(cart.total).toBe(500);
+    
+    // Update quantity
+    cart.updateQuantity(1, 3);
+    expect(cart.total).toBe(1500);
+    
+    // Create order
+    const order = await orderService.createOrder();
+    expect(order.total).toBe(1500);
+    expect(order.items[0].quantity).toBe(3);
+  });
+  
+  test('should throw error when creating order with empty cart', async () => {
+    await expect(orderService.createOrder()).rejects.toThrow('Cannot create order with empty cart');
+  });
+});</textarea>
+                            <div id="preview5" class="preview-container">
+                                <div class="test-output" id="testOutput5">
+                                    <h4>Test Results:</h4>
+                                    <div class="test-results"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(5)">Run Tests</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="level-footer">
+            <div class="completion-message" id="completionMessage" style="display: none;">
+                <h3>🎉 Congratulations!</h3>
+                <p>You've completed Level 10: JavaScript Testing!</p>
+                <div class="badge-earned">
+                    <span class="badge-icon">🧪</span>
+                    <span class="badge-text">Testing Master</span>
+                </div>
+                <a href="../../index.html" class="btn btn-primary">Return to Hub</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="level10-script.js"></script>
+</body>
+</html>
