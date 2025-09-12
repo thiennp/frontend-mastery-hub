@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     9: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
                     10: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
                     11: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
-                    12: { completed: 0, total: 5, unlocked: false, levelCompleted: false }
+                    12: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    13: { completed: 0, total: 5, unlocked: false, levelCompleted: false }
                 },
                 badges: {
                     'first-steps': true,
@@ -52,7 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     'full-stack-master': true,
                     'css-advanced-master': true,
                     'testing-master': true,
-                    'typescript-master': true
+                    'typescript-master': true,
+                    'typescript-advanced-master': true
                 },
                 lastUpdated: Date.now()
             };
@@ -74,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Check other levels if they exist
-            for (let levelNum = 2; levelNum <= 12; levelNum++) {
+            for (let levelNum = 2; levelNum <= 13; levelNum++) {
                 const levelProgress = this.getLevelProgress(levelNum);
                 if (levelProgress && levelProgress.completed >= levelProgress.total) {
                     this.progress.levels[levelNum].levelCompleted = true;
@@ -323,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
         resetProgress() {
             localStorage.removeItem(this.storageKey);
             // Also reset individual level progress
-            for (let i = 1; i <= 12; i++) {
+            for (let i = 1; i <= 13; i++) {
                 localStorage.removeItem(`level${i}-progress`);
             }
             this.progress = this.loadProgress();
@@ -384,6 +386,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'playgrounds/level-11/index.html';
             } else if (levelNumber === '12') {
                 window.location.href = 'playgrounds/level-12/index.html';
+            } else if (levelNumber === '13') {
+                window.location.href = 'playgrounds/level-13/index.html';
             } else {
                 // For demo purposes, simulate completing an exercise
                 const currentCompleted = progressTracker.progress.levels[levelNumber].completed;
@@ -396,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add badge data attributes for easier selection
     const badgeCards = document.querySelectorAll('.badge-card');
-    const badgeKeys = ['first-steps', 'css-artist', 'javascript-ninja', 'react-master', 'advanced-react-master', 'full-stack-master', 'css-advanced-master', 'testing-master', 'typescript-master'];
+    const badgeKeys = ['first-steps', 'css-artist', 'javascript-ninja', 'react-master', 'advanced-react-master', 'full-stack-master', 'css-advanced-master', 'testing-master', 'typescript-master', 'typescript-advanced-master'];
     badgeCards.forEach((card, index) => {
         if (badgeKeys[index]) {
             card.setAttribute('data-badge', badgeKeys[index]);

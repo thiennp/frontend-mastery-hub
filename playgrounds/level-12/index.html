@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 12: TypeScript Advanced - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level12-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/typescript@4.9.5/lib/typescript.js"></script>
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>Level 12: TypeScript Advanced</h1>
+                <p>Master advanced TypeScript features including utility types, decorators, module systems, and complex type patterns</p>
+                <div class="level-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0% Complete</span>
+                </div>
+            </div>
+            <div class="level-actions">
+                <button class="btn btn-secondary" onclick="resetProgress()">Reset Progress</button>
+                <a href="../../index.html" class="btn btn-primary">Back to Hub</a>
+            </div>
+        </header>
+
+        <main class="level-content">
+            <!-- Exercise 1: Utility Types -->
+            <section class="exercise" id="exercise1">
+                <div class="exercise-header">
+                    <h2>Exercise 1: Utility Types and Mapped Types</h2>
+                    <div class="exercise-status" id="status1">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Master TypeScript utility types like Partial, Required, Pick, Omit, Record, and create custom mapped types for complex transformations.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>Partial&lt;T&gt;</code>, <code>Required&lt;T&gt;</code>, <code>Pick&lt;T, K&gt;</code>, <code>Omit&lt;T, K&gt;</code>, and <code>Record&lt;K, V&gt;</code>.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('ts1')">TypeScript</button>
+                            <button class="tab" onclick="switchTab('js1')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('preview1')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="ts1" class="code-input" placeholder="Enter your TypeScript code here...">// Utility Types and Mapped Types Exercise
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  age: number;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt?: Date;
+}
+
+// Built-in utility types
+type UserUpdate = Partial<User>;
+type UserRequired = Required<User>;
+type UserBasic = Pick<User, 'id' | 'name' | 'email'>;
+type UserWithoutDates = Omit<User, 'createdAt' | 'updatedAt'>;
+type UserRecord = Record<string, User>;
+
+// Custom utility types
+type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+type NonNullable<T> = T extends null | undefined ? never : T;
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+// Mapped types
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+type Mutable<T> = {
+  -readonly [P in keyof T]: T[P];
+};
+
+type Stringify<T> = {
+  [K in keyof T]: string;
+};
+
+// Conditional types
+type IsArray<T> = T extends any[] ? true : false;
+type ArrayElement<T> = T extends (infer U)[] ? U : never;
+type NonFunctionPropertyNames<T> = {
+  [K in keyof T]: T[K] extends Function ? never : K;
+}[keyof T];
+
+// Example usage
+const user: User = {
+  id: 1,
+  name: "John Doe",
+  email: "john@example.com",
+  age: 30,
+  isActive: true,
+  createdAt: new Date()
+};
+
+// Using utility types
+const userUpdate: UserUpdate = {
+  name: "Jane Doe",
+  age: 31
+};
+
+const userBasic: UserBasic = {
+  id: 1,
+  name: "John Doe",
+  email: "john@example.com"
+};
+
+const userRecord: UserRecord = {
+  "user1": user,
+  "user2": { ...user, id: 2, name: "Jane Doe" }
+};
+
+// Custom utility type usage
+type UserOptionalAge = Optional<User, 'age'>;
+const userWithOptionalAge: UserOptionalAge = {
+  id: 1,
+  name: "John Doe",
+  email: "john@example.com",
+  isActive: true,
+  createdAt: new Date()
+  // age is optional
+};
+
+console.log("User:", user);
+console.log("User Update:", userUpdate);
+console.log("User Basic:", userBasic);
+console.log("User Record:", userRecord);</textarea>
+                            <textarea id="js1" class="code-input" placeholder="Compiled JavaScript will appear here...">// This will be populated by the TypeScript compiler</textarea>
+                            <div id="preview1" class="preview-container">
+                                <div class="output" id="output1">
+                                    <h4>Output:</h4>
+                                    <div class="console-output"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(1)">Compile & Run</button>
+                </div>
+            </section>
+
+            <!-- Exercise 2: Template Literal Types -->
+            <section class="exercise" id="exercise2">
+                <div class="exercise-header">
+                    <h2>Exercise 2: Template Literal Types and String Manipulation</h2>
+                    <div class="exercise-status" id="status2">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Work with template literal types, string manipulation types, and create type-safe string transformations.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>Capitalize</code>, <code>Uncapitalize</code>, <code>Uppercase</code>, <code>Lowercase</code>, and template literals.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('ts2')">TypeScript</button>
+                            <button class="tab" onclick="switchTab('js2')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('preview2')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="ts2" class="code-input" placeholder="Enter your TypeScript code here...">// Template Literal Types Exercise
+type EventName = 'click' | 'scroll' | 'keydown' | 'resize';
+type EventHandlerName<T extends string> = `on${Capitalize<T>}`;
+type EventHandler<T> = (event: T) => void;
+
+// String manipulation types
+type CapitalizeString<T extends string> = Capitalize<T>;
+type UncapitalizeString<T extends string> = Uncapitalize<T>;
+type UppercaseString<T extends string> = Uppercase<T>;
+type LowercaseString<T extends string> = Lowercase<T>;
+
+// Complex template literal types
+type ApiEndpoint<T extends string> = `/api/${T}`;
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type ApiRoute<T extends string, M extends HttpMethod> = `${M} ${ApiEndpoint<T>}`;
+
+// CSS property types
+type CssProperty = 'margin' | 'padding' | 'border' | 'color' | 'background';
+type CssValue = 'auto' | 'inherit' | 'initial' | 'unset' | string;
+type CssDeclaration<P extends CssProperty> = `${P}: ${CssValue}`;
+
+// Database column types
+type TableName = 'users' | 'posts' | 'comments';
+type ColumnName<T extends TableName> = 
+  T extends 'users' ? 'id' | 'name' | 'email' | 'created_at' :
+  T extends 'posts' ? 'id' | 'title' | 'content' | 'user_id' | 'created_at' :
+  T extends 'comments' ? 'id' | 'content' | 'post_id' | 'user_id' | 'created_at' :
+  never;
+
+type SelectQuery<T extends TableName> = `SELECT ${string} FROM ${T}`;
+type InsertQuery<T extends TableName> = `INSERT INTO ${T} (${string}) VALUES (${string})`;
+
+// Event system with template literals
+interface EventMap {
+  click: MouseEvent;
+  scroll: Event;
+  keydown: KeyboardEvent;
+  resize: UIEvent;
+}
+
+type EventListeners = {
+  [K in keyof EventMap as EventHandlerName<K>]: EventHandler<EventMap[K]>;
+};
+
+// Example usage
+const eventHandlers: EventListeners = {
+  onClick: (event) => console.log('Click event:', event),
+  onScroll: (event) => console.log('Scroll event:', event),
+  onKeydown: (event) => console.log('Keydown event:', event),
+  onResize: (event) => console.log('Resize event:', event)
+};
+
+// API route examples
+type UserRoutes = ApiRoute<'users', 'GET'> | ApiRoute<'users', 'POST'>;
+type PostRoutes = ApiRoute<'posts', 'GET'> | ApiRoute<'posts', 'POST'> | ApiRoute<'posts', 'PUT'>;
+
+const userRoutes: UserRoutes[] = ['GET /api/users', 'POST /api/users'];
+const postRoutes: PostRoutes[] = ['GET /api/posts', 'POST /api/posts', 'PUT /api/posts'];
+
+// CSS declarations
+type MarginDeclaration = CssDeclaration<'margin'>;
+const marginStyle: MarginDeclaration = 'margin: 10px';
+
+// Database queries
+type UserSelectQuery = SelectQuery<'users'>;
+type UserInsertQuery = InsertQuery<'users'>;
+
+const selectUsers: UserSelectQuery = 'SELECT * FROM users';
+const insertUser: UserInsertQuery = 'INSERT INTO users (name, email) VALUES (?, ?)';
+
+console.log("Event handlers:", eventHandlers);
+console.log("User routes:", userRoutes);
+console.log("Post routes:", postRoutes);
+console.log("Margin style:", marginStyle);
+console.log("Select query:", selectUsers);
+console.log("Insert query:", insertUser);</textarea>
+                            <textarea id="js2" class="code-input" placeholder="Compiled JavaScript will appear here...">// This will be populated by the TypeScript compiler</textarea>
+                            <div id="preview2" class="preview-container">
+                                <div class="output" id="output2">
+                                    <h4>Output:</h4>
+                                    <div class="console-output"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(2)">Compile & Run</button>
+                </div>
+            </section>
+
+            <!-- Exercise 3: Conditional Types -->
+            <section class="exercise" id="exercise3">
+                <div class="exercise-header">
+                    <h2>Exercise 3: Advanced Conditional Types</h2>
+                    <div class="exercise-status" id="status3">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Master conditional types with complex type relationships, distributive conditional types, and type inference.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>extends</code>, <code>infer</code>, <code>never</code>, and nested conditional types.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('ts3')">TypeScript</button>
+                            <button class="tab" onclick="switchTab('js3')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('preview3')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="ts3" class="code-input" placeholder="Enter your TypeScript code here...">// Advanced Conditional Types Exercise
+// Basic conditional types
+type IsString<T> = T extends string ? true : false;
+type IsArray<T> = T extends any[] ? true : false;
+type IsFunction<T> = T extends Function ? true : false;
+
+// Type extraction with conditional types
+type ArrayElement<T> = T extends (infer U)[] ? U : never;
+type PromiseValue<T> = T extends Promise<infer U> ? U : never;
+type FunctionReturn<T> = T extends (...args: any[]) => infer R ? R : never;
+type FunctionParameters<T> = T extends (...args: infer P) => any ? P : never;
+
+// Complex conditional types
+type NonNullable<T> = T extends null | undefined ? never : T;
+type Flatten<T> = T extends (infer U)[] ? U : T;
+type DeepFlatten<T> = T extends (infer U)[] ? DeepFlatten<U> : T;
+
+// Distributive conditional types
+type ToArray<T> = T extends any ? T[] : never;
+type ToArrayNonDistributive<T> = [T] extends [any] ? T[] : never;
+
+// Mapped conditional types
+type OptionalKeys<T> = {
+  [K in keyof T]-?: {} extends Pick<T, K> ? K : never;
+}[keyof T];
+
+type RequiredKeys<T> = {
+  [K in keyof T]-?: {} extends Pick<T, K> ? never : K;
+}[keyof T];
+
+// Recursive conditional types
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P];
+};
+
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+
+// Utility type implementations
+type MyExclude<T, U> = T extends U ? never : T;
+type MyExtract<T, U> = T extends U ? T : never;
+type MyNonNullable<T> = T extends null | undefined ? never : T;
+type MyReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
+
+// Example usage
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  posts?: Post[];
+  profile?: {
+    bio: string;
+    avatar: string;
+  };
+}
+
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+  authorId: number;
+}
+
+// Type tests
+type Test1 = IsString<string>; // true
+type Test2 = IsString<number>; // false
+type Test3 = IsArray<string[]>; // true
+type Test4 = IsArray<string>; // false
+
+// Type extractions
+type StringArrayElement = ArrayElement<string[]>; // string
+type PromiseString = PromiseValue<Promise<string>>; // string
+type FunctionReturnType = FunctionReturn<() => number>; // number
+type FunctionParams = FunctionParameters<(a: string, b: number) => void>; // [string, number]
+
+// Complex type operations
+type UserOptionalKeys = OptionalKeys<User>; // 'posts' | 'profile'
+type UserRequiredKeys = RequiredKeys<User>; // 'id' | 'name' | 'email'
+
+// Deep transformations
+type DeepReadonlyUser = DeepReadonly<User>;
+type DeepPartialUser = DeepPartial<User>;
+
+// Utility type tests
+type Excluded = MyExclude<'a' | 'b' | 'c', 'a'>; // 'b' | 'c'
+type Extracted = MyExtract<'a' | 'b' | 'c', 'a' | 'b'>; // 'a' | 'b'
+type NonNull = MyNonNullable<string | null | undefined>; // string
+type Return = MyReturnType<() => string>; // string
+
+console.log("Type tests completed successfully!");
+console.log("All conditional types are working correctly.");</textarea>
+                            <textarea id="js3" class="code-input" placeholder="Compiled JavaScript will appear here...">// This will be populated by the TypeScript compiler</textarea>
+                            <div id="preview3" class="preview-container">
+                                <div class="output" id="output3">
+                                    <h4>Output:</h4>
+                                    <div class="console-output"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(3)">Compile & Run</button>
+                </div>
+            </section>
+
+            <!-- Exercise 4: Module System and Namespaces -->
+            <section class="exercise" id="exercise4">
+                <div class="exercise-header">
+                    <h2>Exercise 4: Module System and Namespaces</h2>
+                    <div class="exercise-status" id="status4">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Work with TypeScript modules, namespaces, declaration merging, and ambient declarations.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use <code>export</code>, <code>import</code>, <code>namespace</code>, <code>declare</code>, and <code>module</code>.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('ts4')">TypeScript</button>
+                            <button class="tab" onclick="switchTab('js4')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('preview4')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="ts4" class="code-input" placeholder="Enter your TypeScript code here...">// Module System and Namespaces Exercise
+
+// ES6 Modules
+export interface ApiResponse<T> {
+  data: T;
+  status: number;
+  message: string;
+}
+
+export class ApiClient {
+  private baseUrl: string;
+  
+  constructor(baseUrl: string) {
+    this.baseUrl = baseUrl;
+  }
+  
+  async get<T>(endpoint: string): Promise<ApiResponse<T>> {
+    const response = await fetch(`${this.baseUrl}${endpoint}`);
+    const data = await response.json();
+    return {
+      data,
+      status: response.status,
+      message: response.ok ? 'Success' : 'Error'
+    };
+  }
+  
+  async post<T>(endpoint: string, body: any): Promise<ApiResponse<T>> {
+    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const data = await response.json();
+    return {
+      data,
+      status: response.status,
+      message: response.ok ? 'Success' : 'Error'
+    };
+  }
+}
+
+// Namespace example
+namespace MathUtils {
+  export function add(a: number, b: number): number {
+    return a + b;
+  }
+  
+  export function multiply(a: number, b: number): number {
+    return a * b;
+  }
+  
+  export namespace Advanced {
+    export function power(base: number, exponent: number): number {
+      return Math.pow(base, exponent);
+    }
+    
+    export function sqrt(value: number): number {
+      return Math.sqrt(value);
+    }
+  }
+}
+
+// Declaration merging
+interface User {
+  id: number;
+  name: string;
+}
+
+interface User {
+  email: string;
+  age?: number;
+}
+
+// Namespace merging
+namespace MathUtils {
+  export function subtract(a: number, b: number): number {
+    return a - b;
+  }
+}
+
+// Ambient declarations
+declare global {
+  interface Window {
+    myApp: {
+      version: string;
+      config: any;
+    };
+  }
+}
+
+// Module augmentation
+declare module './types' {
+  interface User {
+    lastLogin?: Date;
+  }
+}
+
+// Re-exporting
+export { MathUtils };
+export type { ApiResponse };
+
+// Default export
+export default class DefaultApiClient extends ApiClient {
+  constructor() {
+    super('https://api.example.com');
+  }
+}
+
+// Example usage
+const apiClient = new ApiClient('https://api.example.com');
+const defaultClient = new DefaultApiClient();
+
+// Using namespace
+const sum = MathUtils.add(5, 3);
+const product = MathUtils.multiply(4, 6);
+const power = MathUtils.Advanced.power(2, 8);
+const difference = MathUtils.subtract(10, 3);
+
+// Using merged interface
+const user: User = {
+  id: 1,
+  name: 'John Doe',
+  email: 'john@example.com',
+  age: 30,
+  lastLogin: new Date()
+};
+
+console.log("API Client created:", apiClient);
+console.log("Default Client created:", defaultClient);
+console.log("Math operations:", { sum, product, power, difference });
+console.log("User:", user);
+
+// Simulate API call
+async function simulateApiCall() {
+  try {
+    const response = await apiClient.get<User>('/users/1');
+    console.log("API Response:", response);
+  } catch (error) {
+    console.log("API Error:", error);
+  }
+}
+
+simulateApiCall();</textarea>
+                            <textarea id="js4" class="code-input" placeholder="Compiled JavaScript will appear here...">// This will be populated by the TypeScript compiler</textarea>
+                            <div id="preview4" class="preview-container">
+                                <div class="output" id="output4">
+                                    <h4>Output:</h4>
+                                    <div class="console-output"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(4)">Compile & Run</button>
+                </div>
+            </section>
+
+            <!-- Exercise 5: Advanced Type Patterns -->
+            <section class="exercise" id="exercise5">
+                <div class="exercise-header">
+                    <h2>Exercise 5: Advanced Type Patterns and Techniques</h2>
+                    <div class="exercise-status" id="status5">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Master advanced TypeScript patterns including branded types, phantom types, and complex type manipulations.</p>
+                        <div class="hint">
+                            <strong>Hint:</strong> Use branded types, phantom types, and advanced type manipulation techniques.
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-tabs">
+                            <button class="tab active" onclick="switchTab('ts5')">TypeScript</button>
+                            <button class="tab" onclick="switchTab('js5')">JavaScript</button>
+                            <button class="tab" onclick="switchTab('preview5')">Preview</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="ts5" class="code-input" placeholder="Enter your TypeScript code here...">// Advanced Type Patterns Exercise
+
+// Branded types for type safety
+type Brand<T, B> = T & { __brand: B };
+type UserId = Brand<number, 'UserId'>;
+type ProductId = Brand<number, 'ProductId'>;
+type Email = Brand<string, 'Email'>;
+
+// Phantom types for additional type information
+type Phantom<T, P> = T & { __phantom: P };
+type Validated<T> = Phantom<T, 'Validated'>;
+type Sanitized<T> = Phantom<T, 'Sanitized'>;
+
+// Type-level programming
+type Length<T extends readonly any[]> = T['length'];
+type Head<T extends readonly any[]> = T extends readonly [infer H, ...any[]] ? H : never;
+type Tail<T extends readonly any[]> = T extends readonly [any, ...infer T] ? T : never;
+type Last<T extends readonly any[]> = T extends readonly [...any[], infer L] ? L : never;
+
+// Recursive types
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : T[P];
+};
+
+type DeepRequired<T> = {
+  [P in keyof T]-?: T[P] extends object ? DeepRequired<T[P]> : T[P];
+};
+
+// Type guards and assertions
+function isUserId(value: number): value is UserId {
+  return Number.isInteger(value) && value > 0;
+}
+
+function isEmail(value: string): value is Email {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+// Advanced utility types
+type NonEmptyArray<T> = [T, ...T[]];
+type AtLeastOne<T, U = {[K in keyof T]: Pick<T, K>}> = Partial<T> & U[keyof U];
+type Exact<T, U> = T extends U ? U extends T ? T : never : never;
+
+// Type-level arithmetic
+type Add<A extends number, B extends number> = 
+  A extends 0 ? B : 
+  B extends 0 ? A : 
+  Add<A extends number ? A - 1 : never, B extends number ? B + 1 : never>;
+
+type Subtract<A extends number, B extends number> = 
+  B extends 0 ? A : 
+  A extends 0 ? never : 
+  Subtract<A extends number ? A - 1 : never, B extends number ? B - 1 : never>;
+
+// Complex type manipulations
+type Paths<T> = T extends object ? {
+  [K in keyof T]: K extends string ? 
+    T[K] extends object ? 
+      K | `${K}.${Paths<T[K]>}` : 
+      K : 
+    never
+}[keyof T] : never;
+
+type Get<T, P extends string> = P extends `${infer K}.${infer Rest}` ?
+  K extends keyof T ? Get<T[K], Rest> : never :
+  P extends keyof T ? T[P] : never;
+
+// Example usage
+const userId: UserId = 123 as UserId;
+const productId: ProductId = 456 as ProductId;
+const email: Email = "user@example.com" as Email;
+
+// Type-safe operations
+function createUser(id: UserId, email: Email) {
+  return {
+    id,
+    email,
+    createdAt: new Date()
+  };
+}
+
+// Validated data
+const validatedEmail: Validated<Email> = email as Validated<Email>;
+const sanitizedInput: Sanitized<string> = "safe input" as Sanitized<string>;
+
+// Array type operations
+type TestArray = [1, 2, 3, 4, 5];
+type ArrayLength = Length<TestArray>; // 5
+type FirstElement = Head<TestArray>; // 1
+type LastElement = Last<TestArray>; // 5
+type RestElements = Tail<TestArray>; // [2, 3, 4, 5]
+
+// Deep transformations
+interface ComplexObject {
+  user: {
+    id: number;
+    profile: {
+      name: string;
+      settings?: {
+        theme: string;
+        notifications: boolean;
+      };
+    };
+  };
+  posts: Array<{
+    id: number;
+    title: string;
+    content?: string;
+  }>;
+}
+
+type DeepReadonlyComplex = DeepReadonly<ComplexObject>;
+type DeepRequiredComplex = DeepRequired<ComplexObject>;
+
+// Path operations
+type UserPaths = Paths<ComplexObject>; // "user" | "posts" | "user.id" | "user.profile" | etc.
+type UserName = Get<ComplexObject, "user.profile.name">; // string
+type UserTheme = Get<ComplexObject, "user.profile.settings.theme">; // string | undefined
+
+// Type-level arithmetic
+type Three = Add<1, 2>; // 3
+type One = Subtract<3, 2>; // 1
+
+console.log("Branded types:", { userId, productId, email });
+console.log("Validated data:", { validatedEmail, sanitizedInput });
+console.log("Array operations:", { 
+  length: 5, 
+  first: 1, 
+  last: 5, 
+  rest: [2, 3, 4, 5] 
+});
+console.log("Type-level arithmetic:", { three: 3, one: 1 });
+console.log("Path operations:", { 
+  userName: "string", 
+  userTheme: "string | undefined" 
+});
+
+// Type-safe user creation
+const user = createUser(userId, email);
+console.log("Created user:", user);</textarea>
+                            <textarea id="js5" class="code-input" placeholder="Compiled JavaScript will appear here...">// This will be populated by the TypeScript compiler</textarea>
+                            <div id="preview5" class="preview-container">
+                                <div class="output" id="output5">
+                                    <h4>Output:</h4>
+                                    <div class="console-output"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" onclick="checkExercise(5)">Compile & Run</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="level-footer">
+            <div class="completion-message" id="completionMessage" style="display: none;">
+                <h3>🎉 Congratulations!</h3>
+                <p>You've completed Level 12: TypeScript Advanced!</p>
+                <div class="badge-earned">
+                    <span class="badge-icon">🚀</span>
+                    <span class="badge-text">TypeScript Advanced Master</span>
+                </div>
+                <a href="../../index.html" class="btn btn-primary">Return to Hub</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="level12-script.js"></script>
+</body>
+</html>
