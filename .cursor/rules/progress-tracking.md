@@ -1,0 +1,20 @@
+# Progress Tracking Rule
+
+## Always Continue from PROGRESS_TRACKING.md
+- Always read and reference the PROGRESS_TRACKING.md file at the start of any task
+- Use the current progress state to understand what has been completed and what needs to be done next
+- Build upon existing work rather than starting from scratch
+
+## Always Update PROGRESS_TRACKING.md
+- Update PROGRESS_TRACKING.md immediately after completing any task or milestone
+- Document what was accomplished, including:
+  - Completed tasks
+  - New features or improvements
+  - Bug fixes
+  - Any changes to the project structure
+- Keep the progress tracking accurate and up-to-date for future reference
+
+## Implementation
+- Before starting work: Read PROGRESS_TRACKING.md to understand current state
+- During work: Reference the progress file to stay aligned with project goals
+- After completing work: Update PROGRESS_TRACKING.md with new accomplishments
