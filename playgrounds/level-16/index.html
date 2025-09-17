@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 16: Advanced Backend Patterns - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level16-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>🏗️ Level 16: Advanced Backend Patterns</h1>
+                <p class="level-description">Master microservices, caching, message queues, background jobs, and advanced backend architecture patterns</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="level-stats">
+                    <span class="completed-exercises">Completed: <span id="completedCount">0</span>/5</span>
+                    <span class="level-badge" id="levelBadge">Backend Novice</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: Microservices Architecture -->
+            <div class="exercise-card" id="exercise1">
+                <div class="exercise-header">
+                    <h3>Exercise 1: Microservices Architecture</h3>
+                    <div class="exercise-status" id="status1">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Build a microservices architecture with service discovery, API gateway, and inter-service communication. Learn service decomposition and distributed system patterns.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>express-gateway</code> for API gateway, <code>consul</code> for service discovery, and <code>axios</code> for service communication
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="api-gateway.js">api-gateway.js</button>
+                            <button class="tab" data-file="user-service.js">user-service.js</button>
+                            <button class="tab" data-file="package-microservices.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor1-gateway" class="code-editor" placeholder="// API Gateway for Microservices
+const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+const consul = require('consul');
+
+const app = express();
+const consulClient = consul();
+
+// Service registry
+const services = {
+  'user-service': 'http://localhost:3001',
+  'order-service': 'http://localhost:3002',
+  'payment-service': 'http://localhost:3003'
+};
+
+// Your microservices gateway implementation here...
+
+// Service discovery middleware
+app.use('/api/users/*', createProxyMiddleware({
+  target: services['user-service'],
+  changeOrigin: true,
+  pathRewrite: { '^/api/users': '' }
+}));
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK', services: Object.keys(services) });
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`API Gateway running on port ${PORT}`);
+});"></textarea>
+                            <textarea id="editor1-service" class="code-editor" style="display: none;" placeholder="// User Service
+const express = require('express');
+const consul = require('consul');
+
+const app = express();
+const consulClient = consul();
+
+// Service registration
+const serviceId = 'user-service-1';
+const serviceConfig = {
+  name: 'user-service',
+  id: serviceId,
+  address: 'localhost',
+  port: 3001,
+  check: {
+    http: 'http://localhost:3001/health',
+    interval: '10s'
+  }
+};
+
+// Your user service implementation here...
+
+// Register with Consul
+consulClient.agent.service.register(serviceConfig, (err) => {
+  if (err) throw err;
+  console.log('User service registered with Consul');
+});
+
+app.listen(3001, () => {
+  console.log('User service running on port 3001');
+});"></textarea>
+                            <textarea id="editor1-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "microservices-demo",
+  "version": "1.0.0",
+  "description": "Microservices architecture demonstration",
+  "main": "api-gateway.js",
+  "scripts": {
+    "start": "node api-gateway.js",
+    "start:user": "node user-service.js",
+    "dev": "concurrently \"npm run start:user\" \"npm run start\""
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6",
+    "consul": "^0.40.0",
+    "axios": "^1.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "keywords": ["microservices", "api-gateway", "consul"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(1)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(1)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output1" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Caching Strategies -->
+            <div class="exercise-card" id="exercise2">
+                <div class="exercise-header">
+                    <h3>Exercise 2: Caching Strategies</h3>
+                    <div class="exercise-status" id="status2">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement Redis caching, cache invalidation, and different caching patterns. Learn when and how to use caching effectively in backend applications.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>redis</code> for caching, implement cache-aside, write-through, and write-behind patterns
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="cache-service.js">cache-service.js</button>
+                            <button class="tab" data-file="cache-patterns.js">cache-patterns.js</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor2-service" class="code-editor" placeholder="// Cache Service Implementation
+const redis = require('redis');
+const express = require('express');
+
+const app = express();
+const client = redis.createClient({
+  host: 'localhost',
+  port: 6379
+});
+
+// Your caching implementation here...
+
+// Cache-aside pattern
+async function getCachedData(key, fetchFunction, ttl = 3600) {
+  // Your cache-aside implementation here...
+}
+
+// Write-through pattern
+async function writeThroughCache(key, data, ttl = 3600) {
+  // Your write-through implementation here...
+}
+
+// Cache invalidation
+async function invalidateCache(pattern) {
+  // Your cache invalidation implementation here...
+}
+
+app.listen(3000, () => {
+  console.log('Cache service running on port 3000');
+});"></textarea>
+                            <textarea id="editor2-patterns" class="code-editor" style="display: none;" placeholder="// Cache Patterns Implementation
+const redis = require('redis');
+
+class CacheManager {
+  constructor() {
+    this.client = redis.createClient();
+  }
+
+  // Cache-aside pattern
+  async cacheAside(key, fetchFunction, ttl = 3600) {
+    try {
+      // Try to get from cache first
+      const cached = await this.client.get(key);
+      if (cached) {
+        return JSON.parse(cached);
+      }
+
+      // If not in cache, fetch from source
+      const data = await fetchFunction();
+      
+      // Store in cache
+      await this.client.setex(key, ttl, JSON.stringify(data));
+      
+      return data;
+    } catch (error) {
+      console.error('Cache error:', error);
+      return await fetchFunction();
+    }
+  }
+
+  // Write-through pattern
+  async writeThrough(key, data, writeFunction, ttl = 3600) {
+    try {
+      // Write to cache
+      await this.client.setex(key, ttl, JSON.stringify(data));
+      
+      // Write to persistent storage
+      await writeFunction(data);
+      
+      return data;
+    } catch (error) {
+      console.error('Write-through error:', error);
+      throw error;
+    }
+  }
+
+  // Write-behind pattern
+  async writeBehind(key, data, writeFunction, ttl = 3600) {
+    try {
+      // Write to cache immediately
+      await this.client.setex(key, ttl, JSON.stringify(data));
+      
+      // Queue for background write
+      setImmediate(() => {
+        writeFunction(data).catch(console.error);
+      });
+      
+      return data;
+    } catch (error) {
+      console.error('Write-behind error:', error);
+      throw error;
+    }
+  }
+
+  // Cache invalidation
+  async invalidatePattern(pattern) {
+    const keys = await this.client.keys(pattern);
+    if (keys.length > 0) {
+      await this.client.del(keys);
+    }
+  }
+}
+
+module.exports = CacheManager;"></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(2)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(2)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output2" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: Message Queues -->
+            <div class="exercise-card" id="exercise3">
+                <div class="exercise-header">
+                    <h3>Exercise 3: Message Queues</h3>
+                    <div class="exercise-status" id="status3">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement message queues with RabbitMQ, handle asynchronous processing, and build event-driven architectures. Learn pub/sub patterns and message reliability.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>amqplib</code> for RabbitMQ, implement producers, consumers, and dead letter queues
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="message-producer.js">producer.js</button>
+                            <button class="tab" data-file="message-consumer.js">consumer.js</button>
+                            <button class="tab" data-file="package-queue.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor3-producer" class="code-editor" placeholder="// Message Queue Producer
+const amqp = require('amqplib');
+
+class MessageProducer {
+  constructor() {
+    this.connection = null;
+    this.channel = null;
+  }
+
+  async connect() {
+    // Your RabbitMQ connection implementation here...
+  }
+
+  async publishMessage(queueName, message, options = {}) {
+    // Your message publishing implementation here...
+  }
+
+  async publishToExchange(exchange, routingKey, message) {
+    // Your exchange publishing implementation here...
+  }
+
+  async close() {
+    // Your connection cleanup implementation here...
+  }
+}
+
+// Usage example
+async function main() {
+  const producer = new MessageProducer();
+  await producer.connect();
+  
+  // Publish messages
+  await producer.publishMessage('user-events', {
+    type: 'user.created',
+    data: { userId: 1, email: 'user@example.com' }
+  });
+  
+  await producer.close();
+}
+
+main().catch(console.error);"></textarea>
+                            <textarea id="editor3-consumer" class="code-editor" style="display: none;" placeholder="// Message Queue Consumer
+const amqp = require('amqplib');
+
+class MessageConsumer {
+  constructor() {
+    this.connection = null;
+    this.channel = null;
+  }
+
+  async connect() {
+    // Your RabbitMQ connection implementation here...
+  }
+
+  async consumeMessages(queueName, handler, options = {}) {
+    // Your message consumption implementation here...
+  }
+
+  async setupDeadLetterQueue(queueName, dlqName) {
+    // Your dead letter queue setup here...
+  }
+
+  async acknowledgeMessage(message) {
+    // Your message acknowledgment implementation here...
+  }
+
+  async close() {
+    // Your connection cleanup implementation here...
+  }
+}
+
+// Usage example
+async function main() {
+  const consumer = new MessageConsumer();
+  await consumer.connect();
+  
+  // Consume messages
+  await consumer.consumeMessages('user-events', (message) => {
+    console.log('Processing message:', message.content.toString());
+    // Process the message
+  });
+}
+
+main().catch(console.error);"></textarea>
+                            <textarea id="editor3-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "message-queue-demo",
+  "version": "1.0.0",
+  "description": "Message queue demonstration",
+  "main": "producer.js",
+  "scripts": {
+    "start:producer": "node producer.js",
+    "start:consumer": "node consumer.js",
+    "dev": "concurrently \"npm run start:producer\" \"npm run start:consumer\""
+  },
+  "dependencies": {
+    "amqplib": "^0.10.3"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "keywords": ["message-queue", "rabbitmq", "amqp"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(3)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(3)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output3" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Background Jobs -->
+            <div class="exercise-card" id="exercise4">
+                <div class="exercise-header">
+                    <h3>Exercise 4: Background Jobs</h3>
+                    <div class="exercise-status" id="status4">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement background job processing with Bull Queue, job scheduling, retry mechanisms, and job monitoring. Learn async task processing patterns.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>bull</code> for job queues, implement job processors, and handle job failures gracefully
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="job-processor.js">job-processor.js</button>
+                            <button class="tab" data-file="job-scheduler.js">job-scheduler.js</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor4-processor" class="code-editor" placeholder="// Background Job Processor
+const Queue = require('bull');
+const Redis = require('ioredis');
+
+// Create Redis connection
+const redis = new Redis({
+  host: 'localhost',
+  port: 6379
+});
+
+// Create job queues
+const emailQueue = new Queue('email processing', { redis });
+const imageQueue = new Queue('image processing', { redis });
+
+// Your job processor implementation here...
+
+// Email job processor
+emailQueue.process('send-email', async (job) => {
+  const { to, subject, body } = job.data;
+  
+  // Your email sending logic here...
+  console.log(`Sending email to ${to}: ${subject}`);
+  
+  // Simulate email sending
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  
+  return { success: true, messageId: 'msg_' + Date.now() };
+});
+
+// Image processing job
+imageQueue.process('resize-image', async (job) => {
+  const { imagePath, sizes } = job.data;
+  
+  // Your image processing logic here...
+  console.log(`Processing image: ${imagePath}`);
+  
+  // Simulate image processing
+  await new Promise(resolve => setTimeout(resolve, 5000));
+  
+  return { success: true, processedImages: sizes.length };
+});
+
+// Job event handlers
+emailQueue.on('completed', (job, result) => {
+  console.log(`Email job ${job.id} completed:`, result);
+});
+
+emailQueue.on('failed', (job, err) => {
+  console.error(`Email job ${job.id} failed:`, err);
+});
+
+module.exports = { emailQueue, imageQueue };"></textarea>
+                            <textarea id="editor4-scheduler" class="code-editor" style="display: none;" placeholder="// Job Scheduler
+const Queue = require('bull');
+const cron = require('node-cron');
+
+class JobScheduler {
+  constructor() {
+    this.queues = new Map();
+  }
+
+  createQueue(name, options = {}) {
+    const queue = new Queue(name, {
+      redis: { host: 'localhost', port: 6379 },
+      ...options
+    });
+    
+    this.queues.set(name, queue);
+    return queue;
+  }
+
+  // Schedule recurring job
+  scheduleRecurring(queueName, jobName, cronExpression, data) {
+    const queue = this.queues.get(queueName);
+    if (!queue) throw new Error(`Queue ${queueName} not found`);
+
+    cron.schedule(cronExpression, () => {
+      queue.add(jobName, data, {
+        removeOnComplete: 10,
+        removeOnFail: 5
+      });
+    });
+  }
+
+  // Schedule delayed job
+  scheduleDelayed(queueName, jobName, data, delay) {
+    const queue = this.queues.get(queueName);
+    if (!queue) throw new Error(`Queue ${queueName} not found`);
+
+    return queue.add(jobName, data, { delay });
+  }
+
+  // Schedule job with retry
+  scheduleWithRetry(queueName, jobName, data, retryOptions = {}) {
+    const queue = this.queues.get(queueName);
+    if (!queue) throw new Error(`Queue ${queueName} not found`);
+
+    return queue.add(jobName, data, {
+      attempts: retryOptions.attempts || 3,
+      backoff: {
+        type: 'exponential',
+        delay: retryOptions.delay || 2000
+      }
+    });
+  }
+
+  // Get queue statistics
+  async getQueueStats(queueName) {
+    const queue = this.queues.get(queueName);
+    if (!queue) throw new Error(`Queue ${queueName} not found`);
+
+    const waiting = await queue.getWaiting();
+    const active = await queue.getActive();
+    const completed = await queue.getCompleted();
+    const failed = await queue.getFailed();
+
+    return {
+      waiting: waiting.length,
+      active: active.length,
+      completed: completed.length,
+      failed: failed.length
+    };
+  }
+}
+
+module.exports = JobScheduler;"></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(4)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(4)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output4" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Event Sourcing -->
+            <div class="exercise-card" id="exercise5">
+                <div class="exercise-header">
+                    <h3>Exercise 5: Event Sourcing</h3>
+                    <div class="exercise-status" id="status5">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement event sourcing patterns, event stores, and CQRS (Command Query Responsibility Segregation). Learn how to build event-driven systems.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Create event stores, implement command handlers, and build read models from events
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="event-store.js">event-store.js</button>
+                            <button class="tab" data-file="command-handler.js">command-handler.js</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor5-store" class="code-editor" placeholder="// Event Store Implementation
+class EventStore {
+  constructor() {
+    this.events = [];
+    this.projections = new Map();
+  }
+
+  // Append events to store
+  async appendEvents(streamId, events, expectedVersion) {
+    // Your event appending implementation here...
+  }
+
+  // Get events for a stream
+  async getEvents(streamId, fromVersion = 0) {
+    // Your event retrieval implementation here...
+  }
+
+  // Subscribe to events
+  subscribe(eventType, handler) {
+    // Your event subscription implementation here...
+  }
+
+  // Create projection
+  createProjection(name, handlers) {
+    // Your projection creation implementation here...
+  }
+}
+
+// Event types
+const EventTypes = {
+  USER_CREATED: 'UserCreated',
+  USER_UPDATED: 'UserUpdated',
+  USER_DELETED: 'UserDeleted'
+};
+
+// Command types
+const CommandTypes = {
+  CREATE_USER: 'CreateUser',
+  UPDATE_USER: 'UpdateUser',
+  DELETE_USER: 'DeleteUser'
+};
+
+module.exports = { EventStore, EventTypes, CommandTypes };"></textarea>
+                            <textarea id="editor5-handler" class="code-editor" style="display: none;" placeholder="// Command Handler Implementation
+const { EventStore, EventTypes, CommandTypes } = require('./event-store');
+
+class CommandHandler {
+  constructor(eventStore) {
+    this.eventStore = eventStore;
+  }
+
+  // Handle create user command
+  async handleCreateUser(command) {
+    const { userId, name, email } = command.data;
+    
+    // Validate command
+    if (!userId || !name || !email) {
+      throw new Error('Invalid command data');
+    }
+
+    // Create event
+    const event = {
+      type: EventTypes.USER_CREATED,
+      streamId: `user-${userId}`,
+      data: { userId, name, email },
+      timestamp: new Date().toISOString(),
+      version: 1
+    };
+
+    // Append to event store
+    await this.eventStore.appendEvents(`user-${userId}`, [event], 0);
+    
+    return { success: true, eventId: event.id };
+  }
+
+  // Handle update user command
+  async handleUpdateUser(command) {
+    const { userId, updates } = command.data;
+    
+    // Get current events
+    const events = await this.eventStore.getEvents(`user-${userId}`);
+    const currentVersion = events.length;
+
+    // Create update event
+    const event = {
+      type: EventTypes.USER_UPDATED,
+      streamId: `user-${userId}`,
+      data: { userId, updates },
+      timestamp: new Date().toISOString(),
+      version: currentVersion + 1
+    };
+
+    // Append to event store
+    await this.eventStore.appendEvents(`user-${userId}`, [event], currentVersion);
+    
+    return { success: true, eventId: event.id };
+  }
+
+  // Handle delete user command
+  async handleDeleteUser(command) {
+    const { userId } = command.data;
+    
+    // Get current events
+    const events = await this.eventStore.getEvents(`user-${userId}`);
+    const currentVersion = events.length;
+
+    // Create delete event
+    const event = {
+      type: EventTypes.USER_DELETED,
+      streamId: `user-${userId}`,
+      data: { userId },
+      timestamp: new Date().toISOString(),
+      version: currentVersion + 1
+    };
+
+    // Append to event store
+    await this.eventStore.appendEvents(`user-${userId}`, [event], currentVersion);
+    
+    return { success: true, eventId: event.id };
+  }
+}
+
+module.exports = CommandHandler;"></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(5)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(5)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output5" class="output"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="prev-level-btn" onclick="goToPreviousLevel()">← Previous Level</button>
+            <button class="next-level-btn" onclick="goToNextLevel()">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="level16-script.js"></script>
+</body>
+</html>
