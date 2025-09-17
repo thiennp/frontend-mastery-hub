@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 13: Node.js Fundamentals - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level13-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>🚀 Level 13: Node.js Fundamentals</h1>
+                <p class="level-description">Master server-side JavaScript with Node.js, file system operations, HTTP servers, and Express.js</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="level-stats">
+                    <span class="completed-exercises">Completed: <span id="completedCount">0</span>/5</span>
+                    <span class="level-badge" id="levelBadge">Node.js Novice</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: Basic Node.js Setup -->
+            <div class="exercise-card" id="exercise1">
+                <div class="exercise-header">
+                    <h3>Exercise 1: Basic Node.js Setup</h3>
+                    <div class="exercise-status" id="status1">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Create a basic Node.js application with package.json and a simple server. Learn about Node.js modules, require statements, and basic server setup.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>require('http')</code> to create an HTTP server and <code>npm init</code> to create package.json
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="server.js">server.js</button>
+                            <button class="tab" data-file="package.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor1-server" class="code-editor" placeholder="// Create a basic HTTP server
+const http = require('http');
+
+// Your code here...
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Hello from Node.js!');
+});
+
+const PORT = 3000;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});"></textarea>
+                            <textarea id="editor1-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "node-basics",
+  "version": "1.0.0",
+  "description": "Basic Node.js application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["nodejs", "server"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(1)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(1)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output1" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: File System Operations -->
+            <div class="exercise-card" id="exercise2">
+                <div class="exercise-header">
+                    <h3>Exercise 2: File System Operations</h3>
+                    <div class="exercise-status" id="status2">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Work with Node.js file system module to read, write, and manipulate files. Learn about synchronous and asynchronous file operations.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>fs.readFile()</code>, <code>fs.writeFile()</code>, and <code>fs.existsSync()</code> for file operations
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="file-ops.js">file-ops.js</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor2" class="code-editor" placeholder="// File System Operations
+const fs = require('fs');
+const path = require('path');
+
+// Your code here...
+
+// 1. Create a file with content
+// 2. Read the file content
+// 3. Append to the file
+// 4. Check if file exists
+// 5. Get file stats
+
+console.log('File operations completed!');"></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(2)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(2)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output2" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: HTTP Server with Routes -->
+            <div class="exercise-card" id="exercise3">
+                <div class="exercise-header">
+                    <h3>Exercise 3: HTTP Server with Routes</h3>
+                    <div class="exercise-status" id="status3">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Build a more sophisticated HTTP server with different routes, request handling, and response formatting. Learn about URL parsing and HTTP methods.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>url.parse()</code> to parse URLs and check <code>req.method</code> for HTTP methods
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="routes.js">routes.js</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor3" class="code-editor" placeholder="// HTTP Server with Routes
+const http = require('http');
+const url = require('url');
+
+// Your code here...
+
+// Create server with routes:
+// GET / - Welcome message
+// GET /api/users - Return user data
+// POST /api/users - Create new user
+// GET /api/users/:id - Get specific user
+// 404 for other routes
+
+const server = http.createServer((req, res) => {
+  const parsedUrl = url.parse(req.url, true);
+  const path = parsedUrl.pathname;
+  const method = req.method;
+
+  // Your route handling here...
+
+});
+
+const PORT = 3001;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});"></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(3)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(3)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output3" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Express.js Basics -->
+            <div class="exercise-card" id="exercise4">
+                <div class="exercise-header">
+                    <h3>Exercise 4: Express.js Basics</h3>
+                    <div class="exercise-status" id="status4">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Learn Express.js framework for building web applications. Set up routes, middleware, and handle different HTTP methods with Express.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>express()</code> to create app, <code>app.get()</code>, <code>app.post()</code> for routes, and <code>app.use()</code> for middleware
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="express-app.js">express-app.js</button>
+                            <button class="tab" data-file="package-express.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor4-express" class="code-editor" placeholder="// Express.js Application
+const express = require('express');
+const app = express();
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Your routes here...
+
+// GET / - Home route
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to Express.js!' });
+});
+
+// GET /api/status - Health check
+app.get('/api/status', (req, res) => {
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+// POST /api/echo - Echo back request data
+app.post('/api/echo', (req, res) => {
+  res.json({ received: req.body });
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+const PORT = 3002;
+app.listen(PORT, () => {
+  console.log(`Express server running on port ${PORT}`);
+});"></textarea>
+                            <textarea id="editor4-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "express-basics",
+  "version": "1.0.0",
+  "description": "Express.js application",
+  "main": "express-app.js",
+  "scripts": {
+    "start": "node express-app.js",
+    "dev": "nodemon express-app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "keywords": ["express", "nodejs", "api"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(4)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(4)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output4" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Node.js Modules and NPM -->
+            <div class="exercise-card" id="exercise5">
+                <div class="exercise-header">
+                    <h3>Exercise 5: Node.js Modules and NPM</h3>
+                    <div class="exercise-status" id="status5">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Create custom modules, work with NPM packages, and understand Node.js module system. Learn about exports, imports, and package management.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>module.exports</code> to export functions, <code>require()</code> to import, and <code>npm install</code> for packages
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="utils.js">utils.js</button>
+                            <button class="tab" data-file="main.js">main.js</button>
+                            <button class="tab" data-file="package-modules.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor5-utils" class="code-editor" placeholder="// Custom Utility Module (utils.js)
+// Your utility functions here...
+
+// 1. Math utilities
+function add(a, b) {
+  return a + b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+// 2. String utilities
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// 3. Date utilities
+function getCurrentDate() {
+  return new Date().toISOString();
+}
+
+// Export your functions
+module.exports = {
+  add,
+  multiply,
+  capitalize,
+  getCurrentDate
+};"></textarea>
+                            <textarea id="editor5-main" class="code-editor" style="display: none;" placeholder="// Main Application (main.js)
+const utils = require('./utils');
+const os = require('os');
+
+// Your code here...
+
+// 1. Use custom utils
+console.log('Math operations:');
+console.log('2 + 3 =', utils.add(2, 3));
+console.log('4 * 5 =', utils.multiply(4, 5));
+
+// 2. Use string utils
+console.log('\\nString operations:');
+console.log('hello world ->', utils.capitalize('hello world'));
+
+// 3. Use date utils
+console.log('\\nDate operations:');
+console.log('Current date:', utils.getCurrentDate());
+
+// 4. Use built-in modules
+console.log('\\nSystem info:');
+console.log('Platform:', os.platform());
+console.log('Architecture:', os.arch());
+console.log('Free memory:', Math.round(os.freemem() / 1024 / 1024), 'MB');"></textarea>
+                            <textarea id="editor5-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "node-modules-demo",
+  "version": "1.0.0",
+  "description": "Node.js modules and NPM demonstration",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \\"Error: no test specified\\" && exit 1"
+  },
+  "keywords": ["nodejs", "modules", "npm"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(5)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(5)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output5" class="output"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="prev-level-btn" onclick="goToPreviousLevel()">← Previous Level</button>
+            <button class="next-level-btn" onclick="goToNextLevel()">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="level13-script.js"></script>
+</body>
+</html>

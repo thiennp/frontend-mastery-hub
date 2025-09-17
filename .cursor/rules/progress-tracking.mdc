@@ -19,7 +19,15 @@ alwaysApply: true
   - Any changes to the project structure
 - Keep the progress tracking accurate and up-to-date for future reference
 
+## Always Commit and Push After Level Completion
+- **MANDATORY:** Commit and push changes immediately after completing any level
+- Stage all files: `git add .`
+- Commit with descriptive message: `git commit -m "feat: Complete Level X - [Level Name]"`
+- Push to remote: `git push origin gh-pages`
+- Verify push success before proceeding to next level
+
 ## Implementation
 - Before starting work: Read PROGRESS_TRACKING.md to understand current state
 - During work: Reference the progress file to stay aligned with project goals
 - After completing work: Update PROGRESS_TRACKING.md with new accomplishments
+- **IMMEDIATELY AFTER:** Commit and push all changes to preserve work

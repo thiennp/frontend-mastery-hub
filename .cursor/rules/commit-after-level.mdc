@@ -1,0 +1,61 @@
+# Commit After Level Completion Rule
+
+## Always Commit and Push After Finishing One Level
+
+### **MANDATORY WORKFLOW:**
+When completing any level implementation, you MUST:
+
+1. **Commit Changes Immediately**
+   - Stage all new files and modifications
+   - Create a descriptive commit message
+   - Include level number and completion status
+
+2. **Push to Remote Repository**
+   - Push changes to the remote branch
+   - Ensure all work is safely backed up
+   - Verify push was successful
+
+### **Commit Message Format:**
+```
+feat: Complete Level X - [Level Name]
+
+- Implemented 5 interactive exercises
+- Added level-specific styling and functionality
+- Updated main hub navigation and progress tracking
+- Updated PROGRESS_TRACKING.md with completion status
+
+Progress: X/200 levels complete (X%)
+```
+
+### **Implementation Steps:**
+1. Complete all level files (HTML, CSS, JS)
+2. Update main hub (index.html, script.js)
+3. Update PROGRESS_TRACKING.md
+4. **IMMEDIATELY COMMIT AND PUSH**
+5. Verify push success before proceeding
+
+### **Why This Rule Exists:**
+- **Data Safety:** Prevents loss of completed work
+- **Version Control:** Maintains clean commit history
+- **Collaboration:** Keeps remote repository up-to-date
+- **Progress Tracking:** Each level completion is a milestone
+- **Rollback Safety:** Easy to revert if issues arise
+
+### **Commands to Use:**
+```bash
+# Stage all changes
+git add .
+
+# Commit with descriptive message
+git commit -m "feat: Complete Level X - [Level Name]"
+
+# Push to remote
+git push origin gh-pages
+```
+
+### **Verification:**
+- Check git status shows "working tree clean"
+- Verify push output shows "successful"
+- Confirm remote repository has latest changes
+
+**This rule is MANDATORY and must be followed after EVERY level completion.**

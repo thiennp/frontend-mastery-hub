@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     10: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
                     11: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
                     12: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
-                    13: { completed: 0, total: 5, unlocked: false, levelCompleted: false }
+                    13: { completed: 0, total: 5, unlocked: true, levelCompleted: false }
                 },
                 badges: {
                     'first-steps': true,
@@ -90,8 +90,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Get progress from individual level storage
         getLevelProgress(levelNum) {
-            const levelKey = `level${levelNum}-progress`;
-            const saved = localStorage.getItem(levelKey);
+            // Try new format first (used by Level 13+)
+            const newKey = `level${levelNum}Progress`;
+            let saved = localStorage.getItem(newKey);
+            
+            if (saved) {
+                const levelData = JSON.parse(saved);
+                if (levelData.exercises) {
+                    // New format with exercises array
+                    const completed = levelData.exercises.filter(ex => ex.completed).length;
+                    return {
+                        completed: completed,
+                        total: levelData.exercises.length
+                    };
+                }
+            }
+            
+            // Try old format (used by Level 1-12)
+            const oldKey = `level${levelNum}-progress`;
+            saved = localStorage.getItem(oldKey);
             if (saved) {
                 const levelData = JSON.parse(saved);
                 return {
