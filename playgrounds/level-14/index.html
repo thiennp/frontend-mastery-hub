@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 14: Database Integration - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level14-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>🗄️ Level 14: Database Integration</h1>
+                <p class="level-description">Master database operations with MongoDB, SQL, ORMs, and database design patterns</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="level-stats">
+                    <span class="completed-exercises">Completed: <span id="completedCount">0</span>/5</span>
+                    <span class="level-badge" id="levelBadge">Database Novice</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: MongoDB Basics -->
+            <div class="exercise-card" id="exercise1">
+                <div class="exercise-header">
+                    <h3>Exercise 1: MongoDB Basics</h3>
+                    <div class="exercise-status" id="status1">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Learn MongoDB fundamentals including collections, documents, CRUD operations, and basic queries. Understand NoSQL database concepts and document structure.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>db.collection.insertOne()</code>, <code>db.collection.find()</code>, <code>db.collection.updateOne()</code>, and <code>db.collection.deleteOne()</code>
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="mongodb-basics.js">mongodb-basics.js</button>
+                            <button class="tab" data-file="package.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor1-mongodb" class="code-editor" placeholder="// MongoDB Basics
+const { MongoClient } = require('mongodb');
+
+async function main() {
+  const client = new MongoClient('mongodb://localhost:27017');
+  
+  try {
+    await client.connect();
+    console.log('Connected to MongoDB');
+    
+    const db = client.db('learning_db');
+    const collection = db.collection('users');
+    
+    // Your MongoDB operations here...
+    
+    // 1. Insert a document
+    // 2. Find documents
+    // 3. Update a document
+    // 4. Delete a document
+    // 5. Count documents
+    
+  } finally {
+    await client.close();
+  }
+}
+
+main().catch(console.error);"></textarea>
+                            <textarea id="editor1-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "mongodb-basics",
+  "version": "1.0.0",
+  "description": "MongoDB basics learning",
+  "main": "mongodb-basics.js",
+  "scripts": {
+    "start": "node mongodb-basics.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.0.0"
+  },
+  "keywords": ["mongodb", "database", "nosql"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(1)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(1)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output1" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: SQL Database Operations -->
+            <div class="exercise-card" id="exercise2">
+                <div class="exercise-header">
+                    <h3>Exercise 2: SQL Database Operations</h3>
+                    <div class="exercise-status" id="status2">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Work with SQL databases using Node.js. Learn to create tables, insert data, query with JOINs, and handle transactions. Understand relational database concepts.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>CREATE TABLE</code>, <code>INSERT INTO</code>, <code>SELECT</code> with <code>JOIN</code>, and <code>BEGIN TRANSACTION</code>
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="sql-operations.js">sql-operations.js</button>
+                            <button class="tab" data-file="schema.sql">schema.sql</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor2-sql" class="code-editor" placeholder="// SQL Database Operations
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+
+async function main() {
+  const db = new sqlite3.Database(':memory:');
+  
+  // Your SQL operations here...
+  
+  // 1. Create tables
+  // 2. Insert sample data
+  // 3. Query with JOINs
+  // 4. Update records
+  // 5. Handle transactions
+  
+  db.close();
+}
+
+main().catch(console.error);"></textarea>
+                            <textarea id="editor2-schema" class="code-editor" style="display: none;" placeholder="-- Database Schema
+-- Users table
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Posts table
+CREATE TABLE posts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  content TEXT,
+  user_id INTEGER,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Comments table
+CREATE TABLE comments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  post_id INTEGER,
+  user_id INTEGER,
+  comment TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (post_id) REFERENCES posts(id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);"></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(2)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(2)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output2" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: ORM with Prisma -->
+            <div class="exercise-card" id="exercise3">
+                <div class="exercise-header">
+                    <h3>Exercise 3: ORM with Prisma</h3>
+                    <div class="exercise-status" id="status3">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Use Prisma ORM to interact with databases. Learn schema definition, migrations, and type-safe database operations. Understand the benefits of ORMs.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Define models in <code>schema.prisma</code>, use <code>prisma.user.create()</code>, <code>prisma.user.findMany()</code>, and <code>prisma.user.update()</code>
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="prisma-schema.prisma">schema.prisma</button>
+                            <button class="tab" data-file="prisma-operations.js">operations.js</button>
+                            <button class="tab" data-file="package-prisma.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor3-schema" class="code-editor" placeholder="// Prisma Schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}"></textarea>
+                            <textarea id="editor3-operations" class="code-editor" style="display: none;" placeholder="// Prisma Operations
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
+
+async function main() {
+  // Your Prisma operations here...
+  
+  // 1. Create a user
+  // 2. Create a post for the user
+  // 3. Find users with their posts
+  // 4. Update a post
+  // 5. Delete a user and cascade posts
+  
+  console.log('Prisma operations completed!');
+}
+
+main()
+  .catch((e) => {
+    throw e;
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });"></textarea>
+                            <textarea id="editor3-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "prisma-demo",
+  "version": "1.0.0",
+  "description": "Prisma ORM demonstration",
+  "main": "operations.js",
+  "scripts": {
+    "start": "node operations.js",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.0.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.0.0"
+  },
+  "keywords": ["prisma", "orm", "database"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(3)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(3)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output3" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Database Design Patterns -->
+            <div class="exercise-card" id="exercise4">
+                <div class="exercise-header">
+                    <h3>Exercise 4: Database Design Patterns</h3>
+                    <div class="exercise-status" id="status4">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Learn essential database design patterns including normalization, indexing, relationships, and performance optimization. Understand when to use different patterns.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Focus on 1NF, 2NF, 3NF normalization, proper indexing, foreign key relationships, and query optimization
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="design-patterns.sql">design-patterns.sql</button>
+                            <button class="tab" data-file="optimization.js">optimization.js</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor4-sql" class="code-editor" placeholder="-- Database Design Patterns
+-- 1. Normalized Schema Design
+-- 2. Proper Indexing Strategy
+-- 3. Relationship Management
+-- 4. Performance Optimization
+
+-- Users table (1NF, 2NF, 3NF compliant)
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Indexes for performance
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_username ON users(username);
+CREATE INDEX idx_users_created_at ON users(created_at);
+
+-- Categories table (normalized)
+CREATE TABLE categories (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name VARCHAR(100) NOT NULL,
+  description TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Products table with proper relationships
+CREATE TABLE products (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name VARCHAR(200) NOT NULL,
+  description TEXT,
+  price DECIMAL(10,2) NOT NULL,
+  category_id INTEGER,
+  stock_quantity INTEGER DEFAULT 0,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+-- Composite indexes for common queries
+CREATE INDEX idx_products_category_price ON products(category_id, price);
+CREATE INDEX idx_products_name ON products(name);
+CREATE INDEX idx_products_stock ON products(stock_quantity);
+
+-- Orders table (transactional)
+CREATE TABLE orders (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  total_amount DECIMAL(10,2) NOT NULL,
+  status VARCHAR(20) DEFAULT 'pending',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Order items (junction table)
+CREATE TABLE order_items (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  order_id INTEGER NOT NULL,
+  product_id INTEGER NOT NULL,
+  quantity INTEGER NOT NULL,
+  unit_price DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES orders(id),
+  FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- Indexes for order queries
+CREATE INDEX idx_orders_user_id ON orders(user_id);
+CREATE INDEX idx_orders_status ON orders(status);
+CREATE INDEX idx_order_items_order_id ON order_items(order_id);"></textarea>
+                            <textarea id="editor4-optimization" class="code-editor" style="display: none;" placeholder="// Database Optimization Techniques
+const sqlite3 = require('sqlite3').verbose();
+
+class DatabaseOptimizer {
+  constructor(dbPath) {
+    this.db = new sqlite3.Database(dbPath);
+  }
+
+  // 1. Query Optimization
+  async optimizeQueries() {
+    // Use prepared statements
+    const stmt = this.db.prepare(`
+      SELECT u.username, u.email, COUNT(o.id) as order_count
+      FROM users u
+      LEFT JOIN orders o ON u.id = o.user_id
+      WHERE u.created_at > ?
+      GROUP BY u.id
+      ORDER BY order_count DESC
+      LIMIT ?
+    `);
+    
+    // Use EXPLAIN QUERY PLAN for optimization
+    const explainQuery = `
+      EXPLAIN QUERY PLAN
+      SELECT p.name, p.price, c.name as category
+      FROM products p
+      JOIN categories c ON p.category_id = c.id
+      WHERE p.price BETWEEN ? AND ?
+      ORDER BY p.price
+    `;
+    
+    return { stmt, explainQuery };
+  }
+
+  // 2. Connection Pooling
+  setupConnectionPool() {
+    // Configure connection limits
+    this.db.configure('busyTimeout', 5000);
+    this.db.configure('journal_mode', 'WAL');
+    this.db.configure('synchronous', 'NORMAL');
+  }
+
+  // 3. Transaction Management
+  async executeTransaction(operations) {
+    return new Promise((resolve, reject) => {
+      this.db.serialize(() => {
+        this.db.run('BEGIN TRANSACTION');
+        
+        operations.forEach((operation, index) => {
+          this.db.run(operation.sql, operation.params, function(err) {
+            if (err) {
+              this.db.run('ROLLBACK');
+              reject(err);
+            } else if (index === operations.length - 1) {
+              this.db.run('COMMIT', (err) => {
+                if (err) reject(err);
+                else resolve();
+              });
+            }
+          });
+        });
+      });
+    });
+  }
+
+  // 4. Batch Operations
+  async batchInsert(table, data) {
+    const placeholders = data.map(() => '(?, ?, ?)').join(', ');
+    const sql = `INSERT INTO ${table} (name, value, created_at) VALUES ${placeholders}`;
+    
+    const params = data.flatMap(item => [
+      item.name,
+      item.value,
+      new Date().toISOString()
+    ]);
+    
+    return new Promise((resolve, reject) => {
+      this.db.run(sql, params, function(err) {
+        if (err) reject(err);
+        else resolve(this.changes);
+      });
+    });
+  }
+
+  close() {
+    this.db.close();
+  }
+}
+
+// Usage example
+async function demonstrateOptimization() {
+  const optimizer = new DatabaseOptimizer(':memory:');
+  
+  // Setup connection pool
+  optimizer.setupConnectionPool();
+  
+  // Optimize queries
+  const { stmt, explainQuery } = await optimizer.optimizeQueries();
+  
+  console.log('Database optimization techniques applied!');
+  console.log('Query plan:', explainQuery);
+  
+  optimizer.close();
+}
+
+demonstrateOptimization().catch(console.error);"></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(4)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(4)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output4" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Database Integration with Express -->
+            <div class="exercise-card" id="exercise5">
+                <div class="exercise-header">
+                    <h3>Exercise 5: Database Integration with Express</h3>
+                    <div class="exercise-status" id="status5">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Integrate databases with Express.js applications. Learn connection management, middleware patterns, error handling, and API design with database operations.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use connection pooling, middleware for database access, proper error handling, and RESTful API design with database operations
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="express-db.js">express-db.js</button>
+                            <button class="tab" data-file="database.js">database.js</button>
+                            <button class="tab" data-file="package-express-db.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor5-express" class="code-editor" placeholder="// Express.js with Database Integration
+const express = require('express');
+const cors = require('cors');
+const Database = require('./database');
+
+const app = express();
+const db = new Database();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Database connection middleware
+app.use(async (req, res, next) => {
+  try {
+    req.db = await db.getConnection();
+    next();
+  } catch (error) {
+    res.status(500).json({ error: 'Database connection failed' });
+  }
+});
+
+// Your API routes here...
+
+// GET /api/users - Get all users
+app.get('/api/users', async (req, res) => {
+  try {
+    const users = await req.db.all('SELECT * FROM users');
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
+// POST /api/users - Create new user
+app.post('/api/users', async (req, res) => {
+  try {
+    const { name, email } = req.body;
+    const result = await req.db.run(
+      'INSERT INTO users (name, email) VALUES (?, ?)',
+      [name, email]
+    );
+    res.status(201).json({ id: result.lastID, name, email });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create user' });
+  }
+});
+
+// GET /api/users/:id - Get user by ID
+app.get('/api/users/:id', async (req, res) => {
+  try {
+    const user = await req.db.get(
+      'SELECT * FROM users WHERE id = ?',
+      [req.params.id]
+    );
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch user' });
+  }
+});
+
+// PUT /api/users/:id - Update user
+app.put('/api/users/:id', async (req, res) => {
+  try {
+    const { name, email } = req.body;
+    const result = await req.db.run(
+      'UPDATE users SET name = ?, email = ? WHERE id = ?',
+      [name, email, req.params.id]
+    );
+    if (result.changes > 0) {
+      res.json({ id: req.params.id, name, email });
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update user' });
+  }
+});
+
+// DELETE /api/users/:id - Delete user
+app.delete('/api/users/:id', async (req, res) => {
+  try {
+    const result = await req.db.run(
+      'DELETE FROM users WHERE id = ?',
+      [req.params.id]
+    );
+    if (result.changes > 0) {
+      res.status(204).send();
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete user' });
+  }
+});
+
+// Error handling middleware
+app.use((error, req, res, next) => {
+  console.error(error);
+  res.status(500).json({ error: 'Internal server error' });
+});
+
+const PORT = 3003;
+app.listen(PORT, () => {
+  console.log(`Express server with database running on port ${PORT}`);
+});"></textarea>
+                            <textarea id="editor5-database" class="code-editor" style="display: none;" placeholder="// Database Connection Manager
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+
+class Database {
+  constructor() {
+    this.dbPath = path.join(__dirname, 'app.db');
+    this.db = null;
+  }
+
+  async connect() {
+    return new Promise((resolve, reject) => {
+      this.db = new sqlite3.Database(this.dbPath, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          this.initializeTables();
+          resolve();
+        }
+      });
+    });
+  }
+
+  async getConnection() {
+    if (!this.db) {
+      await this.connect();
+    }
+    return this.db;
+  }
+
+  initializeTables() {
+    const createUsersTable = `
+      CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `;
+    
+    this.db.run(createUsersTable);
+  }
+
+  async run(sql, params = []) {
+    return new Promise((resolve, reject) => {
+      this.db.run(sql, params, function(err) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve({ lastID: this.lastID, changes: this.changes });
+        }
+      });
+    });
+  }
+
+  async get(sql, params = []) {
+    return new Promise((resolve, reject) => {
+      this.db.get(sql, params, (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
+    });
+  }
+
+  async all(sql, params = []) {
+    return new Promise((resolve, reject) => {
+      this.db.all(sql, params, (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+  }
+
+  close() {
+    if (this.db) {
+      this.db.close();
+    }
+  }
+}
+
+module.exports = Database;"></textarea>
+                            <textarea id="editor5-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "express-database",
+  "version": "1.0.0",
+  "description": "Express.js with database integration",
+  "main": "express-db.js",
+  "scripts": {
+    "start": "node express-db.js",
+    "dev": "nodemon express-db.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["express", "database", "sqlite", "api"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(5)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(5)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output5" class="output"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="prev-level-btn" onclick="goToPreviousLevel()">← Previous Level</button>
+            <button class="next-level-btn" onclick="goToNextLevel()">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="level14-script.js"></script>
+</body>
+</html>
