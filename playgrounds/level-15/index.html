@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 15: API Development - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level15-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>🔌 Level 15: API Development</h1>
+                <p class="level-description">Master REST APIs, GraphQL, authentication, middleware, and API design patterns</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="level-stats">
+                    <span class="completed-exercises">Completed: <span id="completedCount">0</span>/5</span>
+                    <span class="level-badge" id="levelBadge">API Novice</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: REST API Fundamentals -->
+            <div class="exercise-card" id="exercise1">
+                <div class="exercise-header">
+                    <h3>Exercise 1: REST API Fundamentals</h3>
+                    <div class="exercise-status" id="status1">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Build a complete REST API with Express.js. Learn HTTP methods, status codes, request/response handling, and RESTful design principles.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>app.get()</code>, <code>app.post()</code>, <code>app.put()</code>, <code>app.delete()</code> and proper HTTP status codes
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="rest-api.js">rest-api.js</button>
+                            <button class="tab" data-file="package.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor1-api" class="code-editor" placeholder="// REST API Fundamentals
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+const PORT = 3000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// In-memory data store
+let users = [
+  { id: 1, name: 'John Doe', email: 'john@example.com' },
+  { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
+];
+
+// Your REST API endpoints here...
+
+// GET /api/users - Get all users
+app.get('/api/users', (req, res) => {
+  // Your code here...
+});
+
+// GET /api/users/:id - Get user by ID
+app.get('/api/users/:id', (req, res) => {
+  // Your code here...
+});
+
+// POST /api/users - Create new user
+app.post('/api/users', (req, res) => {
+  // Your code here...
+});
+
+// PUT /api/users/:id - Update user
+app.put('/api/users/:id', (req, res) => {
+  // Your code here...
+});
+
+// DELETE /api/users/:id - Delete user
+app.delete('/api/users/:id', (req, res) => {
+  // Your code here...
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+app.listen(PORT, () => {
+  console.log(`REST API server running on port ${PORT}`);
+});"></textarea>
+                            <textarea id="editor1-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "rest-api-demo",
+  "version": "1.0.0",
+  "description": "REST API demonstration",
+  "main": "rest-api.js",
+  "scripts": {
+    "start": "node rest-api.js",
+    "dev": "nodemon rest-api.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["rest", "api", "express", "nodejs"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(1)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(1)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output1" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: GraphQL API -->
+            <div class="exercise-card" id="exercise2">
+                <div class="exercise-header">
+                    <h3>Exercise 2: GraphQL API</h3>
+                    <div class="exercise-status" id="status2">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Build a GraphQL API with Apollo Server. Learn schema definition, resolvers, queries, mutations, and subscriptions. Understand GraphQL advantages over REST.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Define <code>typeDefs</code> for schema, <code>resolvers</code> for logic, and use <code>ApolloServer</code> to create the server
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="graphql-server.js">graphql-server.js</button>
+                            <button class="tab" data-file="schema.js">schema.js</button>
+                            <button class="tab" data-file="package-graphql.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor2-server" class="code-editor" placeholder="// GraphQL Server
+const { ApolloServer } = require('apollo-server-express');
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+app.use(cors());
+
+// Your GraphQL server setup here...
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => ({
+    // Add context here
+  })
+});
+
+const PORT = 4000;
+
+async function startServer() {
+  await server.start();
+  server.applyMiddleware({ app });
+  
+  app.listen(PORT, () => {
+    console.log(`GraphQL server running at http://localhost:${PORT}${server.graphqlPath}`);
+  });
+}
+
+startServer().catch(console.error);"></textarea>
+                            <textarea id="editor2-schema" class="code-editor" style="display: none;" placeholder="// GraphQL Schema
+const { gql } = require('apollo-server-express');
+
+const typeDefs = gql\`
+  # Your GraphQL schema here...
+  
+  type User {
+    id: ID!
+    name: String!
+    email: String!
+    posts: [Post!]!
+  }
+  
+  type Post {
+    id: ID!
+    title: String!
+    content: String
+    author: User!
+    createdAt: String!
+  }
+  
+  type Query {
+    # Your queries here...
+  }
+  
+  type Mutation {
+    # Your mutations here...
+  }
+\`;
+
+const resolvers = {
+  Query: {
+    // Your query resolvers here...
+  },
+  Mutation: {
+    // Your mutation resolvers here...
+  },
+  User: {
+    // Your user resolvers here...
+  },
+  Post: {
+    // Your post resolvers here...
+  }
+};
+
+module.exports = { typeDefs, resolvers };"></textarea>
+                            <textarea id="editor2-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "graphql-api-demo",
+  "version": "1.0.0",
+  "description": "GraphQL API demonstration",
+  "main": "graphql-server.js",
+  "scripts": {
+    "start": "node graphql-server.js",
+    "dev": "nodemon graphql-server.js"
+  },
+  "dependencies": {
+    "apollo-server-express": "^3.12.1",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "graphql": "^16.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["graphql", "apollo", "api", "nodejs"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(2)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(2)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output2" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: API Authentication -->
+            <div class="exercise-card" id="exercise3">
+                <div class="exercise-header">
+                    <h3>Exercise 3: API Authentication</h3>
+                    <div class="exercise-status" id="status3">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement JWT authentication, middleware, password hashing, and protected routes. Learn security best practices for API authentication.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>jsonwebtoken</code> for JWT, <code>bcrypt</code> for password hashing, and middleware for route protection
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="auth-api.js">auth-api.js</button>
+                            <button class="tab" data-file="middleware.js">middleware.js</button>
+                            <button class="tab" data-file="package-auth.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor3-api" class="code-editor" placeholder="// API Authentication
+const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
+
+const app = express();
+const PORT = 3001;
+const JWT_SECRET = 'your-secret-key';
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// In-memory user store
+let users = [];
+let nextId = 1;
+
+// Your authentication endpoints here...
+
+// POST /api/register - User registration
+app.post('/api/register', async (req, res) => {
+  // Your registration logic here...
+});
+
+// POST /api/login - User login
+app.post('/api/login', async (req, res) => {
+  // Your login logic here...
+});
+
+// GET /api/profile - Get user profile (protected)
+app.get('/api/profile', authenticateToken, (req, res) => {
+  // Your profile logic here...
+});
+
+// Middleware to verify JWT token
+function authenticateToken(req, res, next) {
+  // Your authentication middleware here...
+}
+
+app.listen(PORT, () => {
+  console.log(`Auth API server running on port ${PORT}`);
+});"></textarea>
+                            <textarea id="editor3-middleware" class="code-editor" style="display: none;" placeholder="// Authentication Middleware
+const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = 'your-secret-key';
+
+// Middleware to verify JWT token
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Access token required' });
+  }
+
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) {
+      return res.status(403).json({ error: 'Invalid or expired token' });
+    }
+    req.user = user;
+    next();
+  });
+}
+
+// Middleware to check user roles
+function requireRole(role) {
+  return (req, res, next) => {
+    if (req.user && req.user.role === role) {
+      next();
+    } else {
+      res.status(403).json({ error: 'Insufficient permissions' });
+    }
+  };
+}
+
+// Rate limiting middleware
+function rateLimit(maxRequests, windowMs) {
+  const requests = new Map();
+  
+  return (req, res, next) => {
+    const ip = req.ip;
+    const now = Date.now();
+    const windowStart = now - windowMs;
+    
+    // Clean old requests
+    if (requests.has(ip)) {
+      const userRequests = requests.get(ip).filter(time => time > windowStart);
+      requests.set(ip, userRequests);
+    } else {
+      requests.set(ip, []);
+    }
+    
+    const userRequests = requests.get(ip);
+    
+    if (userRequests.length >= maxRequests) {
+      return res.status(429).json({ error: 'Too many requests' });
+    }
+    
+    userRequests.push(now);
+    next();
+  };
+}
+
+module.exports = {
+  authenticateToken,
+  requireRole,
+  rateLimit
+};"></textarea>
+                            <textarea id="editor3-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "auth-api-demo",
+  "version": "1.0.0",
+  "description": "API Authentication demonstration",
+  "main": "auth-api.js",
+  "scripts": {
+    "start": "node auth-api.js",
+    "dev": "nodemon auth-api.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["authentication", "jwt", "bcrypt", "api"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(3)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(3)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output3" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: API Middleware & Validation -->
+            <div class="exercise-card" id="exercise4">
+                <div class="exercise-header">
+                    <h3>Exercise 4: API Middleware & Validation</h3>
+                    <div class="exercise-status" id="status4">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement custom middleware, request validation, error handling, logging, and API documentation. Learn middleware patterns and best practices.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>express-validator</code> for validation, custom middleware for logging, and proper error handling patterns
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="middleware-api.js">middleware-api.js</button>
+                            <button class="tab" data-file="validation.js">validation.js</button>
+                            <button class="tab" data-file="package-middleware.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor4-api" class="code-editor" placeholder="// API Middleware & Validation
+const express = require('express');
+const { body, validationResult } = require('express-validator');
+const cors = require('cors');
+
+const app = express();
+const PORT = 3002;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Your custom middleware here...
+
+// Request logging middleware
+function requestLogger(req, res, next) {
+  // Your logging logic here...
+}
+
+// Error handling middleware
+function errorHandler(err, req, res, next) {
+  // Your error handling logic here...
+}
+
+// Validation middleware
+function validateRequest(req, res, next) {
+  // Your validation logic here...
+}
+
+// API endpoints with validation...
+
+// POST /api/users - Create user with validation
+app.post('/api/users', [
+  body('name').isLength({ min: 2 }).withMessage('Name must be at least 2 characters'),
+  body('email').isEmail().withMessage('Must be a valid email'),
+  body('age').isInt({ min: 0, max: 120 }).withMessage('Age must be between 0 and 120')
+], validateRequest, (req, res) => {
+  // Your endpoint logic here...
+});
+
+// Error handling
+app.use(errorHandler);
+
+app.listen(PORT, () => {
+  console.log(`Middleware API server running on port ${PORT}`);
+});"></textarea>
+                            <textarea id="editor4-validation" class="code-editor" style="display: none;" placeholder="// Validation Utilities
+const { body, param, query, validationResult } = require('express-validator');
+
+// User validation rules
+const userValidationRules = [
+  body('name')
+    .isLength({ min: 2, max: 50 })
+    .withMessage('Name must be between 2 and 50 characters')
+    .matches(/^[a-zA-Z\\s]+$/)
+    .withMessage('Name can only contain letters and spaces'),
+  
+  body('email')
+    .isEmail()
+    .withMessage('Must be a valid email address')
+    .normalizeEmail(),
+  
+  body('age')
+    .isInt({ min: 0, max: 120 })
+    .withMessage('Age must be between 0 and 120'),
+  
+  body('password')
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 characters')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)/)
+    .withMessage('Password must contain at least one lowercase letter, one uppercase letter, and one number')
+];
+
+// Post validation rules
+const postValidationRules = [
+  body('title')
+    .isLength({ min: 5, max: 100 })
+    .withMessage('Title must be between 5 and 100 characters'),
+  
+  body('content')
+    .isLength({ min: 10 })
+    .withMessage('Content must be at least 10 characters'),
+  
+  body('category')
+    .isIn(['tech', 'business', 'lifestyle', 'travel'])
+    .withMessage('Category must be one of: tech, business, lifestyle, travel')
+];
+
+// ID parameter validation
+const idValidation = [
+  param('id')
+    .isInt({ min: 1 })
+    .withMessage('ID must be a positive integer')
+];
+
+// Query parameter validation
+const paginationValidation = [
+  query('page')
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage('Page must be a positive integer'),
+  
+  query('limit')
+    .optional()
+    .isInt({ min: 1, max: 100 })
+    .withMessage('Limit must be between 1 and 100')
+];
+
+// Validation result handler
+const handleValidationErrors = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      error: 'Validation failed',
+      details: errors.array()
+    });
+  }
+  next();
+};
+
+// Custom validation functions
+const customValidators = {
+  // Check if email is unique
+  isEmailUnique: (value) => {
+    // This would typically check against a database
+    const existingEmails = ['admin@example.com', 'test@example.com'];
+    return !existingEmails.includes(value);
+  },
+  
+  // Check if username is available
+  isUsernameAvailable: (value) => {
+    const existingUsernames = ['admin', 'test', 'user'];
+    return !existingUsernames.includes(value.toLowerCase());
+  }
+};
+
+module.exports = {
+  userValidationRules,
+  postValidationRules,
+  idValidation,
+  paginationValidation,
+  handleValidationErrors,
+  customValidators
+};"></textarea>
+                            <textarea id="editor4-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "middleware-api-demo",
+  "version": "1.0.0",
+  "description": "API Middleware and Validation demonstration",
+  "main": "middleware-api.js",
+  "scripts": {
+    "start": "node middleware-api.js",
+    "dev": "nodemon middleware-api.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": ["middleware", "validation", "express", "api"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(4)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(4)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output4" class="output"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: API Testing & Documentation -->
+            <div class="exercise-card" id="exercise5">
+                <div class="exercise-header">
+                    <h3>Exercise 5: API Testing & Documentation</h3>
+                    <div class="exercise-status" id="status5">⏳ Pending</div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Write comprehensive API tests, generate documentation with Swagger, implement API versioning, and learn testing best practices for APIs.</p>
+                        <div class="hint">
+                            <strong>💡 Hint:</strong> Use <code>jest</code> for testing, <code>supertest</code> for API testing, and <code>swagger-jsdoc</code> for documentation
+                        </div>
+                    </div>
+                    <div class="code-editor-container">
+                        <div class="editor-tabs">
+                            <button class="tab active" data-file="api-tests.js">api-tests.js</button>
+                            <button class="tab" data-file="swagger-config.js">swagger-config.js</button>
+                            <button class="tab" data-file="package-testing.json">package.json</button>
+                        </div>
+                        <div class="editor-content">
+                            <textarea id="editor5-tests" class="code-editor" placeholder="// API Testing
+const request = require('supertest');
+const app = require('./app'); // Your Express app
+
+describe('API Tests', () => {
+  // Test data
+  let testUser;
+  let authToken;
+
+  // Setup before each test
+  beforeEach(async () => {
+    // Your setup logic here...
+  });
+
+  // Cleanup after each test
+  afterEach(async () => {
+    // Your cleanup logic here...
+  });
+
+  describe('User Endpoints', () => {
+    // Test GET /api/users
+    test('GET /api/users should return all users', async () => {
+      // Your test here...
+    });
+
+    // Test POST /api/users
+    test('POST /api/users should create a new user', async () => {
+      // Your test here...
+    });
+
+    // Test GET /api/users/:id
+    test('GET /api/users/:id should return specific user', async () => {
+      // Your test here...
+    });
+
+    // Test PUT /api/users/:id
+    test('PUT /api/users/:id should update user', async () => {
+      // Your test here...
+    });
+
+    // Test DELETE /api/users/:id
+    test('DELETE /api/users/:id should delete user', async () => {
+      // Your test here...
+    });
+  });
+
+  describe('Authentication', () => {
+    // Test POST /api/register
+    test('POST /api/register should register new user', async () => {
+      // Your test here...
+    });
+
+    // Test POST /api/login
+    test('POST /api/login should authenticate user', async () => {
+      // Your test here...
+    });
+
+    // Test protected routes
+    test('Protected routes should require authentication', async () => {
+      // Your test here...
+    });
+  });
+
+  describe('Error Handling', () => {
+    // Test 404 errors
+    test('Should return 404 for non-existent routes', async () => {
+      // Your test here...
+    });
+
+    // Test validation errors
+    test('Should return 400 for invalid data', async () => {
+      // Your test here...
+    });
+  });
+});"></textarea>
+                            <textarea id="editor5-swagger" class="code-editor" style="display: none;" placeholder="// Swagger Documentation Configuration
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API Documentation',
+      version: '1.0.0',
+      description: 'A comprehensive API documentation',
+      contact: {
+        name: 'API Support',
+        email: 'support@example.com'
+      }
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000',
+        description: 'Development server'
+      }
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      },
+      schemas: {
+        User: {
+          type: 'object',
+          required: ['name', 'email'],
+          properties: {
+            id: {
+              type: 'integer',
+              description: 'User ID'
+            },
+            name: {
+              type: 'string',
+              description: 'User name'
+            },
+            email: {
+              type: 'string',
+              format: 'email',
+              description: 'User email'
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Creation timestamp'
+            }
+          }
+        },
+        Error: {
+          type: 'object',
+          properties: {
+            error: {
+              type: 'string',
+              description: 'Error message'
+            },
+            details: {
+              type: 'array',
+              items: {
+                type: 'object'
+              },
+              description: 'Validation error details'
+            }
+          }
+        }
+      }
+    }
+  },
+  apis: ['./routes/*.js', './app.js'] // Path to the API files
+};
+
+const specs = swaggerJsdoc(options);
+
+// Swagger documentation routes
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
+  explorer: true,
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'API Documentation'
+}));
+
+module.exports = { specs };"></textarea>
+                            <textarea id="editor5-package" class="code-editor" style="display: none;" placeholder='{
+  "name": "api-testing-demo",
+  "version": "1.0.0",
+  "description": "API Testing and Documentation demonstration",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3",
+    "nodemon": "^3.0.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "**/*.js",
+      "!node_modules/**",
+      "!coverage/**"
+    ]
+  },
+  "keywords": ["testing", "swagger", "documentation", "api"],
+  "author": "Your Name",
+  "license": "MIT"
+}'></textarea>
+                        </div>
+                        <div class="editor-actions">
+                            <button class="run-btn" onclick="runExercise(5)">▶️ Run Code</button>
+                            <button class="check-btn" onclick="checkExercise(5)">✅ Check Solution</button>
+                        </div>
+                    </div>
+                    <div class="output-container">
+                        <h4>Output:</h4>
+                        <div id="output5" class="output"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="prev-level-btn" onclick="goToPreviousLevel()">← Previous Level</button>
+            <button class="next-level-btn" onclick="goToNextLevel()">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="level15-script.js"></script>
+</body>
+</html>

@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     11: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
                     12: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
                     13: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
-                    14: { completed: 0, total: 5, unlocked: true, levelCompleted: false }
+                    14: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    15: { completed: 0, total: 5, unlocked: true, levelCompleted: false }
                 },
                 badges: {
                     'first-steps': true,
@@ -77,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Check other levels if they exist
-            for (let levelNum = 2; levelNum <= 14; levelNum++) {
+            for (let levelNum = 2; levelNum <= 15; levelNum++) {
                 const levelProgress = this.getLevelProgress(levelNum);
                 if (levelProgress && levelProgress.completed >= levelProgress.total) {
                     this.progress.levels[levelNum].levelCompleted = true;
