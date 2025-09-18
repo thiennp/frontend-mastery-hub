@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     13: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
                     14: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
                     15: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
-                    16: { completed: 0, total: 5, unlocked: true, levelCompleted: false }
+                    16: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    17: { completed: 0, total: 5, unlocked: true, levelCompleted: false }
                 },
                 badges: {
                     'first-steps': true,
@@ -79,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Check other levels if they exist
-            for (let levelNum = 2; levelNum <= 16; levelNum++) {
+            for (let levelNum = 2; levelNum <= 17; levelNum++) {
                 const levelProgress = this.getLevelProgress(levelNum);
                 if (levelProgress && levelProgress.completed >= levelProgress.total) {
                     this.progress.levels[levelNum].levelCompleted = true;
@@ -408,6 +409,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'playgrounds/level-12/index.html';
             } else if (levelNumber === '13') {
                 window.location.href = 'playgrounds/level-13/index.html';
+            } else if (levelNumber === '14') {
+                window.location.href = 'playgrounds/level-14/index.html';
+            } else if (levelNumber === '15') {
+                window.location.href = 'playgrounds/level-15/index.html';
+            } else if (levelNumber === '16') {
+                window.location.href = 'playgrounds/level-16/index.html';
+            } else if (levelNumber === '17') {
+                window.location.href = 'playgrounds/level-17/index.html';
             } else {
                 // For demo purposes, simulate completing an exercise
                 const currentCompleted = progressTracker.progress.levels[levelNumber].completed;
