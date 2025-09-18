@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 18: Security & Authentication - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level18-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>🔐 Level 18: Security & Authentication</h1>
+                <p class="level-description">Master OAuth, JWT, security best practices, and penetration testing</p>
+                <div class="level-stats">
+                    <span class="stat">5 Exercises</span>
+                    <span class="stat">Security Focus</span>
+                    <span class="stat">Production Ready</span>
+                </div>
+            </div>
+            <div class="level-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">0/5 Complete</span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: OAuth 2.0 Implementation -->
+            <div class="exercise" id="exercise1">
+                <div class="exercise-header">
+                    <h3>🔑 Exercise 1: OAuth 2.0 Implementation</h3>
+                    <p>Implement OAuth 2.0 authorization flow with PKCE for secure authentication</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>oauth-client.js</span>
+                            <button class="run-btn" onclick="runExercise(1)">Run & Validate</button>
+                        </div>
+                        <textarea id="code1" placeholder="Write your OAuth 2.0 implementation here...">class OAuth2Client {
+    constructor(config) {
+        this.clientId = config.clientId;
+        this.redirectUri = config.redirectUri;
+        this.authorizationEndpoint = config.authorizationEndpoint;
+        this.tokenEndpoint = config.tokenEndpoint;
+        this.scope = config.scope || 'openid profile email';
+    }
+
+    generateCodeVerifier() {
+        const array = new Uint8Array(32);
+        crypto.getRandomValues(array);
+        return btoa(String.fromCharCode.apply(null, array))
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=/g, '');
+    }
+
+    generateCodeChallenge(verifier) {
+        return crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier))
+            .then(hash => btoa(String.fromCharCode.apply(null, new Uint8Array(hash)))
+                .replace(/\+/g, '-')
+                .replace(/\//g, '_')
+                .replace(/=/g, ''));
+    }
+
+    async initiateAuth() {
+        const codeVerifier = this.generateCodeVerifier();
+        const codeChallenge = await this.generateCodeChallenge(codeVerifier);
+        
+        sessionStorage.setItem('code_verifier', codeVerifier);
+        
+        const params = new URLSearchParams({
+            response_type: 'code',
+            client_id: this.clientId,
+            redirect_uri: this.redirectUri,
+            scope: this.scope,
+            code_challenge: codeChallenge,
+            code_challenge_method: 'S256',
+            state: this.generateState()
+        });
+        
+        window.location.href = `${this.authorizationEndpoint}?${params}`;
+    }
+
+    generateState() {
+        return btoa(Math.random().toString(36).substring(2, 15));
+    }
+
+    async exchangeCodeForToken(code) {
+        const codeVerifier = sessionStorage.getItem('code_verifier');
+        
+        const response = await fetch(this.tokenEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                grant_type: 'authorization_code',
+                client_id: this.clientId,
+                code: code,
+                redirect_uri: this.redirectUri,
+                code_verifier: codeVerifier
+            })
+        });
+        
+        return await response.json();
+    }
+}</textarea>
+                    </div>
+                    <div class="exercise-hints">
+                        <h4>💡 Hints:</h4>
+                        <ul>
+                            <li>Use PKCE (Proof Key for Code Exchange) for enhanced security</li>
+                            <li>Generate cryptographically secure random values for state and code verifier</li>
+                            <li>Store sensitive data securely and clear it after use</li>
+                            <li>Validate state parameter to prevent CSRF attacks</li>
+                        </ul>
+                    </div>
+                    <div class="exercise-result" id="result1"></div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: JWT Token Management -->
+            <div class="exercise" id="exercise2">
+                <div class="exercise-header">
+                    <h3>🎫 Exercise 2: JWT Token Management</h3>
+                    <p>Create secure JWT token handling with refresh token rotation</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>jwt-manager.js</span>
+                            <button class="run-btn" onclick="runExercise(2)">Run & Validate</button>
+                        </div>
+                        <textarea id="code2" placeholder="Write your JWT management code here...">class JWTManager {
+    constructor() {
+        this.accessToken = null;
+        this.refreshToken = null;
+        this.tokenExpiry = null;
+        this.refreshPromise = null;
+    }
+
+    setTokens(accessToken, refreshToken, expiresIn) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.tokenExpiry = Date.now() + (expiresIn * 1000);
+        
+        // Store in httpOnly cookies (server-side) or secure storage
+        this.storeTokensSecurely(accessToken, refreshToken);
+    }
+
+    storeTokensSecurely(accessToken, refreshToken) {
+        // Use secure storage methods
+        if (typeof(Storage) !== "undefined") {
+            sessionStorage.setItem('access_token', accessToken);
+            sessionStorage.setItem('refresh_token', refreshToken);
+        }
+    }
+
+    async getValidToken() {
+        if (!this.accessToken || this.isTokenExpired()) {
+            return await this.refreshAccessToken();
+        }
+        return this.accessToken;
+    }
+
+    isTokenExpired() {
+        return Date.now() >= this.tokenExpiry;
+    }
+
+    async refreshAccessToken() {
+        if (this.refreshPromise) {
+            return await this.refreshPromise;
+        }
+
+        this.refreshPromise = this.performTokenRefresh();
+        const result = await this.refreshPromise;
+        this.refreshPromise = null;
+        return result;
+    }
+
+    async performTokenRefresh() {
+        try {
+            const response = await fetch('/api/auth/refresh', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    refresh_token: this.refreshToken
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Token refresh failed');
+            }
+
+            const data = await response.json();
+            this.setTokens(data.access_token, data.refresh_token, data.expires_in);
+            return data.access_token;
+        } catch (error) {
+            this.clearTokens();
+            throw error;
+        }
+    }
+
+    clearTokens() {
+        this.accessToken = null;
+        this.refreshToken = null;
+        this.tokenExpiry = null;
+        sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('refresh_token');
+    }
+
+    async makeAuthenticatedRequest(url, options = {}) {
+        const token = await this.getValidToken();
+        
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            ...options.headers
+        };
+
+        const response = await fetch(url, {
+            ...options,
+            headers
+        });
+
+        if (response.status === 401) {
+            this.clearTokens();
+            throw new Error('Authentication required');
+        }
+
+        return response;
+    }
+}</textarea>
+                    </div>
+                    <div class="exercise-hints">
+                        <h4>💡 Hints:</h4>
+                        <ul>
+                            <li>Implement automatic token refresh before expiration</li>
+                            <li>Use refresh token rotation for enhanced security</li>
+                            <li>Store tokens securely and clear them on logout</li>
+                            <li>Handle token refresh failures gracefully</li>
+                        </ul>
+                    </div>
+                    <div class="exercise-result" id="result2"></div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: Password Security -->
+            <div class="exercise" id="exercise3">
+                <div class="exercise-header">
+                    <h3>🛡️ Exercise 3: Password Security</h3>
+                    <p>Implement secure password hashing and validation with bcrypt</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>password-security.js</span>
+                            <button class="run-btn" onclick="runExercise(3)">Run & Validate</button>
+                        </div>
+                        <textarea id="code3" placeholder="Write your password security implementation here...">// Password Security Implementation
+class PasswordSecurity {
+    constructor() {
+        this.minLength = 8;
+        this.requireUppercase = true;
+        this.requireLowercase = true;
+        this.requireNumbers = true;
+        this.requireSpecialChars = true;
+        this.maxLength = 128;
+    }
+
+    validatePassword(password) {
+        const errors = [];
+        
+        if (password.length < this.minLength) {
+            errors.push(`Password must be at least ${this.minLength} characters long`);
+        }
+        
+        if (password.length > this.maxLength) {
+            errors.push(`Password must be no more than ${this.maxLength} characters long`);
+        }
+        
+        if (this.requireUppercase && !/[A-Z]/.test(password)) {
+            errors.push('Password must contain at least one uppercase letter');
+        }
+        
+        if (this.requireLowercase && !/[a-z]/.test(password)) {
+            errors.push('Password must contain at least one lowercase letter');
+        }
+        
+        if (this.requireNumbers && !/\d/.test(password)) {
+            errors.push('Password must contain at least one number');
+        }
+        
+        if (this.requireSpecialChars && !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+            errors.push('Password must contain at least one special character');
+        }
+        
+        // Check for common patterns
+        if (this.hasCommonPatterns(password)) {
+            errors.push('Password contains common patterns and is not secure');
+        }
+        
+        return {
+            isValid: errors.length === 0,
+            errors: errors,
+            strength: this.calculateStrength(password)
+        };
+    }
+
+    hasCommonPatterns(password) {
+        const commonPatterns = [
+            /123456/,
+            /password/i,
+            /qwerty/i,
+            /abc123/i,
+            /admin/i,
+            /letmein/i
+        ];
+        
+        return commonPatterns.some(pattern => pattern.test(password));
+    }
+
+    calculateStrength(password) {
+        let score = 0;
+        
+        // Length bonus
+        if (password.length >= 8) score += 1;
+        if (password.length >= 12) score += 1;
+        if (password.length >= 16) score += 1;
+        
+        // Character variety
+        if (/[a-z]/.test(password)) score += 1;
+        if (/[A-Z]/.test(password)) score += 1;
+        if (/\d/.test(password)) score += 1;
+        if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) score += 1;
+        
+        // Entropy calculation
+        const uniqueChars = new Set(password).size;
+        if (uniqueChars >= 8) score += 1;
+        
+        if (score <= 3) return 'Weak';
+        if (score <= 5) return 'Medium';
+        if (score <= 7) return 'Strong';
+        return 'Very Strong';
+    }
+
+    async hashPassword(password) {
+        // In a real implementation, use bcrypt or Argon2
+        // This is a simplified version for demonstration
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password + 'salt');
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async verifyPassword(password, hashedPassword) {
+        const hashedInput = await this.hashPassword(password);
+        return hashedInput === hashedPassword;
+    }
+
+    generateSecurePassword(length = 16) {
+        const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+        let password = '';
+        
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * charset.length);
+            password += charset[randomIndex];
+        }
+        
+        return password;
+    }
+}</textarea>
+                    </div>
+                    <div class="exercise-hints">
+                        <h4>💡 Hints:</h4>
+                        <ul>
+                            <li>Use strong hashing algorithms like bcrypt or Argon2</li>
+                            <li>Implement proper password complexity requirements</li>
+                            <li>Check for common password patterns and dictionary attacks</li>
+                            <li>Use secure random number generation for password generation</li>
+                        </ul>
+                    </div>
+                    <div class="exercise-result" id="result3"></div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Security Headers -->
+            <div class="exercise" id="exercise4">
+                <div class="exercise-header">
+                    <h3>🛡️ Exercise 4: Security Headers</h3>
+                    <p>Configure comprehensive security headers for web application protection</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>security-headers.js</span>
+                            <button class="run-btn" onclick="runExercise(4)">Run & Validate</button>
+                        </div>
+                        <textarea id="code4" placeholder="Write your security headers configuration here...">// Security Headers Configuration
+const securityHeaders = {
+    // Content Security Policy
+    'Content-Security-Policy': [
+        "default-src 'self'",
+        "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+        "font-src 'self' https://fonts.gstatic.com",
+        "img-src 'self' data: https:",
+        "connect-src 'self' https://api.example.com",
+        "frame-ancestors 'none'",
+        "base-uri 'self'",
+        "form-action 'self'"
+    ].join('; '),
+
+    // HTTP Strict Transport Security
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+
+    // X-Frame-Options
+    'X-Frame-Options': 'DENY',
+
+    // X-Content-Type-Options
+    'X-Content-Type-Options': 'nosniff',
+
+    // Referrer Policy
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+
+    // Permissions Policy
+    'Permissions-Policy': [
+        'camera=()',
+        'microphone=()',
+        'geolocation=()',
+        'interest-cohort=()'
+    ].join(', '),
+
+    // X-XSS-Protection
+    'X-XSS-Protection': '1; mode=block',
+
+    // Cross-Origin Policies
+    'Cross-Origin-Embedder-Policy': 'require-corp',
+    'Cross-Origin-Opener-Policy': 'same-origin',
+    'Cross-Origin-Resource-Policy': 'same-origin'
+};
+
+// Express.js middleware implementation
+function securityHeadersMiddleware(req, res, next) {
+    // Set all security headers
+    Object.entries(securityHeaders).forEach(([header, value]) => {
+        res.setHeader(header, value);
+    });
+
+    // Additional security measures
+    res.removeHeader('X-Powered-By');
+    
+    // Rate limiting headers
+    res.setHeader('X-RateLimit-Limit', '100');
+    res.setHeader('X-RateLimit-Remaining', req.rateLimit?.remaining || '100');
+    res.setHeader('X-RateLimit-Reset', req.rateLimit?.reset || Date.now() + 3600000);
+
+    next();
+}
+
+// Nginx configuration
+const nginxSecurityConfig = `
+# Security Headers
+add_header X-Frame-Options "DENY" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header X-XSS-Protection "1; mode=block" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';" always;
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+
+# Remove server information
+server_tokens off;
+
+# Security settings
+client_max_body_size 1M;
+client_body_timeout 10s;
+client_header_timeout 10s;
+keepalive_timeout 5s 5s;
+send_timeout 10s;
+`;
+
+// Security validation function
+function validateSecurityHeaders(headers) {
+    const requiredHeaders = [
+        'content-security-policy',
+        'strict-transport-security',
+        'x-frame-options',
+        'x-content-type-options'
+    ];
+    
+    const missingHeaders = requiredHeaders.filter(header => 
+        !headers[header] && !headers[header.toLowerCase()]
+    );
+    
+    return {
+        isValid: missingHeaders.length === 0,
+        missingHeaders: missingHeaders,
+        score: Math.max(0, 100 - (missingHeaders.length * 25))
+    };
+}</textarea>
+                    </div>
+                    <div class="exercise-hints">
+                        <h4>💡 Hints:</h4>
+                        <ul>
+                            <li>Implement Content Security Policy to prevent XSS attacks</li>
+                            <li>Use HSTS to enforce HTTPS connections</li>
+                            <li>Set X-Frame-Options to prevent clickjacking</li>
+                            <li>Configure CORS policies appropriately</li>
+                        </ul>
+                    </div>
+                    <div class="exercise-result" id="result4"></div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Penetration Testing -->
+            <div class="exercise" id="exercise5">
+                <div class="exercise-header">
+                    <h3>🔍 Exercise 5: Penetration Testing</h3>
+                    <p>Create automated security testing and vulnerability scanning tools</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>security-scanner.js</span>
+                            <button class="run-btn" onclick="runExercise(5)">Run & Validate</button>
+                        </div>
+                        <textarea id="code5" placeholder="Write your penetration testing tools here...">// Security Scanner and Penetration Testing Tools
+class SecurityScanner {
+    constructor() {
+        this.vulnerabilities = [];
+        this.scanResults = [];
+    }
+
+    async scanWebsite(url) {
+        console.log(`Starting security scan for: ${url}`);
+        
+        const scans = [
+            this.checkHTTPS(url),
+            this.checkSecurityHeaders(url),
+            this.checkForSQLInjection(url),
+            this.checkForXSSVulnerabilities(url),
+            this.checkForCSRFProtection(url),
+            this.checkForDirectoryTraversal(url),
+            this.checkForInformationDisclosure(url)
+        ];
+
+        const results = await Promise.allSettled(scans);
+        
+        results.forEach((result, index) => {
+            if (result.status === 'fulfilled') {
+                this.scanResults.push(result.value);
+            } else {
+                console.error(`Scan ${index} failed:`, result.reason);
+            }
+        });
+
+        return this.generateReport();
+    }
+
+    async checkHTTPS(url) {
+        const isHTTPS = url.startsWith('https://');
+        return {
+            test: 'HTTPS Enforcement',
+            status: isHTTPS ? 'PASS' : 'FAIL',
+            severity: isHTTPS ? 'INFO' : 'HIGH',
+            message: isHTTPS ? 'HTTPS is properly configured' : 'Website should use HTTPS'
+        };
+    }
+
+    async checkSecurityHeaders(url) {
+        try {
+            const response = await fetch(url, { method: 'HEAD' });
+            const headers = response.headers;
+            
+            const requiredHeaders = [
+                'content-security-policy',
+                'strict-transport-security',
+                'x-frame-options',
+                'x-content-type-options'
+            ];
+            
+            const missingHeaders = requiredHeaders.filter(header => 
+                !headers.get(header)
+            );
+            
+            return {
+                test: 'Security Headers',
+                status: missingHeaders.length === 0 ? 'PASS' : 'WARN',
+                severity: missingHeaders.length === 0 ? 'INFO' : 'MEDIUM',
+                message: missingHeaders.length === 0 ? 
+                    'All security headers present' : 
+                    `Missing headers: ${missingHeaders.join(', ')}`
+            };
+        } catch (error) {
+            return {
+                test: 'Security Headers',
+                status: 'ERROR',
+                severity: 'HIGH',
+                message: 'Could not check security headers'
+            };
+        }
+    }
+
+    async checkForSQLInjection(url) {
+        const sqlPayloads = [
+            "' OR '1'='1",
+            "'; DROP TABLE users; --",
+            "' UNION SELECT * FROM users --",
+            "1' OR '1'='1' --"
+        ];
+        
+        const vulnerabilities = [];
+        
+        for (const payload of sqlPayloads) {
+            try {
+                const testUrl = `${url}?id=${encodeURIComponent(payload)}`;
+                const response = await fetch(testUrl);
+                const text = await response.text();
+                
+                if (this.detectSQLInjectionResponse(text)) {
+                    vulnerabilities.push({
+                        payload: payload,
+                        url: testUrl,
+                        response: text.substring(0, 100)
+                    });
+                }
+            } catch (error) {
+                // Continue with other payloads
+            }
+        }
+        
+        return {
+            test: 'SQL Injection',
+            status: vulnerabilities.length === 0 ? 'PASS' : 'FAIL',
+            severity: vulnerabilities.length === 0 ? 'INFO' : 'CRITICAL',
+            message: vulnerabilities.length === 0 ? 
+                'No SQL injection vulnerabilities detected' : 
+                `Found ${vulnerabilities.length} potential SQL injection points`
+        };
+    }
+
+    detectSQLInjectionResponse(text) {
+        const sqlErrorPatterns = [
+            /mysql_fetch_array/,
+            /ORA-01756/,
+            /Microsoft OLE DB Provider/,
+            /SQLServer JDBC Driver/,
+            /PostgreSQL query failed/,
+            /Warning: mysql_/,
+            /valid MySQL result/,
+            /MySqlClient\./,
+            /SQL syntax.*MySQL/,
+            /Warning.*mysql_.*on line/,
+            /valid MySQL result/,
+            /check the manual that corresponds to your MySQL/
+        ];
+        
+        return sqlErrorPatterns.some(pattern => pattern.test(text));
+    }
+
+    async checkForXSSVulnerabilities(url) {
+        const xssPayloads = [
+            '<script>alert("XSS")</script>',
+            '"><script>alert("XSS")</script>',
+            "'><script>alert('XSS')</script>",
+            'javascript:alert("XSS")',
+            '<img src=x onerror=alert("XSS")>'
+        ];
+        
+        const vulnerabilities = [];
+        
+        for (const payload of xssPayloads) {
+            try {
+                const testUrl = `${url}?search=${encodeURIComponent(payload)}`;
+                const response = await fetch(testUrl);
+                const text = await response.text();
+                
+                if (text.includes(payload)) {
+                    vulnerabilities.push({
+                        payload: payload,
+                        url: testUrl
+                    });
+                }
+            } catch (error) {
+                // Continue with other payloads
+            }
+        }
+        
+        return {
+            test: 'XSS Vulnerabilities',
+            status: vulnerabilities.length === 0 ? 'PASS' : 'FAIL',
+            severity: vulnerabilities.length === 0 ? 'INFO' : 'HIGH',
+            message: vulnerabilities.length === 0 ? 
+                'No XSS vulnerabilities detected' : 
+                `Found ${vulnerabilities.length} potential XSS vulnerabilities`
+        };
+    }
+
+    async checkForCSRFProtection(url) {
+        try {
+            const response = await fetch(url);
+            const text = await response.text();
+            
+            const hasCSRFToken = /csrf[_-]?token/i.test(text) || 
+                                /_token/i.test(text) ||
+                                /authenticity[_-]?token/i.test(text);
+            
+            return {
+                test: 'CSRF Protection',
+                status: hasCSRFToken ? 'PASS' : 'WARN',
+                severity: hasCSRFToken ? 'INFO' : 'MEDIUM',
+                message: hasCSRFToken ? 
+                    'CSRF protection appears to be implemented' : 
+                    'CSRF protection not detected'
+            };
+        } catch (error) {
+            return {
+                test: 'CSRF Protection',
+                status: 'ERROR',
+                severity: 'HIGH',
+                message: 'Could not check CSRF protection'
+            };
+        }
+    }
+
+    async checkForDirectoryTraversal(url) {
+        const traversalPayloads = [
+            '../../../etc/passwd',
+            '..\\..\\..\\windows\\system32\\drivers\\etc\\hosts',
+            '....//....//....//etc/passwd',
+            '%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd'
+        ];
+        
+        const vulnerabilities = [];
+        
+        for (const payload of traversalPayloads) {
+            try {
+                const testUrl = `${url}?file=${encodeURIComponent(payload)}`;
+                const response = await fetch(testUrl);
+                const text = await response.text();
+                
+                if (this.detectDirectoryTraversalResponse(text)) {
+                    vulnerabilities.push({
+                        payload: payload,
+                        url: testUrl
+                    });
+                }
+            } catch (error) {
+                // Continue with other payloads
+            }
+        }
+        
+        return {
+            test: 'Directory Traversal',
+            status: vulnerabilities.length === 0 ? 'PASS' : 'FAIL',
+            severity: vulnerabilities.length === 0 ? 'INFO' : 'HIGH',
+            message: vulnerabilities.length === 0 ? 
+                'No directory traversal vulnerabilities detected' : 
+                `Found ${vulnerabilities.length} potential directory traversal vulnerabilities`
+        };
+    }
+
+    detectDirectoryTraversalResponse(text) {
+        const systemFilePatterns = [
+            /root:x:/,
+            /bin:/,
+            /daemon:/,
+            /127\.0\.0\.1\s+localhost/,
+            /# localhost name resolution/,
+            /Windows IP Configuration/
+        ];
+        
+        return systemFilePatterns.some(pattern => pattern.test(text));
+    }
+
+    async checkForInformationDisclosure(url) {
+        try {
+            const response = await fetch(url);
+            const headers = response.headers;
+            const text = await response.text();
+            
+            const disclosures = [];
+            
+            // Check for server information
+            if (headers.get('server')) {
+                disclosures.push('Server information disclosed');
+            }
+            
+            if (headers.get('x-powered-by')) {
+                disclosures.push('X-Powered-By header disclosed');
+            }
+            
+            // Check for error messages
+            if (text.includes('Stack trace') || text.includes('Exception in thread')) {
+                disclosures.push('Stack traces in response');
+            }
+            
+            return {
+                test: 'Information Disclosure',
+                status: disclosures.length === 0 ? 'PASS' : 'WARN',
+                severity: disclosures.length === 0 ? 'INFO' : 'LOW',
+                message: disclosures.length === 0 ? 
+                    'No information disclosure detected' : 
+                    `Found disclosures: ${disclosures.join(', ')}`
+            };
+        } catch (error) {
+            return {
+                test: 'Information Disclosure',
+                status: 'ERROR',
+                severity: 'MEDIUM',
+                message: 'Could not check for information disclosure'
+            };
+        }
+    }
+
+    generateReport() {
+        const totalTests = this.scanResults.length;
+        const passedTests = this.scanResults.filter(r => r.status === 'PASS').length;
+        const failedTests = this.scanResults.filter(r => r.status === 'FAIL').length;
+        const warnings = this.scanResults.filter(r => r.status === 'WARN').length;
+        
+        const criticalIssues = this.scanResults.filter(r => r.severity === 'CRITICAL');
+        const highIssues = this.scanResults.filter(r => r.severity === 'HIGH');
+        
+        return {
+            summary: {
+                totalTests,
+                passed: passedTests,
+                failed: failedTests,
+                warnings: warnings,
+                score: Math.round((passedTests / totalTests) * 100)
+            },
+            criticalIssues: criticalIssues,
+            highIssues: highIssues,
+            allResults: this.scanResults
+        };
+    }
+}</textarea>
+                    </div>
+                    <div class="exercise-hints">
+                        <h4>💡 Hints:</h4>
+                        <ul>
+                            <li>Test for common vulnerabilities like SQL injection and XSS</li>
+                            <li>Check for proper security headers implementation</li>
+                            <li>Validate CSRF protection mechanisms</li>
+                            <li>Look for information disclosure vulnerabilities</li>
+                        </ul>
+                    </div>
+                    <div class="exercise-result" id="result5"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="btn btn-secondary" onclick="resetLevel()">Reset Level</button>
+            <button class="btn btn-primary" onclick="completeLevel()">Complete Level</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/shell/shell.min.js"></script>
+    <script src="level18-script.js"></script>
+</body>
+</html>
