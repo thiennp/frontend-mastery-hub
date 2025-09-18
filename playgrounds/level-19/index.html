@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 19: Microservices Architecture - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level19-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>🏗️ Level 19: Microservices Architecture</h1>
+                <p class="level-description">Master service mesh, container orchestration, and distributed systems</p>
+                <div class="level-stats">
+                    <span class="stat">5 Exercises</span>
+                    <span class="stat">Microservices Focus</span>
+                    <span class="stat">Production Ready</span>
+                </div>
+            </div>
+            <div class="level-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">0/5 Complete</span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: Service Mesh Implementation -->
+            <div class="exercise" id="exercise1">
+                <div class="exercise-header">
+                    <h3>🕸️ Exercise 1: Service Mesh Implementation</h3>
+                    <p>Implement Istio service mesh with traffic management and security policies</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>istio-config.yaml</span>
+                            <button class="run-btn" onclick="runExercise(1)">Run & Validate</button>
+                        </div>
+                        <textarea id="code1" placeholder="Write your Istio service mesh configuration here...">apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: frontend-service
+  namespace: production
+spec:
+  hosts:
+  - frontend.production.com
+  http:
+  - match:
+    - headers:
+        user-agent:
+          regex: ".*Mobile.*"
+    route:
+    - destination:
+        host: frontend-service
+        subset: mobile
+      weight: 100
+  - match:
+    - headers:
+        user-agent:
+          regex: ".*Desktop.*"
+    route:
+    - destination:
+        host: frontend-service
+        subset: desktop
+      weight: 100
+  - route:
+    - destination:
+        host: frontend-service
+        subset: default
+      weight: 100
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: frontend-service
+  namespace: production
+spec:
+  host: frontend-service
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 100
+      http:
+        http1MaxPendingRequests: 50
+        maxRequestsPerConnection: 2
+    circuitBreaker:
+      consecutiveErrors: 3
+      interval: 30s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+  subsets:
+  - name: mobile
+    labels:
+      version: mobile
+  - name: desktop
+    labels:
+      version: desktop
+  - name: default
+    labels:
+      version: v1
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: frontend-authz
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: frontend-service
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/production/sa/frontend-gateway"]
+    to:
+    - operation:
+        methods: ["GET", "POST"]
+        paths: ["/api/*"]
+    when:
+    - key: request.headers[authorization]
+      values: ["Bearer *"]</textarea>
+                    </div>
+                    <div class="exercise-hints">
+                        <h4>💡 Hints:</h4>
+                        <ul>
+                            <li>Use VirtualService for traffic routing and load balancing</li>
+                            <li>Implement circuit breakers for fault tolerance</li>
+                            <li>Configure connection pooling for performance</li>
+                            <li>Set up authorization policies for security</li>
+                        </ul>
+                    </div>
+                    <div class="exercise-result" id="result1"></div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Container Orchestration -->
+            <div class="exercise" id="exercise2">
+                <div class="exercise-header">
+                    <h3>🐳 Exercise 2: Container Orchestration</h3>
+                    <p>Create Kubernetes manifests for microservices deployment and scaling</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>microservices-deployment.yaml</span>
+                            <button class="run-btn" onclick="runExercise(2)">Run & Validate</button>
+                        </div>
+                        <textarea id="code2" placeholder="Write your Kubernetes microservices configuration here...">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  labels:
+    app: user-service
+    version: v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+        version: v1
+    spec:
+      containers:
+      - name: user-service
+        image: user-service:v1.0.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: user-service-secrets
+              key: database-url
+        - name: REDIS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: user-service-config
+              key: redis-url
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  labels:
+    app: user-service
+spec:
+  selector:
+    app: user-service
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: user-service-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: user-service
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: user-service-pdb
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: user-service</textarea>
+                    </div>
+                    <div class="exercise-hints">
+                        <h4>💡 Hints:</h4>
+                        <ul>
+                            <li>Use ConfigMaps and Secrets for configuration management</li>
+                            <li>Implement health checks for reliability</li>
+                            <li>Configure horizontal pod autoscaling</li>
+                            <li>Set up pod disruption budgets for availability</li>
+                        </ul>
+                    </div>
+                    <div class="exercise-result" id="result2"></div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: API Gateway -->
+            <div class="exercise" id="exercise3">
+                <div class="exercise-header">
+                    <h3>🚪 Exercise 3: API Gateway</h3>
+                    <p>Implement Kong API Gateway with rate limiting and authentication</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>kong-gateway.yml</span>
+                            <button class="run-btn" onclick="runExercise(3)">Run & Validate</button>
+                        </div>
+                        <textarea id="code3" placeholder="Write your Kong API Gateway configuration here...">services:
+- name: user-service
+  url: http://user-service:8080
+  plugins:
+  - name: rate-limiting
+    config:
+      minute: 100
+      hour: 1000
+      policy: local
+  - name: jwt
+    config:
+      secret_is_base64: false
+      key_claim_name: iss
+      claims_to_verify: exp
+  - name: cors
+    config:
+      origins:
+      - "https://frontend.example.com"
+      - "https://admin.example.com"
+      methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - OPTIONS
+      headers:
+      - Accept
+      - Authorization
+      - Content-Type
+      - X-Requested-With
+      credentials: true
+  - name: request-transformer
+    config:
+      add:
+        headers:
+        - "X-Service-Name:user-service"
+        - "X-Request-ID:$(uuid)"
+  routes:
+  - name: user-service-routes
+    paths:
+    - /api/users
+    - /api/users/*
+    methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    strip_path: false
+    preserve_host: false
+
+- name: order-service
+  url: http://order-service:8080
+  plugins:
+  - name: rate-limiting
+    config:
+      minute: 50
+      hour: 500
+      policy: local
+  - name: jwt
+    config:
+      secret_is_base64: false
+      key_claim_name: iss
+      claims_to_verify: exp
+  - name: request-size-limiting
+    config:
+      allowed_payload_size: 1024
+  - name: response-transformer
+    config:
+      add:
+        headers:
+        - "X-Service-Name:order-service"
+        - "X-Response-Time:$(response_time)"
+  routes:
+  - name: order-service-routes
+    paths:
+    - /api/orders
+    - /api/orders/*
+    methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    strip_path: false
+    preserve_host: false
+
+consumers:
+- username: frontend-app
+  custom_id: frontend-app-id
+  jwt_secrets:
+  - key: frontend-key
+    secret: your-secret-key-here
+  - key: admin-key
+    secret: admin-secret-key-here
+
+plugins:
+- name: prometheus
+  config:
+    per_consumer: true
+    service_name: kong-gateway
+- name: zipkin
+  config:
+    http_endpoint: http://zipkin:9411/api/v2/spans
+    sample_ratio: 0.1
+    service_name: kong-gateway</textarea>
+                    </div>
+                    <div class="exercise-hints">
+                        <h4>💡 Hints:</h4>
+                        <ul>
+                            <li>Configure rate limiting per service and consumer</li>
+                            <li>Implement JWT authentication for secure access</li>
+                            <li>Set up CORS policies for cross-origin requests</li>
+                            <li>Add monitoring and tracing plugins</li>
+                        </ul>
+                    </div>
+                    <div class="exercise-result" id="result3"></div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Event-Driven Architecture -->
+            <div class="exercise" id="exercise4">
+                <div class="exercise-header">
+                    <h3>📡 Exercise 4: Event-Driven Architecture</h3>
+                    <p>Implement event sourcing and CQRS with Apache Kafka</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>event-driven-architecture.js</span>
+                            <button class="run-btn" onclick="runExercise(4)">Run & Validate</button>
+                        </div>
+                        <textarea id="code4" placeholder="Write your event-driven architecture implementation here...">// Event Sourcing and CQRS Implementation
+const { Kafka } = require('kafkajs');
+const { EventStore } = require('eventstore-client');
+
+class EventSourcingService {
+    constructor(serviceName) {
+        this.serviceName = serviceName;
+        this.kafka = Kafka({
+            clientId: serviceName,
+            brokers: ['kafka1:9092', 'kafka2:9092', 'kafka3:9092']
+        });
+        this.producer = this.kafka.producer();
+        this.consumer = this.kafka.consumer({ groupId: `${serviceName}-group` });
+        this.eventStore = new EventStore();
+    }
+
+    async initialize() {
+        await this.producer.connect();
+        await this.consumer.connect();
+        await this.consumer.subscribe({ topic: 'domain-events', fromBeginning: false });
+    }
+
+    // Command Side - Write Model
+    async handleCommand(command) {
+        try {
+            const event = await this.processCommand(command);
+            await this.publishEvent(event);
+            await this.saveToEventStore(event);
+            return { success: true, eventId: event.id };
+        } catch (error) {
+            console.error('Command processing failed:', error);
+            throw error;
+        }
+    }
+
+    async processCommand(command) {
+        const event = {
+            id: this.generateEventId(),
+            type: command.type,
+            aggregateId: command.aggregateId,
+            aggregateType: command.aggregateType,
+            version: command.version || 1,
+            data: command.data,
+            metadata: {
+                timestamp: new Date().toISOString(),
+                serviceName: this.serviceName,
+                correlationId: command.correlationId,
+                causationId: command.causationId
+            }
+        };
+        return event;
+    }
+
+    async publishEvent(event) {
+        await this.producer.send({
+            topic: 'domain-events',
+            messages: [{
+                key: event.aggregateId,
+                value: JSON.stringify(event),
+                headers: {
+                    eventType: event.type,
+                    aggregateType: event.aggregateType,
+                    version: event.version.toString()
+                }
+            }]
+        });
+    }
+
+    async saveToEventStore(event) {
+        await this.eventStore.appendToStream(
+            `${event.aggregateType}-${event.aggregateId}`,
+            event.version,
+            [event]
+        );
+    }
+
+    // Query Side - Read Model
+    async handleQuery(query) {
+        const readModel = await this.getReadModel(query.aggregateId);
+        return this.projectToReadModel(readModel, query);
+    }
+
+    async getReadModel(aggregateId) {
+        const events = await this.eventStore.readStreamEventsForward(
+            `user-${aggregateId}`,
+            0,
+            1000
+        );
+        return this.replayEvents(events);
+    }
+
+    replayEvents(events) {
+        let state = {};
+        events.forEach(event => {
+            state = this.applyEvent(state, event);
+        });
+        return state;
+    }
+
+    applyEvent(state, event) {
+        switch (event.type) {
+            case 'UserCreated':
+                return {
+                    ...state,
+                    id: event.aggregateId,
+                    email: event.data.email,
+                    name: event.data.name,
+                    createdAt: event.metadata.timestamp,
+                    version: event.version
+                };
+            case 'UserUpdated':
+                return {
+                    ...state,
+                    ...event.data,
+                    version: event.version,
+                    updatedAt: event.metadata.timestamp
+                };
+            case 'UserDeleted':
+                return {
+                    ...state,
+                    deleted: true,
+                    deletedAt: event.metadata.timestamp,
+                    version: event.version
+                };
+            default:
+                return state;
+        }
+    }
+
+    // Event Handlers
+    async startEventHandlers() {
+        await this.consumer.run({
+            eachMessage: async ({ topic, partition, message }) => {
+                const event = JSON.parse(message.value.toString());
+                await this.handleEvent(event);
+            }
+        });
+    }
+
+    async handleEvent(event) {
+        try {
+            switch (event.type) {
+                case 'UserCreated':
+                    await this.updateUserReadModel(event);
+                    await this.sendWelcomeEmail(event);
+                    break;
+                case 'OrderPlaced':
+                    await this.updateInventory(event);
+                    await this.notifyWarehouse(event);
+                    break;
+                case 'PaymentProcessed':
+                    await this.updateOrderStatus(event);
+                    await this.sendConfirmationEmail(event);
+                    break;
+                default:
+                    console.log(`Unhandled event type: ${event.type}`);
+            }
+        } catch (error) {
+            console.error('Event handling failed:', error);
+            await this.handleEventError(event, error);
+        }
+    }
+
+    async updateUserReadModel(event) {
+        // Update read model for user queries
+        const readModel = {
+            id: event.aggregateId,
+            email: event.data.email,
+            name: event.data.name,
+            createdAt: event.metadata.timestamp
+        };
+        await this.saveReadModel('users', readModel);
+    }
+
+    async sendWelcomeEmail(event) {
+        // Send welcome email to new user
+        console.log(`Sending welcome email to ${event.data.email}`);
+    }
+
+    async updateInventory(event) {
+        // Update inventory based on order
+        console.log(`Updating inventory for order ${event.aggregateId}`);
+    }
+
+    async notifyWarehouse(event) {
+        // Notify warehouse of new order
+        console.log(`Notifying warehouse of order ${event.aggregateId}`);
+    }
+
+    async updateOrderStatus(event) {
+        // Update order status after payment
+        console.log(`Updating order status for ${event.aggregateId}`);
+    }
+
+    async sendConfirmationEmail(event) {
+        // Send confirmation email
+        console.log(`Sending confirmation email for order ${event.aggregateId}`);
+    }
+
+    async handleEventError(event, error) {
+        // Implement error handling and retry logic
+        console.error(`Event processing failed for ${event.type}:`, error);
+        // Could implement dead letter queue or retry mechanism
+    }
+
+    generateEventId() {
+        return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    }
+
+    async saveReadModel(collection, data) {
+        // Save to read model database
+        console.log(`Saving to ${collection}:`, data);
+    }
+
+    async projectToReadModel(readModel, query) {
+        // Project read model based on query
+        return readModel;
+    }
+}
+
+// Usage Example
+const userService = new EventSourcingService('user-service');
+await userService.initialize();
+await userService.startEventHandlers();
+
+// Handle command
+await userService.handleCommand({
+    type: 'CreateUser',
+    aggregateId: 'user-123',
+    aggregateType: 'User',
+    data: {
+        email: 'user@example.com',
+        name: 'John Doe'
+    },
+    correlationId: 'cmd-456'
+});
+
+// Handle query
+const user = await userService.handleQuery({
+    aggregateId: 'user-123',
+    type: 'GetUser'
+});</textarea>
+                    </div>
+                    <div class="exercise-hints">
+                        <h4>💡 Hints:</h4>
+                        <ul>
+                            <li>Separate command and query responsibilities (CQRS)</li>
+                            <li>Store events in event store for audit trail</li>
+                            <li>Implement event handlers for side effects</li>
+                            <li>Use correlation IDs for tracing across services</li>
+                        </ul>
+                    </div>
+                    <div class="exercise-result" id="result4"></div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Distributed Tracing -->
+            <div class="exercise" id="exercise5">
+                <div class="exercise-header">
+                    <h3>🔍 Exercise 5: Distributed Tracing</h3>
+                    <p>Implement OpenTelemetry tracing across microservices</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>distributed-tracing.js</span>
+                            <button class="run-btn" onclick="runExercise(5)">Run & Validate</button>
+                        </div>
+                        <textarea id="code5" placeholder="Write your distributed tracing implementation here...">// Distributed Tracing with OpenTelemetry
+const { NodeSDK } = require('@opentelemetry/auto-instrumentations-node');
+const { getNodeAutoInstrumentations } = require('@opentelemetry/auto-instrumentations-node');
+const { Resource } = require('@opentelemetry/resources');
+const { SemanticResourceAttributes } = require('@opentelemetry/semantic-conventions');
+const { JaegerExporter } = require('@opentelemetry/exporter-jaeger');
+const { ZipkinExporter } = require('@opentelemetry/exporter-zipkin');
+const { PrometheusExporter } = require('@opentelemetry/exporter-prometheus');
+const { trace, context, SpanStatusCode } = require('@opentelemetry/api');
+
+// Initialize OpenTelemetry
+const sdk = new NodeSDK({
+    resource: new Resource({
+        [SemanticResourceAttributes.SERVICE_NAME]: 'user-service',
+        [SemanticResourceAttributes.SERVICE_VERSION]: '1.0.0',
+        [SemanticResourceAttributes.DEPLOYMENT_ENVIRONMENT]: 'production',
+    }),
+    traceExporter: new JaegerExporter({
+        endpoint: 'http://jaeger:14268/api/traces',
+    }),
+    instrumentations: [getNodeAutoInstrumentations()],
+});
+
+sdk.start();
+
+// Custom tracing utilities
+class TracingService {
+    constructor(serviceName) {
+        this.serviceName = serviceName;
+        this.tracer = trace.getTracer(serviceName, '1.0.0');
+    }
+
+    // Create a new span
+    createSpan(spanName, parentSpan = null) {
+        const span = this.tracer.startSpan(spanName, {
+            attributes: {
+                'service.name': this.serviceName,
+                'span.kind': 'server',
+            }
+        });
+
+        if (parentSpan) {
+            const parentContext = trace.setSpan(context.active(), parentSpan);
+            return trace.setSpan(parentContext, span);
+        }
+
+        return span;
+    }
+
+    // Add attributes to span
+    addSpanAttributes(span, attributes) {
+        span.setAttributes(attributes);
+    }
+
+    // Add events to span
+    addSpanEvent(span, eventName, attributes = {}) {
+        span.addEvent(eventName, attributes);
+    }
+
+    // Set span status
+    setSpanStatus(span, code, message = '') {
+        span.setStatus({ code, message });
+    }
+
+    // End span
+    endSpan(span) {
+        span.end();
+    }
+
+    // Trace HTTP requests
+    async traceHttpRequest(url, options = {}, operationName = 'http_request') {
+        const span = this.createSpan(operationName);
+        
+        try {
+            this.addSpanAttributes(span, {
+                'http.method': options.method || 'GET',
+                'http.url': url,
+                'http.user_agent': options.headers?.['User-Agent'] || 'unknown',
+            });
+
+            this.addSpanEvent(span, 'http_request_started', {
+                'http.url': url,
+                'http.method': options.method || 'GET',
+            });
+
+            const response = await fetch(url, options);
+            
+            this.addSpanAttributes(span, {
+                'http.status_code': response.status,
+                'http.response_size': response.headers.get('content-length') || 0,
+            });
+
+            this.addSpanEvent(span, 'http_request_completed', {
+                'http.status_code': response.status,
+            });
+
+            if (response.status >= 400) {
+                this.setSpanStatus(span, SpanStatusCode.ERROR, `HTTP ${response.status}`);
+            } else {
+                this.setSpanStatus(span, SpanStatusCode.OK);
+            }
+
+            return response;
+        } catch (error) {
+            this.addSpanEvent(span, 'http_request_error', {
+                'error.message': error.message,
+                'error.type': error.constructor.name,
+            });
+            
+            this.setSpanStatus(span, SpanStatusCode.ERROR, error.message);
+            throw error;
+        } finally {
+            this.endSpan(span);
+        }
+    }
+
+    // Trace database operations
+    async traceDatabaseOperation(operation, query, params = []) {
+        const span = this.createSpan(`db.${operation}`);
+        
+        try {
+            this.addSpanAttributes(span, {
+                'db.operation': operation,
+                'db.statement': query,
+                'db.parameters': JSON.stringify(params),
+            });
+
+            this.addSpanEvent(span, 'db_operation_started', {
+                'db.operation': operation,
+            });
+
+            // Simulate database operation
+            const result = await this.executeDatabaseOperation(operation, query, params);
+            
+            this.addSpanAttributes(span, {
+                'db.rows_affected': result.rowsAffected || 0,
+            });
+
+            this.addSpanEvent(span, 'db_operation_completed', {
+                'db.rows_affected': result.rowsAffected || 0,
+            });
+
+            this.setSpanStatus(span, SpanStatusCode.OK);
+            return result;
+        } catch (error) {
+            this.addSpanEvent(span, 'db_operation_error', {
+                'error.message': error.message,
+                'error.type': error.constructor.name,
+            });
+            
+            this.setSpanStatus(span, SpanStatusCode.ERROR, error.message);
+            throw error;
+        } finally {
+            this.endSpan(span);
+        }
+    }
+
+    // Trace business logic
+    async traceBusinessLogic(operationName, operation, context = {}) {
+        const span = this.createSpan(operationName);
+        
+        try {
+            this.addSpanAttributes(span, {
+                'business.operation': operationName,
+                'business.context': JSON.stringify(context),
+            });
+
+            this.addSpanEvent(span, 'business_operation_started', {
+                'business.operation': operationName,
+            });
+
+            const result = await operation();
+            
+            this.addSpanEvent(span, 'business_operation_completed', {
+                'business.operation': operationName,
+            });
+
+            this.setSpanStatus(span, SpanStatusCode.OK);
+            return result;
+        } catch (error) {
+            this.addSpanEvent(span, 'business_operation_error', {
+                'error.message': error.message,
+                'error.type': error.constructor.name,
+            });
+            
+            this.setSpanStatus(span, SpanStatusCode.ERROR, error.message);
+            throw error;
+        } finally {
+            this.endSpan(span);
+        }
+    }
+
+    // Propagate trace context
+    propagateTraceContext(headers) {
+        const activeSpan = trace.getActiveSpan();
+        if (activeSpan) {
+            const spanContext = activeSpan.spanContext();
+            return {
+                ...headers,
+                'traceparent': `00-${spanContext.traceId}-${spanContext.spanId}-01`,
+                'tracestate': spanContext.traceState?.serialize() || '',
+            };
+        }
+        return headers;
+    }
+
+    // Extract trace context from headers
+    extractTraceContext(headers) {
+        const traceparent = headers['traceparent'];
+        if (traceparent) {
+            const [version, traceId, spanId, traceFlags] = traceparent.split('-');
+            return {
+                traceId,
+                spanId,
+                traceFlags: parseInt(traceFlags, 16),
+            };
+        }
+        return null;
+    }
+
+    // Simulate database operation
+    async executeDatabaseOperation(operation, query, params) {
+        // Simulate database operation
+        await new Promise(resolve => setTimeout(resolve, Math.random() * 100));
+        return {
+            rowsAffected: Math.floor(Math.random() * 10),
+            data: params,
+        };
+    }
+}
+
+// Usage example
+const tracingService = new TracingService('user-service');
+
+// Trace HTTP request to another service
+async function callOrderService(userId) {
+    const headers = tracingService.propagateTraceContext({
+        'Content-Type': 'application/json',
+        'User-Agent': 'user-service/1.0.0',
+    });
+
+    return await tracingService.traceHttpRequest(
+        'http://order-service:8080/api/orders',
+        {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ userId }),
+        },
+        'call_order_service'
+    );
+}
+
+// Trace database operation
+async function getUserFromDatabase(userId) {
+    return await tracingService.traceDatabaseOperation(
+        'SELECT',
+        'SELECT * FROM users WHERE id = ?',
+        [userId]
+    );
+}
+
+// Trace business logic
+async function processUserRegistration(userData) {
+    return await tracingService.traceBusinessLogic(
+        'process_user_registration',
+        async () => {
+            // Business logic here
+            const user = await getUserFromDatabase(userData.id);
+            const orders = await callOrderService(userData.id);
+            return { user, orders };
+        },
+        { userId: userData.id }
+    );
+}
+
+// Express.js middleware for tracing
+function tracingMiddleware(req, res, next) {
+    const span = tracingService.createSpan(`${req.method} ${req.path}`);
+    
+    req.span = span;
+    
+    // Add request attributes
+    tracingService.addSpanAttributes(span, {
+        'http.method': req.method,
+        'http.url': req.url,
+        'http.user_agent': req.get('User-Agent') || 'unknown',
+        'http.request_id': req.get('X-Request-ID') || 'unknown',
+    });
+
+    // Extract trace context from incoming request
+    const traceContext = tracingService.extractTraceContext(req.headers);
+    if (traceContext) {
+        tracingService.addSpanAttributes(span, {
+            'trace.parent_id': traceContext.spanId,
+            'trace.trace_id': traceContext.traceId,
+        });
+    }
+
+    res.on('finish', () => {
+        tracingService.addSpanAttributes(span, {
+            'http.status_code': res.statusCode,
+        });
+        
+        if (res.statusCode >= 400) {
+            tracingService.setSpanStatus(span, SpanStatusCode.ERROR, `HTTP ${res.statusCode}`);
+        } else {
+            tracingService.setSpanStatus(span, SpanStatusCode.OK);
+        }
+        
+        tracingService.endSpan(span);
+    });
+
+    next();
+}
+
+module.exports = {
+    TracingService,
+    tracingMiddleware,
+    tracingService,
+};</textarea>
+                    </div>
+                    <div class="exercise-hints">
+                        <h4>💡 Hints:</h4>
+                        <ul>
+                            <li>Use OpenTelemetry for standardized tracing</li>
+                            <li>Propagate trace context across service boundaries</li>
+                            <li>Add meaningful attributes and events to spans</li>
+                            <li>Implement proper error handling and status codes</li>
+                        </ul>
+                    </div>
+                    <div class="exercise-result" id="result5"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="btn btn-secondary" onclick="resetLevel()">Reset Level</button>
+            <button class="btn btn-primary" onclick="completeLevel()">Complete Level</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/yaml/yaml.min.js"></script>
+    <script src="level19-script.js"></script>
+</body>
+</html>
