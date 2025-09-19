@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 26: Blockchain & Web3 - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level26-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1><i class="fab fa-bitcoin"></i> Level 26: Blockchain & Web3</h1>
+                <p>Master decentralized applications with smart contracts, DeFi, and Web3 integration</p>
+                <div class="level-stats">
+                    <span class="stat"><i class="fas fa-code"></i> 5 Exercises</span>
+                    <span class="stat"><i class="fas fa-clock"></i> 60-80 min</span>
+                    <span class="stat"><i class="fas fa-star"></i> Expert</span>
+                </div>
+            </div>
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress"></div>
+                </div>
+                <span class="progress-text">0/5 Complete</span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: Smart Contracts -->
+            <div class="exercise-card" data-exercise="1">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-file-contract"></i> Exercise 1: Smart Contracts</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Create and deploy smart contracts using Solidity and Web3.js.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Solidity programming</li>
+                                <li>Contract deployment</li>
+                                <li>Gas optimization</li>
+                                <li>Event handling</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Smart Contract Implementation</span>
+                            <button class="run-btn" onclick="runExercise(1)">
+                                <i class="fas fa-play"></i> Deploy Contract
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor1" placeholder="// Smart Contract Example
+pragma solidity ^0.8.0;
+
+contract SimpleStorage {
+    uint256 private storedData;
+    
+    event DataUpdated(uint256 newValue);
+    
+    function set(uint256 x) public {
+        storedData = x;
+        emit DataUpdated(x);
+    }
+    
+    function get() public view returns (uint256) {
+        return storedData;
+    }
+}
+
+// Web3.js Integration
+const web3 = new Web3(window.ethereum);
+
+class SmartContractManager {
+    constructor() {
+        this.contract = null;
+        this.account = null;
+    }
+    
+    async deployContract() {
+        const accounts = await web3.eth.getAccounts();
+        this.account = accounts[0];
+        
+        const contract = new web3.eth.Contract(contractABI);
+        this.contract = await contract.deploy({
+            data: contractBytecode
+        }).send({
+            from: this.account,
+            gas: 500000
+        });
+        
+        console.log('Contract deployed at:', this.contract.options.address);
+    }
+    
+    async setValue(value) {
+        await this.contract.methods.set(value).send({
+            from: this.account
+        });
+    }
+    
+    async getValue() {
+        return await this.contract.methods.get().call();
+    }
+}
+
+const contractManager = new SmartContractManager();"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output1">
+                        <div class="output-header">
+                            <span>Smart Contract Status</span>
+                            <div class="metrics">
+                                <span class="metric">Gas: <span id="gasUsed">0</span></span>
+                                <span class="metric">Status: <span id="contractStatus">Not Deployed</span></span>
+                                <span class="metric">Address: <span id="contractAddress">N/A</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: DeFi Integration -->
+            <div class="exercise-card" data-exercise="2">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-coins"></i> Exercise 2: DeFi Integration</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Build decentralized finance applications with liquidity pools and yield farming.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Liquidity pools</li>
+                                <li>Yield farming</li>
+                                <li>Token swaps</li>
+                                <li>Staking mechanisms</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>DeFi Protocol Implementation</span>
+                            <button class="run-btn" onclick="runExercise(2)">
+                                <i class="fas fa-play"></i> Launch DeFi
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor2" placeholder="// DeFi Protocol Implementation
+class DeFiProtocol {
+    constructor() {
+        this.liquidityPools = new Map();
+        this.stakingRewards = new Map();
+        this.totalValueLocked = 0;
+    }
+    
+    addLiquidity(tokenA, tokenB, amountA, amountB) {
+        const poolKey = `${tokenA}-${tokenB}`;
+        
+        if (!this.liquidityPools.has(poolKey)) {
+            this.liquidityPools.set(poolKey, {
+                tokenA: { symbol: tokenA, amount: 0 },
+                tokenB: { symbol: tokenB, amount: 0 },
+                lpTokens: 0,
+                providers: new Map()
+            });
+        }
+        
+        const pool = this.liquidityPools.get(poolKey);
+        pool.tokenA.amount += amountA;
+        pool.tokenB.amount += amountB;
+        
+        // Calculate LP tokens
+        const lpTokens = Math.sqrt(amountA * amountB);
+        pool.lpTokens += lpTokens;
+        
+        this.totalValueLocked += (amountA + amountB);
+        
+        return lpTokens;
+    }
+    
+    swapTokens(fromToken, toToken, amount) {
+        const poolKey = `${fromToken}-${toToken}`;
+        const pool = this.liquidityPools.get(poolKey);
+        
+        if (!pool) {
+            throw new Error('Pool not found');
+        }
+        
+        // Simple AMM formula: x * y = k
+        const k = pool.tokenA.amount * pool.tokenB.amount;
+        const newFromAmount = pool.tokenA.amount + amount;
+        const newToAmount = k / newFromAmount;
+        const outputAmount = pool.tokenB.amount - newToAmount;
+        
+        // Apply 0.3% fee
+        const fee = outputAmount * 0.003;
+        const finalOutput = outputAmount - fee;
+        
+        pool.tokenA.amount = newFromAmount;
+        pool.tokenB.amount = newToAmount;
+        
+        return finalOutput;
+    }
+    
+    stakeTokens(token, amount, duration) {
+        const stakeKey = `${token}-${Date.now()}`;
+        const apy = this.calculateAPY(token, duration);
+        
+        this.stakingRewards.set(stakeKey, {
+            token,
+            amount,
+            duration,
+            apy,
+            startTime: Date.now(),
+            claimed: false
+        });
+        
+        return stakeKey;
+    }
+    
+    calculateAPY(token, duration) {
+        // Base APY calculation
+        const baseAPY = 5; // 5%
+        const durationBonus = Math.min(duration / 365, 1) * 10; // Up to 10% bonus
+        return baseAPY + durationBonus;
+    }
+    
+    getPoolStats(poolKey) {
+        const pool = this.liquidityPools.get(poolKey);
+        if (!pool) return null;
+        
+        return {
+            tvl: pool.tokenA.amount + pool.tokenB.amount,
+            volume24h: Math.random() * 1000000, // Simulated
+            apy: this.calculatePoolAPY(pool),
+            lpTokens: pool.lpTokens
+        };
+    }
+    
+    calculatePoolAPY(pool) {
+        // Simplified APY calculation based on fees and rewards
+        const tradingFees = 0.3; // 0.3% per trade
+        const dailyVolume = 100000; // Simulated
+        const annualFees = dailyVolume * tradingFees * 365;
+        const tvl = pool.tokenA.amount + pool.tokenB.amount;
+        
+        return (annualFees / tvl) * 100;
+    }
+}
+
+// Usage example
+const defi = new DeFiProtocol();
+
+// Add liquidity
+const lpTokens = defi.addLiquidity('ETH', 'USDC', 10, 30000);
+console.log('LP Tokens received:', lpTokens);
+
+// Perform swap
+const output = defi.swapTokens('ETH', 'USDC', 1);
+console.log('Swap output:', output);
+
+// Stake tokens
+const stakeId = defi.stakeTokens('ETH', 5, 365);
+console.log('Staking ID:', stakeId);"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output2">
+                        <div class="output-header">
+                            <span>DeFi Protocol Status</span>
+                            <div class="metrics">
+                                <span class="metric">TVL: <span id="totalValueLocked">$0</span></span>
+                                <span class="metric">APY: <span id="averageAPY">0%</span></span>
+                                <span class="metric">Pools: <span id="activePools">0</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: NFT Marketplace -->
+            <div class="exercise-card" data-exercise="3">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-image"></i> Exercise 3: NFT Marketplace</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Create an NFT marketplace with minting, trading, and auction features.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>ERC-721 tokens</li>
+                                <li>IPFS storage</li>
+                                <li>Marketplace contracts</li>
+                                <li>Royalty systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>NFT Marketplace Implementation</span>
+                            <button class="run-btn" onclick="runExercise(3)">
+                                <i class="fas fa-play"></i> Launch Marketplace
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor3" placeholder="// NFT Marketplace Implementation
+class NFTMarketplace {
+    constructor() {
+        this.nfts = new Map();
+        this.listings = new Map();
+        this.auctions = new Map();
+        this.nextTokenId = 1;
+    }
+    
+    mintNFT(creator, metadata) {
+        const tokenId = this.nextTokenId++;
+        const nft = {
+            tokenId,
+            creator,
+            owner: creator,
+            metadata: {
+                name: metadata.name,
+                description: metadata.description,
+                image: metadata.image,
+                attributes: metadata.attributes || []
+            },
+            mintedAt: Date.now(),
+            royalty: metadata.royalty || 5 // 5% default royalty
+        };
+        
+        this.nfts.set(tokenId, nft);
+        return tokenId;
+    }
+    
+    listNFT(tokenId, price, seller) {
+        const nft = this.nfts.get(tokenId);
+        if (!nft || nft.owner !== seller) {
+            throw new Error('Not authorized to list this NFT');
+        }
+        
+        const listingId = `listing-${tokenId}-${Date.now()}`;
+        this.listings.set(listingId, {
+            tokenId,
+            price,
+            seller,
+            listedAt: Date.now(),
+            active: true
+        });
+        
+        return listingId;
+    }
+    
+    buyNFT(listingId, buyer, paymentAmount) {
+        const listing = this.listings.get(listingId);
+        if (!listing || !listing.active) {
+            throw new Error('Listing not found or inactive');
+        }
+        
+        if (paymentAmount < listing.price) {
+            throw new Error('Insufficient payment');
+        }
+        
+        const nft = this.nfts.get(listing.tokenId);
+        const royaltyAmount = (listing.price * nft.royalty) / 100;
+        const sellerAmount = listing.price - royaltyAmount;
+        
+        // Transfer NFT ownership
+        nft.owner = buyer;
+        listing.active = false;
+        
+        return {
+            tokenId: listing.tokenId,
+            buyer,
+            seller: listing.seller,
+            price: listing.price,
+            royaltyAmount,
+            sellerAmount,
+            soldAt: Date.now()
+        };
+    }
+    
+    createAuction(tokenId, startingPrice, duration, seller) {
+        const nft = this.nfts.get(tokenId);
+        if (!nft || nft.owner !== seller) {
+            throw new Error('Not authorized to auction this NFT');
+        }
+        
+        const auctionId = `auction-${tokenId}-${Date.now()}`;
+        this.auctions.set(auctionId, {
+            tokenId,
+            seller,
+            startingPrice,
+            currentBid: startingPrice,
+            highestBidder: null,
+            bids: [],
+            startTime: Date.now(),
+            endTime: Date.now() + duration,
+            active: true
+        });
+        
+        return auctionId;
+    }
+    
+    placeBid(auctionId, bidder, bidAmount) {
+        const auction = this.auctions.get(auctionId);
+        if (!auction || !auction.active) {
+            throw new Error('Auction not found or inactive');
+        }
+        
+        if (Date.now() > auction.endTime) {
+            throw new Error('Auction has ended');
+        }
+        
+        if (bidAmount <= auction.currentBid) {
+            throw new Error('Bid must be higher than current bid');
+        }
+        
+        auction.bids.push({
+            bidder,
+            amount: bidAmount,
+            timestamp: Date.now()
+        });
+        
+        auction.currentBid = bidAmount;
+        auction.highestBidder = bidder;
+        
+        return true;
+    }
+    
+    getMarketplaceStats() {
+        const totalNFTs = this.nfts.size;
+        const activeListings = Array.from(this.listings.values())
+            .filter(listing => listing.active).length;
+        const activeAuctions = Array.from(this.auctions.values())
+            .filter(auction => auction.active).length;
+        
+        const totalVolume = Array.from(this.listings.values())
+            .reduce((sum, listing) => sum + (listing.active ? 0 : listing.price), 0);
+        
+        return {
+            totalNFTs,
+            activeListings,
+            activeAuctions,
+            totalVolume,
+            floorPrice: Math.min(...Array.from(this.listings.values())
+                .filter(l => l.active)
+                .map(l => l.price))
+        };
+    }
+}
+
+// Usage example
+const marketplace = new NFTMarketplace();
+
+// Mint NFT
+const tokenId = marketplace.mintNFT('artist1', {
+    name: 'Digital Art #1',
+    description: 'A beautiful digital artwork',
+    image: 'ipfs://QmHash...',
+    attributes: [
+        { trait_type: 'Color', value: 'Blue' },
+        { trait_type: 'Rarity', value: 'Rare' }
+    ],
+    royalty: 10
+});
+
+// List NFT
+const listingId = marketplace.listNFT(tokenId, 1.5, 'artist1');
+
+// Create auction
+const auctionId = marketplace.createAuction(tokenId, 1.0, 86400000, 'artist1'); // 24 hours"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output3">
+                        <div class="output-header">
+                            <span>NFT Marketplace Status</span>
+                            <div class="metrics">
+                                <span class="metric">NFTs: <span id="totalNFTs">0</span></span>
+                                <span class="metric">Volume: <span id="marketplaceVolume">0 ETH</span></span>
+                                <span class="metric">Floor: <span id="floorPrice">0 ETH</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Web3 Integration -->
+            <div class="exercise-card" data-exercise="4">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-link"></i> Exercise 4: Web3 Integration</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Integrate Web3 wallets and blockchain networks into web applications.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>MetaMask integration</li>
+                                <li>Multi-chain support</li>
+                                <li>Transaction signing</li>
+                                <li>Wallet connections</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Web3 Integration Implementation</span>
+                            <button class="run-btn" onclick="runExercise(4)">
+                                <i class="fas fa-play"></i> Connect Web3
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor4" placeholder="// Web3 Integration Implementation
+class Web3Integration {
+    constructor() {
+        this.web3 = null;
+        this.account = null;
+        this.chainId = null;
+        this.isConnected = false;
+    }
+    
+    async connectWallet() {
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                this.web3 = new Web3(window.ethereum);
+                
+                const accounts = await this.web3.eth.getAccounts();
+                this.account = accounts[0];
+                
+                const chainId = await this.web3.eth.getChainId();
+                this.chainId = chainId;
+                
+                this.isConnected = true;
+                this.setupEventListeners();
+                
+                return {
+                    account: this.account,
+                    chainId: this.chainId,
+                    balance: await this.getBalance()
+                };
+            } catch (error) {
+                throw new Error('Failed to connect wallet: ' + error.message);
+            }
+        } else {
+            throw new Error('MetaMask not detected');
+        }
+    }
+    
+    setupEventListeners() {
+        window.ethereum.on('accountsChanged', (accounts) => {
+            this.account = accounts[0] || null;
+            this.isConnected = !!this.account;
+        });
+        
+        window.ethereum.on('chainChanged', (chainId) => {
+            this.chainId = parseInt(chainId, 16);
+            window.location.reload(); // Reload on chain change
+        });
+    }
+    
+    async switchNetwork(chainId) {
+        const networks = {
+            1: { name: 'Ethereum Mainnet', rpc: 'https://mainnet.infura.io' },
+            137: { name: 'Polygon', rpc: 'https://polygon-rpc.com' },
+            56: { name: 'BSC', rpc: 'https://bsc-dataseed.binance.org' }
+        };
+        
+        const network = networks[chainId];
+        if (!network) {
+            throw new Error('Unsupported network');
+        }
+        
+        try {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x' + chainId.toString(16) }]
+            });
+        } catch (error) {
+            if (error.code === 4902) {
+                // Network not added, add it
+                await this.addNetwork(chainId, network);
+            }
+        }
+    }
+    
+    async addNetwork(chainId, network) {
+        await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [{
+                chainId: '0x' + chainId.toString(16),
+                chainName: network.name,
+                rpcUrls: [network.rpc],
+                nativeCurrency: {
+                    name: 'ETH',
+                    symbol: 'ETH',
+                    decimals: 18
+                }
+            }]
+        });
+    }
+    
+    async getBalance() {
+        if (!this.web3 || !this.account) return 0;
+        
+        const balance = await this.web3.eth.getBalance(this.account);
+        return this.web3.utils.fromWei(balance, 'ether');
+    }
+    
+    async sendTransaction(to, value, data = '0x') {
+        if (!this.web3 || !this.account) {
+            throw new Error('Wallet not connected');
+        }
+        
+        const gasPrice = await this.web3.eth.getGasPrice();
+        const gasLimit = await this.web3.eth.estimateGas({
+            from: this.account,
+            to,
+            value: this.web3.utils.toWei(value.toString(), 'ether'),
+            data
+        });
+        
+        const transaction = {
+            from: this.account,
+            to,
+            value: this.web3.utils.toWei(value.toString(), 'ether'),
+            gas: gasLimit,
+            gasPrice,
+            data
+        };
+        
+        return await this.web3.eth.sendTransaction(transaction);
+    }
+    
+    async signMessage(message) {
+        if (!this.web3 || !this.account) {
+            throw new Error('Wallet not connected');
+        }
+        
+        return await this.web3.eth.personal.sign(message, this.account);
+    }
+    
+    async addToken(tokenAddress, tokenSymbol, tokenDecimals, tokenImage) {
+        try {
+            await window.ethereum.request({
+                method: 'wallet_watchAsset',
+                params: {
+                    type: 'ERC20',
+                    options: {
+                        address: tokenAddress,
+                        symbol: tokenSymbol,
+                        decimals: tokenDecimals,
+                        image: tokenImage
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('Error adding token:', error);
+        }
+    }
+    
+    getNetworkName(chainId) {
+        const networks = {
+            1: 'Ethereum Mainnet',
+            3: 'Ropsten Testnet',
+            4: 'Rinkeby Testnet',
+            5: 'Goerli Testnet',
+            56: 'Binance Smart Chain',
+            137: 'Polygon',
+            250: 'Fantom Opera',
+            43114: 'Avalanche'
+        };
+        
+        return networks[chainId] || 'Unknown Network';
+    }
+}
+
+// Usage example
+const web3Integration = new Web3Integration();
+
+async function connectToWeb3() {
+    try {
+        const connection = await web3Integration.connectWallet();
+        console.log('Connected:', connection);
+        
+        // Sign a message
+        const signature = await web3Integration.signMessage('Hello Web3!');
+        console.log('Signature:', signature);
+        
+        // Add a custom token
+        await web3Integration.addToken(
+            '0xA0b86a33E6441FEe5A74AC6f5A13Bc2951C2A3DC',
+            'TEST',
+            18,
+            'https://example.com/token.png'
+        );
+        
+    } catch (error) {
+        console.error('Web3 connection failed:', error);
+    }
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output4">
+                        <div class="output-header">
+                            <span>Web3 Connection Status</span>
+                            <div class="metrics">
+                                <span class="metric">Wallet: <span id="walletStatus">Disconnected</span></span>
+                                <span class="metric">Network: <span id="networkName">Unknown</span></span>
+                                <span class="metric">Balance: <span id="walletBalance">0 ETH</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Cryptocurrency Trading -->
+            <div class="exercise-card" data-exercise="5">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-chart-line"></i> Exercise 5: Cryptocurrency Trading</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Build a cryptocurrency trading interface with real-time data and order management.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Trading algorithms</li>
+                                <li>Price feeds</li>
+                                <li>Order books</li>
+                                <li>Portfolio management</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Crypto Trading Implementation</span>
+                            <button class="run-btn" onclick="runExercise(5)">
+                                <i class="fas fa-play"></i> Start Trading
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor5" placeholder="// Cryptocurrency Trading Implementation
+class CryptoTradingEngine {
+    constructor() {
+        this.orderBook = { bids: [], asks: [] };
+        this.portfolio = new Map();
+        this.trades = [];
+        this.prices = new Map();
+        this.orderHistory = [];
+    }
+    
+    initializePortfolio(initialBalance = 10000) {
+        this.portfolio.set('USDT', initialBalance);
+        this.portfolio.set('BTC', 0);
+        this.portfolio.set('ETH', 0);
+        this.portfolio.set('BNB', 0);
+        
+        // Initialize prices
+        this.prices.set('BTC', 45000);
+        this.prices.set('ETH', 3200);
+        this.prices.set('BNB', 420);
+    }
+    
+    updatePrices() {
+        // Simulate price updates
+        const pairs = ['BTC', 'ETH', 'BNB'];
+        pairs.forEach(symbol => {
+            const currentPrice = this.prices.get(symbol);
+            const volatility = 0.02; // 2% volatility
+            const change = (Math.random() - 0.5) * volatility;
+            const newPrice = currentPrice * (1 + change);
+            this.prices.set(symbol, Math.round(newPrice * 100) / 100);
+        });
+    }
+    
+    placeOrder(type, symbol, amount, price = null) {
+        const orderId = `order-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const order = {
+            id: orderId,
+            type, // 'buy' or 'sell'
+            symbol,
+            amount,
+            price: price || this.prices.get(symbol),
+            timestamp: Date.now(),
+            status: 'pending'
+        };
+        
+        if (type === 'buy') {
+            this.orderBook.bids.push(order);
+            this.orderBook.bids.sort((a, b) => b.price - a.price);
+        } else {
+            this.orderBook.asks.push(order);
+            this.orderBook.asks.sort((a, b) => a.price - b.price);
+        }
+        
+        this.orderHistory.push(order);
+        this.processOrder(order);
+        
+        return orderId;
+    }
+    
+    processOrder(order) {
+        const currentPrice = this.prices.get(order.symbol);
+        const usdtBalance = this.portfolio.get('USDT');
+        const tokenBalance = this.portfolio.get(order.symbol);
+        
+        if (order.type === 'buy') {
+            const totalCost = order.amount * currentPrice;
+            if (usdtBalance >= totalCost) {
+                this.portfolio.set('USDT', usdtBalance - totalCost);
+                this.portfolio.set(order.symbol, tokenBalance + order.amount);
+                order.status = 'filled';
+                
+                this.trades.push({
+                    orderId: order.id,
+                    symbol: order.symbol,
+                    type: 'buy',
+                    amount: order.amount,
+                    price: currentPrice,
+                    timestamp: Date.now()
+                });
+            } else {
+                order.status = 'insufficient_funds';
+            }
+        } else { // sell
+            if (tokenBalance >= order.amount) {
+                const proceeds = order.amount * currentPrice;
+                this.portfolio.set(order.symbol, tokenBalance - order.amount);
+                this.portfolio.set('USDT', usdtBalance + proceeds);
+                order.status = 'filled';
+                
+                this.trades.push({
+                    orderId: order.id,
+                    symbol: order.symbol,
+                    type: 'sell',
+                    amount: order.amount,
+                    price: currentPrice,
+                    timestamp: Date.now()
+                });
+            } else {
+                order.status = 'insufficient_balance';
+            }
+        }
+    }
+    
+    getPortfolioValue() {
+        let totalValue = this.portfolio.get('USDT');
+        
+        for (const [symbol, amount] of this.portfolio) {
+            if (symbol !== 'USDT' && amount > 0) {
+                totalValue += amount * this.prices.get(symbol);
+            }
+        }
+        
+        return Math.round(totalValue * 100) / 100;
+    }
+    
+    getPortfolioAllocation() {
+        const totalValue = this.getPortfolioValue();
+        const allocation = {};
+        
+        for (const [symbol, amount] of this.portfolio) {
+            if (symbol === 'USDT') {
+                allocation[symbol] = (amount / totalValue) * 100;
+            } else {
+                const value = amount * this.prices.get(symbol);
+                allocation[symbol] = (value / totalValue) * 100;
+            }
+        }
+        
+        return allocation;
+    }
+    
+    getPriceHistory(symbol, days = 30) {
+        // Simulate price history
+        const history = [];
+        let price = this.prices.get(symbol);
+        
+        for (let i = days; i >= 0; i--) {
+            const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
+            price *= (1 + (Math.random() - 0.5) * 0.05); // 5% daily volatility
+            history.push({
+                date: date.toISOString().split('T')[0],
+                price: Math.round(price * 100) / 100
+            });
+        }
+        
+        return history;
+    }
+    
+    calculateTradingMetrics() {
+        const totalTrades = this.trades.length;
+        const buyTrades = this.trades.filter(t => t.type === 'buy');
+        const sellTrades = this.trades.filter(t => t.type === 'sell');
+        
+        let totalVolume = 0;
+        let totalPnL = 0;
+        
+        this.trades.forEach(trade => {
+            totalVolume += trade.amount * trade.price;
+        });
+        
+        // Calculate P&L (simplified)
+        const currentValue = this.getPortfolioValue();
+        const initialValue = 10000; // Starting balance
+        totalPnL = currentValue - initialValue;
+        
+        return {
+            totalTrades,
+            totalVolume: Math.round(totalVolume * 100) / 100,
+            totalPnL: Math.round(totalPnL * 100) / 100,
+            winRate: sellTrades.length > 0 ? 
+                (sellTrades.filter(t => t.price > buyTrades[0]?.price || 0).length / sellTrades.length) * 100 : 0
+        };
+    }
+}
+
+// Usage example
+const tradingEngine = new CryptoTradingEngine();
+tradingEngine.initializePortfolio();
+
+// Simulate trading
+setInterval(() => {
+    tradingEngine.updatePrices();
+}, 5000);
+
+// Place some orders
+const buyOrderId = tradingEngine.placeOrder('buy', 'BTC', 0.1);
+const sellOrderId = tradingEngine.placeOrder('sell', 'ETH', 0.5);
+
+console.log('Portfolio value:', tradingEngine.getPortfolioValue());
+console.log('Portfolio allocation:', tradingEngine.getPortfolioAllocation());"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output5">
+                        <div class="output-header">
+                            <span>Trading Engine Status</span>
+                            <div class="metrics">
+                                <span class="metric">Portfolio: <span id="portfolioValue">$0</span></span>
+                                <span class="metric">P&L: <span id="totalPnL">$0</span></span>
+                                <span class="metric">Trades: <span id="totalTrades">0</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="btn-secondary" onclick="resetLevel()">
+                <i class="fas fa-redo"></i> Reset Level
+            </button>
+            <button class="btn-primary" onclick="completeLevel()" id="completeBtn" disabled>
+                <i class="fas fa-check"></i> Complete Level
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="level26-script.js"></script>
+</body>
+</html>

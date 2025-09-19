@@ -1,0 +1,954 @@
+/* Level 26: Blockchain & Web3 Styles */
+
+:root {
+    --primary-color: #f7931a;
+    --secondary-color: #627eea;
+    --accent-color: #00d4aa;
+    --success-color: #4facfe;
+    --warning-color: #ffd700;
+    --error-color: #ff6b6b;
+    --info-color: #667eea;
+    --bitcoin-color: #f7931a;
+    --ethereum-color: #627eea;
+    --defi-color: #00d4aa;
+    --nft-color: #ff6b6b;
+    --web3-color: #8b5cf6;
+    --background-color: #0a0a0a;
+    --surface-color: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: #333333;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --gradient-primary: linear-gradient(135deg, #f7931a 0%, #627eea 100%);
+    --gradient-secondary: linear-gradient(135deg, #00d4aa 0%, #8b5cf6 100%);
+    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --blockchain-gradient: linear-gradient(135deg, #f7931a 0%, #627eea 50%, #00d4aa 100%);
+    --crypto-gradient: linear-gradient(45deg, #f7931a, #627eea, #00d4aa, #8b5cf6);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Blockchain network animation background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(247, 147, 26, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(98, 126, 234, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 60% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+    animation: blockchainPulse 35s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes blockchainPulse {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+    25% { transform: translateY(-30px) rotate(2deg); opacity: 0.9; }
+    50% { transform: translateY(20px) rotate(-1deg); opacity: 0.8; }
+    75% { transform: translateY(-25px) rotate(1deg); opacity: 0.9; }
+}
+
+.level-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header Styles */
+.level-header {
+    background: var(--surface-color);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.level-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--blockchain-gradient);
+    animation: blockchainGradientShift 12s ease-in-out infinite;
+}
+
+@keyframes blockchainGradientShift {
+    0%, 100% { background: var(--blockchain-gradient); }
+    50% { background: var(--gradient-accent); }
+}
+
+.level-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    background: var(--blockchain-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+.level-info h1::after {
+    content: '₿';
+    position: absolute;
+    right: -50px;
+    animation: cryptoPulse 3s ease-in-out infinite;
+}
+
+@keyframes cryptoPulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.4); opacity: 1; }
+}
+
+.level-info p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.level-stats {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.stat i {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    text-align: right;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--blockchain-gradient);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 4px;
+    animation: progressGlow 2s ease-in-out infinite;
+}
+
+@keyframes progressGlow {
+    0%, 100% { box-shadow: 0 0 5px rgba(247, 147, 26, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(247, 147, 26, 0.6); }
+}
+
+.progress-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Exercise Cards */
+.exercises-container {
+    display: grid;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.exercise-card {
+    background: var(--surface-color);
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 5px 20px var(--shadow-color);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px var(--shadow-color);
+}
+
+.exercise-card.completed {
+    border-color: var(--success-color);
+    box-shadow: 0 5px 20px rgba(79, 172, 254, 0.2);
+}
+
+.exercise-card.completed::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--success-color);
+}
+
+.exercise-header {
+    padding: 25px 30px;
+    background: linear-gradient(135deg, rgba(247, 147, 26, 0.1) 0%, rgba(98, 126, 234, 0.1) 100%);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.exercise-header h3 {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.exercise-header h3 i {
+    font-size: 1.2rem;
+}
+
+/* Blockchain specific colors */
+.exercise-card[data-exercise="1"] .exercise-header h3 i {
+    color: var(--bitcoin-color);
+}
+
+.exercise-card[data-exercise="2"] .exercise-header h3 i {
+    color: var(--defi-color);
+}
+
+.exercise-card[data-exercise="3"] .exercise-header h3 i {
+    color: var(--nft-color);
+}
+
+.exercise-card[data-exercise="4"] .exercise-header h3 i {
+    color: var(--web3-color);
+}
+
+.exercise-card[data-exercise="5"] .exercise-header h3 i {
+    color: var(--ethereum-color);
+}
+
+.exercise-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.status-pending {
+    color: var(--warning-color);
+}
+
+.status-completed {
+    color: var(--success-color);
+}
+
+.status-in-progress {
+    color: var(--accent-color);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Exercise Content */
+.exercise-content {
+    padding: 30px;
+}
+
+.exercise-description {
+    margin-bottom: 25px;
+}
+
+.exercise-description p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.exercise-hints {
+    background: rgba(247, 147, 26, 0.1);
+    border: 1px solid rgba(247, 147, 26, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.exercise-hints h4 {
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.exercise-hints ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.exercise-hints li {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.exercise-hints li::before {
+    content: '₿';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+/* Code Editor */
+.code-editor {
+    margin-bottom: 25px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.editor-header {
+    background: var(--background-color);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editor-header span {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.run-btn {
+    background: var(--blockchain-gradient);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.run-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.run-btn:hover::before {
+    left: 100%;
+}
+
+.run-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(247, 147, 26, 0.4);
+}
+
+.run-btn:active {
+    transform: translateY(0);
+}
+
+.editor-container {
+    position: relative;
+}
+
+.editor-container textarea {
+    width: 100%;
+    height: 300px;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border: none;
+    padding: 20px;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+    tab-size: 2;
+}
+
+.editor-container textarea::placeholder {
+    color: #6a6a6a;
+}
+
+/* Output Panel */
+.output-panel {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.output-header {
+    background: var(--surface-color);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.output-header span {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.metrics {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.metric {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.metric span {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.output-content {
+    padding: 20px;
+    min-height: 100px;
+    color: var(--text-secondary);
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Blockchain specific styles */
+.blockchain-result {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin: 2px;
+    font-weight: 600;
+}
+
+.smart-contract {
+    background: rgba(247, 147, 26, 0.1);
+    color: var(--bitcoin-color);
+    border: 1px solid rgba(247, 147, 26, 0.3);
+}
+
+.defi-protocol {
+    background: rgba(0, 212, 170, 0.1);
+    color: var(--defi-color);
+    border: 1px solid rgba(0, 212, 170, 0.3);
+}
+
+.nft-token {
+    background: rgba(255, 107, 107, 0.1);
+    color: var(--nft-color);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+.web3-connected {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--web3-color);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.crypto-trading {
+    background: rgba(98, 126, 234, 0.1);
+    color: var(--ethereum-color);
+    border: 1px solid rgba(98, 126, 234, 0.3);
+}
+
+.gas-efficient {
+    background: rgba(67, 233, 123, 0.1);
+    color: var(--warning-color);
+    border: 1px solid rgba(67, 233, 123, 0.3);
+}
+
+.high-security {
+    background: rgba(79, 172, 254, 0.1);
+    color: var(--success-color);
+    border: 1px solid rgba(79, 172, 254, 0.3);
+}
+
+/* Block visualization */
+.block-visualization {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 15px;
+    background: var(--surface-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.block {
+    min-width: 60px;
+    height: 60px;
+    background: var(--bitcoin-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+    position: relative;
+    animation: blockMining 3s infinite;
+}
+
+.block::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -15px;
+    width: 10px;
+    height: 2px;
+    background: var(--accent-color);
+    transform: translateY(-50%);
+}
+
+.block:last-child::after {
+    display: none;
+}
+
+@keyframes blockMining {
+    0%, 100% { 
+        box-shadow: 0 0 5px rgba(247, 147, 26, 0.3);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 15px rgba(247, 147, 26, 0.8);
+        transform: scale(1.05);
+    }
+}
+
+/* Transaction visualization */
+.transaction-pool {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 8px;
+    margin: 15px 0;
+    padding: 15px;
+    background: var(--surface-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.transaction {
+    width: 80px;
+    height: 40px;
+    background: var(--ethereum-color);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    animation: transactionPending 2s infinite;
+}
+
+.transaction.confirmed {
+    background: var(--success-color);
+    animation: none;
+}
+
+.transaction.failed {
+    background: var(--error-color);
+    animation: none;
+}
+
+@keyframes transactionPending {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* Wallet visualization */
+.wallet-visualization {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+    padding: 15px;
+    background: var(--surface-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.wallet-balance {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    background: var(--background-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.balance-title {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.balance-value {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Trading chart */
+.trading-chart {
+    width: 100%;
+    height: 200px;
+    background: var(--surface-color);
+    border-radius: 8px;
+    margin: 15px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    background: linear-gradient(to right, 
+        var(--success-color) 0%, 
+        var(--warning-color) 50%, 
+        var(--error-color) 100%);
+    clip-path: polygon(0% 100%, 0% 60%, 10% 55%, 20% 70%, 30% 45%, 40% 60%, 50% 30%, 60% 45%, 70% 25%, 80% 40%, 90% 20%, 100% 35%, 100% 100%);
+    animation: chartMovement 5s ease-in-out infinite;
+}
+
+@keyframes chartMovement {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-10px); }
+}
+
+/* Portfolio allocation */
+.portfolio-allocation {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 15px;
+    background: var(--surface-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.allocation-segment {
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.allocation-segment:hover {
+    transform: scale(1.05);
+}
+
+.btc-allocation {
+    background: var(--bitcoin-color);
+}
+
+.eth-allocation {
+    background: var(--ethereum-color);
+}
+
+.defi-allocation {
+    background: var(--defi-color);
+}
+
+.stablecoin-allocation {
+    background: var(--text-secondary);
+}
+
+/* Level Actions */
+.level-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px 0;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: var(--blockchain-gradient);
+    color: white;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(247, 147, 26, 0.4);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--surface-color);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .level-container {
+        padding: 15px;
+    }
+    
+    .level-header {
+        padding: 20px;
+    }
+    
+    .level-info h1 {
+        font-size: 2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .level-info h1::after {
+        position: static;
+        margin-top: 10px;
+    }
+    
+    .progress-indicator {
+        position: static;
+        margin-top: 20px;
+        text-align: left;
+    }
+    
+    .progress-bar {
+        width: 100%;
+    }
+    
+    .level-stats {
+        gap: 15px;
+    }
+    
+    .exercise-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .exercise-content {
+        padding: 20px;
+    }
+    
+    .editor-container textarea {
+        height: 250px;
+        font-size: 13px;
+    }
+    
+    .metrics {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .level-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .block-visualization {
+        flex-wrap: wrap;
+    }
+    
+    .wallet-visualization {
+        flex-direction: column;
+    }
+    
+    .portfolio-allocation {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .level-info h1 {
+        font-size: 1.8rem;
+    }
+    
+    .exercise-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .editor-container textarea {
+        height: 200px;
+        font-size: 12px;
+    }
+    
+    .block {
+        min-width: 50px;
+        height: 50px;
+    }
+}
+
+/* Animation for blockchain mining */
+@keyframes blockchainMining {
+    0% { 
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.1) rotate(180deg);
+        opacity: 0.8;
+    }
+    100% { 
+        transform: scale(1) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+.blockchain-mining {
+    animation: blockchainMining 3s linear infinite;
+}
+
+/* Loading states */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(247, 147, 26, 0.2), transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Success animations */
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.success-animation {
+    animation: successPulse 0.6s ease-in-out;
+}
