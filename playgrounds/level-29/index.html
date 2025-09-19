@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 29: Real-time Applications & WebRTC - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level29-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1><i class="fas fa-video"></i> Level 29: Real-time Applications & WebRTC</h1>
+                <p>Master real-time communication with WebRTC, live streaming, and peer-to-peer applications</p>
+                <div class="level-stats">
+                    <span class="stat"><i class="fas fa-code"></i> 5 Exercises</span>
+                    <span class="stat"><i class="fas fa-clock"></i> 60-80 min</span>
+                    <span class="stat"><i class="fas fa-star"></i> Expert</span>
+                </div>
+            </div>
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress"></div>
+                </div>
+                <span class="progress-text">0/5 Complete</span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: WebRTC Fundamentals -->
+            <div class="exercise-card" data-exercise="1">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-users"></i> Exercise 1: WebRTC Fundamentals</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Master WebRTC peer-to-peer connections, media streams, and real-time communication.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Peer connections and signaling</li>
+                                <li>Media streams and tracks</li>
+                                <li>Data channels</li>
+                                <li>ICE candidates and STUN/TURN servers</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>WebRTC Implementation</span>
+                            <button class="run-btn" onclick="runExercise(1)">
+                                <i class="fas fa-play"></i> Start Connection
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor1" placeholder="// WebRTC Fundamentals Implementation
+class WebRTCManager {
+    constructor() {
+        this.localStream = null;
+        this.remoteStream = null;
+        this.peerConnection = null;
+        this.dataChannel = null;
+        this.configuration = {
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'turn:your-turn-server.com', username: 'user', credential: 'pass' }
+            ]
+        };
+    }
+    
+    async initializeLocalStream() {
+        try {
+            this.localStream = await navigator.mediaDevices.getUserMedia({
+                video: { width: 640, height: 480 },
+                audio: true
+            });
+            
+            const localVideo = document.getElementById('localVideo');
+            localVideo.srcObject = this.localStream;
+            
+            return this.localStream;
+        } catch (error) {
+            console.error('Error accessing media devices:', error);
+            throw error;
+        }
+    }
+    
+    createPeerConnection() {
+        this.peerConnection = new RTCPeerConnection(this.configuration);
+        
+        // Add local stream to peer connection
+        this.localStream.getTracks().forEach(track => {
+            this.peerConnection.addTrack(track, this.localStream);
+        });
+        
+        // Handle remote stream
+        this.peerConnection.ontrack = (event) => {
+            this.remoteStream = event.streams[0];
+            const remoteVideo = document.getElementById('remoteVideo');
+            remoteVideo.srcObject = this.remoteStream;
+        };
+        
+        // Handle ICE candidates
+        this.peerConnection.onicecandidate = (event) => {
+            if (event.candidate) {
+                this.sendSignalingMessage({
+                    type: 'ice-candidate',
+                    candidate: event.candidate
+                });
+            }
+        };
+        
+        // Create data channel
+        this.dataChannel = this.peerConnection.createDataChannel('messages', {
+            ordered: true
+        });
+        
+        this.dataChannel.onopen = () => {
+            console.log('Data channel opened');
+        };
+        
+        this.dataChannel.onmessage = (event) => {
+            console.log('Received message:', event.data);
+            this.displayMessage(event.data);
+        };
+    }
+    
+    async createOffer() {
+        const offer = await this.peerConnection.createOffer();
+        await this.peerConnection.setLocalDescription(offer);
+        
+        this.sendSignalingMessage({
+            type: 'offer',
+            offer: offer
+        });
+    }
+    
+    async handleOffer(offer) {
+        await this.peerConnection.setRemoteDescription(offer);
+        
+        const answer = await this.peerConnection.createAnswer();
+        await this.peerConnection.setLocalDescription(answer);
+        
+        this.sendSignalingMessage({
+            type: 'answer',
+            answer: answer
+        });
+    }
+    
+    async handleAnswer(answer) {
+        await this.peerConnection.setRemoteDescription(answer);
+    }
+    
+    async handleIceCandidate(candidate) {
+        await this.peerConnection.addIceCandidate(candidate);
+    }
+    
+    sendMessage(message) {
+        if (this.dataChannel && this.dataChannel.readyState === 'open') {
+            this.dataChannel.send(message);
+        }
+    }
+    
+    sendSignalingMessage(message) {
+        // Send signaling message via WebSocket or HTTP
+        console.log('Signaling message:', message);
+    }
+    
+    displayMessage(message) {
+        const messagesDiv = document.getElementById('messages');
+        const messageElement = document.createElement('div');
+        messageElement.textContent = message;
+        messagesDiv.appendChild(messageElement);
+    }
+    
+    async endCall() {
+        if (this.localStream) {
+            this.localStream.getTracks().forEach(track => track.stop());
+        }
+        
+        if (this.peerConnection) {
+            this.peerConnection.close();
+        }
+        
+        if (this.dataChannel) {
+            this.dataChannel.close();
+        }
+    }
+}
+
+// Usage Example
+const webrtcManager = new WebRTCManager();
+
+async function startCall() {
+    await webrtcManager.initializeLocalStream();
+    webrtcManager.createPeerConnection();
+    await webrtcManager.createOffer();
+}
+
+function sendMessage() {
+    const input = document.getElementById('messageInput');
+    webrtcManager.sendMessage(input.value);
+    input.value = '';
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output1">
+                        <div class="output-header">
+                            <span>WebRTC Connection Status</span>
+                            <div class="metrics">
+                                <span class="metric">Connection: <span id="webrtcStatus">Disconnected</span></span>
+                                <span class="metric">ICE State: <span id="iceState">new</span></span>
+                                <span class="metric">Signaling: <span id="signalingState">stable</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Live Streaming -->
+            <div class="exercise-card" data-exercise="2">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-broadcast-tower"></i> Exercise 2: Live Streaming</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement live video streaming with MediaRecorder API and real-time broadcasting.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>MediaRecorder API</li>
+                                <li>Stream encoding and formats</li>
+                                <li>Real-time broadcasting</li>
+                                <li>Stream quality optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Live Streaming Implementation</span>
+                            <button class="run-btn" onclick="runExercise(2)">
+                                <i class="fas fa-play"></i> Start Streaming
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor2" placeholder="// Live Streaming Implementation
+class LiveStreamManager {
+    constructor() {
+        this.mediaRecorder = null;
+        this.recordingChunks = [];
+        this.isRecording = false;
+        this.stream = null;
+        this.broadcastUrl = null;
+    }
+    
+    async startStreaming() {
+        try {
+            this.stream = await navigator.mediaDevices.getUserMedia({
+                video: { 
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 },
+                    frameRate: { ideal: 30 }
+                },
+                audio: true
+            });
+            
+            this.setupMediaRecorder();
+            this.startBroadcasting();
+            
+            return this.stream;
+        } catch (error) {
+            console.error('Error starting stream:', error);
+            throw error;
+        }
+    }
+    
+    setupMediaRecorder() {
+        const options = {
+            mimeType: 'video/webm;codecs=vp9',
+            videoBitsPerSecond: 2500000,
+            audioBitsPerSecond: 128000
+        };
+        
+        this.mediaRecorder = new MediaRecorder(this.stream, options);
+        
+        this.mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) {
+                this.recordingChunks.push(event.data);
+                this.broadcastChunk(event.data);
+            }
+        };
+        
+        this.mediaRecorder.onstart = () => {
+            console.log('Recording started');
+            this.isRecording = true;
+        };
+        
+        this.mediaRecorder.onstop = () => {
+            console.log('Recording stopped');
+            this.isRecording = false;
+        };
+    }
+    
+    startBroadcasting() {
+        this.mediaRecorder.start(1000); // Record in 1-second chunks
+        
+        // Simulate broadcasting to server
+        this.broadcastUrl = this.generateBroadcastUrl();
+        console.log('Broadcasting to:', this.broadcastUrl);
+    }
+    
+    broadcastChunk(chunk) {
+        // Send chunk to streaming server
+        const formData = new FormData();
+        formData.append('chunk', chunk);
+        formData.append('timestamp', Date.now());
+        
+        fetch('/api/stream/broadcast', {
+            method: 'POST',
+            body: formData
+        }).catch(error => {
+            console.error('Error broadcasting chunk:', error);
+        });
+    }
+    
+    generateBroadcastUrl() {
+        const streamId = this.generateStreamId();
+        return `https://stream.example.com/live/${streamId}`;
+    }
+    
+    generateStreamId() {
+        return Math.random().toString(36).substr(2, 9);
+    }
+    
+    stopStreaming() {
+        if (this.mediaRecorder && this.isRecording) {
+            this.mediaRecorder.stop();
+        }
+        
+        if (this.stream) {
+            this.stream.getTracks().forEach(track => track.stop());
+        }
+    }
+    
+    getStreamQuality() {
+        const videoTrack = this.stream.getVideoTracks()[0];
+        const settings = videoTrack.getSettings();
+        
+        return {
+            width: settings.width,
+            height: settings.height,
+            frameRate: settings.frameRate,
+            bitrate: this.mediaRecorder.videoBitsPerSecond
+        };
+    }
+    
+    adjustQuality(quality) {
+        const constraints = {
+            video: {
+                width: quality.width,
+                height: quality.height,
+                frameRate: quality.frameRate
+            }
+        };
+        
+        return navigator.mediaDevices.getUserMedia(constraints);
+    }
+}
+
+// Stream Viewer
+class StreamViewer {
+    constructor() {
+        this.videoElement = null;
+        this.eventSource = null;
+        this.isWatching = false;
+    }
+    
+    async watchStream(streamUrl) {
+        try {
+            this.videoElement = document.getElementById('streamVideo');
+            this.videoElement.src = streamUrl;
+            this.videoElement.play();
+            
+            this.isWatching = true;
+            this.setupEventListeners();
+            
+        } catch (error) {
+            console.error('Error watching stream:', error);
+            throw error;
+        }
+    }
+    
+    setupEventListeners() {
+        this.videoElement.addEventListener('loadstart', () => {
+            console.log('Stream loading started');
+        });
+        
+        this.videoElement.addEventListener('canplay', () => {
+            console.log('Stream can start playing');
+        });
+        
+        this.videoElement.addEventListener('error', (error) => {
+            console.error('Stream error:', error);
+        });
+    }
+    
+    stopWatching() {
+        if (this.videoElement) {
+            this.videoElement.pause();
+            this.videoElement.src = '';
+        }
+        
+        this.isWatching = false;
+    }
+}
+
+// Usage Examples
+const streamManager = new LiveStreamManager();
+const streamViewer = new StreamViewer();
+
+async function startLiveStream() {
+    await streamManager.startStreaming();
+    console.log('Live stream started');
+}
+
+async function watchStream(streamUrl) {
+    await streamViewer.watchStream(streamUrl);
+    console.log('Watching stream');
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output2">
+                        <div class="output-header">
+                            <span>Live Stream Status</span>
+                            <div class="metrics">
+                                <span class="metric">Status: <span id="streamStatus">Offline</span></span>
+                                <span class="metric">Quality: <span id="streamQuality">720p</span></span>
+                                <span class="metric">Viewers: <span id="viewerCount">0</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: Real-time Collaboration -->
+            <div class="exercise-card" data-exercise="3">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-handshake"></i> Exercise 3: Real-time Collaboration</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Build collaborative features with shared cursors, real-time editing, and synchronized state.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Shared cursors and presence</li>
+                                <li>Operational transformation</li>
+                                <li>Conflict resolution</li>
+                                <li>Real-time synchronization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Collaboration Implementation</span>
+                            <button class="run-btn" onclick="runExercise(3)">
+                                <i class="fas fa-play"></i> Start Collaboration
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor3" placeholder="// Real-time Collaboration Implementation
+class CollaborationManager {
+    constructor() {
+        this.peers = new Map();
+        this.localUser = {
+            id: this.generateUserId(),
+            name: 'User',
+            color: this.generateColor(),
+            cursor: { x: 0, y: 0 }
+        };
+        this.sharedState = {
+            document: '',
+            cursors: new Map(),
+            selections: new Map()
+        };
+        this.operations = [];
+        this.isConnected = false;
+    }
+    
+    generateUserId() {
+        return 'user_' + Math.random().toString(36).substr(2, 9);
+    }
+    
+    generateColor() {
+        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+    
+    async connectToRoom(roomId) {
+        try {
+            // Connect to signaling server
+            this.signalingSocket = new WebSocket(`wss://signaling.example.com/room/${roomId}`);
+            
+            this.signalingSocket.onopen = () => {
+                this.isConnected = true;
+                this.joinRoom(roomId);
+            };
+            
+            this.signalingSocket.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                this.handleSignalingMessage(message);
+            };
+            
+            this.signalingSocket.onclose = () => {
+                this.isConnected = false;
+                this.reconnect();
+            };
+            
+        } catch (error) {
+            console.error('Error connecting to room:', error);
+            throw error;
+        }
+    }
+    
+    joinRoom(roomId) {
+        this.sendSignalingMessage({
+            type: 'join',
+            roomId: roomId,
+            user: this.localUser
+        });
+    }
+    
+    handleSignalingMessage(message) {
+        switch (message.type) {
+            case 'user-joined':
+                this.handleUserJoined(message.user);
+                break;
+            case 'user-left':
+                this.handleUserLeft(message.userId);
+                break;
+            case 'cursor-moved':
+                this.handleCursorMoved(message.userId, message.cursor);
+                break;
+            case 'text-changed':
+                this.handleTextChanged(message.operation);
+                break;
+            case 'selection-changed':
+                this.handleSelectionChanged(message.userId, message.selection);
+                break;
+        }
+    }
+    
+    handleUserJoined(user) {
+        this.peers.set(user.id, user);
+        this.updateUserList();
+        this.displayNotification(`${user.name} joined the room`);
+    }
+    
+    handleUserLeft(userId) {
+        this.peers.delete(userId);
+        this.sharedState.cursors.delete(userId);
+        this.sharedState.selections.delete(userId);
+        this.updateUserList();
+        this.removeUserCursor(userId);
+    }
+    
+    handleCursorMoved(userId, cursor) {
+        this.sharedState.cursors.set(userId, cursor);
+        this.updateUserCursor(userId, cursor);
+    }
+    
+    handleTextChanged(operation) {
+        this.applyOperation(operation);
+        this.updateDocument();
+    }
+    
+    handleSelectionChanged(userId, selection) {
+        this.sharedState.selections.set(userId, selection);
+        this.updateUserSelection(userId, selection);
+    }
+    
+    applyOperation(operation) {
+        // Operational Transformation
+        const transformedOp = this.transformOperation(operation);
+        this.sharedState.document = this.applyTextOperation(
+            this.sharedState.document, 
+            transformedOp
+        );
+        this.operations.push(transformedOp);
+    }
+    
+    transformOperation(operation) {
+        // Simple operational transformation
+        // In a real implementation, this would be more complex
+        return operation;
+    }
+    
+    applyTextOperation(document, operation) {
+        switch (operation.type) {
+            case 'insert':
+                return document.slice(0, operation.position) + 
+                       operation.text + 
+                       document.slice(operation.position);
+            case 'delete':
+                return document.slice(0, operation.position) + 
+                       document.slice(operation.position + operation.length);
+            default:
+                return document;
+        }
+    }
+    
+    onCursorMove(event) {
+        const cursor = {
+            x: event.clientX,
+            y: event.clientY
+        };
+        
+        this.localUser.cursor = cursor;
+        this.sharedState.cursors.set(this.localUser.id, cursor);
+        
+        this.sendSignalingMessage({
+            type: 'cursor-moved',
+            userId: this.localUser.id,
+            cursor: cursor
+        });
+    }
+    
+    onTextChange(operation) {
+        this.sendSignalingMessage({
+            type: 'text-changed',
+            operation: operation
+        });
+    }
+    
+    onSelectionChange(selection) {
+        this.sharedState.selections.set(this.localUser.id, selection);
+        
+        this.sendSignalingMessage({
+            type: 'selection-changed',
+            userId: this.localUser.id,
+            selection: selection
+        });
+    }
+    
+    updateUserList() {
+        const userList = document.getElementById('userList');
+        userList.innerHTML = '';
+        
+        // Add local user
+        this.addUserToList(this.localUser, true);
+        
+        // Add other users
+        this.peers.forEach(user => {
+            this.addUserToList(user, false);
+        });
+    }
+    
+    addUserToList(user, isLocal) {
+        const userList = document.getElementById('userList');
+        const userElement = document.createElement('div');
+        userElement.className = 'user-item';
+        userElement.style.color = user.color;
+        userElement.textContent = user.name + (isLocal ? ' (You)' : '');
+        userList.appendChild(userElement);
+    }
+    
+    updateUserCursor(userId, cursor) {
+        let cursorElement = document.getElementById(`cursor-${userId}`);
+        
+        if (!cursorElement) {
+            cursorElement = document.createElement('div');
+            cursorElement.id = `cursor-${userId}`;
+            cursorElement.className = 'user-cursor';
+            document.body.appendChild(cursorElement);
+        }
+        
+        cursorElement.style.left = cursor.x + 'px';
+        cursorElement.style.top = cursor.y + 'px';
+    }
+    
+    removeUserCursor(userId) {
+        const cursorElement = document.getElementById(`cursor-${userId}`);
+        if (cursorElement) {
+            cursorElement.remove();
+        }
+    }
+    
+    updateUserSelection(userId, selection) {
+        // Update visual selection indicators
+        console.log(`User ${userId} selected:`, selection);
+    }
+    
+    updateDocument() {
+        const documentElement = document.getElementById('sharedDocument');
+        documentElement.textContent = this.sharedState.document;
+    }
+    
+    displayNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+    
+    sendSignalingMessage(message) {
+        if (this.signalingSocket && this.isConnected) {
+            this.signalingSocket.send(JSON.stringify(message));
+        }
+    }
+    
+    reconnect() {
+        setTimeout(() => {
+            if (!this.isConnected) {
+                this.connectToRoom(this.currentRoomId);
+            }
+        }, 5000);
+    }
+    
+    disconnect() {
+        if (this.signalingSocket) {
+            this.signalingSocket.close();
+        }
+        this.isConnected = false;
+    }
+}
+
+// Usage Example
+const collaborationManager = new CollaborationManager();
+
+async function joinCollaborationRoom(roomId) {
+    await collaborationManager.connectToRoom(roomId);
+    console.log('Joined collaboration room');
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output3">
+                        <div class="output-header">
+                            <span>Collaboration Status</span>
+                            <div class="metrics">
+                                <span class="metric">Users: <span id="collaborationUsers">1</span></span>
+                                <span class="metric">Status: <span id="collaborationStatus">Connected</span></span>
+                                <span class="metric">Operations: <span id="operationCount">0</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Media Handling -->
+            <div class="exercise-card" data-exercise="4">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-microphone"></i> Exercise 4: Media Handling</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Handle audio/video media with advanced controls, effects, and processing.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Media device management</li>
+                                <li>Audio/video processing</li>
+                                <li>Media constraints and settings</li>
+                                <li>Screen sharing and capture</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Media Handling Implementation</span>
+                            <button class="run-btn" onclick="runExercise(4)">
+                                <i class="fas fa-play"></i> Start Media
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor4" placeholder="// Media Handling Implementation
+class MediaManager {
+    constructor() {
+        this.audioContext = null;
+        this.mediaStream = null;
+        this.audioNodes = new Map();
+        this.videoFilters = [];
+        this.isMuted = false;
+        this.isVideoEnabled = true;
+    }
+    
+    async initializeAudioContext() {
+        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        return this.audioContext;
+    }
+    
+    async getMediaDevices() {
+        try {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            return {
+                audioInputs: devices.filter(device => device.kind === 'audioinput'),
+                audioOutputs: devices.filter(device => device.kind === 'audiooutput'),
+                videoInputs: devices.filter(device => device.kind === 'videoinput')
+            };
+        } catch (error) {
+            console.error('Error getting media devices:', error);
+            throw error;
+        }
+    }
+    
+    async startMediaStream(constraints = {}) {
+        const defaultConstraints = {
+            video: {
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+                frameRate: { ideal: 30 }
+            },
+            audio: {
+                echoCancellation: true,
+                noiseSuppression: true,
+                autoGainControl: true
+            }
+        };
+        
+        const finalConstraints = { ...defaultConstraints, ...constraints };
+        
+        try {
+            this.mediaStream = await navigator.mediaDevices.getUserMedia(finalConstraints);
+            this.setupAudioProcessing();
+            return this.mediaStream;
+        } catch (error) {
+            console.error('Error starting media stream:', error);
+            throw error;
+        }
+    }
+    
+    setupAudioProcessing() {
+        if (!this.audioContext) {
+            this.initializeAudioContext();
+        }
+        
+        const audioTrack = this.mediaStream.getAudioTracks()[0];
+        const source = this.audioContext.createMediaStreamSource(this.mediaStream);
+        
+        // Add audio effects
+        const gainNode = this.audioContext.createGain();
+        const filterNode = this.audioContext.createBiquadFilter();
+        const compressorNode = this.audioContext.createDynamicsCompressor();
+        
+        // Configure audio nodes
+        gainNode.gain.value = 1.0;
+        filterNode.type = 'lowpass';
+        filterNode.frequency.value = 8000;
+        
+        compressorNode.threshold.value = -24;
+        compressorNode.knee.value = 30;
+        compressorNode.ratio.value = 12;
+        compressorNode.attack.value = 0.003;
+        compressorNode.release.value = 0.25;
+        
+        // Connect audio nodes
+        source.connect(gainNode);
+        gainNode.connect(filterNode);
+        filterNode.connect(compressorNode);
+        compressorNode.connect(this.audioContext.destination);
+        
+        this.audioNodes.set('gain', gainNode);
+        this.audioNodes.set('filter', filterNode);
+        this.audioNodes.set('compressor', compressorNode);
+    }
+    
+    async startScreenShare() {
+        try {
+            const screenStream = await navigator.mediaDevices.getDisplayMedia({
+                video: {
+                    width: { ideal: 1920 },
+                    height: { ideal: 1080 },
+                    frameRate: { ideal: 30 }
+                },
+                audio: true
+            });
+            
+            return screenStream;
+        } catch (error) {
+            console.error('Error starting screen share:', error);
+            throw error;
+        }
+    }
+    
+    toggleMute() {
+        if (this.mediaStream) {
+            const audioTrack = this.mediaStream.getAudioTracks()[0];
+            if (audioTrack) {
+                audioTrack.enabled = this.isMuted;
+                this.isMuted = !this.isMuted;
+            }
+        }
+        return this.isMuted;
+    }
+    
+    toggleVideo() {
+        if (this.mediaStream) {
+            const videoTrack = this.mediaStream.getVideoTracks()[0];
+            if (videoTrack) {
+                videoTrack.enabled = this.isVideoEnabled;
+                this.isVideoEnabled = !this.isVideoEnabled;
+            }
+        }
+        return this.isVideoEnabled;
+    }
+    
+    setAudioGain(gain) {
+        const gainNode = this.audioNodes.get('gain');
+        if (gainNode) {
+            gainNode.gain.value = gain;
+        }
+    }
+    
+    setAudioFilter(frequency) {
+        const filterNode = this.audioNodes.get('filter');
+        if (filterNode) {
+            filterNode.frequency.value = frequency;
+        }
+    }
+    
+    addVideoFilter(filter) {
+        this.videoFilters.push(filter);
+        this.applyVideoFilters();
+    }
+    
+    removeVideoFilter(filter) {
+        const index = this.videoFilters.indexOf(filter);
+        if (index > -1) {
+            this.videoFilters.splice(index, 1);
+            this.applyVideoFilters();
+        }
+    }
+    
+    applyVideoFilters() {
+        const videoElement = document.getElementById('videoElement');
+        if (videoElement) {
+            let filterCSS = this.videoFilters.join(' ');
+            videoElement.style.filter = filterCSS;
+        }
+    }
+    
+    async capturePhoto() {
+        const videoElement = document.getElementById('videoElement');
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        
+        canvas.width = videoElement.videoWidth;
+        canvas.height = videoElement.videoHeight;
+        
+        context.drawImage(videoElement, 0, 0);
+        
+        return canvas.toDataURL('image/png');
+    }
+    
+    async recordAudio(duration) {
+        const mediaRecorder = new MediaRecorder(this.mediaStream, {
+            mimeType: 'audio/webm'
+        });
+        
+        const chunks = [];
+        
+        mediaRecorder.ondataavailable = (event) => {
+            chunks.push(event.data);
+        };
+        
+        return new Promise((resolve) => {
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'audio/webm' });
+                resolve(blob);
+            };
+            
+            mediaRecorder.start();
+            
+            setTimeout(() => {
+                mediaRecorder.stop();
+            }, duration);
+        });
+    }
+    
+    getMediaStats() {
+        if (!this.mediaStream) return null;
+        
+        const videoTrack = this.mediaStream.getVideoTracks()[0];
+        const audioTrack = this.mediaStream.getAudioTracks()[0];
+        
+        return {
+            video: {
+                enabled: videoTrack?.enabled || false,
+                settings: videoTrack?.getSettings() || {},
+                constraints: videoTrack?.getConstraints() || {}
+            },
+            audio: {
+                enabled: audioTrack?.enabled || false,
+                settings: audioTrack?.getSettings() || {},
+                constraints: audioTrack?.getConstraints() || {}
+            }
+        };
+    }
+    
+    stopMediaStream() {
+        if (this.mediaStream) {
+            this.mediaStream.getTracks().forEach(track => track.stop());
+            this.mediaStream = null;
+        }
+        
+        if (this.audioContext) {
+            this.audioContext.close();
+            this.audioContext = null;
+        }
+    }
+}
+
+// Usage Examples
+const mediaManager = new MediaManager();
+
+async function startMedia() {
+    await mediaManager.startMediaStream();
+    console.log('Media stream started');
+}
+
+function toggleMute() {
+    const isMuted = mediaManager.toggleMute();
+    console.log('Muted:', isMuted);
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output4">
+                        <div class="output-header">
+                            <span>Media Status</span>
+                            <div class="metrics">
+                                <span class="metric">Audio: <span id="audioStatus">Enabled</span></span>
+                                <span class="metric">Video: <span id="videoStatus">Enabled</span></span>
+                                <span class="metric">Quality: <span id="mediaQuality">HD</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Performance Optimization -->
+            <div class="exercise-card" data-exercise="5">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-tachometer-alt"></i> Exercise 5: Performance Optimization</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Optimize real-time applications for performance, bandwidth, and resource efficiency.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Bandwidth optimization</li>
+                                <li>Adaptive bitrate streaming</li>
+                                <li>Resource management</li>
+                                <li>Performance monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Performance Optimization Implementation</span>
+                            <button class="run-btn" onclick="runExercise(5)">
+                                <i class="fas fa-play"></i> Optimize Performance
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor5" placeholder="// Performance Optimization Implementation
+class PerformanceOptimizer {
+    constructor() {
+        this.metrics = {
+            bandwidth: 0,
+            latency: 0,
+            frameRate: 0,
+            cpuUsage: 0,
+            memoryUsage: 0
+        };
+        this.adaptationStrategies = new Map();
+        this.performanceMonitor = null;
+    }
+    
+    async initializePerformanceMonitoring() {
+        this.performanceMonitor = new PerformanceObserver((list) => {
+            for (const entry of list.getEntries()) {
+                this.analyzePerformanceEntry(entry);
+            }
+        });
+        
+        this.performanceMonitor.observe({ entryTypes: ['measure', 'navigation', 'resource'] });
+        
+        // Start continuous monitoring
+        this.startMetricsCollection();
+    }
+    
+    startMetricsCollection() {
+        setInterval(() => {
+            this.collectMetrics();
+            this.adaptToPerformance();
+        }, 1000);
+    }
+    
+    collectMetrics() {
+        // Collect bandwidth metrics
+        this.estimateBandwidth();
+        
+        // Collect latency metrics
+        this.measureLatency();
+        
+        // Collect frame rate
+        this.measureFrameRate();
+        
+        // Collect system metrics
+        this.collectSystemMetrics();
+    }
+    
+    estimateBandwidth() {
+        // Simple bandwidth estimation
+        const startTime = performance.now();
+        
+        fetch('/api/bandwidth-test', { method: 'HEAD' })
+            .then(() => {
+                const endTime = performance.now();
+                const duration = endTime - startTime;
+                this.metrics.bandwidth = 1000 / duration; // Rough estimate
+            })
+            .catch(() => {
+                this.metrics.bandwidth = 0;
+            });
+    }
+    
+    measureLatency() {
+        const startTime = performance.now();
+        
+        fetch('/api/ping')
+            .then(() => {
+                const endTime = performance.now();
+                this.metrics.latency = endTime - startTime;
+            })
+            .catch(() => {
+                this.metrics.latency = 999;
+            });
+    }
+    
+    measureFrameRate() {
+        let frameCount = 0;
+        const startTime = performance.now();
+        
+        const countFrame = () => {
+            frameCount++;
+            requestAnimationFrame(countFrame);
+        };
+        
+        requestAnimationFrame(countFrame);
+        
+        setTimeout(() => {
+            const endTime = performance.now();
+            const duration = (endTime - startTime) / 1000;
+            this.metrics.frameRate = frameCount / duration;
+        }, 1000);
+    }
+    
+    collectSystemMetrics() {
+        if ('memory' in performance) {
+            this.metrics.memoryUsage = performance.memory.usedJSHeapSize / 1024 / 1024; // MB
+        }
+        
+        // Estimate CPU usage (simplified)
+        this.metrics.cpuUsage = this.estimateCPUUsage();
+    }
+    
+    estimateCPUUsage() {
+        const startTime = performance.now();
+        
+        // Perform a small computation
+        let result = 0;
+        for (let i = 0; i < 1000000; i++) {
+            result += Math.random();
+        }
+        
+        const endTime = performance.now();
+        const computationTime = endTime - startTime;
+        
+        // Estimate CPU usage based on computation time
+        return Math.min(computationTime / 10, 100);
+    }
+    
+    adaptToPerformance() {
+        const { bandwidth, latency, frameRate, cpuUsage, memoryUsage } = this.metrics;
+        
+        // Bandwidth adaptation
+        if (bandwidth < 1000) { // Low bandwidth
+            this.reduceVideoQuality();
+            this.enableAudioCompression();
+        } else if (bandwidth > 5000) { // High bandwidth
+            this.increaseVideoQuality();
+            this.disableAudioCompression();
+        }
+        
+        // Latency adaptation
+        if (latency > 200) { // High latency
+            this.enableBuffering();
+            this.reduceUpdateFrequency();
+        } else if (latency < 50) { // Low latency
+            this.disableBuffering();
+            this.increaseUpdateFrequency();
+        }
+        
+        // Frame rate adaptation
+        if (frameRate < 24) { // Low frame rate
+            this.reduceVideoFrameRate();
+            this.enableFrameSkipping();
+        } else if (frameRate > 55) { // High frame rate
+            this.increaseVideoFrameRate();
+            this.disableFrameSkipping();
+        }
+        
+        // CPU usage adaptation
+        if (cpuUsage > 80) { // High CPU usage
+            this.enableCPUOptimizations();
+            this.reduceProcessingLoad();
+        }
+        
+        // Memory usage adaptation
+        if (memoryUsage > 100) { // High memory usage
+            this.enableMemoryOptimizations();
+            this.clearCaches();
+        }
+    }
+    
+    reduceVideoQuality() {
+        console.log('Reducing video quality for low bandwidth');
+        // Implementation for reducing video quality
+    }
+    
+    increaseVideoQuality() {
+        console.log('Increasing video quality for high bandwidth');
+        // Implementation for increasing video quality
+    }
+    
+    enableAudioCompression() {
+        console.log('Enabling audio compression');
+        // Implementation for audio compression
+    }
+    
+    disableAudioCompression() {
+        console.log('Disabling audio compression');
+        // Implementation for disabling audio compression
+    }
+    
+    enableBuffering() {
+        console.log('Enabling buffering for high latency');
+        // Implementation for buffering
+    }
+    
+    disableBuffering() {
+        console.log('Disabling buffering for low latency');
+        // Implementation for disabling buffering
+    }
+    
+    reduceUpdateFrequency() {
+        console.log('Reducing update frequency for high latency');
+        // Implementation for reducing update frequency
+    }
+    
+    increaseUpdateFrequency() {
+        console.log('Increasing update frequency for low latency');
+        // Implementation for increasing update frequency
+    }
+    
+    reduceVideoFrameRate() {
+        console.log('Reducing video frame rate for low performance');
+        // Implementation for reducing frame rate
+    }
+    
+    increaseVideoFrameRate() {
+        console.log('Increasing video frame rate for high performance');
+        // Implementation for increasing frame rate
+    }
+    
+    enableFrameSkipping() {
+        console.log('Enabling frame skipping for low performance');
+        // Implementation for frame skipping
+    }
+    
+    disableFrameSkipping() {
+        console.log('Disabling frame skipping for high performance');
+        // Implementation for disabling frame skipping
+    }
+    
+    enableCPUOptimizations() {
+        console.log('Enabling CPU optimizations');
+        // Implementation for CPU optimizations
+    }
+    
+    reduceProcessingLoad() {
+        console.log('Reducing processing load');
+        // Implementation for reducing processing load
+    }
+    
+    enableMemoryOptimizations() {
+        console.log('Enabling memory optimizations');
+        // Implementation for memory optimizations
+    }
+    
+    clearCaches() {
+        console.log('Clearing caches for memory optimization');
+        // Implementation for clearing caches
+    }
+    
+    getPerformanceReport() {
+        return {
+            metrics: this.metrics,
+            recommendations: this.generateRecommendations(),
+            timestamp: new Date().toISOString()
+        };
+    }
+    
+    generateRecommendations() {
+        const recommendations = [];
+        
+        if (this.metrics.bandwidth < 1000) {
+            recommendations.push('Consider reducing video quality or enabling compression');
+        }
+        
+        if (this.metrics.latency > 200) {
+            recommendations.push('Consider using a CDN or closer server');
+        }
+        
+        if (this.metrics.frameRate < 24) {
+            recommendations.push('Consider reducing video resolution or frame rate');
+        }
+        
+        if (this.metrics.cpuUsage > 80) {
+            recommendations.push('Consider reducing processing load or enabling hardware acceleration');
+        }
+        
+        if (this.metrics.memoryUsage > 100) {
+            recommendations.push('Consider implementing memory management or reducing cache size');
+        }
+        
+        return recommendations;
+    }
+    
+    stopPerformanceMonitoring() {
+        if (this.performanceMonitor) {
+            this.performanceMonitor.disconnect();
+        }
+    }
+}
+
+// Usage Example
+const performanceOptimizer = new PerformanceOptimizer();
+
+async function startPerformanceOptimization() {
+    await performanceOptimizer.initializePerformanceMonitoring();
+    console.log('Performance optimization started');
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output5">
+                        <div class="output-header">
+                            <span>Performance Metrics</span>
+                            <div class="metrics">
+                                <span class="metric">FPS: <span id="performanceFPS">60</span></span>
+                                <span class="metric">Latency: <span id="performanceLatency">50ms</span></span>
+                                <span class="metric">CPU: <span id="performanceCPU">45%</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="btn-secondary" onclick="resetLevel()">
+                <i class="fas fa-redo"></i> Reset Level
+            </button>
+            <button class="btn-primary" onclick="completeLevel()" id="completeBtn" disabled>
+                <i class="fas fa-check"></i> Complete Level
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="level29-script.js"></script>
+</body>
+</html>
