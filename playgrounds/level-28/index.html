@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 28: GraphQL & Advanced APIs - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level28-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1><i class="fas fa-project-diagram"></i> Level 28: GraphQL & Advanced APIs</h1>
+                <p>Master modern API development with GraphQL, real-time data, and advanced integration patterns</p>
+                <div class="level-stats">
+                    <span class="stat"><i class="fas fa-code"></i> 5 Exercises</span>
+                    <span class="stat"><i class="fas fa-clock"></i> 60-80 min</span>
+                    <span class="stat"><i class="fas fa-star"></i> Expert</span>
+                </div>
+            </div>
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress"></div>
+                </div>
+                <span class="progress-text">0/5 Complete</span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: GraphQL Queries -->
+            <div class="exercise-card" data-exercise="1">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-search"></i> Exercise 1: GraphQL Queries</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Master GraphQL queries with field selection, arguments, and nested data fetching.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Query syntax and structure</li>
+                                <li>Field selection and aliases</li>
+                                <li>Arguments and variables</li>
+                                <li>Fragments and directives</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>GraphQL Query Implementation</span>
+                            <button class="run-btn" onclick="runExercise(1)">
+                                <i class="fas fa-play"></i> Execute Query
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor1" placeholder="// GraphQL Query Examples
+// Basic Query
+query GetUsers {
+  users {
+    id
+    name
+    email
+    createdAt
+  }
+}
+
+// Query with Arguments
+query GetUserById($userId: ID!) {
+  user(id: $userId) {
+    id
+    name
+    email
+    profile {
+      avatar
+      bio
+      location
+    }
+    posts {
+      id
+      title
+      content
+      publishedAt
+    }
+  }
+}
+
+// Query with Aliases
+query GetUserData {
+  currentUser: me {
+    id
+    name
+    email
+  }
+  recentPosts: posts(first: 5, orderBy: CREATED_AT_DESC) {
+    id
+    title
+    excerpt
+  }
+}
+
+// Query with Fragments
+fragment UserInfo on User {
+  id
+  name
+  email
+  avatar
+  createdAt
+}
+
+fragment PostInfo on Post {
+  id
+  title
+  content
+  author {
+    ...UserInfo
+  }
+  publishedAt
+}
+
+query GetPostsWithAuthors {
+  posts {
+    ...PostInfo
+    comments {
+      id
+      content
+      author {
+        ...UserInfo
+      }
+    }
+  }
+}
+
+// Query with Directives
+query GetUserPosts($includeComments: Boolean!) {
+  user(id: \"123\") {
+    id
+    name
+    posts {
+      id
+      title
+      content
+      comments @include(if: $includeComments) {
+        id
+        content
+        author {
+          name
+        }
+      }
+    }
+  }
+}
+
+// Complex Nested Query
+query GetDashboardData($userId: ID!, $limit: Int = 10) {
+  user(id: $userId) {
+    id
+    name
+    email
+    stats {
+      totalPosts
+      totalComments
+      totalLikes
+    }
+    recentPosts(first: $limit) {
+      id
+      title
+      content
+      publishedAt
+      likes
+      comments {
+        id
+        content
+        author {
+          name
+        }
+      }
+    }
+    followers {
+      id
+      name
+      avatar
+    }
+    following {
+      id
+      name
+      avatar
+    }
+  }
+  trendingPosts(first: 5) {
+    id
+    title
+    excerpt
+    author {
+      name
+      avatar
+    }
+    likes
+    comments
+  }
+}
+
+// Variables
+{
+  \"userId\": \"123\",
+  \"limit\": 20,
+  \"includeComments\": true
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output1">
+                        <div class="output-header">
+                            <span>Query Execution Results</span>
+                            <div class="metrics">
+                                <span class="metric">Fields: <span id="queryFields">0</span></span>
+                                <span class="metric">Depth: <span id="queryDepth">0</span></span>
+                                <span class="metric">Time: <span id="queryTime">0ms</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: GraphQL Mutations -->
+            <div class="exercise-card" data-exercise="2">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-edit"></i> Exercise 2: GraphQL Mutations</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Create and execute GraphQL mutations for data modification and complex operations.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Mutation syntax and structure</li>
+                                <li>Input types and validation</li>
+                                <li>Error handling and responses</li>
+                                <li>Optimistic updates</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>GraphQL Mutation Implementation</span>
+                            <button class="run-btn" onclick="runExercise(2)">
+                                <i class="fas fa-play"></i> Execute Mutation
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor2" placeholder="// GraphQL Mutation Examples
+// Create User Mutation
+mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
+    user {
+      id
+      name
+      email
+      createdAt
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+
+// Update User Mutation
+mutation UpdateUser($id: ID!, $input: UpdateUserInput!) {
+  updateUser(id: $id, input: $input) {
+    user {
+      id
+      name
+      email
+      profile {
+        avatar
+        bio
+        location
+      }
+      updatedAt
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+
+// Delete User Mutation
+mutation DeleteUser($id: ID!) {
+  deleteUser(id: $id) {
+    success
+    message
+    errors {
+      field
+      message
+    }
+  }
+}
+
+// Create Post with Complex Input
+mutation CreatePost($input: CreatePostInput!) {
+  createPost(input: $input) {
+    post {
+      id
+      title
+      content
+      publishedAt
+      author {
+        id
+        name
+        avatar
+      }
+      tags {
+        id
+        name
+      }
+      media {
+        id
+        type
+        url
+        alt
+      }
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+
+// Like/Unlike Post Mutation
+mutation TogglePostLike($postId: ID!) {
+  togglePostLike(postId: $postId) {
+    post {
+      id
+      likes
+      isLiked
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+
+// Batch Operations
+mutation BatchCreatePosts($inputs: [CreatePostInput!]!) {
+  batchCreatePosts(inputs: $inputs) {
+    posts {
+      id
+      title
+      content
+      author {
+        name
+      }
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+
+// Complex Mutation with Multiple Operations
+mutation CreatePostWithMedia($postInput: CreatePostInput!, $mediaInputs: [CreateMediaInput!]!) {
+  createPost(input: $postInput) {
+    post {
+      id
+      title
+      content
+      media {
+        id
+        type
+        url
+      }
+    }
+    errors {
+      field
+      message
+    }
+  }
+  createMedia(inputs: $mediaInputs) {
+    media {
+      id
+      type
+      url
+      alt
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+
+// Input Types
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  profile: ProfileInput
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  profile: ProfileInput
+}
+
+input ProfileInput {
+  avatar: String
+  bio: String
+  location: String
+  website: String
+}
+
+input CreatePostInput {
+  title: String!
+  content: String!
+  published: Boolean = false
+  tags: [String!]
+  mediaIds: [ID!]
+}
+
+input CreateMediaInput {
+  type: MediaType!
+  url: String!
+  alt: String
+  caption: String
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  AUDIO
+  DOCUMENT
+}
+
+// Variables
+{
+  \"input\": {
+    \"name\": \"John Doe\",
+    \"email\": \"john@example.com\",
+    \"password\": \"securepassword\",
+    \"profile\": {
+      \"bio\": \"Software Developer\",
+      \"location\": \"San Francisco, CA\"
+    }
+  }
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output2">
+                        <div class="output-header">
+                            <span>Mutation Execution Results</span>
+                            <div class="metrics">
+                                <span class="metric">Operations: <span id="mutationOps">0</span></span>
+                                <span class="metric">Success: <span id="mutationSuccess">0%</span></span>
+                                <span class="metric">Time: <span id="mutationTime">0ms</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: GraphQL Subscriptions -->
+            <div class="exercise-card" data-exercise="3">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-broadcast-tower"></i> Exercise 3: GraphQL Subscriptions</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement real-time data updates with GraphQL subscriptions and WebSocket connections.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Subscription syntax and setup</li>
+                                <li>WebSocket connections</li>
+                                <li>Real-time data streaming</li>
+                                <li>Connection management</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>GraphQL Subscription Implementation</span>
+                            <button class="run-btn" onclick="runExercise(3)">
+                                <i class="fas fa-play"></i> Start Subscription
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor3" placeholder="// GraphQL Subscription Examples
+// Real-time Post Updates
+subscription PostUpdates($postId: ID!) {
+  postUpdated(postId: $postId) {
+    id
+    title
+    content
+    likes
+    comments {
+      id
+      content
+      author {
+        name
+      }
+      createdAt
+    }
+    updatedAt
+  }
+}
+
+// Live Comments Feed
+subscription LiveComments($postId: ID!) {
+  commentAdded(postId: $postId) {
+    id
+    content
+    author {
+      id
+      name
+      avatar
+    }
+    createdAt
+    parentComment {
+      id
+      author {
+        name
+      }
+    }
+  }
+}
+
+// User Online Status
+subscription UserStatus($userId: ID!) {
+  userStatusChanged(userId: $userId) {
+    id
+    name
+    isOnline
+    lastSeen
+    status
+  }
+}
+
+// Real-time Notifications
+subscription Notifications($userId: ID!) {
+  notificationReceived(userId: $userId) {
+    id
+    type
+    title
+    message
+    data
+    read
+    createdAt
+    from {
+      id
+      name
+      avatar
+    }
+  }
+}
+
+// Live Chat Messages
+subscription ChatMessages($channelId: ID!) {
+  messageAdded(channelId: $channelId) {
+    id
+    content
+    type
+    author {
+      id
+      name
+      avatar
+      isOnline
+    }
+    timestamp
+    reactions {
+      emoji
+      count
+      users {
+        id
+        name
+      }
+    }
+    attachments {
+      id
+      type
+      url
+      name
+      size
+    }
+  }
+}
+
+// Live Analytics Dashboard
+subscription AnalyticsUpdates($dashboardId: ID!) {
+  analyticsUpdated(dashboardId: $dashboardId) {
+    metrics {
+      totalUsers
+      activeUsers
+      pageViews
+      conversions
+      revenue
+    }
+    charts {
+      id
+      type
+      data
+      updatedAt
+    }
+    alerts {
+      id
+      type
+      message
+      severity
+      timestamp
+    }
+  }
+}
+
+// Multi-tenant Subscriptions
+subscription TenantUpdates($tenantId: ID!) {
+  tenantDataUpdated(tenantId: $tenantId) {
+    users {
+      id
+      name
+      email
+      role
+      lastActive
+    }
+    resources {
+      id
+      name
+      type
+      status
+      usage
+    }
+    events {
+      id
+      type
+      description
+      timestamp
+      user {
+        name
+      }
+    }
+  }
+}
+
+// Subscription with Filters
+subscription FilteredUpdates($filters: UpdateFilters!) {
+  dataUpdated(filters: $filters) {
+    id
+    type
+    data
+    timestamp
+    source
+  }
+}
+
+// Connection Management
+class GraphQLSubscriptionManager {
+  constructor(endpoint) {
+    this.endpoint = endpoint;
+    this.subscriptions = new Map();
+    this.connection = null;
+  }
+  
+  async connect() {
+    this.connection = new WebSocket(this.endpoint);
+    
+    this.connection.onopen = () => {
+      console.log('GraphQL subscription connected');
+    };
+    
+    this.connection.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      this.handleMessage(data);
+    };
+    
+    this.connection.onclose = () => {
+      console.log('GraphQL subscription disconnected');
+      this.reconnect();
+    };
+  }
+  
+  subscribe(query, variables, callback) {
+    const subscriptionId = this.generateId();
+    const subscription = {
+      id: subscriptionId,
+      query,
+      variables,
+      callback
+    };
+    
+    this.subscriptions.set(subscriptionId, subscription);
+    this.sendSubscription(subscription);
+    
+    return subscriptionId;
+  }
+  
+  unsubscribe(subscriptionId) {
+    const subscription = this.subscriptions.get(subscriptionId);
+    if (subscription) {
+      this.sendUnsubscribe(subscriptionId);
+      this.subscriptions.delete(subscriptionId);
+    }
+  }
+  
+  handleMessage(data) {
+    if (data.type === 'data') {
+      const subscription = this.subscriptions.get(data.id);
+      if (subscription) {
+        subscription.callback(data.payload);
+      }
+    }
+  }
+  
+  reconnect() {
+    setTimeout(() => {
+      this.connect();
+    }, 5000);
+  }
+}
+
+// Usage Example
+const subscriptionManager = new GraphQLSubscriptionManager('ws://localhost:4000/graphql');
+await subscriptionManager.connect();
+
+const postSubscription = subscriptionManager.subscribe(
+  PostUpdates,
+  { postId: '123' },
+  (data) => {
+    console.log('Post updated:', data);
+    updatePostUI(data.postUpdated);
+  }
+);"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output3">
+                        <div class="output-header">
+                            <span>Subscription Status</span>
+                            <div class="metrics">
+                                <span class="metric">Active: <span id="activeSubs">0</span></span>
+                                <span class="metric">Messages: <span id="messageCount">0</span></span>
+                                <span class="metric">Status: <span id="connectionStatus">Disconnected</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: API Design Patterns -->
+            <div class="exercise-card" data-exercise="4">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-cogs"></i> Exercise 4: API Design Patterns</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Design scalable APIs with proper patterns, versioning, and best practices.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>RESTful design principles</li>
+                                <li>API versioning strategies</li>
+                                <li>Error handling patterns</li>
+                                <li>Rate limiting and security</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>API Design Implementation</span>
+                            <button class="run-btn" onclick="runExercise(4)">
+                                <i class="fas fa-play"></i> Design API
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor4" placeholder="// API Design Patterns and Best Practices
+
+// RESTful API Design
+class APIDesigner {
+  constructor() {
+    this.endpoints = new Map();
+    this.version = 'v1';
+    this.baseUrl = 'https://api.example.com';
+  }
+  
+  // Resource-based URLs
+  designUserEndpoints() {
+    return {
+      // GET /api/v1/users - List users
+      listUsers: {
+        method: 'GET',
+        path: '/users',
+        query: {
+          page: 'number',
+          limit: 'number',
+          sort: 'string',
+          filter: 'object'
+        },
+        response: {
+          data: 'User[]',
+          pagination: 'PaginationMeta',
+          links: 'Link[]'
+        }
+      },
+      
+      // GET /api/v1/users/:id - Get user
+      getUser: {
+        method: 'GET',
+        path: '/users/:id',
+        params: { id: 'string' },
+        response: 'User'
+      },
+      
+      // POST /api/v1/users - Create user
+      createUser: {
+        method: 'POST',
+        path: '/users',
+        body: 'CreateUserRequest',
+        response: 'User'
+      },
+      
+      // PUT /api/v1/users/:id - Update user
+      updateUser: {
+        method: 'PUT',
+        path: '/users/:id',
+        params: { id: 'string' },
+        body: 'UpdateUserRequest',
+        response: 'User'
+      },
+      
+      // DELETE /api/v1/users/:id - Delete user
+      deleteUser: {
+        method: 'DELETE',
+        path: '/users/:id',
+        params: { id: 'string' },
+        response: 'DeleteResponse'
+      }
+    };
+  }
+  
+  // Nested Resources
+  designPostEndpoints() {
+    return {
+      // GET /api/v1/users/:userId/posts
+      getUserPosts: {
+        method: 'GET',
+        path: '/users/:userId/posts',
+        params: { userId: 'string' },
+        query: {
+          page: 'number',
+          limit: 'number',
+          status: 'string'
+        },
+        response: {
+          data: 'Post[]',
+          pagination: 'PaginationMeta'
+        }
+      },
+      
+      // POST /api/v1/users/:userId/posts
+      createUserPost: {
+        method: 'POST',
+        path: '/users/:userId/posts',
+        params: { userId: 'string' },
+        body: 'CreatePostRequest',
+        response: 'Post'
+      },
+      
+      // GET /api/v1/posts/:postId/comments
+      getPostComments: {
+        method: 'GET',
+        path: '/posts/:postId/comments',
+        params: { postId: 'string' },
+        response: 'Comment[]'
+      }
+    };
+  }
+  
+  // API Versioning Strategies
+  designVersioning() {
+    return {
+      // URL Path Versioning
+      urlVersioning: {
+        v1: '/api/v1/users',
+        v2: '/api/v2/users'
+      },
+      
+      // Header Versioning
+      headerVersioning: {
+        'Accept-Version': 'v1',
+        'API-Version': '2023-01-01'
+      },
+      
+      // Query Parameter Versioning
+      queryVersioning: {
+        v1: '/api/users?version=1',
+        v2: '/api/users?version=2'
+      }
+    };
+  }
+  
+  // Error Handling Patterns
+  designErrorHandling() {
+    return {
+      standardError: {
+        error: {
+          code: 'string',
+          message: 'string',
+          details: 'object',
+          timestamp: 'string',
+          requestId: 'string'
+        }
+      },
+      
+      validationError: {
+        error: {
+          code: 'VALIDATION_ERROR',
+          message: 'Validation failed',
+          details: {
+            field: 'string',
+            value: 'any',
+            constraint: 'string'
+          }[]
+        }
+      },
+      
+      businessLogicError: {
+        error: {
+          code: 'BUSINESS_LOGIC_ERROR',
+          message: 'Business rule violation',
+          details: {
+            rule: 'string',
+            context: 'object'
+          }
+        }
+      }
+    };
+  }
+  
+  // Rate Limiting Design
+  designRateLimiting() {
+    return {
+      headers: {
+        'X-RateLimit-Limit': '1000',
+        'X-RateLimit-Remaining': '999',
+        'X-RateLimit-Reset': '1640995200',
+        'X-RateLimit-Window': '3600'
+      },
+      
+      policies: {
+        global: {
+          requests: 1000,
+          window: '1h',
+          burst: 100
+        },
+        perUser: {
+          requests: 100,
+          window: '1h',
+          burst: 10
+        },
+        perEndpoint: {
+          '/api/v1/auth/login': {
+            requests: 5,
+            window: '15m'
+          }
+        }
+      }
+    };
+  }
+  
+  // Security Patterns
+  designSecurity() {
+    return {
+      authentication: {
+        methods: ['JWT', 'OAuth2', 'API Key'],
+        headers: {
+          'Authorization': 'Bearer <token>',
+          'X-API-Key': '<api-key>'
+        }
+      },
+      
+      authorization: {
+        scopes: ['read:users', 'write:users', 'admin:all'],
+        rbac: {
+          roles: ['user', 'moderator', 'admin'],
+          permissions: ['create', 'read', 'update', 'delete']
+        }
+      },
+      
+      cors: {
+        origins: ['https://app.example.com'],
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        headers: ['Content-Type', 'Authorization']
+      }
+    };
+  }
+  
+  // Caching Strategies
+  designCaching() {
+    return {
+      httpHeaders: {
+        'Cache-Control': 'public, max-age=3600',
+        'ETag': '"abc123"',
+        'Last-Modified': 'Wed, 21 Oct 2015 07:28:00 GMT'
+      },
+      
+      strategies: {
+        'GET /api/v1/users': {
+          cache: 'redis',
+          ttl: 3600,
+          key: 'users:list:{page}:{limit}'
+        },
+        'GET /api/v1/users/:id': {
+          cache: 'redis',
+          ttl: 1800,
+          key: 'user:{id}'
+        }
+      }
+    };
+  }
+}
+
+// API Documentation Generator
+class APIDocumentationGenerator {
+  constructor(apiDesigner) {
+    this.designer = apiDesigner;
+    this.spec = {
+      openapi: '3.0.0',
+      info: {
+        title: 'Example API',
+        version: '1.0.0',
+        description: 'A comprehensive API example'
+      },
+      servers: [
+        {
+          url: 'https://api.example.com/v1',
+          description: 'Production server'
+        }
+      ],
+      paths: {},
+      components: {
+        schemas: {},
+        securitySchemes: {}
+      }
+    };
+  }
+  
+  generateOpenAPISpec() {
+    const endpoints = this.designer.designUserEndpoints();
+    
+    Object.entries(endpoints).forEach(([name, endpoint]) => {
+      this.spec.paths[endpoint.path] = {
+        [endpoint.method.toLowerCase()]: {
+          summary: name,
+          parameters: this.generateParameters(endpoint),
+          requestBody: this.generateRequestBody(endpoint),
+          responses: this.generateResponses(endpoint),
+          security: this.generateSecurity(endpoint)
+        }
+      };
+    });
+    
+    return this.spec;
+  }
+  
+  generateParameters(endpoint) {
+    const params = [];
+    
+    if (endpoint.params) {
+      Object.entries(endpoint.params).forEach(([name, type]) => {
+        params.push({
+          name,
+          in: 'path',
+          required: true,
+          schema: { type: this.mapType(type) }
+        });
+      });
+    }
+    
+    if (endpoint.query) {
+      Object.entries(endpoint.query).forEach(([name, type]) => {
+        params.push({
+          name,
+          in: 'query',
+          required: false,
+          schema: { type: this.mapType(type) }
+        });
+      });
+    }
+    
+    return params;
+  }
+  
+  mapType(type) {
+    const typeMap = {
+      'string': 'string',
+      'number': 'number',
+      'boolean': 'boolean',
+      'object': 'object',
+      'array': 'array'
+    };
+    return typeMap[type] || 'string';
+  }
+}
+
+// Usage Example
+const apiDesigner = new APIDesigner();
+const docGenerator = new APIDocumentationGenerator(apiDesigner);
+
+const userEndpoints = apiDesigner.designUserEndpoints();
+const openAPISpec = docGenerator.generateOpenAPISpec();
+
+console.log('API Endpoints:', userEndpoints);
+console.log('OpenAPI Spec:', openAPISpec);"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output4">
+                        <div class="output-header">
+                            <span>API Design Status</span>
+                            <div class="metrics">
+                                <span class="metric">Endpoints: <span id="apiEndpoints">0</span></span>
+                                <span class="metric">Version: <span id="apiVersion">v1</span></span>
+                                <span class="metric">Coverage: <span id="apiCoverage">0%</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Real-time Data Integration -->
+            <div class="exercise-card" data-exercise="5">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-sync-alt"></i> Exercise 5: Real-time Data Integration</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Integrate real-time data streams with WebSockets, Server-Sent Events, and live updates.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>WebSocket connections</li>
+                                <li>Server-Sent Events (SSE)</li>
+                                <li>Real-time data synchronization</li>
+                                <li>Connection resilience</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Real-time Integration Implementation</span>
+                            <button class="run-btn" onclick="runExercise(5)">
+                                <i class="fas fa-play"></i> Connect Real-time
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor5" placeholder="// Real-time Data Integration Examples
+
+// WebSocket Manager
+class WebSocketManager {
+  constructor(url, options = {}) {
+    this.url = url;
+    this.options = {
+      reconnectInterval: 5000,
+      maxReconnectAttempts: 10,
+      heartbeatInterval: 30000,
+      ...options
+    };
+    this.connection = null;
+    this.reconnectAttempts = 0;
+    this.heartbeatTimer = null;
+    this.listeners = new Map();
+    this.isConnected = false;
+  }
+  
+  connect() {
+    return new Promise((resolve, reject) => {
+      try {
+        this.connection = new WebSocket(this.url);
+        
+        this.connection.onopen = (event) => {
+          console.log('WebSocket connected');
+          this.isConnected = true;
+          this.reconnectAttempts = 0;
+          this.startHeartbeat();
+          resolve(event);
+        };
+        
+        this.connection.onmessage = (event) => {
+          this.handleMessage(event);
+        };
+        
+        this.connection.onclose = (event) => {
+          console.log('WebSocket disconnected');
+          this.isConnected = false;
+          this.stopHeartbeat();
+          this.handleReconnect();
+        };
+        
+        this.connection.onerror = (error) => {
+          console.error('WebSocket error:', error);
+          reject(error);
+        };
+        
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  
+  handleMessage(event) {
+    try {
+      const data = JSON.parse(event.data);
+      
+      if (data.type === 'heartbeat') {
+        this.handleHeartbeat();
+        return;
+      }
+      
+      if (data.type === 'data') {
+        this.notifyListeners(data.channel, data.payload);
+      }
+      
+    } catch (error) {
+      console.error('Error parsing WebSocket message:', error);
+    }
+  }
+  
+  subscribe(channel, callback) {
+    if (!this.listeners.has(channel)) {
+      this.listeners.set(channel, new Set());
+    }
+    
+    this.listeners.get(channel).add(callback);
+    
+    if (this.isConnected) {
+      this.send({
+        type: 'subscribe',
+        channel: channel
+      });
+    }
+  }
+  
+  unsubscribe(channel, callback) {
+    if (this.listeners.has(channel)) {
+      this.listeners.get(channel).delete(callback);
+      
+      if (this.listeners.get(channel).size === 0) {
+        this.listeners.delete(channel);
+        
+        if (this.isConnected) {
+          this.send({
+            type: 'unsubscribe',
+            channel: channel
+          });
+        }
+      }
+    }
+  }
+  
+  notifyListeners(channel, data) {
+    if (this.listeners.has(channel)) {
+      this.listeners.get(channel).forEach(callback => {
+        try {
+          callback(data);
+        } catch (error) {
+          console.error('Error in listener callback:', error);
+        }
+      });
+    }
+  }
+  
+  send(data) {
+    if (this.isConnected && this.connection.readyState === WebSocket.OPEN) {
+      this.connection.send(JSON.stringify(data));
+    } else {
+      console.warn('WebSocket not connected, message queued');
+      // Queue message for when connection is restored
+    }
+  }
+  
+  startHeartbeat() {
+    this.heartbeatTimer = setInterval(() => {
+      this.send({ type: 'heartbeat' });
+    }, this.options.heartbeatInterval);
+  }
+  
+  stopHeartbeat() {
+    if (this.heartbeatTimer) {
+      clearInterval(this.heartbeatTimer);
+      this.heartbeatTimer = null;
+    }
+  }
+  
+  handleHeartbeat() {
+    // Heartbeat received, connection is alive
+  }
+  
+  handleReconnect() {
+    if (this.reconnectAttempts < this.options.maxReconnectAttempts) {
+      this.reconnectAttempts++;
+      console.log(`Attempting to reconnect (${this.reconnectAttempts}/${this.options.maxReconnectAttempts})`);
+      
+      setTimeout(() => {
+        this.connect().catch(error => {
+          console.error('Reconnection failed:', error);
+        });
+      }, this.options.reconnectInterval);
+    } else {
+      console.error('Max reconnection attempts reached');
+    }
+  }
+  
+  disconnect() {
+    this.stopHeartbeat();
+    if (this.connection) {
+      this.connection.close();
+    }
+  }
+}
+
+// Server-Sent Events Manager
+class SSEManager {
+  constructor(url, options = {}) {
+    this.url = url;
+    this.options = {
+      reconnectInterval: 3000,
+      maxReconnectAttempts: 5,
+      ...options
+    };
+    this.eventSource = null;
+    this.listeners = new Map();
+    this.reconnectAttempts = 0;
+  }
+  
+  connect() {
+    return new Promise((resolve, reject) => {
+      try {
+        this.eventSource = new EventSource(this.url);
+        
+        this.eventSource.onopen = (event) => {
+          console.log('SSE connected');
+          this.reconnectAttempts = 0;
+          resolve(event);
+        };
+        
+        this.eventSource.onmessage = (event) => {
+          this.handleMessage(event);
+        };
+        
+        this.eventSource.onerror = (error) => {
+          console.error('SSE error:', error);
+          this.handleReconnect();
+          reject(error);
+        };
+        
+        // Listen for specific event types
+        this.eventSource.addEventListener('user-update', (event) => {
+          this.handleEvent('user-update', event);
+        });
+        
+        this.eventSource.addEventListener('notification', (event) => {
+          this.handleEvent('notification', event);
+        });
+        
+        this.eventSource.addEventListener('data-sync', (event) => {
+          this.handleEvent('data-sync', event);
+        });
+        
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  
+  handleMessage(event) {
+    try {
+      const data = JSON.parse(event.data);
+      this.notifyListeners('message', data);
+    } catch (error) {
+      console.error('Error parsing SSE message:', error);
+    }
+  }
+  
+  handleEvent(eventType, event) {
+    try {
+      const data = JSON.parse(event.data);
+      this.notifyListeners(eventType, data);
+    } catch (error) {
+      console.error(`Error parsing SSE event ${eventType}:`, error);
+    }
+  }
+  
+  addEventListener(eventType, callback) {
+    if (!this.listeners.has(eventType)) {
+      this.listeners.set(eventType, new Set());
+    }
+    this.listeners.get(eventType).add(callback);
+  }
+  
+  removeEventListener(eventType, callback) {
+    if (this.listeners.has(eventType)) {
+      this.listeners.get(eventType).delete(callback);
+    }
+  }
+  
+  notifyListeners(eventType, data) {
+    if (this.listeners.has(eventType)) {
+      this.listeners.get(eventType).forEach(callback => {
+        try {
+          callback(data);
+        } catch (error) {
+          console.error('Error in SSE listener callback:', error);
+        }
+      });
+    }
+  }
+  
+  handleReconnect() {
+    if (this.reconnectAttempts < this.options.maxReconnectAttempts) {
+      this.reconnectAttempts++;
+      console.log(`Attempting SSE reconnect (${this.reconnectAttempts}/${this.options.maxReconnectAttempts})`);
+      
+      setTimeout(() => {
+        this.connect().catch(error => {
+          console.error('SSE reconnection failed:', error);
+        });
+      }, this.options.reconnectInterval);
+    } else {
+      console.error('Max SSE reconnection attempts reached');
+    }
+  }
+  
+  disconnect() {
+    if (this.eventSource) {
+      this.eventSource.close();
+    }
+  }
+}
+
+// Real-time Data Synchronizer
+class RealTimeDataSynchronizer {
+  constructor() {
+    this.data = new Map();
+    this.conflictResolution = 'last-write-wins';
+    this.syncQueue = [];
+    this.isOnline = navigator.onLine;
+    
+    this.setupOnlineOfflineHandling();
+  }
+  
+  setupOnlineOfflineHandling() {
+    window.addEventListener('online', () => {
+      this.isOnline = true;
+      this.processSyncQueue();
+    });
+    
+    window.addEventListener('offline', () => {
+      this.isOnline = false;
+    });
+  }
+  
+  setData(key, value, metadata = {}) {
+    const timestamp = Date.now();
+    const dataEntry = {
+      value,
+      timestamp,
+      metadata: {
+        ...metadata,
+        lastModified: timestamp,
+        version: (this.data.get(key)?.metadata?.version || 0) + 1
+      }
+    };
+    
+    this.data.set(key, dataEntry);
+    
+    if (this.isOnline) {
+      this.syncData(key, dataEntry);
+    } else {
+      this.queueForSync(key, dataEntry);
+    }
+  }
+  
+  getData(key) {
+    return this.data.get(key)?.value;
+  }
+  
+  syncData(key, dataEntry) {
+    // Send to server
+    fetch('/api/sync', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        key,
+        data: dataEntry
+      })
+    }).catch(error => {
+      console.error('Sync failed:', error);
+      this.queueForSync(key, dataEntry);
+    });
+  }
+  
+  queueForSync(key, dataEntry) {
+    this.syncQueue.push({ key, dataEntry });
+  }
+  
+  processSyncQueue() {
+    while (this.syncQueue.length > 0) {
+      const { key, dataEntry } = this.syncQueue.shift();
+      this.syncData(key, dataEntry);
+    }
+  }
+  
+  resolveConflict(localData, remoteData) {
+    switch (this.conflictResolution) {
+      case 'last-write-wins':
+        return localData.timestamp > remoteData.timestamp ? localData : remoteData;
+      case 'server-wins':
+        return remoteData;
+      case 'client-wins':
+        return localData;
+      case 'merge':
+        return this.mergeData(localData, remoteData);
+      default:
+        return localData;
+    }
+  }
+  
+  mergeData(localData, remoteData) {
+    // Custom merge logic based on data type
+    return {
+      ...localData,
+      value: { ...localData.value, ...remoteData.value },
+      timestamp: Math.max(localData.timestamp, remoteData.timestamp)
+    };
+  }
+}
+
+// Usage Examples
+const wsManager = new WebSocketManager('ws://localhost:8080/ws');
+const sseManager = new SSEManager('/api/events');
+const dataSync = new RealTimeDataSynchronizer();
+
+// WebSocket usage
+await wsManager.connect();
+wsManager.subscribe('user-updates', (data) => {
+  console.log('User updated:', data);
+  updateUserUI(data);
+});
+
+// SSE usage
+await sseManager.connect();
+sseManager.addEventListener('notification', (data) => {
+  console.log('Notification received:', data);
+  showNotification(data);
+});
+
+// Data synchronization
+dataSync.setData('user-profile', { name: 'John', email: 'john@example.com' });
+const userProfile = dataSync.getData('user-profile');"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output5">
+                        <div class="output-header">
+                            <span>Real-time Connection Status</span>
+                            <div class="metrics">
+                                <span class="metric">WebSocket: <span id="wsStatus">Disconnected</span></span>
+                                <span class="metric">SSE: <span id="sseStatus">Disconnected</span></span>
+                                <span class="metric">Messages: <span id="rtMessageCount">0</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="btn-secondary" onclick="resetLevel()">
+                <i class="fas fa-redo"></i> Reset Level
+            </button>
+            <button class="btn-primary" onclick="completeLevel()" id="completeBtn" disabled>
+                <i class="fas fa-check"></i> Complete Level
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="level28-script.js"></script>
+</body>
+</html>

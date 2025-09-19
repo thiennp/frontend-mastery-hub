@@ -56,7 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     24: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
                     25: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
                     26: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
-                    27: { completed: 0, total: 5, unlocked: true, levelCompleted: false }
+                    27: { completed: 5, total: 5, unlocked: true, levelCompleted: true },
+                    28: { completed: 0, total: 5, unlocked: true, levelCompleted: false }
                 },
                 badges: {
                     'first-steps': true,
@@ -90,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Check other levels if they exist
-            for (let levelNum = 2; levelNum <= 27; levelNum++) {
+            for (let levelNum = 2; levelNum <= 28; levelNum++) {
                 const levelProgress = this.getLevelProgress(levelNum);
                 if (levelProgress && levelProgress.completed >= levelProgress.total) {
                     this.progress.levels[levelNum].levelCompleted = true;
@@ -447,6 +448,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = 'playgrounds/level-26/index.html';
             } else if (levelNumber === '27') {
                 window.location.href = 'playgrounds/level-27/index.html';
+            } else if (levelNumber === '28') {
+                window.location.href = 'playgrounds/level-28/index.html';
             } else {
                 // For demo purposes, simulate completing an exercise
                 const currentCompleted = progressTracker.progress.levels[levelNumber].completed;
