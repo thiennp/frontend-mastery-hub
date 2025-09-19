@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 21: Cloud Computing - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level21-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1><i class="fas fa-cloud"></i> Level 21: Cloud Computing</h1>
+                <p>Master cloud platforms, serverless architecture, and cloud deployment strategies</p>
+                <div class="level-stats">
+                    <span class="stat"><i class="fas fa-code"></i> 5 Exercises</span>
+                    <span class="stat"><i class="fas fa-clock"></i> 45-60 min</span>
+                    <span class="stat"><i class="fas fa-star"></i> Advanced</span>
+                </div>
+            </div>
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress"></div>
+                </div>
+                <span class="progress-text">0/5 Complete</span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: AWS Fundamentals -->
+            <div class="exercise-card" data-exercise="1">
+                <div class="exercise-header">
+                    <h3><i class="fab fa-aws"></i> Exercise 1: AWS Fundamentals</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Learn Amazon Web Services fundamentals including EC2, S3, Lambda, and core AWS services for web applications.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>EC2 instances and auto-scaling</li>
+                                <li>S3 storage and content delivery</li>
+                                <li>Lambda serverless functions</li>
+                                <li>IAM security and permissions</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>AWS Infrastructure Setup</span>
+                            <button class="run-btn" onclick="runExercise(1)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor1" placeholder="// AWS Infrastructure Configuration
+// EC2 instance setup
+// S3 bucket configuration
+// Lambda function deployment
+
+// Example: EC2 instance configuration
+const ec2Config = {
+  instanceType: 't3.micro',
+  imageId: 'ami-0c02fb55956c7d316', // Amazon Linux 2
+  securityGroups: ['web-server-sg'],
+  keyName: 'my-key-pair',
+  userData: \`#!/bin/bash
+    yum update -y
+    yum install -y httpd
+    systemctl start httpd
+    systemctl enable httpd\`
+};
+
+// Example: S3 bucket configuration
+const s3Config = {
+  bucketName: 'my-web-app-assets',
+  region: 'us-east-1',
+  corsConfiguration: {
+    CORSRules: [{
+      AllowedHeaders: ['*'],
+      AllowedMethods: ['GET', 'HEAD'],
+      AllowedOrigins: ['*'],
+      MaxAgeSeconds: 3000
+    }]
+  },
+  publicReadPolicy: {
+    Version: '2012-10-17',
+    Statement: [{
+      Sid: 'PublicReadGetObject',
+      Effect: 'Allow',
+      Principal: '*',
+      Action: 's3:GetObject',
+      Resource: 'arn:aws:s3:::my-web-app-assets/*'
+    }]
+  }
+};
+
+// Example: Lambda function
+const lambdaFunction = \`exports.handler = async (event) => {
+  const response = {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify({
+      message: 'Hello from AWS Lambda!',
+      timestamp: new Date().toISOString()
+    })
+  };
+  return response;
+};\`;
+
+// Example: IAM policy for Lambda
+const lambdaPolicy = {
+  Version: '2012-10-17',
+  Statement: [{
+    Effect: 'Allow',
+    Action: [
+      'logs:CreateLogGroup',
+      'logs:CreateLogStream',
+      'logs:PutLogEvents'
+    ],
+    Resource: 'arn:aws:logs:*:*:*'
+  }]
+};"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output1">
+                        <div class="output-header">
+                            <span>AWS Infrastructure Status</span>
+                            <div class="metrics">
+                                <span class="metric">EC2: <span id="ec2Status">Not Created</span></span>
+                                <span class="metric">S3: <span id="s3Status">Not Created</span></span>
+                                <span class="metric">Lambda: <span id="lambdaStatus">Not Deployed</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Azure Services -->
+            <div class="exercise-card" data-exercise="2">
+                <div class="exercise-header">
+                    <h3><i class="fab fa-microsoft"></i> Exercise 2: Azure Services</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Explore Microsoft Azure services including App Service, Functions, Storage, and Azure DevOps for cloud deployment.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Azure App Service for web apps</li>
+                                <li>Azure Functions for serverless</li>
+                                <li>Azure Storage and CDN</li>
+                                <li>Azure DevOps CI/CD pipelines</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Azure Services Configuration</span>
+                            <button class="run-btn" onclick="runExercise(2)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor2" placeholder="// Azure Services Configuration
+// App Service setup
+// Azure Functions deployment
+// Storage account configuration
+
+// Example: Azure App Service configuration
+const appServiceConfig = {
+  name: 'my-web-app',
+  resourceGroup: 'my-resource-group',
+  location: 'East US',
+  sku: {
+    name: 'F1',
+    tier: 'Free'
+  },
+  appSettings: {
+    'WEBSITE_NODE_DEFAULT_VERSION': '18.0.0',
+    'NODE_ENV': 'production'
+  }
+};
+
+// Example: Azure Function
+const azureFunction = \`module.exports = async function (context, req) {
+  context.log('JavaScript HTTP trigger function processed a request.');
+  
+  const name = (req.query.name || (req.body && req.body.name));
+  const responseMessage = name
+    ? \`Hello, \${name}. This HTTP triggered function executed successfully.\`
+    : 'This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.';
+  
+  context.res = {
+    status: 200,
+    body: responseMessage
+  };
+};\`;
+
+// Example: Azure Storage configuration
+const storageConfig = {
+  accountName: 'mystorageaccount',
+  resourceGroup: 'my-resource-group',
+  location: 'East US',
+  sku: {
+    name: 'Standard_LRS'
+  },
+  kind: 'StorageV2',
+  accessTier: 'Hot'
+};
+
+// Example: Azure DevOps pipeline
+const azurePipeline = \`trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run build
+  displayName: 'Install dependencies and build'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'my-azure-subscription'
+    appName: 'my-web-app'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+  displayName: 'Deploy to Azure Web App'\`;
+
+// Example: ARM template
+const armTemplate = {
+  \$schema: 'https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#',
+  contentVersion: '1.0.0.0',
+  parameters: {
+    appName: {
+      type: 'string',
+      defaultValue: 'my-web-app'
+    }
+  },
+  resources: [{
+    type: 'Microsoft.Web/sites',
+    apiVersion: '2021-02-01',
+    name: '[parameters(\"appName\")]',
+    location: '[resourceGroup().location]',
+    properties: {
+      serverFarmId: '[resourceId(\"Microsoft.Web/serverfarms\", \"my-app-service-plan\")]'
+    }
+  }]
+};"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output2">
+                        <div class="output-header">
+                            <span>Azure Services Status</span>
+                            <div class="metrics">
+                                <span class="metric">App Service: <span id="appServiceStatus">Not Created</span></span>
+                                <span class="metric">Functions: <span id="functionsStatus">Not Deployed</span></span>
+                                <span class="metric">Storage: <span id="storageStatus">Not Created</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: Google Cloud Platform -->
+            <div class="exercise-card" data-exercise="3">
+                <div class="exercise-header">
+                    <h3><i class="fab fa-google"></i> Exercise 3: Google Cloud Platform</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Learn Google Cloud Platform services including Compute Engine, Cloud Functions, Cloud Storage, and Firebase integration.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Compute Engine virtual machines</li>
+                                <li>Cloud Functions serverless</li>
+                                <li>Cloud Storage and Firebase</li>
+                                <li>Cloud Build and deployment</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>GCP Services Configuration</span>
+                            <button class="run-btn" onclick="runExercise(3)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor3" placeholder="// Google Cloud Platform Configuration
+// Compute Engine setup
+// Cloud Functions deployment
+// Firebase integration
+
+// Example: Compute Engine instance
+const computeInstance = {
+  name: 'my-web-server',
+  machineType: 'e2-micro',
+  zone: 'us-central1-a',
+  disks: [{
+    boot: true,
+    initializeParams: {
+      sourceImage: 'projects/debian-cloud/global/images/family/debian-11'
+    }
+  }],
+  networkInterfaces: [{
+    accessConfigs: [{
+      type: 'ONE_TO_ONE_NAT',
+      name: 'External NAT'
+    }]
+  }],
+  metadata: {
+    'startup-script': \`#!/bin/bash
+      apt-get update
+      apt-get install -y nginx
+      systemctl start nginx
+      systemctl enable nginx\`
+  }
+};
+
+// Example: Cloud Function
+const cloudFunction = \`const functions = require('@google-cloud/functions-framework');
+
+functions.http('helloWorld', (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type');
+  
+  if (req.method === 'OPTIONS') {
+    res.status(204).send('');
+    return;
+  }
+  
+  res.status(200).json({
+    message: 'Hello from Google Cloud Functions!',
+    timestamp: new Date().toISOString()
+  });
+});\`;
+
+// Example: Cloud Storage configuration
+const storageConfig = {
+  bucketName: 'my-web-app-bucket',
+  location: 'US',
+  storageClass: 'STANDARD',
+  versioning: {
+    enabled: true
+  },
+  cors: [{
+    origin: ['*'],
+    method: ['GET', 'HEAD'],
+    responseHeader: ['Content-Type'],
+    maxAgeSeconds: 3600
+  }]
+};
+
+// Example: Firebase configuration
+const firebaseConfig = {
+  apiKey: 'your-api-key',
+  authDomain: 'your-project.firebaseapp.com',
+  projectId: 'your-project-id',
+  storageBucket: 'your-project.appspot.com',
+  messagingSenderId: '123456789',
+  appId: '1:123456789:web:abcdef123456'
+};
+
+// Example: Cloud Build configuration
+const cloudBuildConfig = \`steps:
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run', 'build']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy']
+options:
+  machineType: 'E2_HIGHCPU_8'\`;
+
+// Example: Terraform configuration
+const terraformConfig = \`resource "google_compute_instance" "web_server" {
+  name         = "my-web-server"
+  machine_type = "e2-micro"
+  zone         = "us-central1-a"
+
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"
+    }
+  }
+
+  network_interface {
+    network = "default"
+    access_config {}
+  }
+
+  metadata = {
+    startup-script = file("startup.sh")
+  }
+}\`;"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output3">
+                        <div class="output-header">
+                            <span>GCP Services Status</span>
+                            <div class="metrics">
+                                <span class="metric">Compute: <span id="computeStatus">Not Created</span></span>
+                                <span class="metric">Functions: <span id="gcpFunctionsStatus">Not Deployed</span></span>
+                                <span class="metric">Storage: <span id="gcpStorageStatus">Not Created</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Serverless Architecture -->
+            <div class="exercise-card" data-exercise="4">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-server"></i> Exercise 4: Serverless Architecture</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Design and implement serverless architectures using AWS Lambda, Azure Functions, and Google Cloud Functions with event-driven patterns.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Function-as-a-Service (FaaS)</li>
+                                <li>Event-driven architecture</li>
+                                <li>API Gateway integration</li>
+                                <li>Microservices with serverless</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Serverless Architecture Implementation</span>
+                            <button class="run-btn" onclick="runExercise(4)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor4" placeholder="// Serverless Architecture Implementation
+// Multi-cloud serverless functions
+// Event-driven patterns
+// API Gateway configuration
+
+// Example: AWS Lambda with API Gateway
+const awsLambdaFunction = \`exports.handler = async (event) => {
+  const { httpMethod, path, queryStringParameters, body } = event;
+  
+  let response;
+  
+  switch (httpMethod) {
+    case 'GET':
+      response = await handleGet(path, queryStringParameters);
+      break;
+    case 'POST':
+      response = await handlePost(path, JSON.parse(body || '{}'));
+      break;
+    default:
+      response = {
+        statusCode: 405,
+        body: JSON.stringify({ error: 'Method not allowed' })
+      };
+  }
+  
+  return {
+    ...response,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json'
+    }
+  };
+};
+
+async function handleGet(path, queryParams) {
+  // Handle GET requests
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      message: 'Hello from AWS Lambda!',
+      path,
+      queryParams
+    })
+  };
+}
+
+async function handlePost(path, body) {
+  // Handle POST requests
+  return {
+    statusCode: 201,
+    body: JSON.stringify({
+      message: 'Data processed successfully',
+      receivedData: body
+    })
+  };
+};\`;
+
+// Example: Azure Function with HTTP trigger
+const azureFunction = \`module.exports = async function (context, req) {
+  context.log('Processing HTTP request');
+  
+  const method = req.method;
+  const url = req.url;
+  
+  let response;
+  
+  switch (method) {
+    case 'GET':
+      response = {
+        status: 200,
+        body: {
+          message: 'Hello from Azure Functions!',
+          url,
+          timestamp: new Date().toISOString()
+        }
+      };
+      break;
+    case 'POST':
+      response = {
+        status: 201,
+        body: {
+          message: 'Data received successfully',
+          data: req.body
+        }
+      };
+      break;
+    default:
+      response = {
+        status: 405,
+        body: { error: 'Method not allowed' }
+      };
+  }
+  
+  context.res = response;
+};\`;
+
+// Example: Google Cloud Function
+const gcpFunction = \`const functions = require('@google-cloud/functions-framework');
+
+functions.http('apiHandler', (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type');
+  
+  if (req.method === 'OPTIONS') {
+    res.status(204).send('');
+    return;
+  }
+  
+  const { method, url } = req;
+  let response;
+  
+  switch (method) {
+    case 'GET':
+      response = {
+        message: 'Hello from Google Cloud Functions!',
+        url,
+        timestamp: new Date().toISOString()
+      };
+      break;
+    case 'POST':
+      response = {
+        message: 'Data processed successfully',
+        receivedData: req.body
+      };
+      break;
+    default:
+      response = { error: 'Method not allowed' };
+  }
+  
+  res.status(200).json(response);
+});\`;
+
+// Example: Serverless Framework configuration
+const serverlessConfig = \`service: my-serverless-api
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    NODE_ENV: production
+
+functions:
+  api:
+    handler: src/api.handler
+    events:
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+    environment:
+      DB_TABLE: \${self:custom.tableName}
+
+custom:
+  tableName: \${self:service}-\${self:provider.stage}-users
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: \${self:custom.tableName}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST\`;
+
+// Example: Event-driven architecture
+const eventDrivenPattern = \`// Event Publisher
+class EventPublisher {
+  constructor() {
+    this.subscribers = new Map();
+  }
+  
+  subscribe(eventType, callback) {
+    if (!this.subscribers.has(eventType)) {
+      this.subscribers.set(eventType, []);
+    }
+    this.subscribers.get(eventType).push(callback);
+  }
+  
+  publish(eventType, data) {
+    const callbacks = this.subscribers.get(eventType) || [];
+    callbacks.forEach(callback => callback(data));
+  }
+}
+
+// Event-driven Lambda functions
+const orderProcessor = \`exports.handler = async (event) => {
+  const order = JSON.parse(event.Records[0].body);
+  
+  // Process order
+  console.log('Processing order:', order.id);
+  
+  // Publish order processed event
+  await publishEvent('order.processed', {
+    orderId: order.id,
+    status: 'processed',
+    timestamp: new Date().toISOString()
+  });
+  
+  return { statusCode: 200, body: 'Order processed' };
+};\`;
+
+// Example: API Gateway configuration
+const apiGatewayConfig = {
+  name: 'my-api',
+  description: 'Serverless API Gateway',
+  version: '1.0',
+  protocols: ['https'],
+  routes: [{
+    path: '/api/users',
+    methods: ['GET', 'POST'],
+    integration: {
+      type: 'lambda',
+      functionName: 'user-service'
+    }
+  }, {
+    path: '/api/orders',
+    methods: ['GET', 'POST', 'PUT'],
+    integration: {
+      type: 'lambda',
+      functionName: 'order-service'
+    }
+  }]
+};"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output4">
+                        <div class="output-header">
+                            <span>Serverless Architecture Status</span>
+                            <div class="metrics">
+                                <span class="metric">Functions: <span id="serverlessFunctions">0</span></span>
+                                <span class="metric">Events: <span id="eventCount">0</span></span>
+                                <span class="metric">API Endpoints: <span id="apiEndpoints">0</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Cloud Deployment & DevOps -->
+            <div class="exercise-card" data-exercise="5">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-rocket"></i> Exercise 5: Cloud Deployment & DevOps</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement CI/CD pipelines, infrastructure as code, monitoring, and automated deployment strategies across cloud platforms.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>CI/CD pipeline automation</li>
+                                <li>Infrastructure as Code (IaC)</li>
+                                <li>Cloud monitoring and logging</li>
+                                <li>Multi-environment deployment</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Cloud DevOps Implementation</span>
+                            <button class="run-btn" onclick="runExercise(5)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor5" placeholder="// Cloud DevOps Implementation
+// CI/CD pipelines
+// Infrastructure as Code
+// Monitoring and logging
+
+// Example: GitHub Actions CI/CD
+const githubActions = \`name: Deploy to Cloud
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Install dependencies
+      run: npm install
+    - name: Run tests
+      run: npm test
+    - name: Build application
+      run: npm run build
+
+  deploy-aws:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v3
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: \${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: \${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    - name: Deploy to S3
+      run: aws s3 sync dist/ s3://my-bucket --delete
+    - name: Invalidate CloudFront
+      run: aws cloudfront create-invalidation --distribution-id \${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+
+  deploy-azure:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v3
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: \${{ secrets.AZURE_CREDENTIALS }}
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'my-web-app'
+        package: 'dist/'\`;
+
+// Example: Terraform Infrastructure as Code
+const terraformConfig = \`# AWS Infrastructure
+provider "aws" {
+  region = "us-east-1"
+}
+
+# S3 Bucket for static website
+resource "aws_s3_bucket" "website" {
+  bucket = "my-web-app-\${random_id.bucket_suffix.hex}"
+}
+
+resource "random_id" "bucket_suffix" {
+  byte_length = 4
+}
+
+resource "aws_s3_bucket_website_configuration" "website" {
+  bucket = aws_s3_bucket.website.id
+  
+  index_document {
+    suffix = "index.html"
+  }
+  
+  error_document {
+    key = "error.html"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "website" {
+  bucket = aws_s3_bucket.website.id
+  
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_policy" "website" {
+  bucket = aws_s3_bucket.website.id
+  
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "PublicReadGetObject"
+        Effect    = "Allow"
+        Principal = "*"
+        Action    = "s3:GetObject"
+        Resource  = "\${aws_s3_bucket.website.arn}/*"
+      }
+    ]
+  })
+}
+
+# CloudFront Distribution
+resource "aws_cloudfront_distribution" "website" {
+  origin {
+    domain_name = aws_s3_bucket.website.bucket_regional_domain_name
+    origin_id   = "S3-\${aws_s3_bucket.website.bucket}"
+    
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
+  }
+  
+  enabled             = true
+  is_ipv6_enabled     = true
+  default_root_object = "index.html"
+  
+  default_cache_behavior {
+    allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods         = ["GET", "HEAD"]
+    target_origin_id       = "S3-\${aws_s3_bucket.website.bucket}"
+    
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
+    
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
+  }
+  
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+  
+  viewer_certificate {
+    cloudfront_default_certificate = true
+  }
+}
+
+# Lambda function for API
+resource "aws_lambda_function" "api" {
+  filename         = "api.zip"
+  function_name    = "my-api"
+  role            = aws_iam_role.lambda_role.arn
+  handler         = "index.handler"
+  runtime         = "nodejs18.x"
+  source_code_hash = filebase64sha256("api.zip")
+}
+
+resource "aws_iam_role" "lambda_role" {
+  name = "lambda-execution-role"
+  
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_policy" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+# API Gateway
+resource "aws_api_gateway_rest_api" "api" {
+  name        = "my-api"
+  description = "API Gateway for my web app"
+}
+
+resource "aws_api_gateway_resource" "proxy" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_rest_api.api.root_resource_id
+  path_part   = "{proxy+}"
+}
+
+resource "aws_api_gateway_method" "proxy" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.proxy.id
+  http_method   = "ANY"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "lambda" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = aws_api_gateway_method.proxy.http_method
+  
+  integration_http_method = "POST"
+  type                   = "AWS_PROXY"
+  uri                    = aws_lambda_function.api.invoke_arn
+}
+
+resource "aws_lambda_permission" "api_gw" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.api.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "\${aws_api_gateway_rest_api.api.execution_arn}/*/*"
+}
+
+resource "aws_api_gateway_deployment" "api" {
+  depends_on = [
+    aws_api_gateway_integration.lambda,
+  ]
+  
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  stage_name  = "prod"
+}
+
+# Outputs
+output "website_url" {
+  value = "https://\${aws_cloudfront_distribution.website.domain_name}"
+}
+
+output "api_url" {
+  value = "https://\${aws_api_gateway_rest_api.api.id}.execute-api.us-east-1.amazonaws.com/prod"
+}\`;
+
+// Example: Monitoring and Logging
+const monitoringConfig = \`# CloudWatch Logs
+resource "aws_cloudwatch_log_group" "api" {
+  name              = "/aws/lambda/my-api"
+  retention_in_days = 14
+}
+
+# CloudWatch Alarms
+resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
+  alarm_name          = "lambda-errors"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = "2"
+  metric_name         = "Errors"
+  namespace           = "AWS/Lambda"
+  period              = "300"
+  statistic           = "Sum"
+  threshold           = "0"
+  alarm_description   = "This metric monitors lambda errors"
+  
+  dimensions = {
+    FunctionName = aws_lambda_function.api.function_name
+  }
+}
+
+# Application Performance Monitoring
+resource "aws_xray_sampling_rule" "api" {
+  rule_name      = "api-sampling-rule"
+  priority       = 100
+  version        = 1
+  reservoir_size = 1
+  fixed_rate     = 0.1
+  
+  url_path     = "*"
+  host         = "*"
+  http_method  = "*"
+  service_type = "*"
+  service_name = "*"
+  resource_arn = "*"
+}
+
+# SNS Topic for alerts
+resource "aws_sns_topic" "alerts" {
+  name = "my-app-alerts"
+}
+
+resource "aws_sns_topic_subscription" "email" {
+  topic_arn = aws_sns_topic.alerts.arn
+  protocol  = "email"
+  endpoint  = "admin@myapp.com"
+}\`;
+
+// Example: Multi-environment deployment
+const environmentConfig = {
+  development: {
+    region: 'us-east-1',
+    instanceType: 't3.micro',
+    databaseSize: 'db.t3.micro',
+    autoScaling: false
+  },
+  staging: {
+    region: 'us-east-1',
+    instanceType: 't3.small',
+    databaseSize: 'db.t3.small',
+    autoScaling: true,
+    minCapacity: 1,
+    maxCapacity: 3
+  },
+  production: {
+    region: 'us-east-1',
+    instanceType: 't3.medium',
+    databaseSize: 'db.t3.medium',
+    autoScaling: true,
+    minCapacity: 2,
+    maxCapacity: 10
+  }
+};"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output5">
+                        <div class="output-header">
+                            <span>DevOps Pipeline Status</span>
+                            <div class="metrics">
+                                <span class="metric">Pipeline: <span id="pipelineStatus">Not Running</span></span>
+                                <span class="metric">Infrastructure: <span id="infrastructureStatus">Not Deployed</span></span>
+                                <span class="metric">Monitoring: <span id="monitoringStatus">Not Configured</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="btn-secondary" onclick="resetLevel()">
+                <i class="fas fa-redo"></i> Reset Level
+            </button>
+            <button class="btn-primary" onclick="completeLevel()" id="completeBtn" disabled>
+                <i class="fas fa-check"></i> Complete Level
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="level21-script.js"></script>
+</body>
+</html>
