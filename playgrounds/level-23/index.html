@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 23: Advanced Testing - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level23-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1><i class="fas fa-vial"></i> Level 23: Advanced Testing</h1>
+                <p>Master advanced testing techniques with E2E, performance, visual testing, and test automation</p>
+                <div class="level-stats">
+                    <span class="stat"><i class="fas fa-code"></i> 5 Exercises</span>
+                    <span class="stat"><i class="fas fa-clock"></i> 45-60 min</span>
+                    <span class="stat"><i class="fas fa-star"></i> Expert</span>
+                </div>
+            </div>
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress"></div>
+                </div>
+                <span class="progress-text">0/5 Complete</span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: E2E Testing -->
+            <div class="exercise-card" data-exercise="1">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-robot"></i> Exercise 1: E2E Testing</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Learn end-to-end testing with Cypress and Playwright for comprehensive application testing.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Cypress test automation</li>
+                                <li>Playwright cross-browser testing</li>
+                                <li>Page Object Model patterns</li>
+                                <li>Test data management</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>E2E Test Implementation</span>
+                            <button class="run-btn" onclick="runExercise(1)">
+                                <i class="fas fa-play"></i> Run Tests
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor1" placeholder="// Cypress E2E Test Example
+describe('Todo App E2E Tests', () => {
+  beforeEach(() => {
+    cy.visit('/todo-app');
+  });
+
+  it('should add a new todo item', () => {
+    cy.get('[data-testid=todo-input]').type('Learn E2E testing');
+    cy.get('[data-testid=add-button]').click();
+    cy.get('[data-testid=todo-list]').should('contain', 'Learn E2E testing');
+  });
+
+  it('should mark todo as completed', () => {
+    cy.get('[data-testid=todo-input]').type('Complete task');
+    cy.get('[data-testid=add-button]').click();
+    cy.get('[data-testid=todo-checkbox]').first().click();
+    cy.get('[data-testid=todo-item]').first().should('have.class', 'completed');
+  });
+
+  it('should delete a todo item', () => {
+    cy.get('[data-testid=todo-input]').type('Delete this task');
+    cy.get('[data-testid=add-button]').click();
+    cy.get('[data-testid=delete-button]').first().click();
+    cy.get('[data-testid=todo-list]').should('not.contain', 'Delete this task');
+  });
+});
+
+// Playwright Test Example
+import { test, expect } from '@playwright/test';
+
+test.describe('Cross-browser Todo Tests', () => {
+  test('should work across different browsers', async ({ page }) => {
+    await page.goto('/todo-app');
+    
+    await page.fill('[data-testid=todo-input]', 'Cross-browser test');
+    await page.click('[data-testid=add-button]');
+    
+    await expect(page.locator('[data-testid=todo-list]')).toContainText('Cross-browser test');
+  });
+
+  test('should handle mobile viewport', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/todo-app');
+    
+    await expect(page.locator('[data-testid=mobile-menu]')).toBeVisible();
+  });
+});"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output1">
+                        <div class="output-header">
+                            <span>E2E Test Results</span>
+                            <div class="metrics">
+                                <span class="metric">Tests: <span id="e2eTests">0</span></span>
+                                <span class="metric">Passed: <span id="e2ePassed">0</span></span>
+                                <span class="metric">Browser: <span id="e2eBrowser">Chrome</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Performance Testing -->
+            <div class="exercise-card" data-exercise="2">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-tachometer-alt"></i> Exercise 2: Performance Testing</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement performance testing to measure and optimize application speed and efficiency.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Lighthouse performance audits</li>
+                                <li>Load testing with Artillery</li>
+                                <li>Memory leak detection</li>
+                                <li>Core Web Vitals measurement</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Performance Test Implementation</span>
+                            <button class="run-btn" onclick="runExercise(2)">
+                                <i class="fas fa-play"></i> Run Performance Tests
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor2" placeholder="// Performance Testing Implementation
+class PerformanceTestRunner {
+  constructor() {
+    this.metrics = {};
+    this.observer = null;
+  }
+
+  async runLighthouseAudit() {
+    const lighthouse = await import('lighthouse');
+    const chromeLauncher = await import('chrome-launcher');
+    
+    const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+    const options = { logLevel: 'info', output: 'json', port: chrome.port };
+    
+    const runnerResult = await lighthouse('http://localhost:3000', options);
+    
+    await chrome.kill();
+    
+    return {
+      performance: runnerResult.lhr.categories.performance.score * 100,
+      accessibility: runnerResult.lhr.categories.accessibility.score * 100,
+      bestPractices: runnerResult.lhr.categories['best-practices'].score * 100,
+      seo: runnerResult.lhr.categories.seo.score * 100
+    };
+  }
+
+  measureCoreWebVitals() {
+    return new Promise((resolve) => {
+      const metrics = {};
+      
+      // Largest Contentful Paint
+      new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        metrics.lcp = entries[entries.length - 1].startTime;
+      }).observe({ entryTypes: ['largest-contentful-paint'] });
+
+      // First Input Delay
+      new PerformanceObserver((entryList) => {
+        const entries = entryList.getEntries();
+        metrics.fid = entries[0].processingStart - entries[0].startTime;
+      }).observe({ entryTypes: ['first-input'] });
+
+      // Cumulative Layout Shift
+      let clsValue = 0;
+      new PerformanceObserver((entryList) => {
+        for (const entry of entryList.getEntries()) {
+          if (!entry.hadRecentInput) {
+            clsValue += entry.value;
+          }
+        }
+        metrics.cls = clsValue;
+      }).observe({ entryTypes: ['layout-shift'] });
+
+      setTimeout(() => resolve(metrics), 5000);
+    });
+  }
+
+  async runLoadTest() {
+    // Simulate load testing
+    const results = [];
+    const concurrentUsers = [10, 50, 100, 200];
+    
+    for (const users of concurrentUsers) {
+      const startTime = performance.now();
+      
+      // Simulate concurrent requests
+      const promises = Array(users).fill().map(() => 
+        fetch('/api/test').then(r => r.json())
+      );
+      
+      await Promise.all(promises);
+      const endTime = performance.now();
+      
+      results.push({
+        users,
+        responseTime: endTime - startTime,
+        throughput: users / ((endTime - startTime) / 1000)
+      });
+    }
+    
+    return results;
+  }
+
+  detectMemoryLeaks() {
+    const initialMemory = performance.memory.usedJSHeapSize;
+    
+    // Simulate memory-intensive operations
+    const largeArray = [];
+    for (let i = 0; i < 100000; i++) {
+      largeArray.push(new Array(1000).fill(Math.random()));
+    }
+    
+    // Force garbage collection (if available)
+    if (window.gc) {
+      window.gc();
+    }
+    
+    const finalMemory = performance.memory.usedJSHeapSize;
+    
+    return {
+      initialMemory: initialMemory / 1024 / 1024, // MB
+      finalMemory: finalMemory / 1024 / 1024, // MB
+      memoryIncrease: (finalMemory - initialMemory) / 1024 / 1024 // MB
+    };
+  }
+}
+
+// Usage
+const perfTester = new PerformanceTestRunner();
+
+async function runAllPerformanceTests() {
+  console.log('Running Performance Tests...');
+  
+  const lighthouse = await perfTester.runLighthouseAudit();
+  const webVitals = await perfTester.measureCoreWebVitals();
+  const loadTest = await perfTester.runLoadTest();
+  const memoryTest = perfTester.detectMemoryLeaks();
+  
+  return {
+    lighthouse,
+    webVitals,
+    loadTest,
+    memoryTest
+  };
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output2">
+                        <div class="output-header">
+                            <span>Performance Test Results</span>
+                            <div class="metrics">
+                                <span class="metric">Score: <span id="perfScore">0</span></span>
+                                <span class="metric">LCP: <span id="perfLcp">0ms</span></span>
+                                <span class="metric">Memory: <span id="perfMemory">0MB</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: Visual Testing -->
+            <div class="exercise-card" data-exercise="3">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-eye"></i> Exercise 3: Visual Testing</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement visual regression testing to catch UI changes and ensure consistent design.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Screenshot comparison testing</li>
+                                <li>Visual regression detection</li>
+                                <li>Cross-browser visual testing</li>
+                                <li>Component visual testing</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Visual Testing Implementation</span>
+                            <button class="run-btn" onclick="runExercise(3)">
+                                <i class="fas fa-play"></i> Run Visual Tests
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor3" placeholder="// Visual Testing Implementation
+class VisualTestRunner {
+  constructor() {
+    this.baseline = new Map();
+    this.threshold = 0.1; // 10% difference threshold
+  }
+
+  async captureScreenshot(selector = 'body') {
+    return new Promise((resolve) => {
+      html2canvas(document.querySelector(selector)).then(canvas => {
+        resolve(canvas.toDataURL());
+      });
+    });
+  }
+
+  async compareImages(baseline, current) {
+    return new Promise((resolve) => {
+      const img1 = new Image();
+      const img2 = new Image();
+      
+      img1.onload = () => {
+        img2.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          canvas.width = Math.max(img1.width, img2.width);
+          canvas.height = Math.max(img1.height, img2.height);
+          
+          // Draw baseline
+          ctx.drawImage(img1, 0, 0);
+          const baseline = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          
+          // Draw current
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img2, 0, 0);
+          const current = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          
+          // Compare pixels
+          let differentPixels = 0;
+          const totalPixels = baseline.data.length / 4;
+          
+          for (let i = 0; i < baseline.data.length; i += 4) {
+            const r1 = baseline.data[i];
+            const g1 = baseline.data[i + 1];
+            const b1 = baseline.data[i + 2];
+            
+            const r2 = current.data[i];
+            const g2 = current.data[i + 1];
+            const b2 = current.data[i + 2];
+            
+            const diff = Math.abs(r1 - r2) + Math.abs(g1 - g2) + Math.abs(b1 - b2);
+            
+            if (diff > 30) { // Threshold for significant difference
+              differentPixels++;
+            }
+          }
+          
+          const differencePercentage = (differentPixels / totalPixels) * 100;
+          resolve({
+            passed: differencePercentage < this.threshold,
+            differencePercentage,
+            differentPixels,
+            totalPixels
+          });
+        };
+        img2.src = current;
+      };
+      img1.src = baseline;
+    });
+  }
+
+  async runComponentVisualTest(componentName, selector) {
+    const currentScreenshot = await this.captureScreenshot(selector);
+    
+    if (!this.baseline.has(componentName)) {
+      // First run - save as baseline
+      this.baseline.set(componentName, currentScreenshot);
+      return {
+        status: 'baseline_created',
+        message: `Baseline created for ${componentName}`
+      };
+    }
+    
+    const baseline = this.baseline.get(componentName);
+    const comparison = await this.compareImages(baseline, currentScreenshot);
+    
+    return {
+      status: comparison.passed ? 'passed' : 'failed',
+      componentName,
+      ...comparison
+    };
+  }
+
+  async runCrossBrowserVisualTest() {
+    const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge'];
+    const results = [];
+    
+    for (const browser of browsers) {
+      // Simulate browser-specific rendering
+      document.body.style.fontFamily = browser === 'Safari' ? 'system-ui' : 'Arial';
+      
+      await new Promise(resolve => setTimeout(resolve, 100)); // Wait for render
+      
+      const screenshot = await this.captureScreenshot();
+      const result = await this.runComponentVisualTest(`app-${browser}`, 'body');
+      
+      results.push({
+        browser,
+        ...result
+      });
+    }
+    
+    return results;
+  }
+
+  generateVisualReport(results) {
+    const passedTests = results.filter(r => r.status === 'passed').length;
+    const failedTests = results.filter(r => r.status === 'failed').length;
+    
+    return {
+      summary: {
+        total: results.length,
+        passed: passedTests,
+        failed: failedTests,
+        passRate: (passedTests / results.length) * 100
+      },
+      details: results
+    };
+  }
+}
+
+// Usage
+const visualTester = new VisualTestRunner();
+
+async function runVisualTests() {
+  const results = [];
+  
+  // Test individual components
+  results.push(await visualTester.runComponentVisualTest('header', '.header'));
+  results.push(await visualTester.runComponentVisualTest('navigation', '.nav'));
+  results.push(await visualTester.runComponentVisualTest('footer', '.footer'));
+  
+  // Test cross-browser compatibility
+  const crossBrowserResults = await visualTester.runCrossBrowserVisualTest();
+  results.push(...crossBrowserResults);
+  
+  return visualTester.generateVisualReport(results);
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output3">
+                        <div class="output-header">
+                            <span>Visual Test Results</span>
+                            <div class="metrics">
+                                <span class="metric">Tests: <span id="visualTests">0</span></span>
+                                <span class="metric">Passed: <span id="visualPassed">0</span></span>
+                                <span class="metric">Diff: <span id="visualDiff">0%</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Test Automation -->
+            <div class="exercise-card" data-exercise="4">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-cogs"></i> Exercise 4: Test Automation</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Build comprehensive test automation pipelines with CI/CD integration and intelligent test execution.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>CI/CD test integration</li>
+                                <li>Parallel test execution</li>
+                                <li>Test result reporting</li>
+                                <li>Automated test scheduling</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Test Automation Implementation</span>
+                            <button class="run-btn" onclick="runExercise(4)">
+                                <i class="fas fa-play"></i> Run Automation
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor4" placeholder="// Test Automation Pipeline
+class TestAutomationPipeline {
+  constructor() {
+    this.testSuites = [];
+    this.reporters = [];
+    this.config = {
+      parallel: true,
+      maxWorkers: 4,
+      timeout: 30000,
+      retries: 2
+    };
+  }
+
+  addTestSuite(suite) {
+    this.testSuites.push(suite);
+  }
+
+  addReporter(reporter) {
+    this.reporters.push(reporter);
+  }
+
+  async runTestSuite(suite) {
+    const results = {
+      suiteName: suite.name,
+      tests: [],
+      startTime: Date.now(),
+      endTime: null,
+      duration: 0,
+      passed: 0,
+      failed: 0,
+      skipped: 0
+    };
+
+    for (const test of suite.tests) {
+      const testResult = await this.runSingleTest(test);
+      results.tests.push(testResult);
+      
+      if (testResult.status === 'passed') results.passed++;
+      else if (testResult.status === 'failed') results.failed++;
+      else results.skipped++;
+    }
+
+    results.endTime = Date.now();
+    results.duration = results.endTime - results.startTime;
+
+    return results;
+  }
+
+  async runSingleTest(test) {
+    const startTime = Date.now();
+    let attempt = 0;
+    
+    while (attempt <= this.config.retries) {
+      try {
+        await Promise.race([
+          test.fn(),
+          new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Test timeout')), this.config.timeout)
+          )
+        ]);
+        
+        return {
+          name: test.name,
+          status: 'passed',
+          duration: Date.now() - startTime,
+          attempt: attempt + 1,
+          error: null
+        };
+      } catch (error) {
+        attempt++;
+        if (attempt > this.config.retries) {
+          return {
+            name: test.name,
+            status: 'failed',
+            duration: Date.now() - startTime,
+            attempt,
+            error: error.message
+          };
+        }
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait before retry
+      }
+    }
+  }
+
+  async runAllTests() {
+    const startTime = Date.now();
+    const allResults = [];
+
+    if (this.config.parallel) {
+      // Run test suites in parallel
+      const promises = this.testSuites.map(suite => this.runTestSuite(suite));
+      const results = await Promise.all(promises);
+      allResults.push(...results);
+    } else {
+      // Run test suites sequentially
+      for (const suite of this.testSuites) {
+        const result = await this.runTestSuite(suite);
+        allResults.push(result);
+      }
+    }
+
+    const endTime = Date.now();
+    const summary = this.generateSummary(allResults, endTime - startTime);
+
+    // Report results
+    for (const reporter of this.reporters) {
+      await reporter.report(summary, allResults);
+    }
+
+    return summary;
+  }
+
+  generateSummary(results, totalDuration) {
+    return {
+      totalDuration,
+      totalSuites: results.length,
+      totalTests: results.reduce((sum, r) => sum + r.tests.length, 0),
+      totalPassed: results.reduce((sum, r) => sum + r.passed, 0),
+      totalFailed: results.reduce((sum, r) => sum + r.failed, 0),
+      totalSkipped: results.reduce((sum, r) => sum + r.skipped, 0),
+      passRate: 0,
+      coverage: this.calculateCoverage()
+    };
+  }
+
+  calculateCoverage() {
+    // Simulate code coverage calculation
+    return {
+      statements: Math.floor(Math.random() * 20) + 80,
+      branches: Math.floor(Math.random() * 25) + 75,
+      functions: Math.floor(Math.random() * 15) + 85,
+      lines: Math.floor(Math.random() * 20) + 80
+    };
+  }
+}
+
+// Test Reporters
+class ConsoleReporter {
+  async report(summary, results) {
+    console.log('=== Test Automation Results ===');
+    console.log(`Total Tests: ${summary.totalTests}`);
+    console.log(`Passed: ${summary.totalPassed}`);
+    console.log(`Failed: ${summary.totalFailed}`);
+    console.log(`Duration: ${summary.totalDuration}ms`);
+    console.log(`Pass Rate: ${summary.passRate}%`);
+    
+    if (summary.totalFailed > 0) {
+      console.log('\nFailed Tests:');
+      results.forEach(suite => {
+        suite.tests.filter(t => t.status === 'failed').forEach(test => {
+          console.log(`  ❌ ${suite.suiteName}: ${test.name} - ${test.error}`);
+        });
+      });
+    }
+  }
+}
+
+class HTMLReporter {
+  async report(summary, results) {
+    const html = `
+      <div class="test-report">
+        <h2>Test Automation Report</h2>
+        <div class="summary">
+          <div class="metric">Tests: ${summary.totalTests}</div>
+          <div class="metric passed">Passed: ${summary.totalPassed}</div>
+          <div class="metric failed">Failed: ${summary.totalFailed}</div>
+          <div class="metric">Duration: ${summary.totalDuration}ms</div>
+        </div>
+        <div class="coverage">
+          <h3>Code Coverage</h3>
+          <div>Statements: ${summary.coverage.statements}%</div>
+          <div>Branches: ${summary.coverage.branches}%</div>
+          <div>Functions: ${summary.coverage.functions}%</div>
+          <div>Lines: ${summary.coverage.lines}%</div>
+        </div>
+      </div>
+    `;
+    return html;
+  }
+}
+
+// Usage Example
+const pipeline = new TestAutomationPipeline();
+
+// Add test suites
+pipeline.addTestSuite({
+  name: 'Unit Tests',
+  tests: [
+    { name: 'should add numbers correctly', fn: async () => { /* test logic */ } },
+    { name: 'should handle edge cases', fn: async () => { /* test logic */ } }
+  ]
+});
+
+pipeline.addTestSuite({
+  name: 'Integration Tests',
+  tests: [
+    { name: 'should connect to database', fn: async () => { /* test logic */ } },
+    { name: 'should process API requests', fn: async () => { /* test logic */ } }
+  ]
+});
+
+// Add reporters
+pipeline.addReporter(new ConsoleReporter());
+pipeline.addReporter(new HTMLReporter());
+
+// Run all tests
+pipeline.runAllTests().then(summary => {
+  console.log('Automation complete:', summary);
+});"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output4">
+                        <div class="output-header">
+                            <span>Test Automation Results</span>
+                            <div class="metrics">
+                                <span class="metric">Suites: <span id="autoSuites">0</span></span>
+                                <span class="metric">Coverage: <span id="autoCoverage">0%</span></span>
+                                <span class="metric">Duration: <span id="autoDuration">0ms</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Testing Strategies -->
+            <div class="exercise-card" data-exercise="5">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-chess"></i> Exercise 5: Testing Strategies</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Master comprehensive testing strategies including test planning, risk assessment, and quality metrics.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Test pyramid implementation</li>
+                                <li>Risk-based testing</li>
+                                <li>Quality gate definitions</li>
+                                <li>Test data management</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Testing Strategy Implementation</span>
+                            <button class="run-btn" onclick="runExercise(5)">
+                                <i class="fas fa-play"></i> Analyze Strategy
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor5" placeholder="// Testing Strategy Framework
+class TestingStrategyFramework {
+  constructor() {
+    this.testPyramid = {
+      unit: { ratio: 70, cost: 'low', speed: 'fast', feedback: 'immediate' },
+      integration: { ratio: 20, cost: 'medium', speed: 'medium', feedback: 'quick' },
+      e2e: { ratio: 10, cost: 'high', speed: 'slow', feedback: 'delayed' }
+    };
+    
+    this.qualityGates = [];
+    this.riskMatrix = new Map();
+  }
+
+  defineQualityGates() {
+    return [
+      {
+        name: 'Code Quality Gate',
+        criteria: {
+          codeCoverage: { min: 80, weight: 0.3 },
+          codeComplexity: { max: 10, weight: 0.2 },
+          duplication: { max: 3, weight: 0.2 },
+          maintainability: { min: 'A', weight: 0.3 }
+        },
+        mandatory: true
+      },
+      {
+        name: 'Performance Gate',
+        criteria: {
+          loadTime: { max: 3000, weight: 0.4 },
+          firstContentfulPaint: { max: 1500, weight: 0.3 },
+          cumulativeLayoutShift: { max: 0.1, weight: 0.3 }
+        },
+        mandatory: true
+      },
+      {
+        name: 'Security Gate',
+        criteria: {
+          vulnerabilities: { max: 0, weight: 0.5 },
+          securityScore: { min: 'A', weight: 0.3 },
+          dependencyCheck: { max: 0, weight: 0.2 }
+        },
+        mandatory: true
+      }
+    ];
+  }
+
+  assessRisk(feature) {
+    const riskFactors = {
+      complexity: this.assessComplexity(feature),
+      criticality: this.assessCriticality(feature),
+      changeFrequency: this.assessChangeFrequency(feature),
+      userImpact: this.assessUserImpact(feature)
+    };
+
+    const riskScore = Object.values(riskFactors).reduce((sum, score) => sum + score, 0) / 4;
+    
+    return {
+      feature: feature.name,
+      riskScore,
+      riskLevel: this.getRiskLevel(riskScore),
+      riskFactors,
+      testingRecommendation: this.getTestingRecommendation(riskScore)
+    };
+  }
+
+  assessComplexity(feature) {
+    // Assess based on lines of code, dependencies, algorithms
+    const linesOfCode = feature.linesOfCode || 0;
+    const dependencies = feature.dependencies || 0;
+    const algorithms = feature.algorithms || 0;
+
+    return Math.min((linesOfCode / 1000 + dependencies / 10 + algorithms / 5) * 2, 5);
+  }
+
+  assessCriticality(feature) {
+    // Business impact assessment
+    const businessImpact = feature.businessImpact || 'low';
+    const impactMap = { low: 1, medium: 3, high: 5 };
+    return impactMap[businessImpact] || 1;
+  }
+
+  assessChangeFrequency(feature) {
+    // How often the feature changes
+    const changesPerMonth = feature.changesPerMonth || 0;
+    return Math.min(changesPerMonth / 2, 5);
+  }
+
+  assessUserImpact(feature) {
+    // User base affected
+    const userPercentage = feature.userPercentage || 0;
+    return (userPercentage / 100) * 5;
+  }
+
+  getRiskLevel(score) {
+    if (score <= 2) return 'low';
+    if (score <= 3.5) return 'medium';
+    return 'high';
+  }
+
+  getTestingRecommendation(riskScore) {
+    if (riskScore <= 2) {
+      return {
+        unit: 80,
+        integration: 15,
+        e2e: 5,
+        focus: ['happy path', 'basic edge cases']
+      };
+    } else if (riskScore <= 3.5) {
+      return {
+        unit: 70,
+        integration: 20,
+        e2e: 10,
+        focus: ['edge cases', 'error handling', 'integration points']
+      };
+    } else {
+      return {
+        unit: 60,
+        integration: 25,
+        e2e: 15,
+        focus: ['comprehensive coverage', 'stress testing', 'security testing', 'performance testing']
+      };
+    }
+  }
+
+  createTestPlan(features) {
+    const testPlan = {
+      overview: {
+        totalFeatures: features.length,
+        testingPhases: ['unit', 'integration', 'system', 'acceptance'],
+        estimatedDuration: 0,
+        resourceAllocation: {}
+      },
+      featureAnalysis: [],
+      qualityGates: this.defineQualityGates(),
+      testDataStrategy: this.defineTestDataStrategy(),
+      environmentStrategy: this.defineEnvironmentStrategy()
+    };
+
+    for (const feature of features) {
+      const riskAssessment = this.assessRisk(feature);
+      testPlan.featureAnalysis.push(riskAssessment);
+      
+      // Estimate testing effort
+      const effortMultiplier = riskAssessment.riskLevel === 'high' ? 3 : 
+                              riskAssessment.riskLevel === 'medium' ? 2 : 1;
+      testPlan.overview.estimatedDuration += feature.estimatedDev * effortMultiplier * 0.4;
+    }
+
+    return testPlan;
+  }
+
+  defineTestDataStrategy() {
+    return {
+      synthetic: {
+        description: 'Generated test data for consistent testing',
+        useCases: ['unit tests', 'integration tests'],
+        tools: ['faker.js', 'test-data-builder']
+      },
+      anonymized: {
+        description: 'Anonymized production data',
+        useCases: ['performance testing', 'load testing'],
+        tools: ['data-anonymization-tools']
+      },
+      subset: {
+        description: 'Subset of production data',
+        useCases: ['system testing', 'user acceptance testing'],
+        tools: ['database-subset-tools']
+      }
+    };
+  }
+
+  defineEnvironmentStrategy() {
+    return {
+      dev: { purpose: 'Development testing', stability: 'unstable', data: 'synthetic' },
+      test: { purpose: 'Integration testing', stability: 'stable', data: 'synthetic' },
+      staging: { purpose: 'Pre-production testing', stability: 'stable', data: 'anonymized' },
+      prod: { purpose: 'Production monitoring', stability: 'stable', data: 'real' }
+    };
+  }
+
+  generateTestMetrics(testResults) {
+    const metrics = {
+      coverage: {
+        statement: testResults.coverage?.statements || 0,
+        branch: testResults.coverage?.branches || 0,
+        function: testResults.coverage?.functions || 0,
+        line: testResults.coverage?.lines || 0
+      },
+      quality: {
+        passRate: (testResults.passed / testResults.total) * 100,
+        defectDensity: testResults.defects / testResults.linesOfCode * 1000,
+        testEffectiveness: testResults.bugsFound / testResults.totalBugs * 100
+      },
+      efficiency: {
+        testsPerHour: testResults.total / (testResults.duration / 3600000),
+        automationRate: testResults.automated / testResults.total * 100,
+        maintenanceCost: testResults.maintenanceTime / testResults.total
+      }
+    };
+
+    return metrics;
+  }
+}
+
+// Usage Example
+const strategy = new TestingStrategyFramework();
+
+const features = [
+  {
+    name: 'User Authentication',
+    linesOfCode: 500,
+    dependencies: 5,
+    algorithms: 2,
+    businessImpact: 'high',
+    changesPerMonth: 2,
+    userPercentage: 100,
+    estimatedDev: 5
+  },
+  {
+    name: 'Dashboard Widgets',
+    linesOfCode: 200,
+    dependencies: 3,
+    algorithms: 1,
+    businessImpact: 'medium',
+    changesPerMonth: 4,
+    userPercentage: 80,
+    estimatedDev: 3
+  }
+];
+
+const testPlan = strategy.createTestPlan(features);
+console.log('Test Plan:', testPlan);
+
+const testResults = {
+  total: 150,
+  passed: 142,
+  failed: 8,
+  coverage: { statements: 85, branches: 78, functions: 90, lines: 83 },
+  defects: 12,
+  linesOfCode: 10000,
+  totalBugs: 15,
+  bugsFound: 13,
+  duration: 7200000, // 2 hours
+  automated: 120,
+  maintenanceTime: 1800000 // 30 minutes
+};
+
+const metrics = strategy.generateTestMetrics(testResults);
+console.log('Test Metrics:', metrics);"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output5">
+                        <div class="output-header">
+                            <span>Testing Strategy Analysis</span>
+                            <div class="metrics">
+                                <span class="metric">Features: <span id="strategyFeatures">0</span></span>
+                                <span class="metric">Risk: <span id="strategyRisk">Low</span></span>
+                                <span class="metric">Coverage: <span id="strategyCoverage">0%</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="btn-secondary" onclick="resetLevel()">
+                <i class="fas fa-redo"></i> Reset Level
+            </button>
+            <button class="btn-primary" onclick="completeLevel()" id="completeBtn" disabled>
+                <i class="fas fa-check"></i> Complete Level
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="level23-script.js"></script>
+</body>
+</html>
