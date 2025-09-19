@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 24: AI/ML Integration - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level24-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js"></script>
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1><i class="fas fa-brain"></i> Level 24: AI/ML Integration</h1>
+                <p>Master AI and Machine Learning integration with TensorFlow.js, ML APIs, and intelligent features</p>
+                <div class="level-stats">
+                    <span class="stat"><i class="fas fa-code"></i> 5 Exercises</span>
+                    <span class="stat"><i class="fas fa-clock"></i> 50-70 min</span>
+                    <span class="stat"><i class="fas fa-star"></i> Expert</span>
+                </div>
+            </div>
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress"></div>
+                </div>
+                <span class="progress-text">0/5 Complete</span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: Machine Learning APIs -->
+            <div class="exercise-card" data-exercise="1">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-cloud"></i> Exercise 1: Machine Learning APIs</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Integrate external ML APIs for image recognition, sentiment analysis, and predictive analytics.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Google Cloud ML APIs</li>
+                                <li>Azure Cognitive Services</li>
+                                <li>AWS Machine Learning</li>
+                                <li>REST API integration</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>ML API Integration</span>
+                            <button class="run-btn" onclick="runExercise(1)">
+                                <i class="fas fa-play"></i> Run ML API
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor1" placeholder="// Machine Learning API Integration
+class MLAPIService {
+  constructor() {
+    this.apiKey = 'your-api-key';
+    this.baseUrl = 'https://api.example-ml-service.com';
+  }
+
+  async analyzeImage(imageFile) {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+    
+    const response = await fetch(`${this.baseUrl}/vision/analyze`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.apiKey}`
+      },
+      body: formData
+    });
+    
+    return response.json();
+  }
+
+  async analyzeSentiment(text) {
+    const response = await fetch(`${this.baseUrl}/text/sentiment`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ text })
+    });
+    
+    return response.json();
+  }
+
+  async predictTrends(data) {
+    const response = await fetch(`${this.baseUrl}/predict/trends`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${this.apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ data })
+    });
+    
+    return response.json();
+  }
+}
+
+// Usage Example
+const mlService = new MLAPIService();
+
+// Image Analysis
+document.getElementById('imageUpload').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const result = await mlService.analyzeImage(file);
+    console.log('Image Analysis:', result);
+  }
+});
+
+// Sentiment Analysis
+async function analyzeFeedback() {
+  const feedback = document.getElementById('feedbackText').value;
+  const sentiment = await mlService.analyzeSentiment(feedback);
+  
+  document.getElementById('sentimentResult').innerHTML = `
+    <div class='sentiment-score'>
+      <span>Sentiment: ${sentiment.label}</span>
+      <span>Confidence: ${(sentiment.confidence * 100).toFixed(1)}%</span>
+    </div>
+  `;
+}
+
+// Predictive Analytics
+async function predictSales() {
+  const salesData = [
+    { month: 'Jan', sales: 1000 },
+    { month: 'Feb', sales: 1200 },
+    { month: 'Mar', sales: 1100 }
+  ];
+  
+  const prediction = await mlService.predictTrends(salesData);
+  
+  document.getElementById('predictionResult').innerHTML = `
+    <div class='prediction'>
+      <span>Next Month Prediction: $${prediction.value}</span>
+      <span>Accuracy: ${prediction.accuracy}%</span>
+    </div>
+  `;
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output1">
+                        <div class="output-header">
+                            <span>ML API Results</span>
+                            <div class="metrics">
+                                <span class="metric">APIs: <span id="apiCount">0</span></span>
+                                <span class="metric">Accuracy: <span id="apiAccuracy">0%</span></span>
+                                <span class="metric">Response: <span id="apiResponse">0ms</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: TensorFlow.js -->
+            <div class="exercise-card" data-exercise="2">
+                <div class="exercise-header">
+                    <h3><i class="fab fa-js-square"></i> Exercise 2: TensorFlow.js</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Build and train machine learning models directly in the browser using TensorFlow.js.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Neural network creation</li>
+                                <li>Model training and prediction</li>
+                                <li>Pre-trained model usage</li>
+                                <li>Browser-based ML</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>TensorFlow.js Implementation</span>
+                            <button class="run-btn" onclick="runExercise(2)">
+                                <i class="fas fa-play"></i> Train Model
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor2" placeholder="// TensorFlow.js Model Training
+class TensorFlowModel {
+  constructor() {
+    this.model = null;
+    this.isTraining = false;
+  }
+
+  createModel() {
+    this.model = tf.sequential({
+      layers: [
+        tf.layers.dense({ inputShape: [1], units: 64, activation: 'relu' }),
+        tf.layers.dense({ units: 32, activation: 'relu' }),
+        tf.layers.dense({ units: 1 })
+      ]
+    });
+
+    this.model.compile({
+      optimizer: tf.train.adam(0.1),
+      loss: 'meanSquaredError',
+      metrics: ['mae']
+    });
+  }
+
+  async trainModel(xData, yData) {
+    this.isTraining = true;
+    
+    const xs = tf.tensor2d(xData, [xData.length, 1]);
+    const ys = tf.tensor2d(yData, [yData.length, 1]);
+
+    await this.model.fit(xs, ys, {
+      epochs: 100,
+      batchSize: 32,
+      validationSplit: 0.2,
+      callbacks: {
+        onEpochEnd: (epoch, logs) => {
+          console.log(`Epoch ${epoch}: loss = ${logs.loss.toFixed(4)}`);
+          this.updateTrainingProgress(epoch, logs);
+        }
+      }
+    });
+
+    this.isTraining = false;
+    xs.dispose();
+    ys.dispose();
+  }
+
+  predict(inputValue) {
+    if (!this.model) {
+      throw new Error('Model not trained yet');
+    }
+    
+    const prediction = this.model.predict(tf.tensor2d([inputValue], [1, 1]));
+    return prediction.dataSync()[0];
+  }
+
+  updateTrainingProgress(epoch, logs) {
+    const progressElement = document.getElementById('trainingProgress');
+    progressElement.innerHTML = `
+      <div class="training-metrics">
+        <div>Epoch: ${epoch + 1}/100</div>
+        <div>Loss: ${logs.loss.toFixed(4)}</div>
+        <div>MAE: ${logs.mae.toFixed(4)}</div>
+      </div>
+    `;
+  }
+
+  async loadPretrainedModel() {
+    try {
+      this.model = await tf.loadLayersModel('/models/pretrained-model.json');
+      console.log('Pre-trained model loaded successfully');
+    } catch (error) {
+      console.error('Error loading pre-trained model:', error);
+    }
+  }
+}
+
+// Usage Example
+const tfModel = new TensorFlowModel();
+
+async function runLinearRegression() {
+  // Create training data
+  const xData = Array.from({length: 100}, (_, i) => i);
+  const yData = xData.map(x => 2 * x + 1 + Math.random() * 10);
+
+  tfModel.createModel();
+  await tfModel.trainModel(xData, yData);
+
+  // Test prediction
+  const testInput = 50;
+  const prediction = tfModel.predict(testInput);
+  
+  document.getElementById('predictionOutput').innerHTML = `
+    <div class='prediction-result'>
+      <span>Input: ${testInput}</span>
+      <span>Predicted Output: ${prediction.toFixed(2)}</span>
+      <span>Expected: ~${2 * testInput + 1}</span>
+    </div>
+  `;
+}
+
+async function imageClassification() {
+  // Load pre-trained MobileNet model
+  const model = await tf.loadLayersModel('https://tfhub.dev/google/tfjs-model/imagenet/mobilenet_v2_100_224/feature_vector/3/default/1', {fromTFHub: true});
+  
+  const imageElement = document.getElementById('uploadedImage');
+  const predictions = await model.predict(tf.browser.fromPixels(imageElement)).data();
+  
+  // Get top predictions
+  const topPredictions = Array.from(predictions)
+    .map((p, i) => ({score: p, class: i}))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 5);
+    
+  displayPredictions(topPredictions);
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output2">
+                        <div class="output-header">
+                            <span>TensorFlow.js Training</span>
+                            <div class="metrics">
+                                <span class="metric">Epochs: <span id="tfEpochs">0</span></span>
+                                <span class="metric">Loss: <span id="tfLoss">0.0000</span></span>
+                                <span class="metric">Accuracy: <span id="tfAccuracy">0%</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: AI-Powered Features -->
+            <div class="exercise-card" data-exercise="3">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-magic"></i> Exercise 3: AI-Powered Features</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement intelligent features like smart recommendations, content generation, and automated insights.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Recommendation systems</li>
+                                <li>Content personalization</li>
+                                <li>Automated insights</li>
+                                <li>Intelligent search</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>AI Features Implementation</span>
+                            <button class="run-btn" onclick="runExercise(3)">
+                                <i class="fas fa-play"></i> Run AI Features
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor3" placeholder="// AI-Powered Features Implementation
+class AIFeatures {
+  constructor() {
+    this.userBehavior = [];
+    this.contentDatabase = [];
+    this.recommendations = [];
+  }
+
+  // Smart Recommendation System
+  generateRecommendations(userId, userPreferences, contentItems) {
+    const recommendations = contentItems
+      .map(item => ({
+        ...item,
+        score: this.calculateRecommendationScore(userPreferences, item)
+      }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10);
+
+    return recommendations;
+  }
+
+  calculateRecommendationScore(preferences, item) {
+    let score = 0;
+    
+    // Category matching
+    if (preferences.categories.includes(item.category)) {
+      score += 0.4;
+    }
+    
+    // Rating weight
+    score += item.rating * 0.3;
+    
+    // Popularity weight
+    score += item.popularity * 0.2;
+    
+    // Freshness weight
+    const daysSincePublished = (Date.now() - item.publishDate) / (1000 * 60 * 60 * 24);
+    score += Math.max(0, (30 - daysSincePublished) / 30) * 0.1;
+    
+    return score;
+  }
+
+  // Content Personalization
+  personalizeContent(content, userProfile) {
+    return {
+      ...content,
+      title: this.personalizeTitle(content.title, userProfile),
+      description: this.personalizeDescription(content.description, userProfile),
+      priority: this.calculateContentPriority(content, userProfile)
+    };
+  }
+
+  personalizeTitle(title, userProfile) {
+    const personalTriggers = {
+      'beginner': 'Easy ',
+      'advanced': 'Advanced ',
+      'quick': 'Quick ',
+      'detailed': 'Complete Guide to '
+    };
+    
+    const trigger = personalTriggers[userProfile.level] || '';
+    return trigger + title;
+  }
+
+  // Automated Insights
+  generateInsights(data) {
+    const insights = [];
+    
+    // Trend analysis
+    const trend = this.analyzeTrend(data);
+    insights.push({
+      type: 'trend',
+      title: `${trend.direction} Trend Detected`,
+      description: `Data shows a ${trend.percentage}% ${trend.direction} trend over the last period`,
+      confidence: trend.confidence
+    });
+    
+    // Anomaly detection
+    const anomalies = this.detectAnomalies(data);
+    if (anomalies.length > 0) {
+      insights.push({
+        type: 'anomaly',
+        title: 'Unusual Activity Detected',
+        description: `${anomalies.length} anomalies found in recent data`,
+        confidence: 0.85
+      });
+    }
+    
+    // Performance insights
+    const performance = this.analyzePerformance(data);
+    insights.push({
+      type: 'performance',
+      title: 'Performance Analysis',
+      description: `Current performance is ${performance.status} with ${performance.score}/100 score`,
+      confidence: performance.confidence
+    });
+    
+    return insights;
+  }
+
+  analyzeTrend(data) {
+    const recentData = data.slice(-10);
+    const olderData = data.slice(-20, -10);
+    
+    const recentAvg = recentData.reduce((sum, val) => sum + val, 0) / recentData.length;
+    const olderAvg = olderData.reduce((sum, val) => sum + val, 0) / olderData.length;
+    
+    const percentage = ((recentAvg - olderAvg) / olderAvg) * 100;
+    const direction = percentage > 0 ? 'upward' : 'downward';
+    
+    return {
+      direction,
+      percentage: Math.abs(percentage).toFixed(1),
+      confidence: Math.min(Math.abs(percentage) / 10, 1)
+    };
+  }
+
+  detectAnomalies(data) {
+    const mean = data.reduce((sum, val) => sum + val, 0) / data.length;
+    const stdDev = Math.sqrt(
+      data.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / data.length
+    );
+    
+    return data
+      .map((value, index) => ({ value, index }))
+      .filter(item => Math.abs(item.value - mean) > 2 * stdDev);
+  }
+
+  // Intelligent Search
+  intelligentSearch(query, searchIndex) {
+    const results = searchIndex
+      .map(item => ({
+        ...item,
+        relevance: this.calculateSearchRelevance(query, item)
+      }))
+      .filter(item => item.relevance > 0.1)
+      .sort((a, b) => b.relevance - a.relevance);
+
+    return {
+      results: results.slice(0, 20),
+      suggestions: this.generateSearchSuggestions(query, searchIndex),
+      totalFound: results.length
+    };
+  }
+
+  calculateSearchRelevance(query, item) {
+    const queryTerms = query.toLowerCase().split(' ');
+    const itemText = (item.title + ' ' + item.content).toLowerCase();
+    
+    let relevance = 0;
+    
+    queryTerms.forEach(term => {
+      if (itemText.includes(term)) {
+        relevance += 0.5;
+        if (item.title.toLowerCase().includes(term)) {
+          relevance += 0.3; // Title matches are more important
+        }
+      }
+    });
+    
+    return Math.min(relevance, 1);
+  }
+}
+
+// Usage
+const aiFeatures = new AIFeatures();
+
+// Generate recommendations
+const userPrefs = {
+  categories: ['technology', 'programming'],
+  level: 'advanced'
+};
+
+const contentItems = [
+  { id: 1, title: 'React Tutorial', category: 'programming', rating: 4.5, popularity: 0.8, publishDate: Date.now() - 86400000 },
+  { id: 2, title: 'AI Basics', category: 'technology', rating: 4.2, popularity: 0.6, publishDate: Date.now() - 172800000 }
+];
+
+const recommendations = aiFeatures.generateRecommendations(1, userPrefs, contentItems);
+console.log('Recommendations:', recommendations);"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output3">
+                        <div class="output-header">
+                            <span>AI Features Status</span>
+                            <div class="metrics">
+                                <span class="metric">Features: <span id="aiFeatures">0</span></span>
+                                <span class="metric">Accuracy: <span id="aiAccuracy">0%</span></span>
+                                <span class="metric">Users: <span id="aiUsers">0</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Natural Language Processing -->
+            <div class="exercise-card" data-exercise="4">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-comments"></i> Exercise 4: Natural Language Processing</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Process and understand human language with text analysis, chatbots, and language understanding.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Text tokenization and analysis</li>
+                                <li>Sentiment analysis</li>
+                                <li>Named entity recognition</li>
+                                <li>Chatbot implementation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>NLP Implementation</span>
+                            <button class="run-btn" onclick="runExercise(4)">
+                                <i class="fas fa-play"></i> Process Text
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor4" placeholder="// Natural Language Processing Implementation
+class NLPProcessor {
+  constructor() {
+    this.stopWords = new Set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by']);
+    this.sentimentWords = {
+      positive: ['good', 'great', 'excellent', 'amazing', 'wonderful', 'fantastic', 'love', 'like', 'enjoy'],
+      negative: ['bad', 'terrible', 'awful', 'hate', 'dislike', 'horrible', 'worst', 'disappointing']
+    };
+  }
+
+  tokenize(text) {
+    return text.toLowerCase()
+      .replace(/[^\w\s]/g, '')
+      .split(/\s+/)
+      .filter(token => token.length > 0 && !this.stopWords.has(token));
+  }
+
+  analyzeSentiment(text) {
+    const tokens = this.tokenize(text);
+    let positiveScore = 0;
+    let negativeScore = 0;
+
+    tokens.forEach(token => {
+      if (this.sentimentWords.positive.includes(token)) {
+        positiveScore++;
+      } else if (this.sentimentWords.negative.includes(token)) {
+        negativeScore++;
+      }
+    });
+
+    const totalScore = positiveScore - negativeScore;
+    const magnitude = Math.abs(totalScore);
+    
+    let sentiment = 'neutral';
+    if (totalScore > 0) sentiment = 'positive';
+    else if (totalScore < 0) sentiment = 'negative';
+
+    return {
+      sentiment,
+      score: totalScore,
+      magnitude,
+      confidence: Math.min(magnitude / tokens.length, 1),
+      breakdown: {
+        positive: positiveScore,
+        negative: negativeScore,
+        neutral: tokens.length - positiveScore - negativeScore
+      }
+    };
+  }
+
+  extractEntities(text) {
+    const entities = [];
+    
+    // Simple pattern matching for common entities
+    const patterns = {
+      email: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g,
+      phone: /\b\d{3}-\d{3}-\d{4}\b/g,
+      date: /\b\d{1,2}\/\d{1,2}\/\d{4}\b/g,
+      url: /https?:\/\/[^\s]+/g,
+      money: /\$\d+(?:\.\d{2})?/g
+    };
+
+    Object.entries(patterns).forEach(([type, pattern]) => {
+      const matches = text.match(pattern);
+      if (matches) {
+        matches.forEach(match => {
+          entities.push({
+            type,
+            value: match,
+            position: text.indexOf(match)
+          });
+        });
+      }
+    });
+
+    return entities;
+  }
+
+  generateKeywords(text, maxKeywords = 10) {
+    const tokens = this.tokenize(text);
+    const frequency = {};
+
+    tokens.forEach(token => {
+      frequency[token] = (frequency[token] || 0) + 1;
+    });
+
+    return Object.entries(frequency)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, maxKeywords)
+      .map(([word, count]) => ({ word, count, relevance: count / tokens.length }));
+  }
+
+  createChatbot() {
+    const responses = {
+      greeting: ['Hello!', 'Hi there!', 'Greetings!', 'Hey!'],
+      help: ['How can I help you?', 'What do you need assistance with?', 'I\'m here to help!'],
+      farewell: ['Goodbye!', 'See you later!', 'Take care!', 'Bye!'],
+      default: ['I\'m not sure I understand.', 'Could you rephrase that?', 'Interesting!']
+    };
+
+    return {
+      respond: (input) => {
+        const lowerInput = input.toLowerCase();
+        
+        if (lowerInput.includes('hello') || lowerInput.includes('hi')) {
+          return this.getRandomResponse(responses.greeting);
+        } else if (lowerInput.includes('help') || lowerInput.includes('assist')) {
+          return this.getRandomResponse(responses.help);
+        } else if (lowerInput.includes('bye') || lowerInput.includes('goodbye')) {
+          return this.getRandomResponse(responses.farewell);
+        } else {
+          return this.getRandomResponse(responses.default);
+        }
+      }
+    };
+  }
+
+  getRandomResponse(responses) {
+    return responses[Math.floor(Math.random() * responses.length)];
+  }
+
+  analyzeText(text) {
+    return {
+      sentiment: this.analyzeSentiment(text),
+      entities: this.extractEntities(text),
+      keywords: this.generateKeywords(text),
+      wordCount: text.split(/\s+/).length,
+      characterCount: text.length,
+      readingTime: Math.ceil(text.split(/\s+/).length / 200) // 200 words per minute
+    };
+  }
+}
+
+// Usage Examples
+const nlp = new NLPProcessor();
+
+// Text Analysis
+function analyzeUserInput() {
+  const text = document.getElementById('textInput').value;
+  const analysis = nlp.analyzeText(text);
+  
+  document.getElementById('analysisResult').innerHTML = `
+    <div class='analysis-output'>
+      <h4>Sentiment Analysis</h4>
+      <p>Sentiment: ${analysis.sentiment.sentiment} (${analysis.sentiment.confidence.toFixed(2)})</p>
+      
+      <h4>Key Statistics</h4>
+      <p>Words: ${analysis.wordCount} | Reading Time: ${analysis.readingTime} min</p>
+      
+      <h4>Top Keywords</h4>
+      <p>${analysis.keywords.slice(0, 5).map(k => k.word).join(', ')}</p>
+      
+      <h4>Entities Found</h4>
+      <p>${analysis.entities.length} entities detected</p>
+    </div>
+  `;
+}
+
+// Chatbot
+const chatbot = nlp.createChatbot();
+
+function sendMessage() {
+  const input = document.getElementById('chatInput').value;
+  const response = chatbot.respond(input);
+  
+  document.getElementById('chatHistory').innerHTML += `
+    <div class='message user'>User: ${input}</div>
+    <div class='message bot'>Bot: ${response}</div>
+  `;
+  
+  document.getElementById('chatInput').value = '';
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output4">
+                        <div class="output-header">
+                            <span>NLP Processing Results</span>
+                            <div class="metrics">
+                                <span class="metric">Tokens: <span id="nlpTokens">0</span></span>
+                                <span class="metric">Sentiment: <span id="nlpSentiment">Neutral</span></span>
+                                <span class="metric">Entities: <span id="nlpEntities">0</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Computer Vision -->
+            <div class="exercise-card" data-exercise="5">
+                <div class="exercise-header">
+                    <h3><i class="fas fa-eye"></i> Exercise 5: Computer Vision</h3>
+                    <div class="exercise-status">
+                        <i class="fas fa-circle status-pending"></i>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement computer vision capabilities for image recognition, object detection, and visual analysis.</p>
+                        <div class="exercise-hints">
+                            <h4><i class="fas fa-lightbulb"></i> Key Concepts:</h4>
+                            <ul>
+                                <li>Image classification</li>
+                                <li>Object detection</li>
+                                <li>Face recognition</li>
+                                <li>OCR and text extraction</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Computer Vision Implementation</span>
+                            <button class="run-btn" onclick="runExercise(5)">
+                                <i class="fas fa-play"></i> Analyze Image
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <textarea id="editor5" placeholder="// Computer Vision Implementation
+class ComputerVision {
+  constructor() {
+    this.models = {
+      classification: null,
+      objectDetection: null,
+      faceDetection: null
+    };
+  }
+
+  async loadModels() {
+    // Load pre-trained models
+    this.models.classification = await tf.loadLayersModel('/models/mobilenet/model.json');
+    this.models.objectDetection = await tf.loadGraphModel('/models/coco-ssd/model.json');
+    console.log('Computer vision models loaded');
+  }
+
+  async classifyImage(imageElement) {
+    if (!this.models.classification) {
+      await this.loadModels();
+    }
+
+    // Preprocess image
+    const tensor = tf.browser.fromPixels(imageElement)
+      .resizeNearestNeighbor([224, 224])
+      .toFloat()
+      .div(255.0)
+      .expandDims();
+
+    // Make prediction
+    const predictions = await this.models.classification.predict(tensor).data();
+
+    // Get top 5 predictions
+    const topPredictions = Array.from(predictions)
+      .map((prob, index) => ({ probability: prob, classIndex: index }))
+      .sort((a, b) => b.probability - a.probability)
+      .slice(0, 5);
+
+    tensor.dispose();
+
+    return topPredictions.map(pred => ({
+      class: this.getClassName(pred.classIndex),
+      confidence: (pred.probability * 100).toFixed(2)
+    }));
+  }
+
+  async detectObjects(imageElement) {
+    if (!this.models.objectDetection) {
+      await this.loadModels();
+    }
+
+    const tensor = tf.browser.fromPixels(imageElement);
+    const predictions = await this.models.objectDetection.executeAsync(tensor);
+
+    const boxes = await predictions[0].data();
+    const scores = await predictions[1].data();
+    const classes = await predictions[2].data();
+
+    const detections = [];
+    for (let i = 0; i < scores.length; i++) {
+      if (scores[i] > 0.5) { // Confidence threshold
+        detections.push({
+          class: this.getClassName(classes[i]),
+          confidence: (scores[i] * 100).toFixed(2),
+          bbox: {
+            x: boxes[i * 4] * imageElement.width,
+            y: boxes[i * 4 + 1] * imageElement.height,
+            width: (boxes[i * 4 + 2] - boxes[i * 4]) * imageElement.width,
+            height: (boxes[i * 4 + 3] - boxes[i * 4 + 1]) * imageElement.height
+          }
+        });
+      }
+    }
+
+    tensor.dispose();
+    predictions.forEach(t => t.dispose());
+
+    return detections;
+  }
+
+  async extractText(imageElement) {
+    // Simulated OCR functionality
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const simulatedText = [
+          'Sample extracted text from image',
+          'Computer vision OCR results',
+          'Text recognition completed'
+        ];
+        resolve({
+          text: simulatedText.join(' '),
+          confidence: 0.92,
+          regions: simulatedText.map((text, index) => ({
+            text,
+            bbox: { x: 10 + index * 100, y: 20 + index * 30, width: 150, height: 25 },
+            confidence: 0.90 + Math.random() * 0.1
+          }))
+        });
+      }, 1000);
+    });
+  }
+
+  async detectFaces(imageElement) {
+    // Simulated face detection
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const faces = [
+          {
+            bbox: { x: 100, y: 50, width: 120, height: 150 },
+            confidence: 0.95,
+            landmarks: {
+              leftEye: { x: 130, y: 90 },
+              rightEye: { x: 170, y: 90 },
+              nose: { x: 150, y: 120 },
+              mouth: { x: 150, y: 150 }
+            },
+            emotions: {
+              happy: 0.8,
+              neutral: 0.15,
+              sad: 0.05
+            }
+          }
+        ];
+        resolve(faces);
+      }, 800);
+    });
+  }
+
+  getClassName(classIndex) {
+    // Simplified class names mapping
+    const classes = [
+      'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck',
+      'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench',
+      'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra',
+      'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee'
+    ];
+    return classes[classIndex] || `Class ${classIndex}`;
+  }
+
+  drawBoundingBoxes(canvas, detections) {
+    const ctx = canvas.getContext('2d');
+    ctx.strokeStyle = '#00ff00';
+    ctx.lineWidth = 2;
+    ctx.font = '16px Arial';
+    ctx.fillStyle = '#00ff00';
+
+    detections.forEach(detection => {
+      const { x, y, width, height } = detection.bbox;
+      
+      // Draw bounding box
+      ctx.strokeRect(x, y, width, height);
+      
+      // Draw label
+      const label = `${detection.class} (${detection.confidence}%)`;
+      ctx.fillText(label, x, y - 5);
+    });
+  }
+
+  async analyzeImage(imageElement) {
+    const results = {
+      classification: await this.classifyImage(imageElement),
+      objects: await this.detectObjects(imageElement),
+      text: await this.extractText(imageElement),
+      faces: await this.detectFaces(imageElement)
+    };
+
+    return {
+      ...results,
+      summary: {
+        objectsFound: results.objects.length,
+        facesFound: results.faces.length,
+        textExtracted: results.text.text.length > 0,
+        topClass: results.classification[0]?.class || 'Unknown'
+      }
+    };
+  }
+}
+
+// Usage Example
+const cv = new ComputerVision();
+
+async function processUploadedImage() {
+  const fileInput = document.getElementById('imageUpload');
+  const file = fileInput.files[0];
+  
+  if (file) {
+    const img = new Image();
+    img.onload = async () => {
+      const analysis = await cv.analyzeImage(img);
+      
+      document.getElementById('visionResults').innerHTML = `
+        <div class='vision-output'>
+          <h4>Image Analysis Complete</h4>
+          <p><strong>Top Classification:</strong> ${analysis.summary.topClass}</p>
+          <p><strong>Objects Detected:</strong> ${analysis.summary.objectsFound}</p>
+          <p><strong>Faces Found:</strong> ${analysis.summary.facesFound}</p>
+          <p><strong>Text Extracted:</strong> ${analysis.summary.textExtracted ? 'Yes' : 'No'}</p>
+          
+          <h5>Classifications:</h5>
+          ${analysis.classification.map(c => `<p>${c.class}: ${c.confidence}%</p>`).join('')}
+        </div>
+      `;
+      
+      // Draw bounding boxes if objects detected
+      if (analysis.objects.length > 0) {
+        const canvas = document.getElementById('detectionCanvas');
+        cv.drawBoundingBoxes(canvas, analysis.objects);
+      }
+    };
+    
+    img.src = URL.createObjectURL(file);
+  }
+}"></textarea>
+                        </div>
+                    </div>
+                    <div class="output-panel" id="output5">
+                        <div class="output-header">
+                            <span>Computer Vision Results</span>
+                            <div class="metrics">
+                                <span class="metric">Objects: <span id="cvObjects">0</span></span>
+                                <span class="metric">Faces: <span id="cvFaces">0</span></span>
+                                <span class="metric">Accuracy: <span id="cvAccuracy">0%</span></span>
+                            </div>
+                        </div>
+                        <div class="output-content" id="outputContent5"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level-actions">
+            <button class="btn-secondary" onclick="resetLevel()">
+                <i class="fas fa-redo"></i> Reset Level
+            </button>
+            <button class="btn-primary" onclick="completeLevel()" id="completeBtn" disabled>
+                <i class="fas fa-check"></i> Complete Level
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="level24-script.js"></script>
+</body>
+</html>

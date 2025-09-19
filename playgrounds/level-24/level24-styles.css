@@ -1,0 +1,927 @@
+/* Level 24: AI/ML Integration Styles */
+
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #f093fb;
+    --success-color: #4facfe;
+    --warning-color: #43e97b;
+    --error-color: #fa709a;
+    --info-color: #667eea;
+    --tensorflow-color: #ff6f00;
+    --ml-color: #4285f4;
+    --ai-color: #9c27b0;
+    --background-color: #0a0a0a;
+    --surface-color: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --border-color: #333333;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --ai-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    --neural-gradient: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #4facfe);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* AI/ML neural network animation background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(240, 147, 251, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 60% 80%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
+    animation: neuralPulse 25s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes neuralPulse {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+    25% { transform: translateY(-20px) rotate(3deg); opacity: 0.9; }
+    50% { transform: translateY(10px) rotate(-2deg); opacity: 0.8; }
+    75% { transform: translateY(-15px) rotate(1deg); opacity: 0.9; }
+}
+
+.level-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header Styles */
+.level-header {
+    background: var(--surface-color);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.level-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--ai-gradient);
+    animation: aiGradientShift 8s ease-in-out infinite;
+}
+
+@keyframes aiGradientShift {
+    0%, 100% { background: var(--ai-gradient); }
+    50% { background: var(--gradient-accent); }
+}
+
+.level-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    background: var(--ai-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+.level-info h1::after {
+    content: '🤖';
+    position: absolute;
+    right: -50px;
+    animation: brainPulse 3s ease-in-out infinite;
+}
+
+@keyframes brainPulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.2); opacity: 1; }
+}
+
+.level-info p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.level-stats {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.stat i {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    text-align: right;
+}
+
+.progress-bar {
+    width: 200px;
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--ai-gradient);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 4px;
+    animation: progressGlow 2s ease-in-out infinite;
+}
+
+@keyframes progressGlow {
+    0%, 100% { box-shadow: 0 0 5px rgba(102, 126, 234, 0.3); }
+    50% { box-shadow: 0 0 15px rgba(102, 126, 234, 0.6); }
+}
+
+.progress-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Exercise Cards */
+.exercises-container {
+    display: grid;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.exercise-card {
+    background: var(--surface-color);
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 5px 20px var(--shadow-color);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px var(--shadow-color);
+}
+
+.exercise-card.completed {
+    border-color: var(--success-color);
+    box-shadow: 0 5px 20px rgba(79, 172, 254, 0.2);
+}
+
+.exercise-card.completed::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--success-color);
+}
+
+.exercise-header {
+    padding: 25px 30px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.exercise-header h3 {
+    font-size: 1.4rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.exercise-header h3 i {
+    font-size: 1.2rem;
+}
+
+/* AI/ML specific colors */
+.exercise-card[data-exercise="1"] .exercise-header h3 i {
+    color: var(--ml-color);
+}
+
+.exercise-card[data-exercise="2"] .exercise-header h3 i {
+    color: var(--tensorflow-color);
+}
+
+.exercise-card[data-exercise="3"] .exercise-header h3 i {
+    color: var(--ai-color);
+}
+
+.exercise-card[data-exercise="4"] .exercise-header h3 i {
+    color: var(--info-color);
+}
+
+.exercise-card[data-exercise="5"] .exercise-header h3 i {
+    color: var(--accent-color);
+}
+
+.exercise-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.status-pending {
+    color: var(--warning-color);
+}
+
+.status-completed {
+    color: var(--success-color);
+}
+
+.status-in-progress {
+    color: var(--accent-color);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Exercise Content */
+.exercise-content {
+    padding: 30px;
+}
+
+.exercise-description {
+    margin-bottom: 25px;
+}
+
+.exercise-description p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.exercise-hints {
+    background: rgba(102, 126, 234, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.exercise-hints h4 {
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.exercise-hints ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.exercise-hints li {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.exercise-hints li::before {
+    content: '🧠';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+/* Code Editor */
+.code-editor {
+    margin-bottom: 25px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.editor-header {
+    background: var(--background-color);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editor-header span {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.run-btn {
+    background: var(--ai-gradient);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.run-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.run-btn:hover::before {
+    left: 100%;
+}
+
+.run-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.run-btn:active {
+    transform: translateY(0);
+}
+
+.editor-container {
+    position: relative;
+}
+
+.editor-container textarea {
+    width: 100%;
+    height: 300px;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border: none;
+    padding: 20px;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    outline: none;
+    tab-size: 2;
+}
+
+.editor-container textarea::placeholder {
+    color: #6a6a6a;
+}
+
+/* Output Panel */
+.output-panel {
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.output-header {
+    background: var(--surface-color);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.output-header span {
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.metrics {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.metric {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.metric span {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.output-content {
+    padding: 20px;
+    min-height: 100px;
+    color: var(--text-secondary);
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* AI/ML specific styles */
+.ai-result {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin: 2px;
+    font-weight: 600;
+}
+
+.ml-prediction {
+    background: rgba(102, 126, 234, 0.1);
+    color: var(--primary-color);
+    border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.ai-confidence-high {
+    background: rgba(79, 172, 254, 0.1);
+    color: var(--success-color);
+    border: 1px solid rgba(79, 172, 254, 0.3);
+}
+
+.ai-confidence-medium {
+    background: rgba(67, 233, 123, 0.1);
+    color: var(--warning-color);
+    border: 1px solid rgba(67, 233, 123, 0.3);
+}
+
+.ai-confidence-low {
+    background: rgba(250, 112, 154, 0.1);
+    color: var(--error-color);
+    border: 1px solid rgba(250, 112, 154, 0.3);
+}
+
+.tensorflow-model {
+    background: rgba(255, 111, 0, 0.1);
+    color: var(--tensorflow-color);
+    border: 1px solid rgba(255, 111, 0, 0.3);
+}
+
+.ml-training {
+    background: rgba(156, 39, 176, 0.1);
+    color: var(--ai-color);
+    border: 1px solid rgba(156, 39, 176, 0.3);
+    animation: trainingPulse 2s infinite;
+}
+
+@keyframes trainingPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* Neural network visualization */
+.neural-network {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding: 20px;
+    background: var(--surface-color);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.neural-layer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.neural-node {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ai-gradient);
+    animation: neuralActivity 3s infinite;
+    position: relative;
+}
+
+.neural-node::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 40px;
+    height: 2px;
+    background: var(--accent-color);
+    opacity: 0.5;
+    transform: translateY(-50%);
+}
+
+.neural-layer:last-child .neural-node::after {
+    display: none;
+}
+
+@keyframes neuralActivity {
+    0%, 100% { 
+        box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 15px rgba(102, 126, 234, 0.8);
+        transform: scale(1.1);
+    }
+}
+
+/* Training progress */
+.training-progress {
+    background: var(--surface-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid var(--border-color);
+}
+
+.training-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.training-metric {
+    text-align: center;
+    padding: 15px;
+    background: var(--background-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.metric-title {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.metric-value {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* AI prediction visualization */
+.prediction-chart {
+    width: 100%;
+    height: 200px;
+    background: var(--surface-color);
+    border-radius: 8px;
+    margin: 15px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.prediction-bar {
+    position: absolute;
+    bottom: 0;
+    background: var(--ai-gradient);
+    border-radius: 4px 4px 0 0;
+    transition: height 0.5s ease;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+    padding: 5px;
+}
+
+/* Computer vision styles */
+.cv-detection {
+    position: relative;
+    display: inline-block;
+    margin: 15px 0;
+}
+
+.detection-box {
+    position: absolute;
+    border: 2px solid var(--success-color);
+    background: rgba(79, 172, 254, 0.1);
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+.detection-label {
+    position: absolute;
+    top: -25px;
+    left: 0;
+    background: var(--success-color);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* NLP sentiment analysis */
+.sentiment-analysis {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.sentiment-score {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.sentiment-positive {
+    background: rgba(79, 172, 254, 0.1);
+    color: var(--success-color);
+}
+
+.sentiment-negative {
+    background: rgba(250, 112, 154, 0.1);
+    color: var(--error-color);
+}
+
+.sentiment-neutral {
+    background: rgba(176, 176, 176, 0.1);
+    color: var(--text-secondary);
+}
+
+/* Level Actions */
+.level-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px 0;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: var(--ai-gradient);
+    color: white;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--surface-color);
+    color: var(--text-primary);
+    border-color: var(--accent-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .level-container {
+        padding: 15px;
+    }
+    
+    .level-header {
+        padding: 20px;
+    }
+    
+    .level-info h1 {
+        font-size: 2rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .level-info h1::after {
+        position: static;
+        margin-top: 10px;
+    }
+    
+    .progress-indicator {
+        position: static;
+        margin-top: 20px;
+        text-align: left;
+    }
+    
+    .progress-bar {
+        width: 100%;
+    }
+    
+    .level-stats {
+        gap: 15px;
+    }
+    
+    .exercise-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .exercise-content {
+        padding: 20px;
+    }
+    
+    .editor-container textarea {
+        height: 250px;
+        font-size: 13px;
+    }
+    
+    .metrics {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .level-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .training-metrics {
+        grid-template-columns: 1fr;
+    }
+    
+    .neural-network {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .neural-layer {
+        flex-direction: row;
+    }
+    
+    .sentiment-analysis {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .level-info h1 {
+        font-size: 1.8rem;
+    }
+    
+    .exercise-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .editor-container textarea {
+        height: 200px;
+        font-size: 12px;
+    }
+}
+
+/* Animation for AI processing */
+@keyframes aiProcessing {
+    0% { 
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.1) rotate(180deg);
+        opacity: 0.8;
+    }
+    100% { 
+        transform: scale(1) rotate(360deg);
+        opacity: 1;
+    }
+}
+
+.ai-processing {
+    animation: aiProcessing 2s linear infinite;
+}
+
+/* Loading states */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Success animations */
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.success-animation {
+    animation: successPulse 0.6s ease-in-out;
+}
