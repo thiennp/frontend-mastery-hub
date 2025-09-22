@@ -784,3 +784,4 @@ function resetLevel() {
 document.addEventListener('DOMContentLoaded', () => {
     window.webrtcLevel = new RealTimeWebRTCLevel();
 });
+
