@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 32: Advanced Testing</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="level32-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <h1>🧪 Level 32: Advanced Testing</h1>
+            <p>Master E2E Testing, Performance Testing, Visual Testing, and Test Automation strategies</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="level-stats">
+                <span>Exercises: <span id="completedExercises">0</span>/5</span>
+                <span>Badges: <span id="badgeCount">0</span></span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: E2E Testing with Cypress -->
+            <div class="exercise" id="exercise1">
+                <h2>🎯 Exercise 1: E2E Testing with Cypress</h2>
+                <p>Implement comprehensive end-to-end testing with Cypress for web applications.</p>
+                
+                <div class="code-editor">
+                    <h3>E2E Test Suite</h3>
+                    <textarea id="code1" placeholder="Write your E2E tests...">// E2E Testing with Cypress
+class E2ETestSuite {
+  constructor() {
+    this.tests = [];
+    this.config = {
+      baseUrl: 'http://localhost:3000',
+      viewportWidth: 1280,
+      viewportHeight: 720,
+      defaultCommandTimeout: 10000
+    };
+  }
+  
+  addTest(name, testFunction) {
+    this.tests.push({ name, testFunction });
+  }
+  
+  async runTests() {
+    console.log('🚀 Starting E2E Test Suite');
+    
+    for (const test of this.tests) {
+      try {
+        console.log(`📋 Running test: ${test.name}`);
+        await test.testFunction();
+        console.log(`✅ Test passed: ${test.name}`);
+      } catch (error) {
+        console.error(`❌ Test failed: ${test.name}`, error.message);
+        throw error;
+      }
+    }
+    
+    console.log('🎉 All E2E tests completed successfully');
+  }
+}
+
+// Cypress Test Commands
+class CypressCommands {
+  static visit(url) {
+    console.log(`🌐 Visiting: ${url}`);
+    return Promise.resolve();
+  }
+  
+  static get(selector) {
+    console.log(`🔍 Finding element: ${selector}`);
+    return {
+      click: () => console.log(`👆 Clicking: ${selector}`),
+      type: (text) => console.log(`⌨️ Typing "${text}" into: ${selector}`),
+      should: (condition) => console.log(`✅ Asserting: ${selector} ${condition}`)
+    };
+  }
+  
+  static contains(text) {
+    console.log(`📝 Looking for text: ${text}`);
+    return {
+      click: () => console.log(`👆 Clicking text: ${text}`)
+    };
+  }
+  
+  static intercept(method, url, response) {
+    console.log(`🔄 Intercepting ${method} ${url}`);
+    return Promise.resolve(response);
+  }
+}
+
+// E2E Test Cases
+const e2eSuite = new E2ETestSuite();
+
+// User Authentication Test
+e2eSuite.addTest('User Login Flow', async () => {
+  await CypressCommands.visit('/login');
+  
+  const emailInput = CypressCommands.get('[data-testid="email-input"]');
+  emailInput.type('user@example.com');
+  
+  const passwordInput = CypressCommands.get('[data-testid="password-input"]');
+  passwordInput.type('password123');
+  
+  const loginButton = CypressCommands.get('[data-testid="login-button"]');
+  loginButton.click();
+  
+  CypressCommands.get('[data-testid="dashboard"]').should('be.visible');
+});
+
+// Shopping Cart Test
+e2eSuite.addTest('Add to Cart Flow', async () => {
+  await CypressCommands.visit('/products');
+  
+  const productCard = CypressCommands.get('[data-testid="product-card"]').first();
+  productCard.click();
+  
+  const addToCartButton = CypressCommands.get('[data-testid="add-to-cart"]');
+  addToCartButton.click();
+  
+  CypressCommands.get('[data-testid="cart-count"]').should('contain', '1');
+  
+  await CypressCommands.visit('/cart');
+  CypressCommands.get('[data-testid="cart-item"]').should('be.visible');
+});
+
+// API Integration Test
+e2eSuite.addTest('API Integration', async () => {
+  await CypressCommands.intercept('GET', '/api/products', {
+    statusCode: 200,
+    body: [
+      { id: 1, name: 'Test Product', price: 99.99 }
+    ]
+  });
+  
+  await CypressCommands.visit('/products');
+  CypressCommands.get('[data-testid="product-list"]').should('be.visible');
+});
+
+console.log('E2E Test Suite configured:', e2eSuite);</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(1)">Run Code</button>
+                    <button onclick="validateExercise(1)">Validate</button>
+                </div>
+                
+                <div class="output" id="output1"></div>
+                <div class="hint" id="hint1">
+                    <strong>Hint:</strong> Focus on user journey testing, element selection strategies, and API mocking.
+                </div>
+            </div>
+
+            <!-- Exercise 2: Performance Testing -->
+            <div class="exercise" id="exercise2">
+                <h2>⚡ Exercise 2: Performance Testing</h2>
+                <p>Implement performance testing with Lighthouse, WebPageTest, and custom metrics.</p>
+                
+                <div class="code-editor">
+                    <h3>Performance Testing Suite</h3>
+                    <textarea id="code2" placeholder="Implement performance testing...">// Performance Testing Suite
+class PerformanceTestSuite {
+  constructor() {
+    this.metrics = new Map();
+    this.thresholds = new Map();
+    this.results = [];
+  }
+  
+  setThreshold(metric, value) {
+    this.thresholds.set(metric, value);
+  }
+  
+  async measurePerformance(url, options = {}) {
+    console.log(`⚡ Measuring performance for: ${url}`);
+    
+    const startTime = performance.now();
+    
+    // Simulate performance measurement
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    const endTime = performance.now();
+    const loadTime = endTime - startTime;
+    
+    const metrics = {
+      url,
+      loadTime,
+      firstContentfulPaint: Math.random() * 2000 + 500,
+      largestContentfulPaint: Math.random() * 3000 + 1000,
+      cumulativeLayoutShift: Math.random() * 0.1,
+      firstInputDelay: Math.random() * 100 + 10,
+      timeToInteractive: Math.random() * 4000 + 2000,
+      timestamp: new Date()
+    };
+    
+    this.results.push(metrics);
+    return metrics;
+  }
+  
+  async runLighthouseAudit(url) {
+    console.log(`🔍 Running Lighthouse audit for: ${url}`);
+    
+    const audit = {
+      url,
+      performance: Math.floor(Math.random() * 40) + 60, // 60-100
+      accessibility: Math.floor(Math.random() * 20) + 80, // 80-100
+      bestPractices: Math.floor(Math.random() * 30) + 70, // 70-100
+      seo: Math.floor(Math.random() * 25) + 75, // 75-100
+      timestamp: new Date()
+    };
+    
+    return audit;
+  }
+  
+  checkThresholds(metrics) {
+    const violations = [];
+    
+    for (const [metric, threshold] of this.thresholds.entries()) {
+      if (metrics[metric] > threshold) {
+        violations.push({
+          metric,
+          actual: metrics[metric],
+          threshold,
+          status: 'failed'
+        });
+      }
+    }
+    
+    return violations;
+  }
+  
+  generateReport() {
+    const latestResult = this.results[this.results.length - 1];
+    if (!latestResult) return null;
+    
+    const violations = this.checkThresholds(latestResult);
+    
+    return {
+      url: latestResult.url,
+      metrics: latestResult,
+      violations,
+      status: violations.length === 0 ? 'passed' : 'failed',
+      timestamp: new Date()
+    };
+  }
+}
+
+// Web Vitals Monitoring
+class WebVitalsMonitor {
+  constructor() {
+    this.vitals = new Map();
+  }
+  
+  measureCLS() {
+    // Simulate Cumulative Layout Shift measurement
+    return Math.random() * 0.1;
+  }
+  
+  measureFID() {
+    // Simulate First Input Delay measurement
+    return Math.random() * 100 + 10;
+  }
+  
+  measureLCP() {
+    // Simulate Largest Contentful Paint measurement
+    return Math.random() * 3000 + 1000;
+  }
+  
+  measureFCP() {
+    // Simulate First Contentful Paint measurement
+    return Math.random() * 2000 + 500;
+  }
+  
+  measureTTI() {
+    // Simulate Time to Interactive measurement
+    return Math.random() * 4000 + 2000;
+  }
+  
+  async collectVitals() {
+    const vitals = {
+      CLS: this.measureCLS(),
+      FID: this.measureFID(),
+      LCP: this.measureLCP(),
+      FCP: this.measureFCP(),
+      TTI: this.measureTTI(),
+      timestamp: new Date()
+    };
+    
+    this.vitals.set(vitals.timestamp.getTime(), vitals);
+    return vitals;
+  }
+  
+  getVitalsHistory() {
+    return Array.from(this.vitals.values());
+  }
+}
+
+// Create Performance Test Suite
+const perfSuite = new PerformanceTestSuite();
+
+// Set performance thresholds
+perfSuite.setThreshold('loadTime', 3000);
+perfSuite.setThreshold('firstContentfulPaint', 1500);
+perfSuite.setThreshold('largestContentfulPaint', 2500);
+perfSuite.setThreshold('cumulativeLayoutShift', 0.1);
+
+// Create Web Vitals Monitor
+const vitalsMonitor = new WebVitalsMonitor();
+
+// Simulate performance testing
+perfSuite.measurePerformance('https://example.com');
+perfSuite.runLighthouseAudit('https://example.com');
+vitalsMonitor.collectVitals();
+
+console.log('Performance testing suite initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(2)">Run Code</button>
+                    <button onclick="validateExercise(2)">Validate</button>
+                </div>
+                
+                <div class="output" id="output2"></div>
+                <div class="hint" id="hint2">
+                    <strong>Hint:</strong> Implement Core Web Vitals monitoring, Lighthouse audits, and performance thresholds.
+                </div>
+            </div>
+
+            <!-- Exercise 3: Visual Testing -->
+            <div class="exercise" id="exercise3">
+                <h2>👁️ Exercise 3: Visual Testing</h2>
+                <p>Implement visual regression testing with screenshot comparison and visual diff detection.</p>
+                
+                <div class="code-editor">
+                    <h3>Visual Testing Suite</h3>
+                    <textarea id="code3" placeholder="Implement visual testing...">// Visual Testing Suite
+class VisualTestSuite {
+  constructor() {
+    this.screenshots = new Map();
+    this.diffs = [];
+    this.threshold = 0.1; // 10% difference threshold
+  }
+  
+  async captureScreenshot(name, selector = 'body') {
+    console.log(`📸 Capturing screenshot: ${name}`);
+    
+    // Simulate screenshot capture
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    const screenshot = {
+      name,
+      selector,
+      data: `screenshot_${name}_${Date.now()}.png`,
+      timestamp: new Date(),
+      dimensions: { width: 1280, height: 720 }
+    };
+    
+    this.screenshots.set(name, screenshot);
+    return screenshot;
+  }
+  
+  async compareScreenshots(baseline, current) {
+    console.log(`🔍 Comparing screenshots: ${baseline} vs ${current}`);
+    
+    const baselineScreenshot = this.screenshots.get(baseline);
+    const currentScreenshot = this.screenshots.get(current);
+    
+    if (!baselineScreenshot || !currentScreenshot) {
+      throw new Error('Screenshots not found for comparison');
+    }
+    
+    // Simulate visual diff calculation
+    const diff = Math.random() * 0.2; // 0-20% difference
+    
+    const comparison = {
+      baseline,
+      current,
+      diffPercentage: diff,
+      passed: diff <= this.threshold,
+      diffImage: `diff_${baseline}_${current}_${Date.now()}.png`,
+      timestamp: new Date()
+    };
+    
+    this.diffs.push(comparison);
+    return comparison;
+  }
+  
+  async runVisualRegressionTest(testName, url, selectors = ['body']) {
+    console.log(`🎯 Running visual regression test: ${testName}`);
+    
+    const results = [];
+    
+    for (const selector of selectors) {
+      // Capture baseline screenshot
+      const baselineName = `${testName}_${selector}_baseline`;
+      await this.captureScreenshot(baselineName, selector);
+      
+      // Capture current screenshot
+      const currentName = `${testName}_${selector}_current`;
+      await this.captureScreenshot(currentName, selector);
+      
+      // Compare screenshots
+      const comparison = await this.compareScreenshots(baselineName, currentName);
+      results.push(comparison);
+    }
+    
+    return {
+      testName,
+      url,
+      results,
+      passed: results.every(r => r.passed),
+      timestamp: new Date()
+    };
+  }
+  
+  generateVisualReport() {
+    const totalTests = this.diffs.length;
+    const passedTests = this.diffs.filter(d => d.passed).length;
+    const failedTests = totalTests - passedTests;
+    
+    return {
+      summary: {
+        total: totalTests,
+        passed: passedTests,
+        failed: failedTests,
+        passRate: totalTests > 0 ? (passedTests / totalTests) * 100 : 0
+      },
+      diffs: this.diffs,
+      timestamp: new Date()
+    };
+  }
+}
+
+// Component Visual Testing
+class ComponentVisualTester {
+  constructor() {
+    this.components = new Map();
+    this.testCases = [];
+  }
+  
+  registerComponent(name, renderFunction) {
+    this.components.set(name, renderFunction);
+  }
+  
+  addTestCase(componentName, props, testName) {
+    this.testCases.push({
+      componentName,
+      props,
+      testName,
+      id: `test_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    });
+  }
+  
+  async runComponentTests() {
+    console.log('🧪 Running component visual tests');
+    
+    const results = [];
+    
+    for (const testCase of this.testCases) {
+      const component = this.components.get(testCase.componentName);
+      if (!component) continue;
+      
+      console.log(`Testing component: ${testCase.componentName} - ${testCase.testName}`);
+      
+      // Simulate component rendering and screenshot
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
+      const result = {
+        ...testCase,
+        status: 'passed',
+        screenshot: `component_${testCase.componentName}_${testCase.testName}.png`,
+        timestamp: new Date()
+      };
+      
+      results.push(result);
+    }
+    
+    return results;
+  }
+}
+
+// Create Visual Test Suite
+const visualSuite = new VisualTestSuite();
+const componentTester = new ComponentVisualTester();
+
+// Register test components
+componentTester.registerComponent('Button', (props) => {
+  return `<button class="btn ${props.variant || 'primary'}">${props.children}</button>`;
+});
+
+componentTester.registerComponent('Card', (props) => {
+  return `<div class="card"><h3>${props.title}</h3><p>${props.content}</p></div>`;
+});
+
+// Add component test cases
+componentTester.addTestCase('Button', { variant: 'primary', children: 'Click Me' }, 'Primary Button');
+componentTester.addTestCase('Button', { variant: 'secondary', children: 'Cancel' }, 'Secondary Button');
+componentTester.addTestCase('Card', { title: 'Test Card', content: 'This is test content' }, 'Basic Card');
+
+// Run visual tests
+visualSuite.runVisualRegressionTest('Homepage', '/', ['body', '.header', '.main-content']);
+componentTester.runComponentTests();
+
+console.log('Visual testing suite initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(3)">Run Code</button>
+                    <button onclick="validateExercise(3)">Validate</button>
+                </div>
+                
+                <div class="output" id="output3"></div>
+                <div class="hint" id="hint3">
+                    <strong>Hint:</strong> Implement screenshot comparison, visual diff detection, and component-level visual testing.
+                </div>
+            </div>
+
+            <!-- Exercise 4: Test Automation -->
+            <div class="exercise" id="exercise4">
+                <h2>🤖 Exercise 4: Test Automation</h2>
+                <p>Implement automated test execution with CI/CD integration and parallel test running.</p>
+                
+                <div class="code-editor">
+                    <h3>Test Automation System</h3>
+                    <textarea id="code4" placeholder="Implement test automation...">// Test Automation System
+class TestAutomationSystem {
+  constructor() {
+    this.testSuites = new Map();
+    this.executionQueue = [];
+    this.results = [];
+    this.config = {
+      parallel: true,
+      maxWorkers: 4,
+      timeout: 30000,
+      retries: 2
+    };
+  }
+  
+  registerTestSuite(name, testSuite) {
+    this.testSuites.set(name, testSuite);
+  }
+  
+  async runTestSuite(suiteName, options = {}) {
+    const testSuite = this.testSuites.get(suiteName);
+    if (!testSuite) {
+      throw new Error(`Test suite ${suiteName} not found`);
+    }
+    
+    console.log(`🚀 Running test suite: ${suiteName}`);
+    
+    const startTime = Date.now();
+    const results = {
+      suiteName,
+      startTime,
+      tests: [],
+      summary: { passed: 0, failed: 0, skipped: 0 }
+    };
+    
+    if (options.parallel && testSuite.tests.length > 1) {
+      results.tests = await this.runTestsInParallel(testSuite.tests);
+    } else {
+      results.tests = await this.runTestsSequentially(testSuite.tests);
+    }
+    
+    results.endTime = Date.now();
+    results.duration = results.endTime - results.startTime;
+    
+    // Calculate summary
+    results.tests.forEach(test => {
+      results.summary[test.status]++;
+    });
+    
+    this.results.push(results);
+    return results;
+  }
+  
+  async runTestsInParallel(tests) {
+    console.log('⚡ Running tests in parallel');
+    
+    const chunks = this.chunkArray(tests, this.config.maxWorkers);
+    const allResults = [];
+    
+    for (const chunk of chunks) {
+      const promises = chunk.map(test => this.executeTest(test));
+      const chunkResults = await Promise.all(promises);
+      allResults.push(...chunkResults);
+    }
+    
+    return allResults;
+  }
+  
+  async runTestsSequentially(tests) {
+    console.log('🔄 Running tests sequentially');
+    
+    const results = [];
+    for (const test of tests) {
+      const result = await this.executeTest(test);
+      results.push(result);
+    }
+    
+    return results;
+  }
+  
+  async executeTest(test) {
+    const startTime = Date.now();
+    
+    try {
+      console.log(`  📋 Executing test: ${test.name}`);
+      await test.testFunction();
+      
+      return {
+        name: test.name,
+        status: 'passed',
+        duration: Date.now() - startTime,
+        timestamp: new Date()
+      };
+    } catch (error) {
+      return {
+        name: test.name,
+        status: 'failed',
+        error: error.message,
+        duration: Date.now() - startTime,
+        timestamp: new Date()
+      };
+    }
+  }
+  
+  chunkArray(array, chunkSize) {
+    const chunks = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+      chunks.push(array.slice(i, i + chunkSize));
+    }
+    return chunks;
+  }
+  
+  generateReport() {
+    const totalSuites = this.results.length;
+    const totalTests = this.results.reduce((sum, suite) => sum + suite.tests.length, 0);
+    const totalPassed = this.results.reduce((sum, suite) => sum + suite.summary.passed, 0);
+    const totalFailed = this.results.reduce((sum, suite) => sum + suite.summary.failed, 0);
+    
+    return {
+      summary: {
+        totalSuites,
+        totalTests,
+        passed: totalPassed,
+        failed: totalFailed,
+        passRate: totalTests > 0 ? (totalPassed / totalTests) * 100 : 0
+      },
+      suites: this.results,
+      timestamp: new Date()
+    };
+  }
+}
+
+// CI/CD Integration
+class CIIntegration {
+  constructor() {
+    this.triggers = new Map();
+    this.notifications = [];
+  }
+  
+  addTrigger(event, action) {
+    if (!this.triggers.has(event)) {
+      this.triggers.set(event, []);
+    }
+    this.triggers.get(event).push(action);
+  }
+  
+  async handleEvent(event, data) {
+    const actions = this.triggers.get(event) || [];
+    
+    for (const action of actions) {
+      try {
+        await action(data);
+      } catch (error) {
+        console.error(`Action failed for event ${event}:`, error);
+      }
+    }
+  }
+  
+  async notifySlack(message, channel = '#testing') {
+    const notification = {
+      platform: 'slack',
+      channel,
+      message,
+      timestamp: new Date()
+    };
+    
+    this.notifications.push(notification);
+    console.log(`📧 Slack notification sent: ${message}`);
+  }
+  
+  async notifyEmail(recipients, subject, body) {
+    const notification = {
+      platform: 'email',
+      recipients,
+      subject,
+      body,
+      timestamp: new Date()
+    };
+    
+    this.notifications.push(notification);
+    console.log(`📧 Email notification sent to: ${recipients.join(', ')}`);
+  }
+}
+
+// Create Test Automation System
+const automation = new TestAutomationSystem();
+const ciIntegration = new CIIntegration();
+
+// Create test suites
+const unitTestSuite = {
+  name: 'Unit Tests',
+  tests: [
+    { name: 'User Service Test', testFunction: async () => console.log('Unit test passed') },
+    { name: 'Auth Service Test', testFunction: async () => console.log('Auth test passed') },
+    { name: 'API Service Test', testFunction: async () => console.log('API test passed') }
+  ]
+};
+
+const integrationTestSuite = {
+  name: 'Integration Tests',
+  tests: [
+    { name: 'Database Integration', testFunction: async () => console.log('DB test passed') },
+    { name: 'API Integration', testFunction: async () => console.log('API integration passed') }
+  ]
+};
+
+// Register test suites
+automation.registerTestSuite('unit', unitTestSuite);
+automation.registerTestSuite('integration', integrationTestSuite);
+
+// Set up CI triggers
+ciIntegration.addTrigger('push', async (data) => {
+  console.log('🔄 Push event triggered tests');
+  await automation.runTestSuite('unit');
+});
+
+ciIntegration.addTrigger('pull_request', async (data) => {
+  console.log('🔄 PR event triggered tests');
+  await automation.runTestSuite('unit');
+  await automation.runTestSuite('integration');
+});
+
+console.log('Test automation system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(4)">Run Code</button>
+                    <button onclick="validateExercise(4)">Validate</button>
+                </div>
+                
+                <div class="output" id="output4"></div>
+                <div class="hint" id="hint4">
+                    <strong>Hint:</strong> Implement parallel test execution, CI/CD integration, and automated reporting.
+                </div>
+            </div>
+
+            <!-- Exercise 5: Testing Strategies -->
+            <div class="exercise" id="exercise5">
+                <h2>📋 Exercise 5: Testing Strategies</h2>
+                <p>Implement comprehensive testing strategies with test pyramids, mocking, and test data management.</p>
+                
+                <div class="code-editor">
+                    <h3>Testing Strategies Implementation</h3>
+                    <textarea id="code5" placeholder="Implement testing strategies...">// Testing Strategies Implementation
+class TestingStrategy {
+  constructor() {
+    this.testPyramid = {
+      unit: { count: 0, percentage: 70 },
+      integration: { count: 0, percentage: 20 },
+      e2e: { count: 0, percentage: 10 }
+    };
+    this.mockRegistry = new Map();
+    this.testData = new Map();
+  }
+  
+  // Test Pyramid Management
+  addTest(type, testName) {
+    if (this.testPyramid[type]) {
+      this.testPyramid[type].count++;
+    }
+  }
+  
+  validateTestPyramid() {
+    const total = Object.values(this.testPyramid).reduce((sum, level) => sum + level.count, 0);
+    
+    if (total === 0) return { valid: false, message: 'No tests found' };
+    
+    const violations = [];
+    
+    for (const [type, level] of Object.entries(this.testPyramid)) {
+      const actualPercentage = (level.count / total) * 100;
+      const expectedPercentage = level.percentage;
+      
+      if (Math.abs(actualPercentage - expectedPercentage) > 10) {
+        violations.push({
+          type,
+          actual: actualPercentage,
+          expected: expectedPercentage,
+          difference: Math.abs(actualPercentage - expectedPercentage)
+        });
+      }
+    }
+    
+    return {
+      valid: violations.length === 0,
+      violations,
+      totalTests: total,
+      pyramid: this.testPyramid
+    };
+  }
+  
+  // Mock Management
+  createMock(name, implementation) {
+    const mock = {
+      name,
+      implementation,
+      calls: [],
+      returnValue: null,
+      shouldThrow: false,
+      throwError: null
+    };
+    
+    this.mockRegistry.set(name, mock);
+    return mock;
+  }
+  
+  getMock(name) {
+    const mock = this.mockRegistry.get(name);
+    if (!mock) {
+      throw new Error(`Mock ${name} not found`);
+    }
+    
+    return {
+      ...mock,
+      call: (...args) => {
+        mock.calls.push({ args, timestamp: new Date() });
+        
+        if (mock.shouldThrow) {
+          throw mock.throwError || new Error('Mock error');
+        }
+        
+        return mock.returnValue || mock.implementation(...args);
+      },
+      reset: () => {
+        mock.calls = [];
+        mock.returnValue = null;
+        mock.shouldThrow = false;
+        mock.throwError = null;
+      }
+    };
+  }
+  
+  // Test Data Management
+  createTestData(name, data) {
+    this.testData.set(name, data);
+  }
+  
+  getTestData(name) {
+    return this.testData.get(name);
+  }
+  
+  generateTestData(schema) {
+    const data = {};
+    
+    for (const [key, type] of Object.entries(schema)) {
+      switch (type) {
+        case 'string':
+          data[key] = `test_${key}_${Date.now()}`;
+          break;
+        case 'number':
+          data[key] = Math.floor(Math.random() * 1000);
+          break;
+        case 'boolean':
+          data[key] = Math.random() > 0.5;
+          break;
+        case 'email':
+          data[key] = `test_${Date.now()}@example.com`;
+          break;
+        case 'uuid':
+          data[key] = `uuid_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+          break;
+      }
+    }
+    
+    return data;
+  }
+}
+
+// Test Coverage Analysis
+class TestCoverageAnalyzer {
+  constructor() {
+    this.coverage = new Map();
+    this.thresholds = {
+      statements: 80,
+      branches: 75,
+      functions: 80,
+      lines: 80
+    };
+  }
+  
+  recordCoverage(file, metrics) {
+    this.coverage.set(file, {
+      ...metrics,
+      timestamp: new Date()
+    });
+  }
+  
+  analyzeCoverage() {
+    const files = Array.from(this.coverage.keys());
+    const totalMetrics = {
+      statements: { covered: 0, total: 0 },
+      branches: { covered: 0, total: 0 },
+      functions: { covered: 0, total: 0 },
+      lines: { covered: 0, total: 0 }
+    };
+    
+    files.forEach(file => {
+      const metrics = this.coverage.get(file);
+      Object.keys(totalMetrics).forEach(key => {
+        totalMetrics[key].covered += metrics[key].covered;
+        totalMetrics[key].total += metrics[key].total;
+      });
+    });
+    
+    const percentages = {};
+    Object.keys(totalMetrics).forEach(key => {
+      const { covered, total } = totalMetrics[key];
+      percentages[key] = total > 0 ? (covered / total) * 100 : 0;
+    });
+    
+    const violations = [];
+    Object.keys(this.thresholds).forEach(key => {
+      if (percentages[key] < this.thresholds[key]) {
+        violations.push({
+          metric: key,
+          actual: percentages[key],
+          threshold: this.thresholds[key]
+        });
+      }
+    });
+    
+    return {
+      percentages,
+      violations,
+      passed: violations.length === 0,
+      files: files.length
+    };
+  }
+}
+
+// Create Testing Strategy
+const strategy = new TestingStrategy();
+const coverageAnalyzer = new TestCoverageAnalyzer();
+
+// Add tests to pyramid
+strategy.addTest('unit', 'UserService Test');
+strategy.addTest('unit', 'AuthService Test');
+strategy.addTest('unit', 'ApiService Test');
+strategy.addTest('integration', 'Database Test');
+strategy.addTest('integration', 'API Test');
+strategy.addTest('e2e', 'Login Flow Test');
+
+// Create mocks
+const userServiceMock = strategy.createMock('userService', () => ({
+  id: 1,
+  name: 'Test User',
+  email: 'test@example.com'
+}));
+
+const apiMock = strategy.createMock('apiService', (endpoint) => ({
+  data: `Mock data for ${endpoint}`,
+  status: 200
+}));
+
+// Create test data
+strategy.createTestData('user', {
+  id: 1,
+  name: 'John Doe',
+  email: 'john@example.com',
+  role: 'admin'
+});
+
+// Generate dynamic test data
+const userSchema = {
+  name: 'string',
+  age: 'number',
+  email: 'email',
+  active: 'boolean',
+  id: 'uuid'
+};
+
+const generatedUser = strategy.generateTestData(userSchema);
+
+// Record test coverage
+coverageAnalyzer.recordCoverage('userService.js', {
+  statements: { covered: 45, total: 50 },
+  branches: { covered: 20, total: 25 },
+  functions: { covered: 8, total: 10 },
+  lines: { covered: 42, total: 48 }
+});
+
+console.log('Testing strategies implemented');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(5)">Run Code</button>
+                    <button onclick="validateExercise(5)">Validate</button>
+                </div>
+                
+                <div class="output" id="output5"></div>
+                <div class="hint" id="hint5">
+                    <strong>Hint:</strong> Implement test pyramid validation, mock management, test data generation, and coverage analysis.
+                </div>
+            </div>
+        </div>
+
+        <div class="level-navigation">
+            <button onclick="goToLevel(31)" class="nav-btn prev">← Previous Level</button>
+            <button onclick="goToLevel(33)" class="nav-btn next">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+    <script src="level32-script.js"></script>
+</body>
+</html>
