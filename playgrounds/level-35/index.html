@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 35: Cloud Computing</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="level35-styles.css">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <h1>☁️ Level 35: Cloud Computing</h1>
+            <p>Master AWS Fundamentals, Azure Services, Google Cloud Platform, Serverless Architecture, and Cloud Deployment</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="level-stats">
+                <span>Exercises: <span id="completedExercises">0</span>/5</span>
+                <span>Badges: <span id="badgeCount">0</span></span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: AWS Fundamentals -->
+            <div class="exercise" id="exercise1">
+                <h2>🌐 Exercise 1: AWS Fundamentals</h2>
+                <p>Implement AWS service management with EC2, S3, Lambda, and IAM.</p>
+                
+                <div class="code-editor">
+                    <h3>AWS Service Manager</h3>
+                    <textarea id="code1" placeholder="Implement AWS service management...">// AWS Service Manager
+class AWSServiceManager {
+  constructor() {
+    this.services = new Map();
+    this.regions = ['us-east-1', 'us-west-2', 'eu-west-1'];
+    this.currentRegion = 'us-east-1';
+  }
+  
+  createEC2Instance(config) {
+    const instance = {
+      id: `i-${Math.random().toString(36).substr(2, 8)}`,
+      type: config.type || 't2.micro',
+      state: 'pending',
+      region: this.currentRegion,
+      createdAt: new Date()
+    };
+    
+    this.services.set(instance.id, { type: 'EC2', ...instance });
+    console.log(`EC2 instance ${instance.id} created`);
+    return instance;
+  }
+  
+  createS3Bucket(name, config = {}) {
+    const bucket = {
+      name: `${name}-${Date.now()}`,
+      region: this.currentRegion,
+      versioning: config.versioning || false,
+      encryption: config.encryption || 'AES256',
+      createdAt: new Date()
+    };
+    
+    this.services.set(bucket.name, { type: 'S3', ...bucket });
+    console.log(`S3 bucket ${bucket.name} created`);
+    return bucket;
+  }
+  
+  createLambdaFunction(config) {
+    const function_ = {
+      name: config.name,
+      runtime: config.runtime || 'nodejs18.x',
+      handler: config.handler || 'index.handler',
+      memory: config.memory || 128,
+      timeout: config.timeout || 3,
+      region: this.currentRegion,
+      createdAt: new Date()
+    };
+    
+    this.services.set(function_.name, { type: 'Lambda', ...function_ });
+    console.log(`Lambda function ${function_.name} created`);
+    return function_;
+  }
+  
+  createIAMRole(name, policies) {
+    const role = {
+      name,
+      policies: policies || [],
+      trustPolicy: {
+        Version: '2012-10-17',
+        Statement: [{
+          Effect: 'Allow',
+          Principal: { Service: 'lambda.amazonaws.com' },
+          Action: 'sts:AssumeRole'
+        }]
+      },
+      region: this.currentRegion,
+      createdAt: new Date()
+    };
+    
+    this.services.set(role.name, { type: 'IAM', ...role });
+    console.log(`IAM role ${role.name} created`);
+    return role;
+  }
+  
+  getServiceStatus(serviceId) {
+    const service = this.services.get(serviceId);
+    if (!service) return null;
+    
+    return {
+      id: serviceId,
+      type: service.type,
+      state: service.state || 'active',
+      region: service.region,
+      createdAt: service.createdAt
+    };
+  }
+  
+  listServices() {
+    const services = [];
+    for (const [id, service] of this.services.entries()) {
+      services.push({
+        id,
+        type: service.type,
+        state: service.state || 'active',
+        region: service.region
+      });
+    }
+    return services;
+  }
+}
+
+// Create AWS Manager
+const awsManager = new AWSServiceManager();
+
+// Create sample services
+awsManager.createEC2Instance({ type: 't2.micro' });
+awsManager.createS3Bucket('my-app-data', { versioning: true });
+awsManager.createLambdaFunction({ name: 'processData', runtime: 'nodejs18.x' });
+awsManager.createIAMRole('lambda-execution-role', ['AWSLambdaBasicExecutionRole']);
+
+console.log('AWS Service Manager initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(1)">Run Code</button>
+                    <button onclick="validateExercise(1)">Validate</button>
+                </div>
+                
+                <div class="output" id="output1"></div>
+                <div class="hint" id="hint1">
+                    <strong>Hint:</strong> Focus on AWS core services: EC2, S3, Lambda, and IAM for cloud infrastructure management.
+                </div>
+            </div>
+
+            <!-- Exercise 2: Azure Services -->
+            <div class="exercise" id="exercise2">
+                <h2>🔷 Exercise 2: Azure Services</h2>
+                <p>Implement Azure service management with Virtual Machines, Blob Storage, Functions, and Active Directory.</p>
+                
+                <div class="code-editor">
+                    <h3>Azure Service Manager</h3>
+                    <textarea id="code2" placeholder="Implement Azure service management...">// Azure Service Manager
+class AzureServiceManager {
+  constructor() {
+    this.services = new Map();
+    this.resourceGroups = new Map();
+    this.subscriptions = new Map();
+  }
+  
+  createResourceGroup(name, location = 'East US') {
+    const resourceGroup = {
+      name,
+      location,
+      tags: {},
+      createdAt: new Date()
+    };
+    
+    this.resourceGroups.set(name, resourceGroup);
+    console.log(`Resource Group ${name} created in ${location}`);
+    return resourceGroup;
+  }
+  
+  createVirtualMachine(config) {
+    const vm = {
+      name: config.name,
+      size: config.size || 'Standard_B1s',
+      osType: config.osType || 'Linux',
+      resourceGroup: config.resourceGroup,
+      location: config.location || 'East US',
+      state: 'Creating',
+      createdAt: new Date()
+    };
+    
+    this.services.set(vm.name, { type: 'VM', ...vm });
+    console.log(`Virtual Machine ${vm.name} created`);
+    return vm;
+  }
+  
+  createBlobStorage(config) {
+    const storage = {
+      name: config.name,
+      resourceGroup: config.resourceGroup,
+      location: config.location || 'East US',
+      tier: config.tier || 'Standard',
+      replication: config.replication || 'LRS',
+      createdAt: new Date()
+    };
+    
+    this.services.set(storage.name, { type: 'BlobStorage', ...storage });
+    console.log(`Blob Storage ${storage.name} created`);
+    return storage;
+  }
+  
+  createFunctionApp(config) {
+    const functionApp = {
+      name: config.name,
+      resourceGroup: config.resourceGroup,
+      location: config.location || 'East US',
+      runtime: config.runtime || 'node',
+      plan: config.plan || 'Consumption',
+      createdAt: new Date()
+    };
+    
+    this.services.set(functionApp.name, { type: 'FunctionApp', ...functionApp });
+    console.log(`Function App ${functionApp.name} created`);
+    return functionApp;
+  }
+  
+  createActiveDirectoryApp(config) {
+    const adApp = {
+      name: config.name,
+      appId: `app-${Math.random().toString(36).substr(2, 8)}`,
+      tenantId: config.tenantId || 'default-tenant',
+      permissions: config.permissions || [],
+      createdAt: new Date()
+    };
+    
+    this.services.set(adApp.name, { type: 'ADApp', ...adApp });
+    console.log(`Active Directory App ${adApp.name} created`);
+    return adApp;
+  }
+  
+  getServiceStatus(serviceName) {
+    const service = this.services.get(serviceName);
+    if (!service) return null;
+    
+    return {
+      name: serviceName,
+      type: service.type,
+      state: service.state || 'Running',
+      resourceGroup: service.resourceGroup,
+      location: service.location
+    };
+  }
+}
+
+// Create Azure Manager
+const azureManager = new AzureServiceManager();
+
+// Create sample resources
+azureManager.createResourceGroup('my-app-rg', 'East US');
+azureManager.createVirtualMachine({ 
+  name: 'web-server', 
+  resourceGroup: 'my-app-rg',
+  size: 'Standard_B2s' 
+});
+azureManager.createBlobStorage({ 
+  name: 'app-storage', 
+  resourceGroup: 'my-app-rg' 
+});
+azureManager.createFunctionApp({ 
+  name: 'api-functions', 
+  resourceGroup: 'my-app-rg' 
+});
+
+console.log('Azure Service Manager initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(2)">Run Code</button>
+                    <button onclick="validateExercise(2)">Validate</button>
+                </div>
+                
+                <div class="output" id="output2"></div>
+                <div class="hint" id="hint2">
+                    <strong>Hint:</strong> Implement Azure resource groups, virtual machines, blob storage, and function apps for cloud services.
+                </div>
+            </div>
+
+            <!-- Exercise 3: Google Cloud Platform -->
+            <div class="exercise" id="exercise3">
+                <h2>🔵 Exercise 3: Google Cloud Platform</h2>
+                <p>Implement GCP service management with Compute Engine, Cloud Storage, Cloud Functions, and IAM.</p>
+                
+                <div class="code-editor">
+                    <h3>GCP Service Manager</h3>
+                    <textarea id="code3" placeholder="Implement GCP service management...">// Google Cloud Platform Service Manager
+class GCPServiceManager {
+  constructor() {
+    this.services = new Map();
+    this.projects = new Map();
+    this.zones = ['us-central1-a', 'us-east1-b', 'europe-west1-c'];
+  }
+  
+  createProject(projectId, name) {
+    const project = {
+      projectId,
+      name,
+      status: 'ACTIVE',
+      createdAt: new Date()
+    };
+    
+    this.projects.set(projectId, project);
+    console.log(`GCP Project ${projectId} created`);
+    return project;
+  }
+  
+  createComputeInstance(config) {
+    const instance = {
+      name: config.name,
+      projectId: config.projectId,
+      zone: config.zone || 'us-central1-a',
+      machineType: config.machineType || 'e2-micro',
+      image: config.image || 'ubuntu-2004-lts',
+      state: 'PROVISIONING',
+      createdAt: new Date()
+    };
+    
+    this.services.set(instance.name, { type: 'ComputeInstance', ...instance });
+    console.log(`Compute Instance ${instance.name} created`);
+    return instance;
+  }
+  
+  createCloudStorageBucket(config) {
+    const bucket = {
+      name: config.name,
+      projectId: config.projectId,
+      location: config.location || 'US',
+      storageClass: config.storageClass || 'STANDARD',
+      versioning: config.versioning || false,
+      createdAt: new Date()
+    };
+    
+    this.services.set(bucket.name, { type: 'CloudStorage', ...bucket });
+    console.log(`Cloud Storage bucket ${bucket.name} created`);
+    return bucket;
+  }
+  
+  createCloudFunction(config) {
+    const function_ = {
+      name: config.name,
+      projectId: config.projectId,
+      runtime: config.runtime || 'nodejs18',
+      entryPoint: config.entryPoint || 'helloWorld',
+      memory: config.memory || 256,
+      timeout: config.timeout || 60,
+      createdAt: new Date()
+    };
+    
+    this.services.set(function_.name, { type: 'CloudFunction', ...function_ });
+    console.log(`Cloud Function ${function_.name} created`);
+    return function_;
+  }
+  
+  createIAMServiceAccount(config) {
+    const serviceAccount = {
+      name: config.name,
+      projectId: config.projectId,
+      email: `${config.name}@${config.projectId}.iam.gserviceaccount.com`,
+      roles: config.roles || ['roles/storage.objectViewer'],
+      createdAt: new Date()
+    };
+    
+    this.services.set(serviceAccount.name, { type: 'ServiceAccount', ...serviceAccount });
+    console.log(`IAM Service Account ${serviceAccount.name} created`);
+    return serviceAccount;
+  }
+  
+  getServiceStatus(serviceName) {
+    const service = this.services.get(serviceName);
+    if (!service) return null;
+    
+    return {
+      name: serviceName,
+      type: service.type,
+      state: service.state || 'RUNNING',
+      projectId: service.projectId,
+      zone: service.zone
+    };
+  }
+}
+
+// Create GCP Manager
+const gcpManager = new GCPServiceManager();
+
+// Create sample project and services
+gcpManager.createProject('my-gcp-project', 'My GCP Project');
+gcpManager.createComputeInstance({ 
+  name: 'web-server', 
+  projectId: 'my-gcp-project',
+  machineType: 'e2-medium' 
+});
+gcpManager.createCloudStorageBucket({ 
+  name: 'my-app-bucket', 
+  projectId: 'my-gcp-project' 
+});
+gcpManager.createCloudFunction({ 
+  name: 'processData', 
+  projectId: 'my-gcp-project' 
+});
+
+console.log('GCP Service Manager initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(3)">Run Code</button>
+                    <button onclick="validateExercise(3)">Validate</button>
+                </div>
+                
+                <div class="output" id="output3"></div>
+                <div class="hint" id="hint3">
+                    <strong>Hint:</strong> Implement GCP projects, compute instances, cloud storage, and cloud functions for scalable cloud solutions.
+                </div>
+            </div>
+
+            <!-- Exercise 4: Serverless Architecture -->
+            <div class="exercise" id="exercise4">
+                <h2>⚡ Exercise 4: Serverless Architecture</h2>
+                <p>Implement serverless functions with event triggers, API Gateway, and database integration.</p>
+                
+                <div class="code-editor">
+                    <h3>Serverless Function Manager</h3>
+                    <textarea id="code4" placeholder="Implement serverless architecture...">// Serverless Function Manager
+class ServerlessManager {
+  constructor() {
+    this.functions = new Map();
+    this.triggers = new Map();
+    this.apis = new Map();
+    this.databases = new Map();
+  }
+  
+  createFunction(config) {
+    const function_ = {
+      name: config.name,
+      runtime: config.runtime || 'nodejs18.x',
+      handler: config.handler || 'index.handler',
+      memory: config.memory || 128,
+      timeout: config.timeout || 3,
+      environment: config.environment || {},
+      triggers: [],
+      createdAt: new Date()
+    };
+    
+    this.functions.set(function_.name, function_);
+    console.log(`Serverless function ${function_.name} created`);
+    return function_;
+  }
+  
+  createAPIGateway(config) {
+    const api = {
+      name: config.name,
+      description: config.description || '',
+      endpoints: [],
+      cors: config.cors || false,
+      authentication: config.authentication || 'none',
+      createdAt: new Date()
+    };
+    
+    this.apis.set(api.name, api);
+    console.log(`API Gateway ${api.name} created`);
+    return api;
+  }
+  
+  createEndpoint(apiName, config) {
+    const endpoint = {
+      path: config.path,
+      method: config.method || 'GET',
+      function: config.function,
+      parameters: config.parameters || {},
+      createdAt: new Date()
+    };
+    
+    const api = this.apis.get(apiName);
+    if (api) {
+      api.endpoints.push(endpoint);
+      console.log(`Endpoint ${config.method} ${config.path} added to ${apiName}`);
+    }
+    
+    return endpoint;
+  }
+  
+  createTrigger(config) {
+    const trigger = {
+      name: config.name,
+      type: config.type, // 'http', 'database', 'storage', 'schedule'
+      target: config.target,
+      conditions: config.conditions || {},
+      createdAt: new Date()
+    };
+    
+    this.triggers.set(trigger.name, trigger);
+    
+    // Add trigger to function
+    const function_ = this.functions.get(trigger.target);
+    if (function_) {
+      function_.triggers.push(trigger.name);
+    }
+    
+    console.log(`Trigger ${trigger.name} created for ${trigger.target}`);
+    return trigger;
+  }
+  
+  createDatabase(config) {
+    const database = {
+      name: config.name,
+      type: config.type || 'dynamodb',
+      region: config.region || 'us-east-1',
+      tables: [],
+      createdAt: new Date()
+    };
+    
+    this.databases.set(database.name, database);
+    console.log(`Database ${database.name} created`);
+    return database;
+  }
+  
+  createTable(databaseName, config) {
+    const table = {
+      name: config.name,
+      primaryKey: config.primaryKey || 'id',
+      sortKey: config.sortKey,
+      indexes: config.indexes || [],
+      createdAt: new Date()
+    };
+    
+    const database = this.databases.get(databaseName);
+    if (database) {
+      database.tables.push(table);
+      console.log(`Table ${table.name} created in ${databaseName}`);
+    }
+    
+    return table;
+  }
+  
+  invokeFunction(functionName, payload = {}) {
+    const function_ = this.functions.get(functionName);
+    if (!function_) {
+      throw new Error(`Function ${functionName} not found`);
+    }
+    
+    console.log(`Invoking function ${functionName} with payload:`, payload);
+    
+    // Simulate function execution
+    const result = {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: `Function ${functionName} executed successfully`,
+        payload,
+        timestamp: new Date().toISOString()
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    
+    return result;
+  }
+  
+  getFunctionMetrics(functionName) {
+    const function_ = this.functions.get(functionName);
+    if (!function_) return null;
+    
+    return {
+      name: functionName,
+      invocations: Math.floor(Math.random() * 1000),
+      errors: Math.floor(Math.random() * 10),
+      duration: Math.random() * 1000,
+      memoryUsed: function_.memory,
+      triggers: function_.triggers.length
+    };
+  }
+}
+
+// Create Serverless Manager
+const serverlessManager = new ServerlessManager();
+
+// Create sample serverless architecture
+serverlessManager.createFunction({ 
+  name: 'userAuth', 
+  runtime: 'nodejs18.x',
+  memory: 256 
+});
+serverlessManager.createAPIGateway({ 
+  name: 'user-api',
+  cors: true 
+});
+serverlessManager.createEndpoint('user-api', {
+  path: '/auth',
+  method: 'POST',
+  function: 'userAuth'
+});
+serverlessManager.createTrigger({
+  name: 'auth-trigger',
+  type: 'http',
+  target: 'userAuth'
+});
+serverlessManager.createDatabase({ 
+  name: 'user-db',
+  type: 'dynamodb' 
+});
+
+console.log('Serverless Manager initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(4)">Run Code</button>
+                    <button onclick="validateExercise(4)">Validate</button>
+                </div>
+                
+                <div class="output" id="output4"></div>
+                <div class="hint" id="hint4">
+                    <strong>Hint:</strong> Implement serverless functions, API gateways, triggers, and database integration for scalable serverless applications.
+                </div>
+            </div>
+
+            <!-- Exercise 5: Cloud Deployment -->
+            <div class="exercise" id="exercise5">
+                <h2>🚀 Exercise 5: Cloud Deployment</h2>
+                <p>Implement cloud deployment strategies with CI/CD pipelines, container orchestration, and monitoring.</p>
+                
+                <div class="code-editor">
+                    <h3>Cloud Deployment Manager</h3>
+                    <textarea id="code5" placeholder="Implement cloud deployment...">// Cloud Deployment Manager
+class CloudDeploymentManager {
+  constructor() {
+    this.deployments = new Map();
+    this.pipelines = new Map();
+    this.containers = new Map();
+    this.monitoring = new Map();
+  }
+  
+  createCIPipeline(config) {
+    const pipeline = {
+      name: config.name,
+      stages: config.stages || ['build', 'test', 'deploy'],
+      triggers: config.triggers || ['push'],
+      environment: config.environment || 'production',
+      status: 'active',
+      createdAt: new Date()
+    };
+    
+    this.pipelines.set(pipeline.name, pipeline);
+    console.log(`CI/CD Pipeline ${pipeline.name} created`);
+    return pipeline;
+  }
+  
+  createContainer(config) {
+    const container = {
+      name: config.name,
+      image: config.image,
+      ports: config.ports || [],
+      environment: config.environment || {},
+      resources: {
+        cpu: config.cpu || '100m',
+        memory: config.memory || '128Mi'
+      },
+      status: 'pending',
+      createdAt: new Date()
+    };
+    
+    this.containers.set(container.name, container);
+    console.log(`Container ${container.name} created`);
+    return container;
+  }
+  
+  createKubernetesDeployment(config) {
+    const deployment = {
+      name: config.name,
+      namespace: config.namespace || 'default',
+      replicas: config.replicas || 1,
+      containers: config.containers || [],
+      service: config.service || null,
+      status: 'pending',
+      createdAt: new Date()
+    };
+    
+    this.deployments.set(deployment.name, deployment);
+    console.log(`Kubernetes deployment ${deployment.name} created`);
+    return deployment;
+  }
+  
+  createLoadBalancer(config) {
+    const loadBalancer = {
+      name: config.name,
+      type: config.type || 'application',
+      targets: config.targets || [],
+      healthCheck: config.healthCheck || {
+        path: '/health',
+        interval: 30,
+        timeout: 5
+      },
+      status: 'pending',
+      createdAt: new Date()
+    };
+    
+    this.deployments.set(loadBalancer.name, { type: 'LoadBalancer', ...loadBalancer });
+    console.log(`Load Balancer ${loadBalancer.name} created`);
+    return loadBalancer;
+  }
+  
+  createMonitoring(config) {
+    const monitoring = {
+      name: config.name,
+      metrics: config.metrics || ['cpu', 'memory', 'requests'],
+      alerts: config.alerts || [],
+      dashboards: config.dashboards || [],
+      status: 'active',
+      createdAt: new Date()
+    };
+    
+    this.monitoring.set(monitoring.name, monitoring);
+    console.log(`Monitoring ${monitoring.name} created`);
+    return monitoring;
+  }
+  
+  deployApplication(config) {
+    const deployment = {
+      name: config.name,
+      version: config.version || '1.0.0',
+      environment: config.environment || 'production',
+      strategy: config.strategy || 'rolling',
+      status: 'deploying',
+      createdAt: new Date()
+    };
+    
+    // Simulate deployment process
+    setTimeout(() => {
+      deployment.status = 'deployed';
+      console.log(`Application ${deployment.name} deployed successfully`);
+    }, 2000);
+    
+    this.deployments.set(deployment.name, { type: 'Application', ...deployment });
+    console.log(`Deploying application ${deployment.name}`);
+    return deployment;
+  }
+  
+  getDeploymentStatus(deploymentName) {
+    const deployment = this.deployments.get(deploymentName);
+    if (!deployment) return null;
+    
+    return {
+      name: deploymentName,
+      type: deployment.type,
+      status: deployment.status,
+      version: deployment.version,
+      environment: deployment.environment
+    };
+  }
+  
+  rollbackDeployment(deploymentName, version) {
+    const deployment = this.deployments.get(deploymentName);
+    if (!deployment) return null;
+    
+    deployment.version = version;
+    deployment.status = 'rollback';
+    
+    console.log(`Rolling back ${deploymentName} to version ${version}`);
+    return deployment;
+  }
+}
+
+// Create Deployment Manager
+const deploymentManager = new CloudDeploymentManager();
+
+// Create sample deployment infrastructure
+deploymentManager.createCIPipeline({ 
+  name: 'app-pipeline',
+  stages: ['build', 'test', 'security-scan', 'deploy'] 
+});
+deploymentManager.createContainer({ 
+  name: 'web-app',
+  image: 'nginx:latest',
+  ports: [80, 443] 
+});
+deploymentManager.createKubernetesDeployment({ 
+  name: 'web-deployment',
+  replicas: 3,
+  containers: ['web-app'] 
+});
+deploymentManager.createLoadBalancer({ 
+  name: 'app-lb',
+  targets: ['web-deployment'] 
+});
+deploymentManager.createMonitoring({ 
+  name: 'app-monitoring',
+  metrics: ['cpu', 'memory', 'response-time'] 
+});
+
+console.log('Cloud Deployment Manager initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(5)">Run Code</button>
+                    <button onclick="validateExercise(5)">Validate</button>
+                </div>
+                
+                <div class="output" id="output5"></div>
+                <div class="hint" id="hint5">
+                    <strong>Hint:</strong> Implement CI/CD pipelines, container orchestration, load balancers, and monitoring for cloud deployments.
+                </div>
+            </div>
+        </div>
+
+        <div class="level-navigation">
+            <button onclick="goToLevel(34)" class="nav-btn prev">← Previous Level</button>
+            <button onclick="goToLevel(36)" class="nav-btn next">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+    <script src="level35-script.js"></script>
+</body>
+</html>
