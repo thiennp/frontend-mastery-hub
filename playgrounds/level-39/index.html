@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 39: Blockchain & Web3 - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level39-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>⛓️ Level 39: Blockchain & Web3</h1>
+                <p class="level-description">Master blockchain fundamentals, smart contracts, DeFi integration, NFT marketplace, and Web3 development</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text">Progress: <span id="progressText">0/5</span> exercises completed</p>
+            </div>
+            <div class="level-badges">
+                <div class="badge" id="badge1">📜</div>
+                <div class="badge" id="badge2">💰</div>
+                <div class="badge" id="badge3">🎨</div>
+                <div class="badge" id="badge4">🌐</div>
+                <div class="badge" id="badge5">📈</div>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: Smart Contracts -->
+            <div class="exercise-card" id="exercise1">
+                <div class="exercise-header">
+                    <h3>📜 Exercise 1: Smart Contracts</h3>
+                    <p>Learn to write, deploy, and interact with smart contracts using Solidity and Web3</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Smart Contract</span>
+                            <button class="run-btn" onclick="runExercise(1)">Run</button>
+                        </div>
+                        <textarea id="code1" class="code-input" placeholder="// Smart Contract Exercise
+// Create a simple ERC-20 token contract
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SimpleToken {
+    string public name = \"SimpleToken\";
+    string public symbol = \"STK\";
+    uint8 public decimals = 18;
+    uint256 public totalSupply;
+    
+    mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
+    
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+    
+    constructor(uint256 _totalSupply) {
+        totalSupply = _totalSupply * 10**decimals;
+        balanceOf[msg.sender] = totalSupply;
+    }
+    
+    function transfer(address _to, uint256 _value) public returns (bool success) {
+        require(balanceOf[msg.sender] >= _value);
+        balanceOf[msg.sender] -= _value;
+        balanceOf[_to] += _value;
+        emit Transfer(msg.sender, _to, _value);
+        return true;
+    }
+    
+    function approve(address _spender, uint256 _value) public returns (bool success) {
+        allowance[msg.sender][_spender] = _value;
+        emit Approval(msg.sender, _spender, _value);
+        return true;
+    }
+    
+    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
+        require(_value <= balanceOf[_from]);
+        require(_value <= allowance[_from][msg.sender]);
+        balanceOf[_from] -= _value;
+        balanceOf[_to] += _value;
+        allowance[_from][msg.sender] -= _value;
+        emit Transfer(_from, _to, _value);
+        return true;
+    }
+}
+
+// JavaScript Web3 Integration:
+const contract = new web3.eth.Contract(abi, contractAddress);
+const result = await contract.methods.transfer(recipient, amount).send({from: account});"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output1"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Smart contracts are self-executing contracts with terms directly written into code. Use Solidity for Ethereum contracts and Web3.js for JavaScript integration.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: DeFi Integration -->
+            <div class="exercise-card" id="exercise2">
+                <div class="exercise-header">
+                    <h3>💰 Exercise 2: DeFi Integration</h3>
+                    <p>Implement decentralized finance protocols including lending, borrowing, and yield farming</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>DeFi Protocol</span>
+                            <button class="run-btn" onclick="runExercise(2)">Run</button>
+                        </div>
+                        <textarea id="code2" class="code-input" placeholder="// DeFi Integration Exercise
+// Implement a simple lending protocol
+
+contract LendingProtocol {
+    mapping(address => uint256) public deposits;
+    mapping(address => uint256) public borrows;
+    mapping(address => bool) public collateral;
+    
+    uint256 public totalLiquidity;
+    uint256 public interestRate = 5; // 5% APY
+    
+    event Deposit(address indexed user, uint256 amount);
+    event Borrow(address indexed user, uint256 amount);
+    event Repay(address indexed user, uint256 amount);
+    
+    function deposit() public payable {
+        require(msg.value > 0, \"Deposit amount must be greater than 0\");
+        deposits[msg.sender] += msg.value;
+        totalLiquidity += msg.value;
+        collateral[msg.sender] = true;
+        emit Deposit(msg.sender, msg.value);
+    }
+    
+    function borrow(uint256 amount) public {
+        require(collateral[msg.sender], \"No collateral deposited\");
+        require(amount <= deposits[msg.sender] * 50 / 100, \"Borrow limit exceeded\");
+        require(amount <= totalLiquidity, \"Insufficient liquidity\");
+        
+        borrows[msg.sender] += amount;
+        totalLiquidity -= amount;
+        payable(msg.sender).transfer(amount);
+        emit Borrow(msg.sender, amount);
+    }
+    
+    function repay() public payable {
+        require(msg.value <= borrows[msg.sender], \"Repay amount exceeds debt\");
+        borrows[msg.sender] -= msg.value;
+        totalLiquidity += msg.value;
+        emit Repay(msg.sender, msg.value);
+    }
+    
+    function calculateInterest(address user) public view returns (uint256) {
+        return borrows[user] * interestRate / 100;
+    }
+}
+
+// Yield Farming Implementation:
+contract YieldFarm {
+    mapping(address => uint256) public stakedAmount;
+    mapping(address => uint256) public lastStakeTime;
+    
+    function stake() public payable {
+        if (stakedAmount[msg.sender] > 0) {
+            claimRewards();
+        }
+        stakedAmount[msg.sender] += msg.value;
+        lastStakeTime[msg.sender] = block.timestamp;
+    }
+    
+    function claimRewards() public {
+        uint256 stakingTime = block.timestamp - lastStakeTime[msg.sender];
+        uint256 rewards = stakedAmount[msg.sender] * stakingTime * 10 / 365 days;
+        payable(msg.sender).transfer(rewards);
+    }
+}"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output2"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            DeFi protocols enable financial services without intermediaries. Focus on security, interest calculations, and proper collateral management.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: NFT Marketplace -->
+            <div class="exercise-card" id="exercise3">
+                <div class="exercise-header">
+                    <h3>🎨 Exercise 3: NFT Marketplace</h3>
+                    <p>Build an NFT marketplace with minting, trading, and auction functionality</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>NFT Marketplace</span>
+                            <button class="run-btn" onclick="runExercise(3)">Run</button>
+                        </div>
+                        <textarea id="code3" class="code-input" placeholder="// NFT Marketplace Exercise
+// ERC-721 NFT Contract with Marketplace
+
+contract NFTMarketplace {
+    struct NFT {
+        uint256 tokenId;
+        address owner;
+        string metadataURI;
+        uint256 price;
+        bool forSale;
+    }
+    
+    mapping(uint256 => NFT) public nfts;
+    mapping(address => uint256[]) public userNFTs;
+    
+    uint256 public nextTokenId = 1;
+    uint256 public marketplaceFee = 250; // 2.5%
+    
+    event NFTMinted(uint256 indexed tokenId, address indexed owner, string metadataURI);
+    event NFTSold(uint256 indexed tokenId, address indexed seller, address indexed buyer, uint256 price);
+    event NFTAuctionStarted(uint256 indexed tokenId, uint256 startingPrice, uint256 endTime);
+    
+    function mintNFT(string memory metadataURI) public {
+        uint256 tokenId = nextTokenId++;
+        nfts[tokenId] = NFT(tokenId, msg.sender, metadataURI, 0, false);
+        userNFTs[msg.sender].push(tokenId);
+        emit NFTMinted(tokenId, msg.sender, metadataURI);
+    }
+    
+    function listForSale(uint256 tokenId, uint256 price) public {
+        require(nfts[tokenId].owner == msg.sender, \"Not the owner\");
+        require(price > 0, \"Price must be greater than 0\");
+        
+        nfts[tokenId].price = price;
+        nfts[tokenId].forSale = true;
+    }
+    
+    function buyNFT(uint256 tokenId) public payable {
+        NFT storage nft = nfts[tokenId];
+        require(nft.forSale, \"NFT not for sale\");
+        require(msg.value >= nft.price, \"Insufficient payment\");
+        
+        uint256 fee = msg.value * marketplaceFee / 10000;
+        uint256 sellerAmount = msg.value - fee;
+        
+        nft.owner = msg.sender;
+        nft.forSale = false;
+        
+        payable(nft.owner).transfer(sellerAmount);
+        emit NFTSold(tokenId, nft.owner, msg.sender, nft.price);
+    }
+    
+    function startAuction(uint256 tokenId, uint256 startingPrice, uint256 duration) public {
+        require(nfts[tokenId].owner == msg.sender, \"Not the owner\");
+        
+        nfts[tokenId].price = startingPrice;
+        nfts[tokenId].forSale = true;
+        emit NFTAuctionStarted(tokenId, startingPrice, block.timestamp + duration);
+    }
+    
+    function getUserNFTs(address user) public view returns (uint256[] memory) {
+        return userNFTs[user];
+    }
+}
+
+// Frontend Integration:
+const marketplaceContract = new web3.eth.Contract(marketplaceABI, marketplaceAddress);
+const nfts = await marketplaceContract.methods.getUserNFTs(userAddress).call();"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output3"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            NFTs are unique digital assets on the blockchain. Implement proper metadata handling, royalty systems, and secure marketplace mechanics.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Web3 Integration -->
+            <div class="exercise-card" id="exercise4">
+                <div class="exercise-header">
+                    <h3>🌐 Exercise 4: Web3 Integration</h3>
+                    <p>Integrate Web3 wallet connections, transaction handling, and dApp development</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Web3 Integration</span>
+                            <button class="run-btn" onclick="runExercise(4)">Run</button>
+                        </div>
+                        <textarea id="code4" class="code-input" placeholder="// Web3 Integration Exercise
+// Complete dApp with wallet integration
+
+class Web3Integration {
+    constructor() {
+        this.web3 = null;
+        this.account = null;
+        this.contract = null;
+    }
+    
+    async connectWallet() {
+        if (window.ethereum) {
+            try {
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts'
+                });
+                this.account = accounts[0];
+                this.web3 = new Web3(window.ethereum);
+                return this.account;
+            } catch (error) {
+                console.error('Wallet connection failed:', error);
+                throw error;
+            }
+        } else {
+            throw new Error('MetaMask not installed');
+        }
+    }
+    
+    async getBalance(address = this.account) {
+        const balance = await this.web3.eth.getBalance(address);
+        return this.web3.utils.fromWei(balance, 'ether');
+    }
+    
+    async sendTransaction(to, value, data = '') {
+        const gasPrice = await this.web3.eth.getGasPrice();
+        const gasLimit = await this.web3.eth.estimateGas({
+            from: this.account,
+            to: to,
+            value: this.web3.utils.toWei(value, 'ether'),
+            data: data
+        });
+        
+        const tx = {
+            from: this.account,
+            to: to,
+            value: this.web3.utils.toWei(value, 'ether'),
+            gas: gasLimit,
+            gasPrice: gasPrice,
+            data: data
+        };
+        
+        return await this.web3.eth.sendTransaction(tx);
+    }
+    
+    async interactWithContract(contractAddress, abi, method, params = []) {
+        this.contract = new this.web3.eth.Contract(abi, contractAddress);
+        
+        const gasEstimate = await this.contract.methods[method](...params)
+            .estimateGas({ from: this.account });
+        
+        return await this.contract.methods[method](...params)
+            .send({ from: this.account, gas: gasEstimate });
+    }
+    
+    async signMessage(message) {
+        const signature = await this.web3.eth.personal.sign(
+            this.web3.utils.utf8ToHex(message),
+            this.account
+        );
+        return signature;
+    }
+    
+    async verifySignature(message, signature, address) {
+        const recoveredAddress = await this.web3.eth.personal.ecRecover(
+            this.web3.utils.utf8ToHex(message),
+            signature
+        );
+        return recoveredAddress.toLowerCase() === address.toLowerCase();
+    }
+}
+
+// React Hook for Web3:
+function useWeb3() {
+    const [web3, setWeb3] = useState(null);
+    const [account, setAccount] = useState(null);
+    const [balance, setBalance] = useState('0');
+    
+    useEffect(() => {
+        if (window.ethereum) {
+            const web3Instance = new Web3(window.ethereum);
+            setWeb3(web3Instance);
+            
+            window.ethereum.on('accountsChanged', (accounts) => {
+                setAccount(accounts[0]);
+            });
+        }
+    }, []);
+    
+    const connect = async () => {
+        const accounts = await window.ethereum.request({
+            method: 'eth_requestAccounts'
+        });
+        setAccount(accounts[0]);
+    };
+    
+    return { web3, account, balance, connect };
+}"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output4"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Web3 integration requires wallet connection, transaction handling, and smart contract interaction. Always handle errors and provide user feedback.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Cryptocurrency Trading -->
+            <div class="exercise-card" id="exercise5">
+                <div class="exercise-header">
+                    <h3>📈 Exercise 5: Cryptocurrency Trading</h3>
+                    <p>Implement DEX integration, price feeds, and automated trading strategies</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Trading Bot</span>
+                            <button class="run-btn" onclick="runExercise(5)">Run</button>
+                        </div>
+                        <textarea id="code5" class="code-input" placeholder="// Cryptocurrency Trading Exercise
+// DEX Integration and Trading Bot
+
+class TradingBot {
+    constructor(web3, account) {
+        this.web3 = web3;
+        this.account = account;
+        this.routerAddress = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'; // Uniswap V2
+        this.wethAddress = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2';
+    }
+    
+    async getTokenPrice(tokenAddress, amount = 1) {
+        const router = new this.web3.eth.Contract(uniswapRouterABI, this.routerAddress);
+        
+        const path = [tokenAddress, this.wethAddress];
+        const amounts = await router.methods.getAmountsOut(
+            this.web3.utils.toWei(amount.toString(), 'ether'),
+            path
+        ).call();
+        
+        return this.web3.utils.fromWei(amounts[1], 'ether');
+    }
+    
+    async swapTokens(tokenIn, tokenOut, amountIn, slippage = 0.5) {
+        const router = new this.web3.eth.Contract(uniswapRouterABI, this.routerAddress);
+        
+        const path = [tokenIn, tokenOut];
+        const amounts = await router.methods.getAmountsOut(
+            this.web3.utils.toWei(amountIn.toString(), 'ether'),
+            path
+        ).call();
+        
+        const amountOutMin = amounts[1] * (100 - slippage) / 100;
+        const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes
+        
+        const tx = await router.methods.swapExactTokensForTokens(
+            this.web3.utils.toWei(amountIn.toString(), 'ether'),
+            amountOutMin,
+            path,
+            this.account,
+            deadline
+        ).send({ from: this.account });
+        
+        return tx;
+    }
+    
+    async addLiquidity(tokenA, tokenB, amountA, amountB) {
+        const router = new this.web3.eth.Contract(uniswapRouterABI, this.routerAddress);
+        
+        const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
+        
+        const tx = await router.methods.addLiquidity(
+            tokenA,
+            tokenB,
+            this.web3.utils.toWei(amountA.toString(), 'ether'),
+            this.web3.utils.toWei(amountB.toString(), 'ether'),
+            0, // amountAMin
+            0, // amountBMin
+            this.account,
+            deadline
+        ).send({ from: this.account });
+        
+        return tx;
+    }
+    
+    async executeArbitrage(tokenA, tokenB, amount) {
+        // Simple arbitrage strategy
+        const priceA = await this.getTokenPrice(tokenA, amount);
+        const priceB = await this.getTokenPrice(tokenB, amount);
+        
+        if (priceA > priceB * 1.01) { // 1% profit margin
+            console.log('Arbitrage opportunity found!');
+            await this.swapTokens(tokenA, tokenB, amount);
+            await this.swapTokens(tokenB, tokenA, amount);
+            return 'Arbitrage executed';
+        }
+        
+        return 'No arbitrage opportunity';
+    }
+}
+
+// Price Feed Integration:
+class PriceFeed {
+    constructor() {
+        this.feeds = {
+            'ETH/USD': '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
+            'BTC/USD': '0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c'
+        };
+    }
+    
+    async getPrice(pair) {
+        const feedAddress = this.feeds[pair];
+        if (!feedAddress) throw new Error('Price feed not found');
+        
+        const feed = new web3.eth.Contract(chainlinkABI, feedAddress);
+        const price = await feed.methods.latestRoundData().call();
+        
+        return {
+            price: price[1] / 1e8, // Chainlink returns price in 8 decimals
+            timestamp: price[3],
+            roundId: price[0]
+        };
+    }
+}
+
+// Automated Trading Strategy:
+class TradingStrategy {
+    constructor(tradingBot, priceFeed) {
+        this.bot = tradingBot;
+        this.feed = priceFeed;
+        this.positions = new Map();
+    }
+    
+    async executeStrategy() {
+        const ethPrice = await this.feed.getPrice('ETH/USD');
+        
+        // Simple moving average strategy
+        if (ethPrice.price > this.getMovingAverage()) {
+            await this.bot.swapTokens(wethAddress, tokenAddress, 1);
+            this.positions.set('long', { entry: ethPrice.price, time: Date.now() });
+        } else if (ethPrice.price < this.getMovingAverage()) {
+            await this.bot.swapTokens(tokenAddress, wethAddress, 1);
+            this.positions.set('short', { entry: ethPrice.price, time: Date.now() });
+        }
+    }
+    
+    getMovingAverage() {
+        // Simplified moving average calculation
+        return 2000; // Placeholder
+    }
+}"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output5"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            DEX trading involves liquidity pools, price feeds, and slippage management. Implement proper risk management and gas optimization for trading strategies.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goToLevel(38)">← Previous Level</button>
+            <button class="nav-btn" onclick="goToHub()">🏠 Back to Hub</button>
+            <button class="nav-btn" onclick="goToLevel(40)">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="level39-script.js"></script>
+</body>
+</html>
