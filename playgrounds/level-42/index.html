@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 42: Quantum Computing - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level42-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>⚛️ Level 42: Quantum Computing</h1>
+                <p class="level-description">Master quantum computing fundamentals, algorithms, machine learning, cryptography, and simulation</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text">Progress: <span id="progressText">0/5</span> exercises completed</p>
+            </div>
+            <div class="level-badges">
+                <div class="badge" id="badge1">⚛️</div>
+                <div class="badge" id="badge2">🧮</div>
+                <div class="badge" id="badge3">🤖</div>
+                <div class="badge" id="badge4">🔐</div>
+                <div class="badge" id="badge5">🔬</div>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: Quantum Computing Fundamentals -->
+            <div class="exercise-card" id="exercise1">
+                <div class="exercise-header">
+                    <h3>⚛️ Exercise 1: Quantum Computing Fundamentals</h3>
+                    <p>Learn quantum bits (qubits), quantum gates, and basic quantum operations</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Quantum Computing</span>
+                            <button class="run-btn" onclick="runExercise(1)">Run</button>
+                        </div>
+                        <textarea id="code1" class="code-input" placeholder="// Quantum Computing Fundamentals Exercise
+// Implement basic quantum operations
+
+class QuantumBit {
+  constructor(alpha = 1, beta = 0) {
+    this.alpha = alpha; // |0⟩ amplitude
+    this.beta = beta;   // |1⟩ amplitude
+    this.normalize();
+  }
+  
+  normalize() {
+    const magnitude = Math.sqrt(this.alpha * this.alpha + this.beta * this.beta);
+    this.alpha /= magnitude;
+    this.beta /= magnitude;
+  }
+  
+  measure() {
+    const prob0 = this.alpha * this.alpha;
+    const prob1 = this.beta * this.beta;
+    return Math.random() < prob0 ? 0 : 1;
+  }
+  
+  toString() {
+    return `${this.alpha.toFixed(3)}|0⟩ + ${this.beta.toFixed(3)}|1⟩`;
+  }
+}
+
+class QuantumGate {
+  static X(qubit) {
+    // Pauli-X gate (NOT gate)
+    return new QuantumBit(qubit.beta, qubit.alpha);
+  }
+  
+  static Y(qubit) {
+    // Pauli-Y gate
+    return new QuantumBit(-qubit.beta, qubit.alpha);
+  }
+  
+  static Z(qubit) {
+    // Pauli-Z gate
+    return new QuantumBit(qubit.alpha, -qubit.beta);
+  }
+  
+  static H(qubit) {
+    // Hadamard gate
+    const alpha = (qubit.alpha + qubit.beta) / Math.sqrt(2);
+    const beta = (qubit.alpha - qubit.beta) / Math.sqrt(2);
+    return new QuantumBit(alpha, beta);
+  }
+  
+  static CNOT(control, target) {
+    // Controlled-NOT gate
+    if (control.measure() === 1) {
+      return QuantumGate.X(target);
+    }
+    return target;
+  }
+}
+
+// Initialize quantum system
+const q1 = new QuantumBit(1, 0); // |0⟩ state
+const q2 = new QuantumBit(0, 1); // |1⟩ state
+
+console.log('Initial states:');
+console.log('Qubit 1:', q1.toString());
+console.log('Qubit 2:', q2.toString());
+
+// Apply quantum gates
+const h1 = QuantumGate.H(q1);
+const x2 = QuantumGate.X(q2);
+
+console.log('After Hadamard on Qubit 1:', h1.toString());
+console.log('After X gate on Qubit 2:', x2.toString());
+
+// Measure qubits
+console.log('Measurement results:');
+console.log('Qubit 1:', h1.measure());
+console.log('Qubit 2:', x2.measure());"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output1"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Quantum bits exist in superposition states. Use quantum gates to manipulate qubits and understand quantum measurement.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Quantum Algorithms -->
+            <div class="exercise-card" id="exercise2">
+                <div class="exercise-header">
+                    <h3>🧮 Exercise 2: Quantum Algorithms</h3>
+                    <p>Implement quantum algorithms including Deutsch-Jozsa and Grover's search</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Quantum Algorithms</span>
+                            <button class="run-btn" onclick="runExercise(2)">Run</button>
+                        </div>
+                        <textarea id="code2" class="code-input" placeholder="// Quantum Algorithms Exercise
+// Implement Deutsch-Jozsa algorithm
+
+class DeutschJozsa {
+  constructor() {
+    this.n = 2; // Number of qubits
+  }
+  
+  // Oracle function simulation
+  oracleFunction(x) {
+    // Constant function: always returns 0
+    return 0;
+  }
+  
+  // Balanced function simulation
+  balancedFunction(x) {
+    // Balanced function: returns 0 for half inputs, 1 for other half
+    return x % 2;
+  }
+  
+  runAlgorithm(isConstant = true) {
+    const func = isConstant ? this.oracleFunction : this.balancedFunction;
+    
+    // Initialize qubits
+    const qubits = [];
+    for (let i = 0; i < this.n; i++) {
+      qubits.push(new QuantumBit(1, 0)); // |0⟩ state
+    }
+    
+    // Apply Hadamard gates
+    for (let i = 0; i < this.n; i++) {
+      qubits[i] = QuantumGate.H(qubits[i]);
+    }
+    
+    // Apply oracle
+    this.applyOracle(qubits, func);
+    
+    // Apply Hadamard gates again
+    for (let i = 0; i < this.n; i++) {
+      qubits[i] = QuantumGate.H(qubits[i]);
+    }
+    
+    // Measure qubits
+    const results = qubits.map(q => q.measure());
+    return results;
+  }
+  
+  applyOracle(qubits, func) {
+    // Simulate oracle application
+    for (let i = 0; i < Math.pow(2, this.n); i++) {
+      const result = func(i);
+      if (result === 1) {
+        // Apply phase flip
+        qubits[0] = QuantumGate.Z(qubits[0]);
+      }
+    }
+  }
+}
+
+// Grover's Search Algorithm
+class GroversSearch {
+  constructor(databaseSize = 4) {
+    this.n = Math.log2(databaseSize);
+    this.databaseSize = databaseSize;
+  }
+  
+  // Oracle for marked item
+  oracle(qubits, markedItem) {
+    if (qubits[0].measure() === markedItem) {
+      return QuantumGate.Z(qubits[0]);
+    }
+    return qubits[0];
+  }
+  
+  // Diffusion operator
+  diffusion(qubits) {
+    // Apply Hadamard gates
+    for (let i = 0; i < this.n; i++) {
+      qubits[i] = QuantumGate.H(qubits[i]);
+    }
+    
+    // Apply phase flip
+    for (let i = 0; i < this.n; i++) {
+      qubits[i] = QuantumGate.Z(qubits[i]);
+    }
+    
+    // Apply Hadamard gates again
+    for (let i = 0; i < this.n; i++) {
+      qubits[i] = QuantumGate.H(qubits[i]);
+    }
+    
+    return qubits;
+  }
+  
+  search(markedItem) {
+    const iterations = Math.floor(Math.PI / 4 * Math.sqrt(this.databaseSize));
+    const qubits = [];
+    
+    // Initialize qubits in superposition
+    for (let i = 0; i < this.n; i++) {
+      qubits.push(new QuantumBit(1, 0));
+      qubits[i] = QuantumGate.H(qubits[i]);
+    }
+    
+    // Grover iterations
+    for (let i = 0; i < iterations; i++) {
+      // Apply oracle
+      qubits[0] = this.oracle(qubits, markedItem);
+      
+      // Apply diffusion
+      this.diffusion(qubits);
+    }
+    
+    // Measure result
+    return qubits.map(q => q.measure());
+  }
+}
+
+// Run algorithms
+const dj = new DeutschJozsa();
+const constantResult = dj.runAlgorithm(true);
+const balancedResult = dj.runAlgorithm(false);
+
+const grover = new GroversSearch(4);
+const searchResult = grover.search(2);
+
+console.log('Deutsch-Jozsa Results:');
+console.log('Constant function:', constantResult);
+console.log('Balanced function:', balancedResult);
+
+console.log('Grover Search Result:', searchResult);"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output2"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Quantum algorithms exploit superposition and interference. Deutsch-Jozsa determines function type, Grover's finds marked items efficiently.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: Quantum Machine Learning -->
+            <div class="exercise-card" id="exercise3">
+                <div class="exercise-header">
+                    <h3>🤖 Exercise 3: Quantum Machine Learning</h3>
+                    <p>Implement quantum machine learning algorithms and variational circuits</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Quantum ML</span>
+                            <button class="run-btn" onclick="runExercise(3)">Run</button>
+                        </div>
+                        <textarea id="code3" class="code-input" placeholder="// Quantum Machine Learning Exercise
+// Implement Variational Quantum Eigensolver (VQE)
+
+class VariationalQuantumEigensolver {
+  constructor(qubits = 2) {
+    this.qubits = qubits;
+    this.parameters = [];
+    this.circuit = [];
+  }
+  
+  // Initialize parameters
+  initializeParameters(numParams) {
+    this.parameters = Array.from({ length: numParams }, () => Math.random() * 2 * Math.PI);
+  }
+  
+  // Build variational circuit
+  buildCircuit() {
+    this.circuit = [];
+    
+    // Initial state preparation
+    for (let i = 0; i < this.qubits; i++) {
+      this.circuit.push({ type: 'H', qubit: i });
+    }
+    
+    // Variational layers
+    for (let layer = 0; layer < 2; layer++) {
+      for (let i = 0; i < this.qubits; i++) {
+        this.circuit.push({ type: 'RY', qubit: i, param: this.parameters[layer * this.qubits + i] });
+      }
+      
+      // Entangling gates
+      for (let i = 0; i < this.qubits - 1; i++) {
+        this.circuit.push({ type: 'CNOT', control: i, target: i + 1 });
+      }
+    }
+  }
+  
+  // Execute circuit
+  executeCircuit() {
+    const state = Array.from({ length: Math.pow(2, this.qubits) }, (_, i) => i === 0 ? 1 : 0);
+    
+    for (const gate of this.circuit) {
+      this.applyGate(state, gate);
+    }
+    
+    return state;
+  }
+  
+  applyGate(state, gate) {
+    switch (gate.type) {
+      case 'H':
+        this.applyHadamard(state, gate.qubit);
+        break;
+      case 'RY':
+        this.applyRY(state, gate.qubit, gate.param);
+        break;
+      case 'CNOT':
+        this.applyCNOT(state, gate.control, gate.target);
+        break;
+    }
+  }
+  
+  applyHadamard(state, qubit) {
+    const newState = [...state];
+    const mask = 1 << qubit;
+    
+    for (let i = 0; i < state.length; i++) {
+      if (i & mask) {
+        newState[i] = (state[i - mask] - state[i]) / Math.sqrt(2);
+      } else {
+        newState[i] = (state[i] + state[i + mask]) / Math.sqrt(2);
+      }
+    }
+    
+    return newState;
+  }
+  
+  applyRY(state, qubit, angle) {
+    const newState = [...state];
+    const mask = 1 << qubit;
+    const cos = Math.cos(angle / 2);
+    const sin = Math.sin(angle / 2);
+    
+    for (let i = 0; i < state.length; i++) {
+      if (i & mask) {
+        newState[i] = state[i] * cos - state[i - mask] * sin;
+      } else {
+        newState[i] = state[i] * cos + state[i + mask] * sin;
+      }
+    }
+    
+    return newState;
+  }
+  
+  applyCNOT(state, control, target) {
+    const newState = [...state];
+    const controlMask = 1 << control;
+    const targetMask = 1 << target;
+    
+    for (let i = 0; i < state.length; i++) {
+      if (i & controlMask) {
+        const targetBit = i & targetMask;
+        if (targetBit) {
+          newState[i] = state[i - targetMask];
+        } else {
+          newState[i] = state[i + targetMask];
+        }
+      }
+    }
+    
+    return newState;
+  }
+  
+  // Calculate expectation value
+  calculateExpectationValue(observable) {
+    const state = this.executeCircuit();
+    let expectation = 0;
+    
+    for (let i = 0; i < state.length; i++) {
+      expectation += state[i] * state[i] * observable[i];
+    }
+    
+    return expectation;
+  }
+  
+  // Optimize parameters
+  optimize(observable, iterations = 100) {
+    this.initializeParameters(4);
+    let bestEnergy = Infinity;
+    let bestParams = [...this.parameters];
+    
+    for (let iter = 0; iter < iterations; iter++) {
+      this.buildCircuit();
+      const energy = this.calculateExpectationValue(observable);
+      
+      if (energy < bestEnergy) {
+        bestEnergy = energy;
+        bestParams = [...this.parameters];
+      }
+      
+      // Update parameters (simple gradient descent)
+      for (let i = 0; i < this.parameters.length; i++) {
+        this.parameters[i] += (Math.random() - 0.5) * 0.1;
+      }
+    }
+    
+    this.parameters = bestParams;
+    return bestEnergy;
+  }
+}
+
+// Quantum Neural Network
+class QuantumNeuralNetwork {
+  constructor(inputSize, hiddenSize, outputSize) {
+    this.inputSize = inputSize;
+    this.hiddenSize = hiddenSize;
+    this.outputSize = outputSize;
+    this.weights = [];
+  }
+  
+  initializeWeights() {
+    this.weights = Array.from({ length: this.hiddenSize }, () => 
+      Array.from({ length: this.inputSize }, () => Math.random() * 2 * Math.PI)
+    );
+  }
+  
+  forward(input) {
+    const hidden = [];
+    
+    for (let i = 0; i < this.hiddenSize; i++) {
+      let sum = 0;
+      for (let j = 0; j < this.inputSize; j++) {
+        sum += input[j] * this.weights[i][j];
+      }
+      hidden.push(Math.sin(sum)); // Quantum activation
+    }
+    
+    return hidden;
+  }
+  
+  train(data, labels, epochs = 100) {
+    this.initializeWeights();
+    
+    for (let epoch = 0; epoch < epochs; epoch++) {
+      let totalError = 0;
+      
+      for (let i = 0; i < data.length; i++) {
+        const output = this.forward(data[i]);
+        const error = labels[i] - output[0];
+        totalError += error * error;
+        
+        // Update weights
+        for (let j = 0; j < this.hiddenSize; j++) {
+          for (let k = 0; k < this.inputSize; k++) {
+            this.weights[j][k] += 0.01 * error * data[i][k];
+          }
+        }
+      }
+      
+      if (epoch % 20 === 0) {
+        console.log(`Epoch ${epoch}, Error: ${totalError.toFixed(4)}`);
+      }
+    }
+  }
+}
+
+// Run quantum ML algorithms
+const vqe = new VariationalQuantumEigensolver(2);
+const observable = [1, -1, -1, 1]; // Example observable
+const energy = vqe.optimize(observable);
+
+const qnn = new QuantumNeuralNetwork(2, 3, 1);
+const trainingData = [[0, 0], [0, 1], [1, 0], [1, 1]];
+const trainingLabels = [0, 1, 1, 0]; // XOR problem
+qnn.train(trainingData, trainingLabels);
+
+console.log('VQE Optimization Result:', energy);
+console.log('QNN Training Complete');"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output3"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Quantum ML uses variational circuits and parameter optimization. VQE finds ground states, QNN learns patterns with quantum gates.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Quantum Cryptography -->
+            <div class="exercise-card" id="exercise4">
+                <div class="exercise-header">
+                    <h3>🔐 Exercise 4: Quantum Cryptography</h3>
+                    <p>Implement quantum key distribution and quantum secure communication</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Quantum Cryptography</span>
+                            <button class="run-btn" onclick="runExercise(4)">Run</button>
+                        </div>
+                        <textarea id="code4" class="code-input" placeholder="// Quantum Cryptography Exercise
+// Implement BB84 Quantum Key Distribution
+
+class BB84Protocol {
+  constructor() {
+    this.aliceBases = [];
+    this.aliceBits = [];
+    this.bobBases = [];
+    this.bobBits = [];
+    this.sharedKey = [];
+  }
+  
+  // Alice generates random bits and bases
+  aliceGenerate(length = 100) {
+    this.aliceBits = Array.from({ length }, () => Math.floor(Math.random() * 2));
+    this.aliceBases = Array.from({ length }, () => Math.floor(Math.random() * 2));
+  }
+  
+  // Bob generates random bases
+  bobGenerate(length = 100) {
+    this.bobBases = Array.from({ length }, () => Math.floor(Math.random() * 2));
+  }
+  
+  // Simulate quantum channel
+  quantumChannel() {
+    this.bobBits = [];
+    
+    for (let i = 0; i < this.aliceBits.length; i++) {
+      if (this.aliceBases[i] === this.bobBases[i]) {
+        // Same basis - perfect measurement
+        this.bobBits.push(this.aliceBits[i]);
+      } else {
+        // Different basis - random result
+        this.bobBits.push(Math.floor(Math.random() * 2));
+      }
+    }
+  }
+  
+  // Key sifting - keep only matching bases
+  keySifting() {
+    const matchingIndices = [];
+    
+    for (let i = 0; i < this.aliceBases.length; i++) {
+      if (this.aliceBases[i] === this.bobBases[i]) {
+        matchingIndices.push(i);
+      }
+    }
+    
+    // Extract shared key
+    this.sharedKey = matchingIndices.map(i => this.aliceBits[i]);
+    
+    return {
+      matchingBases: matchingIndices.length,
+      sharedKeyLength: this.sharedKey.length,
+      efficiency: this.sharedKey.length / this.aliceBits.length
+    };
+  }
+  
+  // Error detection
+  errorDetection(sampleSize = 10) {
+    if (this.sharedKey.length < sampleSize * 2) {
+      return { errorRate: 0, secure: false };
+    }
+    
+    const aliceSample = this.sharedKey.slice(0, sampleSize);
+    const bobSample = this.sharedKey.slice(sampleSize, sampleSize * 2);
+    
+    let errors = 0;
+    for (let i = 0; i < sampleSize; i++) {
+      if (aliceSample[i] !== bobSample[i]) {
+        errors++;
+      }
+    }
+    
+    const errorRate = errors / sampleSize;
+    const secure = errorRate < 0.11; // Threshold for security
+    
+    return { errorRate, secure };
+  }
+  
+  // Generate final key
+  generateFinalKey() {
+    const siftingResult = this.keySifting();
+    const errorResult = this.errorDetection();
+    
+    if (!errorResult.secure) {
+      return { success: false, reason: 'High error rate detected' };
+    }
+    
+    // Remove sample bits used for error detection
+    const finalKey = this.sharedKey.slice(20); // Remove first 20 bits
+    
+    return {
+      success: true,
+      keyLength: finalKey.length,
+      key: finalKey,
+      efficiency: siftingResult.efficiency,
+      errorRate: errorResult.errorRate
+    };
+  }
+}
+
+// Quantum Random Number Generator
+class QuantumRNG {
+  constructor() {
+    this.entropy = [];
+  }
+  
+  generateEntropy(length = 1000) {
+    this.entropy = Array.from({ length }, () => Math.random());
+  }
+  
+  extractRandomBits() {
+    const bits = [];
+    for (let i = 0; i < this.entropy.length; i++) {
+      bits.push(this.entropy[i] > 0.5 ? 1 : 0);
+    }
+    return bits;
+  }
+  
+  testRandomness(bits) {
+    const ones = bits.filter(bit => bit === 1).length;
+    const zeros = bits.filter(bit => bit === 0).length;
+    const ratio = ones / bits.length;
+    
+    return {
+      ones: ones,
+      zeros: zeros,
+      ratio: ratio,
+      isRandom: Math.abs(ratio - 0.5) < 0.05
+    };
+  }
+}
+
+// Quantum Digital Signature
+class QuantumDigitalSignature {
+  constructor() {
+    this.privateKey = [];
+    this.publicKey = [];
+  }
+  
+  generateKeyPair() {
+    this.privateKey = Array.from({ length: 256 }, () => Math.floor(Math.random() * 2));
+    this.publicKey = Array.from({ length: 256 }, () => Math.floor(Math.random() * 2));
+  }
+  
+  sign(message) {
+    const messageHash = this.hash(message);
+    const signature = [];
+    
+    for (let i = 0; i < messageHash.length; i++) {
+      signature.push(messageHash[i] ^ this.privateKey[i % this.privateKey.length]);
+    }
+    
+    return signature;
+  }
+  
+  verify(message, signature) {
+    const messageHash = this.hash(message);
+    const expectedSignature = [];
+    
+    for (let i = 0; i < messageHash.length; i++) {
+      expectedSignature.push(messageHash[i] ^ this.privateKey[i % this.privateKey.length]);
+    }
+    
+    let matches = 0;
+    for (let i = 0; i < signature.length; i++) {
+      if (signature[i] === expectedSignature[i]) {
+        matches++;
+      }
+    }
+    
+    return matches / signature.length > 0.95;
+  }
+  
+  hash(message) {
+    // Simple hash function
+    let hash = 0;
+    for (let i = 0; i < message.length; i++) {
+      hash = ((hash << 5) - hash + message.charCodeAt(i)) & 0xffffffff;
+    }
+    
+    const hashBits = [];
+    for (let i = 0; i < 32; i++) {
+      hashBits.push((hash >> i) & 1);
+    }
+    
+    return hashBits;
+  }
+}
+
+// Run quantum cryptography protocols
+const bb84 = new BB84Protocol();
+bb84.aliceGenerate(200);
+bb84.bobGenerate(200);
+bb84.quantumChannel();
+const keyResult = bb84.generateFinalKey();
+
+const qrng = new QuantumRNG();
+qrng.generateEntropy(1000);
+const randomBits = qrng.extractRandomBits();
+const randomnessTest = qrng.testRandomness(randomBits);
+
+const qds = new QuantumDigitalSignature();
+qds.generateKeyPair();
+const message = "Hello Quantum World!";
+const signature = qds.sign(message);
+const isValid = qds.verify(message, signature);
+
+console.log('BB84 Protocol Result:', keyResult);
+console.log('Quantum RNG Test:', randomnessTest);
+console.log('Quantum Digital Signature:', { isValid, signatureLength: signature.length });"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output4"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Quantum cryptography uses quantum properties for secure communication. BB84 enables secure key distribution, quantum RNG provides true randomness.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Quantum Simulation -->
+            <div class="exercise-card" id="exercise5">
+                <div class="exercise-header">
+                    <h3>🔬 Exercise 5: Quantum Simulation</h3>
+                    <p>Simulate quantum systems and quantum algorithms on classical computers</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Quantum Simulation</span>
+                            <button class="run-btn" onclick="runExercise(5)">Run</button>
+                        </div>
+                        <textarea id="code5" class="code-input" placeholder="// Quantum Simulation Exercise
+// Implement quantum circuit simulator
+
+class QuantumSimulator {
+  constructor(numQubits) {
+    this.numQubits = numQubits;
+    this.state = new Array(Math.pow(2, numQubits)).fill(0);
+    this.state[0] = 1; // Initialize to |00...0⟩
+  }
+  
+  // Apply single-qubit gate
+  applyGate(gate, qubit, param = 0) {
+    const newState = [...this.state];
+    const mask = 1 << qubit;
+    
+    switch (gate) {
+      case 'X':
+        this.applyX(newState, mask);
+        break;
+      case 'Y':
+        this.applyY(newState, mask);
+        break;
+      case 'Z':
+        this.applyZ(newState, mask);
+        break;
+      case 'H':
+        this.applyHadamard(newState, mask);
+        break;
+      case 'RX':
+        this.applyRX(newState, mask, param);
+        break;
+      case 'RY':
+        this.applyRY(newState, mask, param);
+        break;
+      case 'RZ':
+        this.applyRZ(newState, mask, param);
+        break;
+    }
+    
+    this.state = newState;
+  }
+  
+  applyX(state, mask) {
+    for (let i = 0; i < state.length; i++) {
+      if (i & mask) {
+        const temp = state[i];
+        state[i] = state[i - mask];
+        state[i - mask] = temp;
+      }
+    }
+  }
+  
+  applyY(state, mask) {
+    for (let i = 0; i < state.length; i++) {
+      if (i & mask) {
+        const temp = state[i];
+        state[i] = new Complex(0, -1).multiply(state[i - mask]);
+        state[i - mask] = new Complex(0, 1).multiply(temp);
+      }
+    }
+  }
+  
+  applyZ(state, mask) {
+    for (let i = 0; i < state.length; i++) {
+      if (i & mask) {
+        state[i] = new Complex(-1, 0).multiply(state[i]);
+      }
+    }
+  }
+  
+  applyHadamard(state, mask) {
+    for (let i = 0; i < state.length; i++) {
+      if (i & mask) {
+        const temp = state[i];
+        state[i] = (state[i - mask] - temp) / Math.sqrt(2);
+        state[i - mask] = (state[i - mask] + temp) / Math.sqrt(2);
+      }
+    }
+  }
+  
+  applyRX(state, mask, angle) {
+    const cos = Math.cos(angle / 2);
+    const sin = Math.sin(angle / 2);
+    
+    for (let i = 0; i < state.length; i++) {
+      if (i & mask) {
+        const temp = state[i];
+        state[i] = state[i] * cos - state[i - mask] * sin;
+        state[i - mask] = state[i - mask] * cos + temp * sin;
+      }
+    }
+  }
+  
+  applyRY(state, mask, angle) {
+    const cos = Math.cos(angle / 2);
+    const sin = Math.sin(angle / 2);
+    
+    for (let i = 0; i < state.length; i++) {
+      if (i & mask) {
+        const temp = state[i];
+        state[i] = state[i] * cos - state[i - mask] * sin;
+        state[i - mask] = state[i - mask] * cos + temp * sin;
+      }
+    }
+  }
+  
+  applyRZ(state, mask, angle) {
+    const cos = Math.cos(angle / 2);
+    const sin = Math.sin(angle / 2);
+    
+    for (let i = 0; i < state.length; i++) {
+      if (i & mask) {
+        state[i] = new Complex(cos, -sin).multiply(state[i]);
+      } else {
+        state[i] = new Complex(cos, sin).multiply(state[i]);
+      }
+    }
+  }
+  
+  // Apply two-qubit gate
+  applyTwoQubitGate(gate, control, target) {
+    const newState = [...this.state];
+    const controlMask = 1 << control;
+    const targetMask = 1 << target;
+    
+    switch (gate) {
+      case 'CNOT':
+        this.applyCNOT(newState, controlMask, targetMask);
+        break;
+      case 'CZ':
+        this.applyCZ(newState, controlMask, targetMask);
+        break;
+      case 'SWAP':
+        this.applySWAP(newState, controlMask, targetMask);
+        break;
+    }
+    
+    this.state = newState;
+  }
+  
+  applyCNOT(state, controlMask, targetMask) {
+    for (let i = 0; i < state.length; i++) {
+      if (i & controlMask) {
+        const targetBit = i & targetMask;
+        if (targetBit) {
+          const temp = state[i];
+          state[i] = state[i - targetMask];
+          state[i - targetMask] = temp;
+        } else {
+          const temp = state[i];
+          state[i] = state[i + targetMask];
+          state[i + targetMask] = temp;
+        }
+      }
+    }
+  }
+  
+  applyCZ(state, controlMask, targetMask) {
+    for (let i = 0; i < state.length; i++) {
+      if (i & controlMask && i & targetMask) {
+        state[i] = new Complex(-1, 0).multiply(state[i]);
+      }
+    }
+  }
+  
+  applySWAP(state, controlMask, targetMask) {
+    for (let i = 0; i < state.length; i++) {
+      const controlBit = i & controlMask;
+      const targetBit = i & targetMask;
+      
+      if (controlBit && !targetBit) {
+        const temp = state[i];
+        state[i] = state[i - controlMask + targetMask];
+        state[i - controlMask + targetMask] = temp;
+      } else if (!controlBit && targetBit) {
+        const temp = state[i];
+        state[i] = state[i + controlMask - targetMask];
+        state[i + controlMask - targetMask] = temp;
+      }
+    }
+  }
+  
+  // Measure qubit
+  measure(qubit) {
+    const mask = 1 << qubit;
+    let prob0 = 0;
+    let prob1 = 0;
+    
+    for (let i = 0; i < this.state.length; i++) {
+      if (i & mask) {
+        prob1 += this.state[i] * this.state[i];
+      } else {
+        prob0 += this.state[i] * this.state[i];
+      }
+    }
+    
+    const result = Math.random() < prob0 ? 0 : 1;
+    
+    // Collapse state
+    for (let i = 0; i < this.state.length; i++) {
+      if ((i & mask) !== (result << qubit)) {
+        this.state[i] = 0;
+      }
+    }
+    
+    // Normalize
+    this.normalize();
+    
+    return result;
+  }
+  
+  normalize() {
+    let norm = 0;
+    for (let i = 0; i < this.state.length; i++) {
+      norm += this.state[i] * this.state[i];
+    }
+    
+    const sqrtNorm = Math.sqrt(norm);
+    for (let i = 0; i < this.state.length; i++) {
+      this.state[i] /= sqrtNorm;
+    }
+  }
+  
+  // Get state representation
+  getState() {
+    const stateStr = [];
+    for (let i = 0; i < this.state.length; i++) {
+      if (Math.abs(this.state[i]) > 1e-10) {
+        const binary = i.toString(2).padStart(this.numQubits, '0');
+        stateStr.push(`${this.state[i].toFixed(3)}|${binary}⟩`);
+      }
+    }
+    return stateStr.join(' + ');
+  }
+  
+  // Calculate fidelity with target state
+  fidelity(targetState) {
+    let overlap = 0;
+    for (let i = 0; i < this.state.length; i++) {
+      overlap += this.state[i] * targetState[i];
+    }
+    return overlap * overlap;
+  }
+}
+
+// Complex number class for quantum simulation
+class Complex {
+  constructor(real, imag) {
+    this.real = real;
+    this.imag = imag;
+  }
+  
+  multiply(other) {
+    if (typeof other === 'number') {
+      return new Complex(this.real * other, this.imag * other);
+    }
+    return new Complex(
+      this.real * other.real - this.imag * other.imag,
+      this.real * other.imag + this.imag * other.real
+    );
+  }
+}
+
+// Run quantum simulation
+const simulator = new QuantumSimulator(2);
+
+console.log('Initial state:', simulator.getState());
+
+// Apply quantum gates
+simulator.applyGate('H', 0);
+simulator.applyGate('H', 1);
+console.log('After Hadamard gates:', simulator.getState());
+
+simulator.applyTwoQubitGate('CNOT', 0, 1);
+console.log('After CNOT gate:', simulator.getState());
+
+// Measure qubits
+const result0 = simulator.measure(0);
+const result1 = simulator.measure(1);
+console.log('Measurement results:', result0, result1);
+
+console.log('Final state:', simulator.getState());"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output5"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Quantum simulation requires careful state management and gate application. Focus on maintaining quantum state coherence and proper normalization.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goToLevel(41)">← Previous Level</button>
+            <button class="nav-btn" onclick="goToHub()">🏠 Back to Hub</button>
+            <button class="nav-btn" onclick="goToLevel(43)">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="level42-script.js"></script>
+</body>
+</html>
