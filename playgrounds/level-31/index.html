@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 31: DevOps & CI/CD</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="level31-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <h1>🚀 Level 31: DevOps & CI/CD</h1>
+            <p>Master Continuous Integration, Continuous Deployment, Infrastructure as Code, and DevOps automation</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="level-stats">
+                <span>Exercises: <span id="completedExercises">0</span>/5</span>
+                <span>Badges: <span id="badgeCount">0</span></span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: CI/CD Pipeline Configuration -->
+            <div class="exercise" id="exercise1">
+                <h2>🔄 Exercise 1: CI/CD Pipeline Configuration</h2>
+                <p>Design and implement a complete CI/CD pipeline with automated testing, building, and deployment.</p>
+                
+                <div class="code-editor">
+                    <h3>CI/CD Pipeline Setup</h3>
+                    <textarea id="code1" placeholder="Configure your CI/CD pipeline...">// CI/CD Pipeline Configuration
+class CICDPipeline {
+  constructor(name, stages = []) {
+    this.name = name;
+    this.stages = stages;
+    this.triggers = [];
+    this.environment = 'production';
+    this.status = 'idle';
+  }
+  
+  addStage(stage) {
+    this.stages.push(stage);
+    return this;
+  }
+  
+  addTrigger(trigger) {
+    this.triggers.push(trigger);
+    return this;
+  }
+  
+  async execute() {
+    this.status = 'running';
+    console.log(`🚀 Starting pipeline: ${this.name}`);
+    
+    for (const stage of this.stages) {
+      try {
+        console.log(`📋 Executing stage: ${stage.name}`);
+        await stage.execute();
+        console.log(`✅ Stage completed: ${stage.name}`);
+      } catch (error) {
+        console.error(`❌ Stage failed: ${stage.name}`, error.message);
+        this.status = 'failed';
+        throw error;
+      }
+    }
+    
+    this.status = 'success';
+    console.log(`🎉 Pipeline completed successfully: ${this.name}`);
+  }
+}
+
+// Pipeline Stages
+class PipelineStage {
+  constructor(name, steps = []) {
+    this.name = name;
+    this.steps = steps;
+    this.parallel = false;
+  }
+  
+  addStep(step) {
+    this.steps.push(step);
+    return this;
+  }
+  
+  async execute() {
+    if (this.parallel) {
+      await Promise.all(this.steps.map(step => step.execute()));
+    } else {
+      for (const step of this.steps) {
+        await step.execute();
+      }
+    }
+  }
+}
+
+class PipelineStep {
+  constructor(name, command, options = {}) {
+    this.name = name;
+    this.command = command;
+    this.options = options;
+    this.timeout = options.timeout || 300000; // 5 minutes
+  }
+  
+  async execute() {
+    console.log(`  🔧 Executing step: ${this.name}`);
+    console.log(`  📝 Command: ${this.command}`);
+    
+    // Simulate command execution
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Simulate success/failure
+    if (Math.random() > 0.1) { // 90% success rate
+      console.log(`  ✅ Step completed: ${this.name}`);
+    } else {
+      throw new Error(`Step failed: ${this.name}`);
+    }
+  }
+}
+
+// Create CI/CD Pipeline
+const pipeline = new CICDPipeline('Frontend Deployment Pipeline');
+
+// Build Stage
+const buildStage = new PipelineStage('Build')
+  .addStep(new PipelineStep('Install Dependencies', 'npm install'))
+  .addStep(new PipelineStep('Run Tests', 'npm test'))
+  .addStep(new PipelineStep('Build Application', 'npm run build'))
+  .addStep(new PipelineStep('Security Scan', 'npm audit'));
+
+// Deploy Stage
+const deployStage = new PipelineStage('Deploy')
+  .addStep(new PipelineStep('Docker Build', 'docker build -t app:latest .'))
+  .addStep(new PipelineStep('Push to Registry', 'docker push app:latest'))
+  .addStep(new PipelineStep('Deploy to Staging', 'kubectl apply -f k8s/staging/'))
+  .addStep(new PipelineStep('Run Integration Tests', 'npm run test:integration'))
+  .addStep(new PipelineStep('Deploy to Production', 'kubectl apply -f k8s/production/'));
+
+// Add stages to pipeline
+pipeline.addStage(buildStage).addStage(deployStage);
+
+// Add triggers
+pipeline.addTrigger({ type: 'push', branch: 'main' });
+pipeline.addTrigger({ type: 'pull_request', branch: 'develop' });
+
+console.log('CI/CD Pipeline configured:', pipeline);</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(1)">Run Code</button>
+                    <button onclick="validateExercise(1)">Validate</button>
+                </div>
+                
+                <div class="output" id="output1"></div>
+                <div class="hint" id="hint1">
+                    <strong>Hint:</strong> Focus on automated testing, building, and deployment stages with proper error handling.
+                </div>
+            </div>
+
+            <!-- Exercise 2: Infrastructure as Code -->
+            <div class="exercise" id="exercise2">
+                <h2>🏗️ Exercise 2: Infrastructure as Code</h2>
+                <p>Implement infrastructure provisioning and management using code-based approaches.</p>
+                
+                <div class="code-editor">
+                    <h3>Infrastructure as Code Implementation</h3>
+                    <textarea id="code2" placeholder="Implement infrastructure as code...">// Infrastructure as Code Implementation
+class InfrastructureManager {
+  constructor() {
+    this.resources = new Map();
+    this.state = new Map();
+    this.providers = new Map();
+  }
+  
+  registerProvider(name, provider) {
+    this.providers.set(name, provider);
+  }
+  
+  defineResource(type, name, config) {
+    const resource = {
+      type,
+      name,
+      config,
+      id: `${type}_${name}`,
+      status: 'pending'
+    };
+    
+    this.resources.set(resource.id, resource);
+    return resource;
+  }
+  
+  async provision(resourceId) {
+    const resource = this.resources.get(resourceId);
+    if (!resource) {
+      throw new Error(`Resource ${resourceId} not found`);
+    }
+    
+    const provider = this.providers.get(resource.type);
+    if (!provider) {
+      throw new Error(`Provider for ${resource.type} not found`);
+    }
+    
+    try {
+      resource.status = 'provisioning';
+      const result = await provider.create(resource.config);
+      
+      this.state.set(resourceId, {
+        ...resource,
+        status: 'active',
+        providerId: result.id,
+        createdAt: new Date()
+      });
+      
+      return result;
+    } catch (error) {
+      resource.status = 'failed';
+      throw error;
+    }
+  }
+  
+  async destroy(resourceId) {
+    const resource = this.state.get(resourceId);
+    if (!resource) {
+      throw new Error(`Resource ${resourceId} not found in state`);
+    }
+    
+    const provider = this.providers.get(resource.type);
+    if (!provider) {
+      throw new Error(`Provider for ${resource.type} not found`);
+    }
+    
+    try {
+      await provider.destroy(resource.providerId);
+      this.state.delete(resourceId);
+      this.resources.delete(resourceId);
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  getState() {
+    return Array.from(this.state.values());
+  }
+}
+
+// Cloud Provider Implementations
+class AWSProvider {
+  constructor(region = 'us-east-1') {
+    this.region = region;
+    this.resources = new Map();
+  }
+  
+  async create(config) {
+    const resourceId = `aws_${Date.now()}`;
+    
+    // Simulate AWS resource creation
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    const resource = {
+      id: resourceId,
+      type: config.type,
+      region: this.region,
+      config,
+      status: 'running',
+      createdAt: new Date()
+    };
+    
+    this.resources.set(resourceId, resource);
+    console.log(`🌩️ AWS Resource created: ${config.type} (${resourceId})`);
+    
+    return resource;
+  }
+  
+  async destroy(resourceId) {
+    const resource = this.resources.get(resourceId);
+    if (resource) {
+      this.resources.delete(resourceId);
+      console.log(`🗑️ AWS Resource destroyed: ${resourceId}`);
+    }
+  }
+}
+
+class KubernetesProvider {
+  constructor(namespace = 'default') {
+    this.namespace = namespace;
+    this.resources = new Map();
+  }
+  
+  async create(config) {
+    const resourceId = `k8s_${Date.now()}`;
+    
+    // Simulate Kubernetes resource creation
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    const resource = {
+      id: resourceId,
+      type: config.kind,
+      namespace: this.namespace,
+      config,
+      status: 'running',
+      createdAt: new Date()
+    };
+    
+    this.resources.set(resourceId, resource);
+    console.log(`☸️ Kubernetes Resource created: ${config.kind} (${resourceId})`);
+    
+    return resource;
+  }
+  
+  async destroy(resourceId) {
+    const resource = this.resources.get(resourceId);
+    if (resource) {
+      this.resources.delete(resourceId);
+      console.log(`🗑️ Kubernetes Resource destroyed: ${resourceId}`);
+    }
+  }
+}
+
+// Create Infrastructure Manager
+const infraManager = new InfrastructureManager();
+
+// Register providers
+infraManager.registerProvider('aws', new AWSProvider('us-west-2'));
+infraManager.registerProvider('kubernetes', new KubernetesProvider('production'));
+
+// Define infrastructure resources
+const webServer = infraManager.defineResource('aws', 'web-server', {
+  type: 'ec2',
+  instanceType: 't3.medium',
+  ami: 'ami-12345678',
+  securityGroups: ['web-sg'],
+  keyName: 'my-key'
+});
+
+const database = infraManager.defineResource('aws', 'database', {
+  type: 'rds',
+  engine: 'postgresql',
+  instanceClass: 'db.t3.micro',
+  allocatedStorage: 20
+});
+
+const k8sDeployment = infraManager.defineResource('kubernetes', 'app-deployment', {
+  kind: 'Deployment',
+  metadata: { name: 'frontend-app' },
+  spec: {
+    replicas: 3,
+    selector: { matchLabels: { app: 'frontend' } },
+    template: {
+      metadata: { labels: { app: 'frontend' } },
+      spec: {
+        containers: [{
+          name: 'frontend',
+          image: 'frontend-app:latest',
+          ports: [{ containerPort: 3000 }]
+        }]
+      }
+    }
+  }
+});
+
+console.log('Infrastructure as Code setup complete');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(2)">Run Code</button>
+                    <button onclick="validateExercise(2)">Validate</button>
+                </div>
+                
+                <div class="output" id="output2"></div>
+                <div class="hint" id="hint2">
+                    <strong>Hint:</strong> Implement resource provisioning, state management, and multi-cloud provider support.
+                </div>
+            </div>
+
+            <!-- Exercise 3: Container Orchestration -->
+            <div class="exercise" id="exercise3">
+                <h2>☸️ Exercise 3: Container Orchestration</h2>
+                <p>Implement container orchestration with scaling, health checks, and service discovery.</p>
+                
+                <div class="code-editor">
+                    <h3>Container Orchestration System</h3>
+                    <textarea id="code3" placeholder="Implement container orchestration...">// Container Orchestration System
+class ContainerOrchestrator {
+  constructor() {
+    this.clusters = new Map();
+    this.services = new Map();
+    this.deployments = new Map();
+    this.nodes = new Map();
+  }
+  
+  createCluster(name, config) {
+    const cluster = {
+      name,
+      config,
+      nodes: [],
+      status: 'active',
+      createdAt: new Date()
+    };
+    
+    this.clusters.set(name, cluster);
+    return cluster;
+  }
+  
+  addNode(clusterName, nodeConfig) {
+    const cluster = this.clusters.get(clusterName);
+    if (!cluster) {
+      throw new Error(`Cluster ${clusterName} not found`);
+    }
+    
+    const node = {
+      id: `node_${Date.now()}`,
+      ...nodeConfig,
+      status: 'ready',
+      resources: {
+        cpu: nodeConfig.cpu || '1000m',
+        memory: nodeConfig.memory || '2Gi',
+        storage: nodeConfig.storage || '10Gi'
+      },
+      pods: [],
+      createdAt: new Date()
+    };
+    
+    cluster.nodes.push(node);
+    this.nodes.set(node.id, node);
+    
+    return node;
+  }
+  
+  createDeployment(name, config) {
+    const deployment = {
+      name,
+      config,
+      replicas: config.replicas || 1,
+      currentReplicas: 0,
+      status: 'pending',
+      pods: [],
+      createdAt: new Date()
+    };
+    
+    this.deployments.set(name, deployment);
+    return deployment;
+  }
+  
+  async deploy(deploymentName) {
+    const deployment = this.deployments.get(deploymentName);
+    if (!deployment) {
+      throw new Error(`Deployment ${deploymentName} not found`);
+    }
+    
+    deployment.status = 'deploying';
+    
+    // Find available nodes
+    const availableNodes = Array.from(this.nodes.values())
+      .filter(node => node.status === 'ready');
+    
+    if (availableNodes.length === 0) {
+      throw new Error('No available nodes for deployment');
+    }
+    
+    // Create pods
+    for (let i = 0; i < deployment.replicas; i++) {
+      const node = availableNodes[i % availableNodes.length];
+      const pod = await this.createPod(deployment, node);
+      deployment.pods.push(pod);
+      node.pods.push(pod);
+    }
+    
+    deployment.currentReplicas = deployment.replicas;
+    deployment.status = 'running';
+    
+    console.log(`🚀 Deployment ${deploymentName} completed with ${deployment.replicas} replicas`);
+  }
+  
+  async createPod(deployment, node) {
+    const pod = {
+      id: `pod_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      deployment: deployment.name,
+      node: node.id,
+      status: 'pending',
+      containers: deployment.config.containers || [],
+      createdAt: new Date()
+    };
+    
+    // Simulate pod creation
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    pod.status = 'running';
+    
+    console.log(`📦 Pod created: ${pod.id} on node ${node.id}`);
+    return pod;
+  }
+  
+  async scaleDeployment(deploymentName, replicas) {
+    const deployment = this.deployments.get(deploymentName);
+    if (!deployment) {
+      throw new Error(`Deployment ${deploymentName} not found`);
+    }
+    
+    const currentReplicas = deployment.currentReplicas;
+    const targetReplicas = replicas;
+    
+    if (targetReplicas > currentReplicas) {
+      // Scale up
+      const availableNodes = Array.from(this.nodes.values())
+        .filter(node => node.status === 'ready');
+      
+      for (let i = currentReplicas; i < targetReplicas; i++) {
+        const node = availableNodes[i % availableNodes.length];
+        const pod = await this.createPod(deployment, node);
+        deployment.pods.push(pod);
+        node.pods.push(pod);
+      }
+    } else if (targetReplicas < currentReplicas) {
+      // Scale down
+      const podsToRemove = deployment.pods.slice(targetReplicas);
+      for (const pod of podsToRemove) {
+        await this.deletePod(pod.id);
+        deployment.pods = deployment.pods.filter(p => p.id !== pod.id);
+      }
+    }
+    
+    deployment.replicas = targetReplicas;
+    deployment.currentReplicas = targetReplicas;
+    
+    console.log(`📈 Deployment ${deploymentName} scaled to ${targetReplicas} replicas`);
+  }
+  
+  async deletePod(podId) {
+    const pod = Array.from(this.deployments.values())
+      .flatMap(d => d.pods)
+      .find(p => p.id === podId);
+    
+    if (pod) {
+      const node = this.nodes.get(pod.node);
+      if (node) {
+        node.pods = node.pods.filter(p => p.id !== podId);
+      }
+      
+      console.log(`🗑️ Pod deleted: ${podId}`);
+    }
+  }
+  
+  getClusterStatus(clusterName) {
+    const cluster = this.clusters.get(clusterName);
+    if (!cluster) return null;
+    
+    return {
+      name: cluster.name,
+      nodes: cluster.nodes.length,
+      totalPods: cluster.nodes.reduce((sum, node) => sum + node.pods.length, 0),
+      status: cluster.status
+    };
+  }
+}
+
+// Create Container Orchestrator
+const orchestrator = new ContainerOrchestrator();
+
+// Create cluster
+const cluster = orchestrator.createCluster('production-cluster', {
+  region: 'us-west-2',
+  version: '1.28'
+});
+
+// Add nodes
+orchestrator.addNode('production-cluster', {
+  name: 'worker-1',
+  cpu: '2000m',
+  memory: '4Gi',
+  storage: '20Gi'
+});
+
+orchestrator.addNode('production-cluster', {
+  name: 'worker-2',
+  cpu: '2000m',
+  memory: '4Gi',
+  storage: '20Gi'
+});
+
+// Create deployment
+const frontendDeployment = orchestrator.createDeployment('frontend-app', {
+  replicas: 3,
+  containers: [{
+    name: 'frontend',
+    image: 'frontend-app:latest',
+    ports: [{ containerPort: 3000 }],
+    resources: {
+      requests: { cpu: '100m', memory: '128Mi' },
+      limits: { cpu: '500m', memory: '512Mi' }
+    }
+  }]
+});
+
+console.log('Container orchestration system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(3)">Run Code</button>
+                    <button onclick="validateExercise(3)">Validate</button>
+                </div>
+                
+                <div class="output" id="output3"></div>
+                <div class="hint" id="hint3">
+                    <strong>Hint:</strong> Implement cluster management, pod scheduling, and horizontal scaling capabilities.
+                </div>
+            </div>
+
+            <!-- Exercise 4: Monitoring & Logging -->
+            <div class="exercise" id="exercise4">
+                <h2>📊 Exercise 4: Monitoring & Logging</h2>
+                <p>Implement comprehensive monitoring, logging, and alerting systems.</p>
+                
+                <div class="code-editor">
+                    <h3>Monitoring & Logging System</h3>
+                    <textarea id="code4" placeholder="Implement monitoring and logging...">// Monitoring & Logging System
+class MonitoringSystem {
+  constructor() {
+    this.metrics = new Map();
+    this.alerts = new Map();
+    this.dashboards = new Map();
+    this.logs = [];
+    this.alertRules = new Map();
+  }
+  
+  // Metrics Collection
+  recordMetric(name, value, tags = {}) {
+    const metric = {
+      name,
+      value,
+      tags,
+      timestamp: new Date(),
+      id: `metric_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    };
+    
+    if (!this.metrics.has(name)) {
+      this.metrics.set(name, []);
+    }
+    
+    this.metrics.get(name).push(metric);
+    
+    // Check alert rules
+    this.checkAlertRules(name, value, tags);
+    
+    return metric;
+  }
+  
+  getMetrics(name, timeRange = '1h') {
+    const metrics = this.metrics.get(name) || [];
+    const now = new Date();
+    const cutoff = new Date(now.getTime() - this.parseTimeRange(timeRange));
+    
+    return metrics.filter(metric => metric.timestamp >= cutoff);
+  }
+  
+  parseTimeRange(timeRange) {
+    const units = {
+      'm': 60 * 1000,
+      'h': 60 * 60 * 1000,
+      'd': 24 * 60 * 60 * 1000
+    };
+    
+    const match = timeRange.match(/^(\d+)([mhd])$/);
+    if (match) {
+      return parseInt(match[1]) * units[match[2]];
+    }
+    
+    return 60 * 60 * 1000; // Default 1 hour
+  }
+  
+  // Alerting System
+  createAlertRule(name, condition, threshold, severity = 'warning') {
+    const rule = {
+      name,
+      condition,
+      threshold,
+      severity,
+      enabled: true,
+      createdAt: new Date()
+    };
+    
+    this.alertRules.set(name, rule);
+    return rule;
+  }
+  
+  checkAlertRules(metricName, value, tags) {
+    for (const [ruleName, rule] of this.alertRules.entries()) {
+      if (!rule.enabled) continue;
+      
+      let shouldAlert = false;
+      
+      switch (rule.condition) {
+        case 'greater_than':
+          shouldAlert = value > rule.threshold;
+          break;
+        case 'less_than':
+          shouldAlert = value < rule.threshold;
+          break;
+        case 'equals':
+          shouldAlert = value === rule.threshold;
+          break;
+      }
+      
+      if (shouldAlert) {
+        this.createAlert(ruleName, metricName, value, rule.threshold, rule.severity);
+      }
+    }
+  }
+  
+  createAlert(ruleName, metricName, value, threshold, severity) {
+    const alert = {
+      id: `alert_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      ruleName,
+      metricName,
+      value,
+      threshold,
+      severity,
+      status: 'firing',
+      createdAt: new Date(),
+      resolvedAt: null
+    };
+    
+    this.alerts.set(alert.id, alert);
+    console.log(`🚨 Alert fired: ${ruleName} - ${metricName} = ${value} (threshold: ${threshold})`);
+    
+    return alert;
+  }
+  
+  resolveAlert(alertId) {
+    const alert = this.alerts.get(alertId);
+    if (alert) {
+      alert.status = 'resolved';
+      alert.resolvedAt = new Date();
+      console.log(`✅ Alert resolved: ${alert.ruleName}`);
+    }
+  }
+  
+  // Logging System
+  log(level, message, context = {}) {
+    const logEntry = {
+      id: `log_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      level,
+      message,
+      context,
+      timestamp: new Date(),
+      service: context.service || 'unknown'
+    };
+    
+    this.logs.push(logEntry);
+    
+    // Keep only last 1000 logs
+    if (this.logs.length > 1000) {
+      this.logs = this.logs.slice(-1000);
+    }
+    
+    return logEntry;
+  }
+  
+  searchLogs(query, filters = {}) {
+    let filteredLogs = this.logs;
+    
+    if (filters.level) {
+      filteredLogs = filteredLogs.filter(log => log.level === filters.level);
+    }
+    
+    if (filters.service) {
+      filteredLogs = filteredLogs.filter(log => log.service === filters.service);
+    }
+    
+    if (filters.timeRange) {
+      const cutoff = new Date(Date.now() - this.parseTimeRange(filters.timeRange));
+      filteredLogs = filteredLogs.filter(log => log.timestamp >= cutoff);
+    }
+    
+    if (query) {
+      filteredLogs = filteredLogs.filter(log => 
+        log.message.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+    
+    return filteredLogs;
+  }
+  
+  // Dashboard System
+  createDashboard(name, widgets = []) {
+    const dashboard = {
+      name,
+      widgets,
+      createdAt: new Date()
+    };
+    
+    this.dashboards.set(name, dashboard);
+    return dashboard;
+  }
+  
+  addWidget(dashboardName, widget) {
+    const dashboard = this.dashboards.get(dashboardName);
+    if (dashboard) {
+      dashboard.widgets.push(widget);
+    }
+  }
+  
+  getDashboardData(dashboardName) {
+    const dashboard = this.dashboards.get(dashboardName);
+    if (!dashboard) return null;
+    
+    return dashboard.widgets.map(widget => {
+      switch (widget.type) {
+        case 'metric':
+          return {
+            ...widget,
+            data: this.getMetrics(widget.metricName, widget.timeRange)
+          };
+        case 'log':
+          return {
+            ...widget,
+            data: this.searchLogs(widget.query, widget.filters)
+          };
+        default:
+          return widget;
+      }
+    });
+  }
+}
+
+// Create Monitoring System
+const monitoring = new MonitoringSystem();
+
+// Create alert rules
+monitoring.createAlertRule('High CPU Usage', 'greater_than', 80, 'critical');
+monitoring.createAlertRule('Low Memory', 'less_than', 20, 'warning');
+monitoring.createAlertRule('High Error Rate', 'greater_than', 5, 'error');
+
+// Create dashboard
+const systemDashboard = monitoring.createDashboard('System Overview', [
+  {
+    type: 'metric',
+    title: 'CPU Usage',
+    metricName: 'cpu.usage',
+    timeRange: '1h'
+  },
+  {
+    type: 'metric',
+    title: 'Memory Usage',
+    metricName: 'memory.usage',
+    timeRange: '1h'
+  },
+  {
+    type: 'log',
+    title: 'Recent Errors',
+    query: 'error',
+    filters: { level: 'error', timeRange: '1h' }
+  }
+]);
+
+// Simulate some metrics and logs
+monitoring.recordMetric('cpu.usage', 75, { host: 'web-1' });
+monitoring.recordMetric('memory.usage', 85, { host: 'web-1' });
+monitoring.recordMetric('error.rate', 3, { service: 'api' });
+
+monitoring.log('info', 'Application started successfully', { service: 'frontend' });
+monitoring.log('error', 'Database connection failed', { service: 'api', error: 'ECONNREFUSED' });
+monitoring.log('warning', 'High memory usage detected', { service: 'worker' });
+
+console.log('Monitoring and logging system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(4)">Run Code</button>
+                    <button onclick="validateExercise(4)">Validate</button>
+                </div>
+                
+                <div class="output" id="output4"></div>
+                <div class="hint" id="hint4">
+                    <strong>Hint:</strong> Implement metrics collection, alerting rules, log aggregation, and dashboard visualization.
+                </div>
+            </div>
+
+            <!-- Exercise 5: DevOps Automation -->
+            <div class="exercise" id="exercise5">
+                <h2>🤖 Exercise 5: DevOps Automation</h2>
+                <p>Implement automated DevOps workflows with GitOps, automated testing, and deployment strategies.</p>
+                
+                <div class="code-editor">
+                    <h3>DevOps Automation System</h3>
+                    <textarea id="code5" placeholder="Implement DevOps automation...">// DevOps Automation System
+class DevOpsAutomation {
+  constructor() {
+    this.workflows = new Map();
+    this.repositories = new Map();
+    this.environments = new Map();
+    this.deployments = new Map();
+    this.tests = new Map();
+  }
+  
+  // GitOps Implementation
+  registerRepository(name, config) {
+    const repo = {
+      name,
+      config,
+      branches: new Map(),
+      webhooks: [],
+      status: 'active',
+      createdAt: new Date()
+    };
+    
+    this.repositories.set(name, repo);
+    return repo;
+  }
+  
+  addWebhook(repoName, webhook) {
+    const repo = this.repositories.get(repoName);
+    if (repo) {
+      repo.webhooks.push(webhook);
+    }
+  }
+  
+  async handleGitEvent(repoName, event) {
+    const repo = this.repositories.get(repoName);
+    if (!repo) {
+      throw new Error(`Repository ${repoName} not found`);
+    }
+    
+    console.log(`📡 Git event received: ${event.type} on ${event.branch}`);
+    
+    // Trigger appropriate workflow based on event type
+    switch (event.type) {
+      case 'push':
+        await this.handlePushEvent(repo, event);
+        break;
+      case 'pull_request':
+        await this.handlePullRequestEvent(repo, event);
+        break;
+      case 'tag':
+        await this.handleTagEvent(repo, event);
+        break;
+    }
+  }
+  
+  async handlePushEvent(repo, event) {
+    if (event.branch === 'main') {
+      // Trigger production deployment
+      await this.triggerWorkflow('production-deploy', {
+        repository: repo.name,
+        branch: event.branch,
+        commit: event.commit
+      });
+    } else if (event.branch === 'develop') {
+      // Trigger staging deployment
+      await this.triggerWorkflow('staging-deploy', {
+        repository: repo.name,
+        branch: event.branch,
+        commit: event.commit
+      });
+    }
+  }
+  
+  async handlePullRequestEvent(repo, event) {
+    // Trigger CI workflow for PR
+    await this.triggerWorkflow('pr-ci', {
+      repository: repo.name,
+      branch: event.branch,
+      pullRequest: event.pullRequest,
+      action: event.action
+    });
+  }
+  
+  async handleTagEvent(repo, event) {
+    // Trigger release workflow
+    await this.triggerWorkflow('release', {
+      repository: repo.name,
+      tag: event.tag,
+      commit: event.commit
+    });
+  }
+  
+  // Workflow Management
+  createWorkflow(name, steps) {
+    const workflow = {
+      name,
+      steps,
+      status: 'idle',
+      executions: [],
+      createdAt: new Date()
+    };
+    
+    this.workflows.set(name, workflow);
+    return workflow;
+  }
+  
+  async triggerWorkflow(workflowName, context) {
+    const workflow = this.workflows.get(workflowName);
+    if (!workflow) {
+      throw new Error(`Workflow ${workflowName} not found`);
+    }
+    
+    const execution = {
+      id: `exec_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      workflow: workflowName,
+      context,
+      status: 'running',
+      steps: [],
+      startedAt: new Date(),
+      completedAt: null
+    };
+    
+    workflow.executions.push(execution);
+    workflow.status = 'running';
+    
+    console.log(`🚀 Starting workflow: ${workflowName}`);
+    
+    try {
+      for (const step of workflow.steps) {
+        const stepResult = await this.executeStep(step, context);
+        execution.steps.push(stepResult);
+      }
+      
+      execution.status = 'success';
+      execution.completedAt = new Date();
+      workflow.status = 'idle';
+      
+      console.log(`✅ Workflow completed: ${workflowName}`);
+    } catch (error) {
+      execution.status = 'failed';
+      execution.completedAt = new Date();
+      workflow.status = 'idle';
+      
+      console.error(`❌ Workflow failed: ${workflowName}`, error.message);
+      throw error;
+    }
+    
+    return execution;
+  }
+  
+  async executeStep(step, context) {
+    console.log(`  🔧 Executing step: ${step.name}`);
+    
+    const stepResult = {
+      name: step.name,
+      type: step.type,
+      status: 'running',
+      startedAt: new Date(),
+      completedAt: null,
+      output: null
+    };
+    
+    try {
+      switch (step.type) {
+        case 'test':
+          stepResult.output = await this.runTests(step.config, context);
+          break;
+        case 'build':
+          stepResult.output = await this.buildApplication(step.config, context);
+          break;
+        case 'deploy':
+          stepResult.output = await this.deployApplication(step.config, context);
+          break;
+        case 'notify':
+          stepResult.output = await this.sendNotification(step.config, context);
+          break;
+      }
+      
+      stepResult.status = 'success';
+      stepResult.completedAt = new Date();
+      
+      console.log(`  ✅ Step completed: ${step.name}`);
+    } catch (error) {
+      stepResult.status = 'failed';
+      stepResult.completedAt = new Date();
+      stepResult.output = error.message;
+      
+      console.error(`  ❌ Step failed: ${step.name}`, error.message);
+      throw error;
+    }
+    
+    return stepResult;
+  }
+  
+  // Test Automation
+  async runTests(config, context) {
+    console.log(`    🧪 Running tests: ${config.suite}`);
+    
+    // Simulate test execution
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    const results = {
+      suite: config.suite,
+      passed: Math.floor(Math.random() * 20) + 15,
+      failed: Math.floor(Math.random() * 3),
+      duration: 2000,
+      timestamp: new Date()
+    };
+    
+    if (results.failed > 0) {
+      throw new Error(`Tests failed: ${results.failed} failures`);
+    }
+    
+    return results;
+  }
+  
+  // Build Automation
+  async buildApplication(config, context) {
+    console.log(`    🔨 Building application: ${config.target}`);
+    
+    // Simulate build process
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    
+    const buildResult = {
+      target: config.target,
+      version: context.commit?.substr(0, 8) || 'latest',
+      artifacts: ['app.tar.gz', 'docker-image.tar'],
+      duration: 3000,
+      timestamp: new Date()
+    };
+    
+    return buildResult;
+  }
+  
+  // Deployment Automation
+  async deployApplication(config, context) {
+    console.log(`    🚀 Deploying to: ${config.environment}`);
+    
+    // Simulate deployment
+    await new Promise(resolve => setTimeout(resolve, 4000));
+    
+    const deploymentResult = {
+      environment: config.environment,
+      version: context.commit?.substr(0, 8) || 'latest',
+      status: 'success',
+      url: `https://${config.environment}.example.com`,
+      duration: 4000,
+      timestamp: new Date()
+    };
+    
+    return deploymentResult;
+  }
+  
+  // Notification System
+  async sendNotification(config, context) {
+    console.log(`    📧 Sending notification: ${config.type}`);
+    
+    const notification = {
+      type: config.type,
+      recipients: config.recipients,
+      message: `Workflow ${context.workflow} completed successfully`,
+      timestamp: new Date()
+    };
+    
+    return notification;
+  }
+}
+
+// Create DevOps Automation System
+const devops = new DevOpsAutomation();
+
+// Register repository
+const frontendRepo = devops.registerRepository('frontend-app', {
+  url: 'https://github.com/company/frontend-app',
+  defaultBranch: 'main'
+});
+
+// Create workflows
+const ciWorkflow = devops.createWorkflow('pr-ci', [
+  { name: 'Install Dependencies', type: 'build', config: { target: 'deps' } },
+  { name: 'Run Unit Tests', type: 'test', config: { suite: 'unit' } },
+  { name: 'Run Integration Tests', type: 'test', config: { suite: 'integration' } },
+  { name: 'Build Application', type: 'build', config: { target: 'app' } }
+]);
+
+const deployWorkflow = devops.createWorkflow('production-deploy', [
+  { name: 'Run Full Test Suite', type: 'test', config: { suite: 'full' } },
+  { name: 'Build Production Bundle', type: 'build', config: { target: 'production' } },
+  { name: 'Deploy to Production', type: 'deploy', config: { environment: 'production' } },
+  { name: 'Notify Team', type: 'notify', config: { type: 'slack', recipients: ['#deployments'] } }
+]);
+
+// Simulate git events
+devops.handleGitEvent('frontend-app', {
+  type: 'push',
+  branch: 'main',
+  commit: 'abc123def456'
+});
+
+console.log('DevOps automation system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(5)">Run Code</button>
+                    <button onclick="validateExercise(5)">Validate</button>
+                </div>
+                
+                <div class="output" id="output5"></div>
+                <div class="hint" id="hint5">
+                    <strong>Hint:</strong> Implement GitOps workflows, automated testing, deployment strategies, and notification systems.
+                </div>
+            </div>
+        </div>
+
+        <div class="level-navigation">
+            <button onclick="goToLevel(30)" class="nav-btn prev">← Previous Level</button>
+            <button onclick="goToLevel(32)" class="nav-btn next">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+    <script src="level31-script.js"></script>
+</body>
+</html>
