@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 34: Performance Optimization</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="level34-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <h1>⚡ Level 34: Performance Optimization</h1>
+            <p>Master Bundle Optimization, Image Optimization, Caching Strategies, Performance Monitoring, and Advanced Optimization</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="level-stats">
+                <span>Exercises: <span id="completedExercises">0</span>/5</span>
+                <span>Badges: <span id="badgeCount">0</span></span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: Bundle Optimization -->
+            <div class="exercise" id="exercise1">
+                <h2>📦 Exercise 1: Bundle Optimization</h2>
+                <p>Implement webpack bundle optimization with code splitting, tree shaking, and compression.</p>
+                
+                <div class="code-editor">
+                    <h3>Bundle Optimization System</h3>
+                    <textarea id="code1" placeholder="Implement bundle optimization...">// Bundle Optimization System
+class BundleOptimizer {
+  constructor() {
+    this.modules = new Map();
+    this.chunks = new Map();
+    this.optimizations = {
+      treeShaking: true,
+      codeSplitting: true,
+      compression: true,
+      minification: true
+    };
+  }
+  
+  addModule(name, dependencies = [], size = 0) {
+    this.modules.set(name, {
+      dependencies,
+      size,
+      used: false,
+      loaded: false
+    });
+  }
+  
+  analyzeDependencies() {
+    console.log('🔍 Analyzing module dependencies...');
+    
+    const analysis = {
+      totalModules: this.modules.size,
+      totalSize: 0,
+      unusedModules: [],
+      circularDependencies: []
+    };
+    
+    for (const [name, module] of this.modules.entries()) {
+      analysis.totalSize += module.size;
+      
+      if (!module.used) {
+        analysis.unusedModules.push(name);
+      }
+      
+      // Check for circular dependencies
+      if (this.hasCircularDependency(name, new Set())) {
+        analysis.circularDependencies.push(name);
+      }
+    }
+    
+    return analysis;
+  }
+  
+  hasCircularDependency(moduleName, visited) {
+    if (visited.has(moduleName)) return true;
+    
+    visited.add(moduleName);
+    const module = this.modules.get(moduleName);
+    
+    if (module) {
+      for (const dep of module.dependencies) {
+        if (this.hasCircularDependency(dep, visited)) {
+          return true;
+        }
+      }
+    }
+    
+    visited.delete(moduleName);
+    return false;
+  }
+  
+  performTreeShaking() {
+    console.log('🌳 Performing tree shaking...');
+    
+    const unusedModules = [];
+    
+    for (const [name, module] of this.modules.entries()) {
+      if (!module.used) {
+        unusedModules.push(name);
+        this.modules.delete(name);
+      }
+    }
+    
+    console.log(`🗑️ Removed ${unusedModules.length} unused modules`);
+    return unusedModules;
+  }
+  
+  createCodeSplitting() {
+    console.log('✂️ Creating code splitting strategy...');
+    
+    const chunks = {
+      vendor: [],
+      common: [],
+      pages: new Map()
+    };
+    
+    for (const [name, module] of this.modules.entries()) {
+      if (this.isVendorModule(name)) {
+        chunks.vendor.push(name);
+      } else if (this.isCommonModule(name)) {
+        chunks.common.push(name);
+      } else {
+        const page = this.getPageForModule(name);
+        if (!chunks.pages.has(page)) {
+          chunks.pages.set(page, []);
+        }
+        chunks.pages.get(page).push(name);
+      }
+    }
+    
+    return chunks;
+  }
+  
+  isVendorModule(name) {
+    const vendorPatterns = ['react', 'lodash', 'moment', 'axios'];
+    return vendorPatterns.some(pattern => name.includes(pattern));
+  }
+  
+  isCommonModule(name) {
+    const commonPatterns = ['utils', 'constants', 'helpers'];
+    return commonPatterns.some(pattern => name.includes(pattern));
+  }
+  
+  getPageForModule(name) {
+    // Simple page detection based on module name
+    if (name.includes('home')) return 'home';
+    if (name.includes('about')) return 'about';
+    if (name.includes('contact')) return 'contact';
+    return 'main';
+  }
+  
+  optimizeBundle() {
+    console.log('⚡ Optimizing bundle...');
+    
+    const analysis = this.analyzeDependencies();
+    const treeShakingResult = this.performTreeShaking();
+    const codeSplittingResult = this.createCodeSplitting();
+    
+    const optimization = {
+      originalSize: analysis.totalSize,
+      optimizedSize: this.calculateOptimizedSize(),
+      reduction: analysis.totalSize - this.calculateOptimizedSize(),
+      reductionPercentage: ((analysis.totalSize - this.calculateOptimizedSize()) / analysis.totalSize) * 100,
+      chunks: codeSplittingResult,
+      removedModules: treeShakingResult
+    };
+    
+    return optimization;
+  }
+  
+  calculateOptimizedSize() {
+    let size = 0;
+    for (const module of this.modules.values()) {
+      size += module.size * 0.7; // Assume 30% reduction from minification
+    }
+    return size;
+  }
+}
+
+// Webpack Configuration Generator
+class WebpackConfigGenerator {
+  constructor() {
+    this.config = {
+      mode: 'production',
+      optimization: {},
+      plugins: [],
+      resolve: {}
+    };
+  }
+  
+  enableOptimizations() {
+    this.config.optimization = {
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all'
+          },
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      },
+      usedExports: true,
+      sideEffects: false,
+      minimize: true
+    };
+    
+    this.config.plugins.push('TerserPlugin');
+    this.config.plugins.push('CompressionPlugin');
+  }
+  
+  generateConfig() {
+    return {
+      ...this.config,
+      output: {
+        filename: '[name].[contenthash].js',
+        chunkFilename: '[name].[contenthash].chunk.js'
+      }
+    };
+  }
+}
+
+// Create Bundle Optimizer
+const optimizer = new BundleOptimizer();
+
+// Add sample modules
+optimizer.addModule('react', [], 1000);
+optimizer.addModule('lodash', [], 800);
+optimizer.addModule('utils', ['lodash'], 200);
+optimizer.addModule('home-page', ['react', 'utils'], 500);
+optimizer.addModule('about-page', ['react', 'utils'], 400);
+optimizer.addModule('unused-module', [], 300);
+
+// Mark used modules
+optimizer.modules.get('react').used = true;
+optimizer.modules.get('lodash').used = true;
+optimizer.modules.get('utils').used = true;
+optimizer.modules.get('home-page').used = true;
+optimizer.modules.get('about-page').used = true;
+
+// Generate webpack config
+const webpackConfig = new WebpackConfigGenerator();
+webpackConfig.enableOptimizations();
+
+console.log('Bundle optimization system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(1)">Run Code</button>
+                    <button onclick="validateExercise(1)">Validate</button>
+                </div>
+                
+                <div class="output" id="output1"></div>
+                <div class="hint" id="hint1">
+                    <strong>Hint:</strong> Focus on tree shaking, code splitting, and bundle analysis for optimal performance.
+                </div>
+            </div>
+
+            <!-- Exercise 2: Image Optimization -->
+            <div class="exercise" id="exercise2">
+                <h2>🖼️ Exercise 2: Image Optimization</h2>
+                <p>Implement image optimization with lazy loading, responsive images, and format conversion.</p>
+                
+                <div class="code-editor">
+                    <h3>Image Optimization System</h3>
+                    <textarea id="code2" placeholder="Implement image optimization...">// Image Optimization System
+class ImageOptimizer {
+  constructor() {
+    this.images = new Map();
+    this.formats = ['webp', 'avif', 'jpeg', 'png'];
+    this.sizes = [320, 640, 1024, 1920];
+  }
+  
+  addImage(src, alt, width, height) {
+    const image = {
+      src,
+      alt,
+      width,
+      height,
+      format: this.detectFormat(src),
+      size: this.estimateSize(width, height),
+      optimized: false
+    };
+    
+    this.images.set(src, image);
+    return image;
+  }
+  
+  detectFormat(src) {
+    if (src.includes('.webp')) return 'webp';
+    if (src.includes('.avif')) return 'avif';
+    if (src.includes('.jpg') || src.includes('.jpeg')) return 'jpeg';
+    if (src.includes('.png')) return 'png';
+    return 'unknown';
+  }
+  
+  estimateSize(width, height) {
+    // Rough estimation based on dimensions
+    return Math.floor((width * height * 3) / 1024); // KB
+  }
+  
+  generateResponsiveImages(image) {
+    const responsiveImages = [];
+    
+    for (const size of this.sizes) {
+      if (size <= image.width) {
+        responsiveImages.push({
+          src: this.generateImageSrc(image.src, size),
+          width: size,
+          format: image.format,
+          size: this.estimateSize(size, Math.floor(image.height * size / image.width))
+        });
+      }
+    }
+    
+    return responsiveImages;
+  }
+  
+  generateImageSrc(originalSrc, width) {
+    // Simulate responsive image generation
+    return originalSrc.replace(/(\d+)x(\d+)/, `${width}x${Math.floor(width * 0.75)}`);
+  }
+  
+  optimizeImage(image) {
+    console.log(`🖼️ Optimizing image: ${image.src}`);
+    
+    const optimizations = {
+      compression: this.compressImage(image),
+      format: this.convertFormat(image),
+      lazy: this.enableLazyLoading(image),
+      responsive: this.generateResponsiveImages(image)
+    };
+    
+    image.optimized = true;
+    image.optimizations = optimizations;
+    
+    return optimizations;
+  }
+  
+  compressImage(image) {
+    const compressionRatio = 0.7; // 30% compression
+    return {
+      originalSize: image.size,
+      compressedSize: Math.floor(image.size * compressionRatio),
+      savings: image.size - Math.floor(image.size * compressionRatio)
+    };
+  }
+  
+  convertFormat(image) {
+    const formatPriority = ['avif', 'webp', 'jpeg', 'png'];
+    const currentFormatIndex = formatPriority.indexOf(image.format);
+    
+    if (currentFormatIndex > 0) {
+      const betterFormat = formatPriority[currentFormatIndex - 1];
+      return {
+        from: image.format,
+        to: betterFormat,
+        sizeReduction: Math.floor(image.size * 0.2) // 20% reduction
+      };
+    }
+    
+    return { from: image.format, to: image.format, sizeReduction: 0 };
+  }
+  
+  enableLazyLoading(image) {
+    return {
+      enabled: true,
+      threshold: 0.1,
+      placeholder: this.generatePlaceholder(image)
+    };
+  }
+  
+  generatePlaceholder(image) {
+    // Generate a low-quality placeholder
+    return `data:image/svg+xml;base64,${btoa(`
+      <svg width="${image.width}" height="${image.height}" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100%" height="100%" fill="#f0f0f0"/>
+        <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#999">Loading...</text>
+      </svg>
+    `)}`;
+  }
+}
+
+// Lazy Loading Manager
+class LazyLoadingManager {
+  constructor() {
+    this.observer = null;
+    this.images = new Set();
+    this.loadedImages = new Set();
+  }
+  
+  initializeIntersectionObserver() {
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.loadImage(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '50px'
+    });
+  }
+  
+  observeImage(imgElement) {
+    this.images.add(imgElement);
+    this.observer.observe(imgElement);
+  }
+  
+  loadImage(imgElement) {
+    if (this.loadedImages.has(imgElement)) return;
+    
+    const src = imgElement.dataset.src;
+    if (src) {
+      imgElement.src = src;
+      imgElement.classList.remove('lazy');
+      imgElement.classList.add('loaded');
+      this.loadedImages.add(imgElement);
+      this.observer.unobserve(imgElement);
+    }
+  }
+}
+
+// Image Preloader
+class ImagePreloader {
+  constructor() {
+    this.preloadQueue = [];
+    this.loadedImages = new Set();
+  }
+  
+  preloadImages(urls) {
+    console.log(`🔄 Preloading ${urls.length} images...`);
+    
+    const promises = urls.map(url => this.preloadImage(url));
+    return Promise.all(promises);
+  }
+  
+  preloadImage(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        this.loadedImages.add(url);
+        resolve(url);
+      };
+      img.onerror = reject;
+      img.src = url;
+    });
+  }
+  
+  getPreloadStats() {
+    return {
+      totalPreloaded: this.loadedImages.size,
+      queueLength: this.preloadQueue.length
+    };
+  }
+}
+
+// Create Image Optimization System
+const imageOptimizer = new ImageOptimizer();
+const lazyManager = new LazyLoadingManager();
+const preloader = new ImagePreloader();
+
+// Add sample images
+imageOptimizer.addImage('/images/hero.jpg', 'Hero image', 1920, 1080);
+imageOptimizer.addImage('/images/avatar.png', 'User avatar', 200, 200);
+imageOptimizer.addImage('/images/gallery-1.webp', 'Gallery image', 800, 600);
+
+// Optimize images
+for (const [src, image] of imageOptimizer.images.entries()) {
+  imageOptimizer.optimizeImage(image);
+}
+
+console.log('Image optimization system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(2)">Run Code</button>
+                    <button onclick="validateExercise(2)">Validate</button>
+                </div>
+                
+                <div class="output" id="output2"></div>
+                <div class="hint" id="hint2">
+                    <strong>Hint:</strong> Implement responsive images, lazy loading, format conversion, and compression techniques.
+                </div>
+            </div>
+
+            <!-- Exercise 3: Caching Strategies -->
+            <div class="exercise" id="exercise3">
+                <h2>💾 Exercise 3: Caching Strategies</h2>
+                <p>Implement comprehensive caching with browser cache, service worker, and CDN strategies.</p>
+                
+                <div class="code-editor">
+                    <h3>Caching Strategy System</h3>
+                    <textarea id="code3" placeholder="Implement caching strategies...">// Caching Strategy System
+class CacheManager {
+  constructor() {
+    this.caches = new Map();
+    this.strategies = new Map();
+    this.ttl = new Map(); // Time to live
+  }
+  
+  createCache(name, strategy = 'cache-first') {
+    const cache = {
+      name,
+      strategy,
+      entries: new Map(),
+      hits: 0,
+      misses: 0,
+      size: 0,
+      maxSize: 50 * 1024 * 1024 // 50MB
+    };
+    
+    this.caches.set(name, cache);
+    return cache;
+  }
+  
+  async get(key, cacheName = 'default') {
+    const cache = this.caches.get(cacheName);
+    if (!cache) return null;
+    
+    const entry = cache.entries.get(key);
+    if (!entry) {
+      cache.misses++;
+      return null;
+    }
+    
+    // Check TTL
+    if (this.isExpired(entry)) {
+      cache.entries.delete(key);
+      cache.misses++;
+      return null;
+    }
+    
+    cache.hits++;
+    entry.lastAccessed = Date.now();
+    return entry.data;
+  }
+  
+  async set(key, data, cacheName = 'default', ttl = 3600000) {
+    const cache = this.caches.get(cacheName);
+    if (!cache) return false;
+    
+    const entry = {
+      data,
+      timestamp: Date.now(),
+      lastAccessed: Date.now(),
+      size: this.calculateSize(data)
+    };
+    
+    // Check cache size limit
+    if (cache.size + entry.size > cache.maxSize) {
+      this.evictLRU(cache);
+    }
+    
+    cache.entries.set(key, entry);
+    cache.size += entry.size;
+    this.ttl.set(key, ttl);
+    
+    return true;
+  }
+  
+  isExpired(entry) {
+    const key = Array.from(this.caches.values())
+      .flatMap(c => Array.from(c.entries.entries()))
+      .find(([k, v]) => v === entry)?.[0];
+    
+    if (!key) return false;
+    
+    const ttl = this.ttl.get(key);
+    return Date.now() - entry.timestamp > ttl;
+  }
+  
+  evictLRU(cache) {
+    let oldestKey = null;
+    let oldestTime = Date.now();
+    
+    for (const [key, entry] of cache.entries.entries()) {
+      if (entry.lastAccessed < oldestTime) {
+        oldestTime = entry.lastAccessed;
+        oldestKey = key;
+      }
+    }
+    
+    if (oldestKey) {
+      const entry = cache.entries.get(oldestKey);
+      cache.size -= entry.size;
+      cache.entries.delete(oldestKey);
+    }
+  }
+  
+  calculateSize(data) {
+    return JSON.stringify(data).length * 2; // Rough estimation
+  }
+  
+  getCacheStats(cacheName) {
+    const cache = this.caches.get(cacheName);
+    if (!cache) return null;
+    
+    const totalRequests = cache.hits + cache.misses;
+    return {
+      hits: cache.hits,
+      misses: cache.misses,
+      hitRate: totalRequests > 0 ? (cache.hits / totalRequests) * 100 : 0,
+      size: cache.size,
+      entries: cache.entries.size
+    };
+  }
+}
+
+// Service Worker Cache Strategy
+class ServiceWorkerCache {
+  constructor() {
+    this.cacheName = 'app-cache-v1';
+    this.strategies = {
+      'cache-first': this.cacheFirst.bind(this),
+      'network-first': this.networkFirst.bind(this),
+      'stale-while-revalidate': this.staleWhileRevalidate.bind(this)
+    };
+  }
+  
+  async cacheFirst(request) {
+    const cached = await this.getFromCache(request);
+    if (cached) {
+      return cached;
+    }
+    
+    const response = await fetch(request);
+    await this.putInCache(request, response.clone());
+    return response;
+  }
+  
+  async networkFirst(request) {
+    try {
+      const response = await fetch(request);
+      await this.putInCache(request, response.clone());
+      return response;
+    } catch (error) {
+      const cached = await this.getFromCache(request);
+      if (cached) {
+        return cached;
+      }
+      throw error;
+    }
+  }
+  
+  async staleWhileRevalidate(request) {
+    const cached = await this.getFromCache(request);
+    
+    // Always try to update cache in background
+    fetch(request).then(response => {
+      this.putInCache(request, response.clone());
+    }).catch(() => {
+      // Ignore network errors for background updates
+    });
+    
+    return cached || await fetch(request);
+  }
+  
+  async getFromCache(request) {
+    const cache = await caches.open(this.cacheName);
+    return await cache.match(request);
+  }
+  
+  async putInCache(request, response) {
+    const cache = await caches.open(this.cacheName);
+    await cache.put(request, response);
+  }
+}
+
+// CDN Cache Strategy
+class CDNCacheStrategy {
+  constructor() {
+    this.cdnUrls = new Map();
+    this.cacheHeaders = new Map();
+  }
+  
+  addCDNEndpoint(name, baseUrl, cachePolicy) {
+    this.cdnUrls.set(name, {
+      baseUrl,
+      cachePolicy,
+      ttl: cachePolicy.ttl || 86400 // 24 hours default
+    });
+  }
+  
+  generateCacheHeaders(resourceType, ttl) {
+    const headers = {
+      'Cache-Control': `public, max-age=${ttl}`,
+      'ETag': this.generateETag(),
+      'Last-Modified': new Date().toUTCString()
+    };
+    
+    if (resourceType === 'static') {
+      headers['Cache-Control'] += ', immutable';
+    }
+    
+    return headers;
+  }
+  
+  generateETag() {
+    return `"${Date.now()}-${Math.random().toString(36).substr(2, 9)}"`;
+  }
+  
+  optimizeForCDN(url, resourceType) {
+    const cdnEndpoint = this.findBestCDN(url);
+    if (!cdnEndpoint) return url;
+    
+    const optimizedUrl = `${cdnEndpoint.baseUrl}/${url}`;
+    const headers = this.generateCacheHeaders(resourceType, cdnEndpoint.ttl);
+    
+    return {
+      url: optimizedUrl,
+      headers,
+      cachePolicy: cdnEndpoint.cachePolicy
+    };
+  }
+  
+  findBestCDN(url) {
+    // Simple CDN selection logic
+    for (const [name, endpoint] of this.cdnUrls.entries()) {
+      if (url.includes(endpoint.baseUrl)) {
+        return endpoint;
+      }
+    }
+    return this.cdnUrls.values().next().value;
+  }
+}
+
+// Create Caching System
+const cacheManager = new CacheManager();
+const serviceWorkerCache = new ServiceWorkerCache();
+const cdnStrategy = new CDNCacheStrategy();
+
+// Create caches
+cacheManager.createCache('api', 'network-first');
+cacheManager.createCache('static', 'cache-first');
+cacheManager.createCache('images', 'stale-while-revalidate');
+
+// Add CDN endpoints
+cdnStrategy.addCDNEndpoint('static', 'https://cdn.example.com', { ttl: 31536000 }); // 1 year
+cdnStrategy.addCDNEndpoint('api', 'https://api-cdn.example.com', { ttl: 300 }); // 5 minutes
+
+console.log('Caching strategy system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(3)">Run Code</button>
+                    <button onclick="validateExercise(3)">Validate</button>
+                </div>
+                
+                <div class="output" id="output3"></div>
+                <div class="hint" id="hint3">
+                    <strong>Hint:</strong> Implement cache-first, network-first, and stale-while-revalidate strategies with TTL management.
+                </div>
+            </div>
+
+            <!-- Exercise 4: Performance Monitoring -->
+            <div class="exercise" id="exercise4">
+                <h2>📊 Exercise 4: Performance Monitoring</h2>
+                <p>Implement comprehensive performance monitoring with Core Web Vitals and real-time metrics.</p>
+                
+                <div class="code-editor">
+                    <h3>Performance Monitoring System</h3>
+                    <textarea id="code4" placeholder="Implement performance monitoring...">// Performance Monitoring System
+class PerformanceMonitor {
+  constructor() {
+    this.metrics = new Map();
+    this.thresholds = {
+      LCP: 2500, // Largest Contentful Paint
+      FID: 100,  // First Input Delay
+      CLS: 0.1,  // Cumulative Layout Shift
+      FCP: 1800, // First Contentful Paint
+      TTI: 3800  // Time to Interactive
+    };
+    this.observers = new Map();
+  }
+  
+  initializeMonitoring() {
+    this.setupWebVitals();
+    this.setupResourceTiming();
+    this.setupNavigationTiming();
+    this.setupLongTaskObserver();
+  }
+  
+  setupWebVitals() {
+    console.log('📊 Setting up Core Web Vitals monitoring...');
+    
+    // Simulate Web Vitals collection
+    this.collectLCP();
+    this.collectFID();
+    this.collectCLS();
+    this.collectFCP();
+    this.collectTTI();
+  }
+  
+  collectLCP() {
+    // Simulate LCP measurement
+    setTimeout(() => {
+      const lcp = Math.random() * 3000 + 1000; // 1-4 seconds
+      this.recordMetric('LCP', lcp, 'paint');
+    }, 2000);
+  }
+  
+  collectFID() {
+    // Simulate FID measurement
+    setTimeout(() => {
+      const fid = Math.random() * 200 + 10; // 10-210ms
+      this.recordMetric('FID', fid, 'interaction');
+    }, 1000);
+  }
+  
+  collectCLS() {
+    // Simulate CLS measurement
+    setTimeout(() => {
+      const cls = Math.random() * 0.2; // 0-0.2
+      this.recordMetric('CLS', cls, 'layout');
+    }, 3000);
+  }
+  
+  collectFCP() {
+    // Simulate FCP measurement
+    setTimeout(() => {
+      const fcp = Math.random() * 2000 + 800; // 0.8-2.8 seconds
+      this.recordMetric('FCP', fcp, 'paint');
+    }, 1500);
+  }
+  
+  collectTTI() {
+    // Simulate TTI measurement
+    setTimeout(() => {
+      const tti = Math.random() * 4000 + 2000; // 2-6 seconds
+      this.recordMetric('TTI', tti, 'interaction');
+    }, 4000);
+  }
+  
+  recordMetric(name, value, category) {
+    const metric = {
+      name,
+      value,
+      category,
+      timestamp: Date.now(),
+      threshold: this.thresholds[name],
+      passed: value <= this.thresholds[name]
+    };
+    
+    this.metrics.set(name, metric);
+    console.log(`📈 ${name}: ${value}ms (${metric.passed ? '✅' : '❌'})`);
+    
+    return metric;
+  }
+  
+  setupResourceTiming() {
+    console.log('📊 Setting up Resource Timing monitoring...');
+    
+    // Simulate resource timing data
+    const resources = [
+      { name: 'main.js', duration: 150, size: 50000 },
+      { name: 'styles.css', duration: 80, size: 25000 },
+      { name: 'hero.jpg', duration: 200, size: 150000 }
+    ];
+    
+    resources.forEach(resource => {
+      this.recordResourceMetric(resource);
+    });
+  }
+  
+  recordResourceMetric(resource) {
+    const metric = {
+      name: resource.name,
+      duration: resource.duration,
+      size: resource.size,
+      timestamp: Date.now(),
+      type: 'resource'
+    };
+    
+    console.log(`📦 Resource: ${resource.name} - ${resource.duration}ms (${resource.size} bytes)`);
+    return metric;
+  }
+  
+  setupNavigationTiming() {
+    console.log('📊 Setting up Navigation Timing monitoring...');
+    
+    // Simulate navigation timing
+    const navTiming = {
+      dns: Math.random() * 50 + 10,
+      connect: Math.random() * 100 + 20,
+      request: Math.random() * 200 + 50,
+      response: Math.random() * 300 + 100,
+      dom: Math.random() * 500 + 200
+    };
+    
+    Object.entries(navTiming).forEach(([phase, duration]) => {
+      this.recordMetric(`nav_${phase}`, duration, 'navigation');
+    });
+  }
+  
+  setupLongTaskObserver() {
+    console.log('📊 Setting up Long Task monitoring...');
+    
+    // Simulate long task detection
+    setTimeout(() => {
+      const longTask = {
+        duration: Math.random() * 200 + 50, // 50-250ms
+        startTime: Date.now() - Math.random() * 1000,
+        name: 'long-task'
+      };
+      
+      if (longTask.duration > 50) {
+        this.recordLongTask(longTask);
+      }
+    }, 5000);
+  }
+  
+  recordLongTask(task) {
+    console.log(`⚠️ Long Task detected: ${task.duration}ms`);
+    return {
+      ...task,
+      timestamp: Date.now(),
+      type: 'long-task'
+    };
+  }
+  
+  generatePerformanceReport() {
+    const webVitals = {};
+    const resourceMetrics = [];
+    const navigationMetrics = {};
+    
+    for (const [name, metric] of this.metrics.entries()) {
+      if (name.startsWith('nav_')) {
+        navigationMetrics[name] = metric;
+      } else if (metric.category === 'resource') {
+        resourceMetrics.push(metric);
+      } else {
+        webVitals[name] = metric;
+      }
+    }
+    
+    const report = {
+      webVitals,
+      resourceMetrics,
+      navigationMetrics,
+      overallScore: this.calculateOverallScore(),
+      recommendations: this.generateRecommendations(),
+      timestamp: new Date()
+    };
+    
+    return report;
+  }
+  
+  calculateOverallScore() {
+    let totalScore = 0;
+    let metricCount = 0;
+    
+    for (const [name, metric] of this.metrics.entries()) {
+      if (this.thresholds[name]) {
+        const score = Math.max(0, 100 - (metric.value / this.thresholds[name]) * 100);
+        totalScore += score;
+        metricCount++;
+      }
+    }
+    
+    return metricCount > 0 ? Math.round(totalScore / metricCount) : 0;
+  }
+  
+  generateRecommendations() {
+    const recommendations = [];
+    
+    for (const [name, metric] of this.metrics.entries()) {
+      if (!metric.passed) {
+        switch (name) {
+          case 'LCP':
+            recommendations.push('Optimize images and reduce server response time');
+            break;
+          case 'FID':
+            recommendations.push('Reduce JavaScript execution time and optimize third-party scripts');
+            break;
+          case 'CLS':
+            recommendations.push('Set size attributes on images and avoid inserting content above existing content');
+            break;
+          case 'FCP':
+            recommendations.push('Minimize render-blocking resources and optimize CSS delivery');
+            break;
+          case 'TTI':
+            recommendations.push('Reduce JavaScript execution time and minimize main thread work');
+            break;
+        }
+      }
+    }
+    
+    return recommendations;
+  }
+}
+
+// Real-time Performance Dashboard
+class PerformanceDashboard {
+  constructor(monitor) {
+    this.monitor = monitor;
+    this.alerts = [];
+    this.thresholds = monitor.thresholds;
+  }
+  
+  startRealTimeMonitoring() {
+    console.log('📊 Starting real-time performance monitoring...');
+    
+    setInterval(() => {
+      this.checkPerformanceAlerts();
+    }, 5000);
+  }
+  
+  checkPerformanceAlerts() {
+    for (const [name, metric] of this.monitor.metrics.entries()) {
+      if (this.thresholds[name] && !metric.passed) {
+        this.createAlert(name, metric);
+      }
+    }
+  }
+  
+  createAlert(metricName, metric) {
+    const alert = {
+      type: 'performance',
+      metric: metricName,
+      value: metric.value,
+      threshold: this.thresholds[metricName],
+      severity: this.calculateSeverity(metric.value, this.thresholds[metricName]),
+      timestamp: new Date()
+    };
+    
+    this.alerts.push(alert);
+    console.log(`🚨 Performance Alert: ${metricName} = ${metric.value}ms (threshold: ${this.thresholds[metricName]}ms)`);
+  }
+  
+  calculateSeverity(value, threshold) {
+    const ratio = value / threshold;
+    if (ratio > 2) return 'critical';
+    if (ratio > 1.5) return 'high';
+    if (ratio > 1.2) return 'medium';
+    return 'low';
+  }
+  
+  getAlerts() {
+    return this.alerts.slice(-10); // Last 10 alerts
+  }
+}
+
+// Create Performance Monitoring System
+const performanceMonitor = new PerformanceMonitor();
+const dashboard = new PerformanceDashboard(performanceMonitor);
+
+// Initialize monitoring
+performanceMonitor.initializeMonitoring();
+dashboard.startRealTimeMonitoring();
+
+console.log('Performance monitoring system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(4)">Run Code</button>
+                    <button onclick="validateExercise(4)">Validate</button>
+                </div>
+                
+                <div class="output" id="output4"></div>
+                <div class="hint" id="hint4">
+                    <strong>Hint:</strong> Implement Core Web Vitals monitoring, resource timing, and real-time performance alerts.
+                </div>
+            </div>
+
+            <!-- Exercise 5: Advanced Optimization -->
+            <div class="exercise" id="exercise5">
+                <h2>🚀 Exercise 5: Advanced Optimization</h2>
+                <p>Implement advanced optimization techniques with critical path optimization and resource prioritization.</p>
+                
+                <div class="code-editor">
+                    <h3>Advanced Optimization System</h3>
+                    <textarea id="code5" placeholder="Implement advanced optimization...">// Advanced Optimization System
+class AdvancedOptimizer {
+  constructor() {
+    this.resources = new Map();
+    this.criticalPath = [];
+    this.optimizationStrategies = new Map();
+  }
+  
+  addResource(name, type, priority, dependencies = []) {
+    const resource = {
+      name,
+      type,
+      priority,
+      dependencies,
+      size: this.estimateSize(type),
+      loadTime: 0,
+      optimized: false
+    };
+    
+    this.resources.set(name, resource);
+    return resource;
+  }
+  
+  estimateSize(type) {
+    const sizeMap = {
+      'html': 50000,
+      'css': 30000,
+      'js': 100000,
+      'image': 200000,
+      'font': 50000
+    };
+    return sizeMap[type] || 10000;
+  }
+  
+  analyzeCriticalPath() {
+    console.log('🔍 Analyzing critical rendering path...');
+    
+    const criticalResources = [];
+    const nonCriticalResources = [];
+    
+    for (const [name, resource] of this.resources.entries()) {
+      if (this.isCriticalResource(resource)) {
+        criticalResources.push(resource);
+      } else {
+        nonCriticalResources.push(resource);
+      }
+    }
+    
+    // Sort by priority and dependencies
+    criticalResources.sort((a, b) => {
+      if (a.priority !== b.priority) {
+        return b.priority - a.priority;
+      }
+      return a.dependencies.length - b.dependencies.length;
+    });
+    
+    this.criticalPath = criticalResources;
+    
+    return {
+      critical: criticalResources,
+      nonCritical: nonCriticalResources,
+      totalCriticalSize: criticalResources.reduce((sum, r) => sum + r.size, 0)
+    };
+  }
+  
+  isCriticalResource(resource) {
+    // Critical resources are HTML, critical CSS, and blocking JS
+    return resource.type === 'html' || 
+           (resource.type === 'css' && resource.priority > 7) ||
+           (resource.type === 'js' && resource.priority > 8);
+  }
+  
+  optimizeCriticalPath() {
+    console.log('⚡ Optimizing critical rendering path...');
+    
+    const optimizations = [];
+    
+    for (const resource of this.criticalPath) {
+      const optimization = this.optimizeResource(resource);
+      optimizations.push(optimization);
+    }
+    
+    return optimizations;
+  }
+  
+  optimizeResource(resource) {
+    const optimizations = [];
+    
+    switch (resource.type) {
+      case 'html':
+        optimizations.push(this.optimizeHTML(resource));
+        break;
+      case 'css':
+        optimizations.push(this.optimizeCSS(resource));
+        break;
+      case 'js':
+        optimizations.push(this.optimizeJS(resource));
+        break;
+      case 'image':
+        optimizations.push(this.optimizeImage(resource));
+        break;
+    }
+    
+    resource.optimized = true;
+    return {
+      resource: resource.name,
+      optimizations,
+      estimatedImprovement: this.calculateImprovement(resource)
+    };
+  }
+  
+  optimizeHTML(resource) {
+    return {
+      technique: 'HTML Optimization',
+      actions: [
+        'Minify HTML',
+        'Remove unnecessary whitespace',
+        'Inline critical CSS',
+        'Defer non-critical resources'
+      ],
+      sizeReduction: Math.floor(resource.size * 0.15)
+    };
+  }
+  
+  optimizeCSS(resource) {
+    return {
+      technique: 'CSS Optimization',
+      actions: [
+        'Minify CSS',
+        'Remove unused styles',
+        'Critical CSS inlining',
+        'Media query optimization'
+      ],
+      sizeReduction: Math.floor(resource.size * 0.25)
+    };
+  }
+  
+  optimizeJS(resource) {
+    return {
+      technique: 'JavaScript Optimization',
+      actions: [
+        'Minify and compress',
+        'Tree shaking',
+        'Code splitting',
+        'Lazy loading'
+      ],
+      sizeReduction: Math.floor(resource.size * 0.30)
+    };
+  }
+  
+  optimizeImage(resource) {
+    return {
+      technique: 'Image Optimization',
+      actions: [
+        'Format conversion (WebP/AVIF)',
+        'Compression',
+        'Lazy loading',
+        'Responsive images'
+      ],
+      sizeReduction: Math.floor(resource.size * 0.40)
+    };
+  }
+  
+  calculateImprovement(resource) {
+    const baseTime = resource.size / 1000000; // MB per second
+    const optimizedTime = baseTime * 0.7; // 30% improvement
+    return {
+      originalTime: baseTime,
+      optimizedTime,
+      improvement: baseTime - optimizedTime,
+      improvementPercentage: 30
+    };
+  }
+  
+  implementResourceHints() {
+    console.log('💡 Implementing resource hints...');
+    
+    const hints = [];
+    
+    for (const [name, resource] of this.resources.entries()) {
+      if (resource.priority > 7) {
+        hints.push({
+          type: 'preload',
+          resource: name,
+          as: this.getResourceType(resource.type),
+          href: this.generateResourceUrl(name)
+        });
+      } else if (resource.type === 'image') {
+        hints.push({
+          type: 'prefetch',
+          resource: name,
+          href: this.generateResourceUrl(name)
+        });
+      }
+    }
+    
+    return hints;
+  }
+  
+  getResourceType(type) {
+    const typeMap = {
+      'css': 'style',
+      'js': 'script',
+      'image': 'image',
+      'font': 'font'
+    };
+    return typeMap[type] || 'fetch';
+  }
+  
+  generateResourceUrl(name) {
+    return `/assets/${name}`;
+  }
+  
+  optimizeLoadingStrategy() {
+    console.log('🚀 Optimizing loading strategy...');
+    
+    const strategy = {
+      critical: this.criticalPath.map(r => r.name),
+      deferred: [],
+      lazy: [],
+      preloaded: []
+    };
+    
+    for (const [name, resource] of this.resources.entries()) {
+      if (resource.priority <= 5) {
+        strategy.lazy.push(name);
+      } else if (resource.priority <= 7) {
+        strategy.deferred.push(name);
+      } else {
+        strategy.preloaded.push(name);
+      }
+    }
+    
+    return strategy;
+  }
+  
+  generateOptimizationReport() {
+    const criticalPathAnalysis = this.analyzeCriticalPath();
+    const optimizations = this.optimizeCriticalPath();
+    const resourceHints = this.implementResourceHints();
+    const loadingStrategy = this.optimizeLoadingStrategy();
+    
+    const totalOriginalSize = Array.from(this.resources.values())
+      .reduce((sum, r) => sum + r.size, 0);
+    
+    const totalOptimizedSize = optimizations.reduce((sum, opt) => {
+      return sum + opt.resource.size - opt.estimatedImprovement.improvement;
+    }, 0);
+    
+    return {
+      criticalPathAnalysis,
+      optimizations,
+      resourceHints,
+      loadingStrategy,
+      sizeReduction: {
+        original: totalOriginalSize,
+        optimized: totalOptimizedSize,
+        savings: totalOriginalSize - totalOptimizedSize,
+        percentage: ((totalOriginalSize - totalOptimizedSize) / totalOriginalSize) * 100
+      },
+      recommendations: this.generateRecommendations(),
+      timestamp: new Date()
+    };
+  }
+  
+  generateRecommendations() {
+    return [
+      'Implement critical CSS inlining',
+      'Use resource hints for high-priority resources',
+      'Defer non-critical JavaScript',
+      'Optimize images with modern formats',
+      'Implement service worker caching',
+      'Use HTTP/2 server push for critical resources'
+    ];
+  }
+}
+
+// Create Advanced Optimizer
+const advancedOptimizer = new AdvancedOptimizer();
+
+// Add sample resources
+advancedOptimizer.addResource('index.html', 'html', 10);
+advancedOptimizer.addResource('critical.css', 'css', 9);
+advancedOptimizer.addResource('main.js', 'js', 8);
+advancedOptimizer.addResource('hero.jpg', 'image', 7);
+advancedOptimizer.addResource('analytics.js', 'js', 3);
+advancedOptimizer.addResource('gallery.jpg', 'image', 4);
+
+// Generate optimization report
+const report = advancedOptimizer.generateOptimizationReport();
+
+console.log('Advanced optimization system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(5)">Run Code</button>
+                    <button onclick="validateExercise(5)">Validate</button>
+                </div>
+                
+                <div class="output" id="output5"></div>
+                <div class="hint" id="hint5">
+                    <strong>Hint:</strong> Implement critical path analysis, resource prioritization, and advanced loading strategies.
+                </div>
+            </div>
+        </div>
+
+        <div class="level-navigation">
+            <button onclick="goToLevel(33)" class="nav-btn prev">← Previous Level</button>
+            <button onclick="goToLevel(35)" class="nav-btn next">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+    <script src="level34-script.js"></script>
+</body>
+</html>
