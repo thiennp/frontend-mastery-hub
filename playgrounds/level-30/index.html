@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 30: Microservices & API Architecture</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="level30-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <h1>🚀 Level 30: Microservices & API Architecture</h1>
+            <p>Master microservices design patterns, API gateways, service discovery, and distributed systems</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="level-stats">
+                <span>Exercises: <span id="completedExercises">0</span>/5</span>
+                <span>Badges: <span id="badgeCount">0</span></span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: Microservices Design Patterns -->
+            <div class="exercise" id="exercise1">
+                <h2>🏗️ Exercise 1: Microservices Design Patterns</h2>
+                <p>Design a microservices architecture with proper service boundaries and communication patterns.</p>
+                
+                <div class="code-editor">
+                    <h3>Service Architecture Design</h3>
+                    <textarea id="code1" placeholder="Design your microservices architecture...">// Microservices Architecture Design
+const microservicesArchitecture = {
+  services: {
+    userService: {
+      responsibility: "User management and authentication",
+      database: "PostgreSQL",
+      port: 3001,
+      endpoints: ["/users", "/auth", "/profile"]
+    },
+    orderService: {
+      responsibility: "Order processing and management",
+      database: "MongoDB",
+      port: 3002,
+      endpoints: ["/orders", "/payments", "/inventory"]
+    },
+    notificationService: {
+      responsibility: "Email and SMS notifications",
+      database: "Redis",
+      port: 3003,
+      endpoints: ["/notifications", "/templates"]
+    }
+  },
+  
+  communication: {
+    synchronous: "REST APIs for real-time operations",
+    asynchronous: "Message queues for event-driven communication",
+    serviceMesh: "Istio for service-to-service communication"
+  }
+};
+
+// Implement service discovery
+class ServiceRegistry {
+  constructor() {
+    this.services = new Map();
+  }
+  
+  register(serviceName, serviceInfo) {
+    this.services.set(serviceName, {
+      ...serviceInfo,
+      registeredAt: new Date(),
+      healthCheck: true
+    });
+  }
+  
+  discover(serviceName) {
+    return this.services.get(serviceName);
+  }
+  
+  getHealthyServices() {
+    return Array.from(this.services.entries())
+      .filter(([name, service]) => service.healthCheck);
+  }
+}
+
+// Create service registry instance
+const registry = new ServiceRegistry();
+registry.register('userService', microservicesArchitecture.services.userService);
+registry.register('orderService', microservicesArchitecture.services.orderService);
+registry.register('notificationService', microservicesArchitecture.services.notificationService);
+
+console.log('Available services:', registry.getHealthyServices());</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(1)">Run Code</button>
+                    <button onclick="validateExercise(1)">Validate</button>
+                </div>
+                
+                <div class="output" id="output1"></div>
+                <div class="hint" id="hint1">
+                    <strong>Hint:</strong> Focus on single responsibility principle, proper service boundaries, and communication patterns.
+                </div>
+            </div>
+
+            <!-- Exercise 2: API Gateway Implementation -->
+            <div class="exercise" id="exercise2">
+                <h2>🌐 Exercise 2: API Gateway Implementation</h2>
+                <p>Implement an API gateway with routing, authentication, and rate limiting.</p>
+                
+                <div class="code-editor">
+                    <h3>API Gateway Configuration</h3>
+                    <textarea id="code2" placeholder="Implement your API gateway...">// API Gateway Implementation
+class APIGateway {
+  constructor() {
+    this.routes = new Map();
+    this.middleware = [];
+    this.rateLimits = new Map();
+  }
+  
+  addRoute(path, method, service, options = {}) {
+    const routeKey = `${method.toUpperCase()} ${path}`;
+    this.routes.set(routeKey, {
+      service,
+      middleware: options.middleware || [],
+      rateLimit: options.rateLimit || null
+    });
+  }
+  
+  addMiddleware(middleware) {
+    this.middleware.push(middleware);
+  }
+  
+  async handleRequest(req) {
+    const routeKey = `${req.method} ${req.path}`;
+    const route = this.routes.get(routeKey);
+    
+    if (!route) {
+      return { status: 404, body: { error: 'Route not found' } };
+    }
+    
+    // Apply middleware
+    for (const middleware of this.middleware) {
+      const result = await middleware(req);
+      if (result.error) {
+        return result;
+      }
+    }
+    
+    // Check rate limiting
+    if (route.rateLimit) {
+      const rateLimitResult = this.checkRateLimit(req.ip, route.rateLimit);
+      if (!rateLimitResult.allowed) {
+        return { 
+          status: 429, 
+          body: { error: 'Rate limit exceeded' } 
+        };
+      }
+    }
+    
+    // Route to service
+    return await this.routeToService(route.service, req);
+  }
+  
+  checkRateLimit(ip, limit) {
+    const key = `rate_limit_${ip}`;
+    const now = Date.now();
+    const window = limit.window * 1000; // Convert to milliseconds
+    
+    if (!this.rateLimits.has(key)) {
+      this.rateLimits.set(key, { count: 1, resetTime: now + window });
+      return { allowed: true };
+    }
+    
+    const current = this.rateLimits.get(key);
+    if (now > current.resetTime) {
+      this.rateLimits.set(key, { count: 1, resetTime: now + window });
+      return { allowed: true };
+    }
+    
+    if (current.count >= limit.max) {
+      return { allowed: false };
+    }
+    
+    current.count++;
+    return { allowed: true };
+  }
+  
+  async routeToService(service, req) {
+    // Simulate service routing
+    return {
+      status: 200,
+      body: { 
+        message: `Request routed to ${service}`,
+        data: req.body 
+      }
+    };
+  }
+}
+
+// Create API Gateway instance
+const gateway = new APIGateway();
+
+// Add authentication middleware
+gateway.addMiddleware(async (req) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return { error: { status: 401, body: { error: 'Authentication required' } } };
+  }
+  return { success: true };
+});
+
+// Configure routes
+gateway.addRoute('/api/users', 'GET', 'userService', {
+  rateLimit: { max: 100, window: 60 } // 100 requests per minute
+});
+
+gateway.addRoute('/api/orders', 'POST', 'orderService', {
+  rateLimit: { max: 50, window: 60 }
+});
+
+gateway.addRoute('/api/notifications', 'POST', 'notificationService', {
+  rateLimit: { max: 200, window: 60 }
+});
+
+console.log('API Gateway configured with routes:', Array.from(gateway.routes.keys()));</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(2)">Run Code</button>
+                    <button onclick="validateExercise(2)">Validate</button>
+                </div>
+                
+                <div class="output" id="output2"></div>
+                <div class="hint" id="hint2">
+                    <strong>Hint:</strong> Implement proper routing, middleware chain, and rate limiting mechanisms.
+                </div>
+            </div>
+
+            <!-- Exercise 3: Service Discovery & Load Balancing -->
+            <div class="exercise" id="exercise3">
+                <h2>⚖️ Exercise 3: Service Discovery & Load Balancing</h2>
+                <p>Implement service discovery with health checks and load balancing strategies.</p>
+                
+                <div class="code-editor">
+                    <h3>Service Discovery & Load Balancing</h3>
+                    <textarea id="code3" placeholder="Implement service discovery and load balancing...">// Service Discovery with Load Balancing
+class ServiceDiscovery {
+  constructor() {
+    this.services = new Map();
+    this.healthChecks = new Map();
+    this.loadBalancers = new Map();
+  }
+  
+  registerService(serviceName, instances) {
+    this.services.set(serviceName, instances.map(instance => ({
+      ...instance,
+      healthy: true,
+      lastHealthCheck: Date.now(),
+      requestCount: 0
+    })));
+    
+    // Initialize load balancer for this service
+    this.loadBalancers.set(serviceName, new LoadBalancer());
+  }
+  
+  async performHealthCheck(serviceName) {
+    const instances = this.services.get(serviceName);
+    if (!instances) return;
+    
+    for (const instance of instances) {
+      try {
+        // Simulate health check
+        const isHealthy = await this.checkInstanceHealth(instance);
+        instance.healthy = isHealthy;
+        instance.lastHealthCheck = Date.now();
+      } catch (error) {
+        instance.healthy = false;
+        console.log(`Health check failed for ${instance.url}:`, error.message);
+      }
+    }
+  }
+  
+  async checkInstanceHealth(instance) {
+    // Simulate health check endpoint call
+    return Math.random() > 0.1; // 90% success rate
+  }
+  
+  getHealthyInstances(serviceName) {
+    const instances = this.services.get(serviceName);
+    return instances ? instances.filter(instance => instance.healthy) : [];
+  }
+  
+  selectInstance(serviceName, strategy = 'round-robin') {
+    const healthyInstances = this.getHealthyInstances(serviceName);
+    if (healthyInstances.length === 0) {
+      throw new Error(`No healthy instances available for ${serviceName}`);
+    }
+    
+    const loadBalancer = this.loadBalancers.get(serviceName);
+    return loadBalancer.selectInstance(healthyInstances, strategy);
+  }
+}
+
+class LoadBalancer {
+  constructor() {
+    this.currentIndex = 0;
+  }
+  
+  selectInstance(instances, strategy) {
+    switch (strategy) {
+      case 'round-robin':
+        return this.roundRobin(instances);
+      case 'least-connections':
+        return this.leastConnections(instances);
+      case 'weighted':
+        return this.weightedRoundRobin(instances);
+      default:
+        return instances[0];
+    }
+  }
+  
+  roundRobin(instances) {
+    const instance = instances[this.currentIndex];
+    this.currentIndex = (this.currentIndex + 1) % instances.length;
+    instance.requestCount++;
+    return instance;
+  }
+  
+  leastConnections(instances) {
+    const instance = instances.reduce((min, current) => 
+      current.requestCount < min.requestCount ? current : min
+    );
+    instance.requestCount++;
+    return instance;
+  }
+  
+  weightedRoundRobin(instances) {
+    // Simple weighted round robin based on instance capacity
+    const totalWeight = instances.reduce((sum, instance) => sum + (instance.weight || 1), 0);
+    const random = Math.random() * totalWeight;
+    
+    let currentWeight = 0;
+    for (const instance of instances) {
+      currentWeight += (instance.weight || 1);
+      if (random <= currentWeight) {
+        instance.requestCount++;
+        return instance;
+      }
+    }
+    
+    return instances[0];
+  }
+}
+
+// Create service discovery instance
+const discovery = new ServiceDiscovery();
+
+// Register services with multiple instances
+discovery.registerService('userService', [
+  { url: 'http://user-service-1:3001', weight: 1 },
+  { url: 'http://user-service-2:3001', weight: 2 },
+  { url: 'http://user-service-3:3001', weight: 1 }
+]);
+
+discovery.registerService('orderService', [
+  { url: 'http://order-service-1:3002', weight: 1 },
+  { url: 'http://order-service-2:3002', weight: 1 }
+]);
+
+// Perform health checks
+discovery.performHealthCheck('userService');
+discovery.performHealthCheck('orderService');
+
+// Test load balancing
+console.log('Round-robin selection:', discovery.selectInstance('userService', 'round-robin'));
+console.log('Least connections:', discovery.selectInstance('userService', 'least-connections'));
+console.log('Weighted round-robin:', discovery.selectInstance('userService', 'weighted'));</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(3)">Run Code</button>
+                    <button onclick="validateExercise(3)">Validate</button>
+                </div>
+                
+                <div class="output" id="output3"></div>
+                <div class="hint" id="hint3">
+                    <strong>Hint:</strong> Implement health checks, multiple load balancing strategies, and service instance management.
+                </div>
+            </div>
+
+            <!-- Exercise 4: Event-Driven Architecture -->
+            <div class="exercise" id="exercise4">
+                <h2>📡 Exercise 4: Event-Driven Architecture</h2>
+                <p>Implement event-driven communication with message queues and event sourcing.</p>
+                
+                <div class="code-editor">
+                    <h3>Event-Driven Communication</h3>
+                    <textarea id="code4" placeholder="Implement event-driven architecture...">// Event-Driven Architecture Implementation
+class EventBus {
+  constructor() {
+    this.subscribers = new Map();
+    this.eventStore = [];
+    this.deadLetterQueue = [];
+  }
+  
+  subscribe(eventType, handler, serviceName) {
+    if (!this.subscribers.has(eventType)) {
+      this.subscribers.set(eventType, []);
+    }
+    
+    this.subscribers.get(eventType).push({
+      handler,
+      serviceName,
+      subscribedAt: new Date()
+    });
+  }
+  
+  async publish(eventType, eventData, metadata = {}) {
+    const event = {
+      id: this.generateEventId(),
+      type: eventType,
+      data: eventData,
+      metadata: {
+        ...metadata,
+        timestamp: new Date(),
+        version: '1.0'
+      }
+    };
+    
+    // Store event for event sourcing
+    this.eventStore.push(event);
+    
+    // Notify subscribers
+    const subscribers = this.subscribers.get(eventType) || [];
+    const results = [];
+    
+    for (const subscriber of subscribers) {
+      try {
+        const result = await subscriber.handler(event);
+        results.push({ success: true, serviceName: subscriber.serviceName, result });
+      } catch (error) {
+        console.error(`Event handling failed for ${subscriber.serviceName}:`, error);
+        results.push({ success: false, serviceName: subscriber.serviceName, error });
+        
+        // Add to dead letter queue
+        this.deadLetterQueue.push({
+          event,
+          subscriber: subscriber.serviceName,
+          error: error.message,
+          timestamp: new Date()
+        });
+      }
+    }
+    
+    return { event, results };
+  }
+  
+  generateEventId() {
+    return `evt_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
+  
+  getEventsByType(eventType) {
+    return this.eventStore.filter(event => event.type === eventType);
+  }
+  
+  replayEvents(eventType, fromTimestamp) {
+    const events = this.getEventsByType(eventType)
+      .filter(event => event.metadata.timestamp >= fromTimestamp);
+    
+    return events.sort((a, b) => a.metadata.timestamp - b.metadata.timestamp);
+  }
+}
+
+// Message Queue Implementation
+class MessageQueue {
+  constructor() {
+    this.queues = new Map();
+    this.consumers = new Map();
+  }
+  
+  createQueue(queueName, options = {}) {
+    this.queues.set(queueName, {
+      messages: [],
+      options: {
+        maxRetries: 3,
+        visibilityTimeout: 30000, // 30 seconds
+        ...options
+      }
+    });
+  }
+  
+  async sendMessage(queueName, message, options = {}) {
+    const queue = this.queues.get(queueName);
+    if (!queue) {
+      throw new Error(`Queue ${queueName} does not exist`);
+    }
+    
+    const messageData = {
+      id: this.generateMessageId(),
+      body: message,
+      attributes: options.attributes || {},
+      sentAt: new Date(),
+      retryCount: 0
+    };
+    
+    queue.messages.push(messageData);
+    
+    // Notify consumers
+    await this.notifyConsumers(queueName);
+    
+    return messageData.id;
+  }
+  
+  async receiveMessage(queueName, maxMessages = 1) {
+    const queue = this.queues.get(queueName);
+    if (!queue) return [];
+    
+    const messages = queue.messages
+      .filter(msg => !msg.inFlight)
+      .slice(0, maxMessages);
+    
+    // Mark messages as in-flight
+    messages.forEach(msg => {
+      msg.inFlight = true;
+      msg.receivedAt = new Date();
+    });
+    
+    return messages;
+  }
+  
+  async deleteMessage(queueName, messageId) {
+    const queue = this.queues.get(queueName);
+    if (!queue) return false;
+    
+    const index = queue.messages.findIndex(msg => msg.id === messageId);
+    if (index !== -1) {
+      queue.messages.splice(index, 1);
+      return true;
+    }
+    
+    return false;
+  }
+  
+  async notifyConsumers(queueName) {
+    const consumers = this.consumers.get(queueName) || [];
+    for (const consumer of consumers) {
+      try {
+        await consumer.handler();
+      } catch (error) {
+        console.error(`Consumer notification failed:`, error);
+      }
+    }
+  }
+  
+  generateMessageId() {
+    return `msg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
+}
+
+// Create event bus and message queue
+const eventBus = new EventBus();
+const messageQueue = new MessageQueue();
+
+// Create queues
+messageQueue.createQueue('user-events');
+messageQueue.createQueue('order-events');
+
+// Subscribe to events
+eventBus.subscribe('user.created', async (event) => {
+  console.log('User created event received:', event.data);
+  await messageQueue.sendMessage('user-events', {
+    type: 'user.created',
+    userId: event.data.userId,
+    email: event.data.email
+  });
+}, 'notificationService');
+
+eventBus.subscribe('order.placed', async (event) => {
+  console.log('Order placed event received:', event.data);
+  await messageQueue.sendMessage('order-events', {
+    type: 'order.placed',
+    orderId: event.data.orderId,
+    userId: event.data.userId,
+    total: event.data.total
+  });
+}, 'inventoryService');
+
+// Publish test events
+eventBus.publish('user.created', {
+  userId: 'user_123',
+  email: 'user@example.com',
+  name: 'John Doe'
+});
+
+eventBus.publish('order.placed', {
+  orderId: 'order_456',
+  userId: 'user_123',
+  total: 99.99,
+  items: ['product1', 'product2']
+});
+
+console.log('Event-driven architecture initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(4)">Run Code</button>
+                    <button onclick="validateExercise(4)">Validate</button>
+                </div>
+                
+                <div class="output" id="output4"></div>
+                <div class="hint" id="hint4">
+                    <strong>Hint:</strong> Implement event publishing/subscribing, message queues, and event sourcing patterns.
+                </div>
+            </div>
+
+            <!-- Exercise 5: Distributed Systems Patterns -->
+            <div class="exercise" id="exercise5">
+                <h2>🔗 Exercise 5: Distributed Systems Patterns</h2>
+                <p>Implement circuit breakers, bulkhead patterns, and distributed tracing.</p>
+                
+                <div class="code-editor">
+                    <h3>Distributed Systems Patterns</h3>
+                    <textarea id="code5" placeholder="Implement distributed systems patterns...">// Circuit Breaker Pattern
+class CircuitBreaker {
+  constructor(options = {}) {
+    this.failureThreshold = options.failureThreshold || 5;
+    this.timeout = options.timeout || 60000; // 1 minute
+    this.resetTimeout = options.resetTimeout || 30000; // 30 seconds
+    
+    this.state = 'CLOSED'; // CLOSED, OPEN, HALF_OPEN
+    this.failureCount = 0;
+    this.lastFailureTime = null;
+    this.nextAttemptTime = null;
+  }
+  
+  async execute(operation) {
+    if (this.state === 'OPEN') {
+      if (Date.now() < this.nextAttemptTime) {
+        throw new Error('Circuit breaker is OPEN');
+      }
+      this.state = 'HALF_OPEN';
+    }
+    
+    try {
+      const result = await operation();
+      this.onSuccess();
+      return result;
+    } catch (error) {
+      this.onFailure();
+      throw error;
+    }
+  }
+  
+  onSuccess() {
+    this.failureCount = 0;
+    this.state = 'CLOSED';
+  }
+  
+  onFailure() {
+    this.failureCount++;
+    this.lastFailureTime = Date.now();
+    
+    if (this.failureCount >= this.failureThreshold) {
+      this.state = 'OPEN';
+      this.nextAttemptTime = Date.now() + this.resetTimeout;
+    }
+  }
+  
+  getState() {
+    return {
+      state: this.state,
+      failureCount: this.failureCount,
+      lastFailureTime: this.lastFailureTime,
+      nextAttemptTime: this.nextAttemptTime
+    };
+  }
+}
+
+// Bulkhead Pattern
+class BulkheadPool {
+  constructor(poolConfig) {
+    this.pools = new Map();
+    
+    for (const [name, config] of Object.entries(poolConfig)) {
+      this.pools.set(name, {
+        maxConnections: config.maxConnections || 10,
+        currentConnections: 0,
+        queue: [],
+        circuitBreaker: new CircuitBreaker(config.circuitBreaker)
+      });
+    }
+  }
+  
+  async execute(poolName, operation) {
+    const pool = this.pools.get(poolName);
+    if (!pool) {
+      throw new Error(`Pool ${poolName} does not exist`);
+    }
+    
+    return await pool.circuitBreaker.execute(async () => {
+      if (pool.currentConnections >= pool.maxConnections) {
+        return new Promise((resolve, reject) => {
+          pool.queue.push({ operation, resolve, reject });
+        });
+      }
+      
+      pool.currentConnections++;
+      
+      try {
+        const result = await operation();
+        pool.currentConnections--;
+        this.processQueue(poolName);
+        return result;
+      } catch (error) {
+        pool.currentConnections--;
+        this.processQueue(poolName);
+        throw error;
+      }
+    });
+  }
+  
+  processQueue(poolName) {
+    const pool = this.pools.get(poolName);
+    if (pool.queue.length > 0 && pool.currentConnections < pool.maxConnections) {
+      const { operation, resolve, reject } = pool.queue.shift();
+      pool.currentConnections++;
+      
+      operation()
+        .then(result => {
+          pool.currentConnections--;
+          resolve(result);
+          this.processQueue(poolName);
+        })
+        .catch(error => {
+          pool.currentConnections--;
+          reject(error);
+          this.processQueue(poolName);
+        });
+    }
+  }
+}
+
+// Distributed Tracing
+class DistributedTracer {
+  constructor() {
+    this.traces = new Map();
+    this.spans = new Map();
+  }
+  
+  startTrace(traceId, operationName, tags = {}) {
+    const trace = {
+      traceId,
+      operationName,
+      startTime: Date.now(),
+      spans: [],
+      tags
+    };
+    
+    this.traces.set(traceId, trace);
+    return trace;
+  }
+  
+  startSpan(traceId, spanId, operationName, parentSpanId = null, tags = {}) {
+    const span = {
+      spanId,
+      traceId,
+      operationName,
+      parentSpanId,
+      startTime: Date.now(),
+      endTime: null,
+      tags,
+      logs: []
+    };
+    
+    this.spans.set(spanId, span);
+    
+    const trace = this.traces.get(traceId);
+    if (trace) {
+      trace.spans.push(spanId);
+    }
+    
+    return span;
+  }
+  
+  finishSpan(spanId, tags = {}) {
+    const span = this.spans.get(spanId);
+    if (span) {
+      span.endTime = Date.now();
+      span.tags = { ...span.tags, ...tags };
+      span.duration = span.endTime - span.startTime;
+    }
+    return span;
+  }
+  
+  addLog(spanId, log) {
+    const span = this.spans.get(spanId);
+    if (span) {
+      span.logs.push({
+        timestamp: Date.now(),
+        ...log
+      });
+    }
+  }
+  
+  getTrace(traceId) {
+    const trace = this.traces.get(traceId);
+    if (!trace) return null;
+    
+    return {
+      ...trace,
+      spans: trace.spans.map(spanId => this.spans.get(spanId)).filter(Boolean)
+    };
+  }
+}
+
+// Create instances
+const bulkheadPool = new BulkheadPool({
+  database: { maxConnections: 5, circuitBreaker: { failureThreshold: 3 } },
+  cache: { maxConnections: 10, circuitBreaker: { failureThreshold: 5 } },
+  external: { maxConnections: 3, circuitBreaker: { failureThreshold: 2 } }
+});
+
+const tracer = new DistributedTracer();
+
+// Test distributed patterns
+const traceId = 'trace_' + Date.now();
+const trace = tracer.startTrace(traceId, 'user-registration');
+
+const span1 = tracer.startSpan(traceId, 'span_1', 'validate-input');
+setTimeout(() => {
+  tracer.finishSpan('span_1', { status: 'success' });
+}, 100);
+
+const span2 = tracer.startSpan(traceId, 'span_2', 'save-to-database', 'span_1');
+setTimeout(() => {
+  tracer.finishSpan('span_2', { status: 'success' });
+}, 200);
+
+// Test bulkhead pattern
+bulkheadPool.execute('database', async () => {
+  console.log('Database operation executed');
+  return { success: true };
+});
+
+bulkheadPool.execute('cache', async () => {
+  console.log('Cache operation executed');
+  return { success: true };
+});
+
+console.log('Distributed systems patterns initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(5)">Run Code</button>
+                    <button onclick="validateExercise(5)">Validate</button>
+                </div>
+                
+                <div class="output" id="output5"></div>
+                <div class="hint" id="hint5">
+                    <strong>Hint:</strong> Implement circuit breakers, bulkhead isolation, and distributed tracing for resilience.
+                </div>
+            </div>
+        </div>
+
+        <div class="level-navigation">
+            <button onclick="goToLevel(29)" class="nav-btn prev">← Previous Level</button>
+            <button onclick="goToLevel(31)" class="nav-btn next">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+    <script src="level30-script.js"></script>
+</body>
+</html>

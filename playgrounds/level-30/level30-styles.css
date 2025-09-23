@@ -1,0 +1,328 @@
+/* Level 30: Microservices & API Architecture Styles */
+
+.level-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.level-header {
+    text-align: center;
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.level-header h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.level-header p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #ecf0f1;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
+.level-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.exercises-container {
+    display: grid;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.exercise {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.exercise:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.exercise h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.exercise p {
+    color: #7f8c8d;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.code-editor {
+    margin-bottom: 20px;
+}
+
+.code-editor h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.code-editor textarea {
+    width: 100%;
+    min-height: 300px;
+    padding: 20px;
+    border: 2px solid #e0e6ed;
+    border-radius: 15px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    background: #f8f9fa;
+    color: #2c3e50;
+    resize: vertical;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.code-editor textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.exercise-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.exercise-controls button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.exercise-controls button:first-child {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+}
+
+.exercise-controls button:first-child:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.exercise-controls button:last-child {
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
+    color: white;
+}
+
+.exercise-controls button:last-child:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+}
+
+.output {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 20px;
+    border-radius: 15px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    margin-bottom: 15px;
+    border: 1px solid #34495e;
+}
+
+.hint {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-left: 5px solid #d35400;
+}
+
+.level-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.nav-btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.nav-btn.prev {
+    background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+    color: white;
+}
+
+.nav-btn.next {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Microservices-specific styling */
+.exercise:nth-child(1) h2::before {
+    content: "🏗️";
+    font-size: 1.5rem;
+}
+
+.exercise:nth-child(2) h2::before {
+    content: "🌐";
+    font-size: 1.5rem;
+}
+
+.exercise:nth-child(3) h2::before {
+    content: "⚖️";
+    font-size: 1.5rem;
+}
+
+.exercise:nth-child(4) h2::before {
+    content: "📡";
+    font-size: 1.5rem;
+}
+
+.exercise:nth-child(5) h2::before {
+    content: "🔗";
+    font-size: 1.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .level-container {
+        padding: 15px;
+    }
+    
+    .level-header h1 {
+        font-size: 2rem;
+    }
+    
+    .level-header p {
+        font-size: 1rem;
+    }
+    
+    .exercise {
+        padding: 20px;
+    }
+    
+    .exercise h2 {
+        font-size: 1.3rem;
+    }
+    
+    .code-editor textarea {
+        min-height: 250px;
+        font-size: 13px;
+    }
+    
+    .level-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .level-navigation {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Animation for completed exercises */
+.exercise.completed {
+    border-left: 5px solid #27ae60;
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(46, 204, 113, 0.1));
+}
+
+.exercise.completed h2::after {
+    content: " ✅";
+    color: #27ae60;
+    font-size: 1.2rem;
+}
+
+/* Code syntax highlighting */
+.code-editor textarea {
+    background: #f8f9fa;
+    color: #2c3e50;
+}
+
+/* Success/Error states */
+.output.success {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white;
+}
+
+.output.error {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
