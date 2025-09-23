@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 40: Advanced Data Visualization - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level40-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>📊 Level 40: Advanced Data Visualization</h1>
+                <p class="level-description">Master D3.js, interactive charts, real-time data visualization, custom visualizations, and performance optimization</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text">Progress: <span id="progressText">0/5</span> exercises completed</p>
+            </div>
+            <div class="level-badges">
+                <div class="badge" id="badge1">📈</div>
+                <div class="badge" id="badge2">🎯</div>
+                <div class="badge" id="badge3">⚡</div>
+                <div class="badge" id="badge4">🎨</div>
+                <div class="badge" id="badge5">🚀</div>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: D3.js Mastery -->
+            <div class="exercise-card" id="exercise1">
+                <div class="exercise-header">
+                    <h3>📈 Exercise 1: D3.js Mastery</h3>
+                    <p>Learn advanced D3.js concepts including scales, axes, transitions, and data binding</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>D3.js Visualization</span>
+                            <button class="run-btn" onclick="runExercise(1)">Run</button>
+                        </div>
+                        <textarea id="code1" class="code-input" placeholder="// D3.js Mastery Exercise
+// Create an advanced interactive bar chart
+
+// Sample data
+const data = [
+  { name: 'JavaScript', value: 85, color: '#f39c12' },
+  { name: 'Python', value: 78, color: '#3498db' },
+  { name: 'Java', value: 72, color: '#e74c3c' },
+  { name: 'C++', value: 68, color: '#9b59b6' },
+  { name: 'Go', value: 65, color: '#1abc9c' }
+];
+
+// Set up SVG dimensions
+const width = 800;
+const height = 400;
+const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+
+// Create SVG
+const svg = d3.select('#chart1')
+  .append('svg')
+  .attr('width', width)
+  .attr('height', height);
+
+// Create scales
+const xScale = d3.scaleBand()
+  .domain(data.map(d => d.name))
+  .range([margin.left, width - margin.right])
+  .padding(0.1);
+
+const yScale = d3.scaleLinear()
+  .domain([0, d3.max(data, d => d.value)])
+  .range([height - margin.bottom, margin.top]);
+
+// Create axes
+const xAxis = d3.axisBottom(xScale);
+const yAxis = d3.axisLeft(yScale);
+
+svg.append('g')
+  .attr('transform', `translate(0, ${height - margin.bottom})`)
+  .call(xAxis);
+
+svg.append('g')
+  .attr('transform', `translate(${margin.left}, 0)`)
+  .call(yAxis);
+
+// Create bars with animation
+const bars = svg.selectAll('.bar')
+  .data(data)
+  .enter()
+  .append('rect')
+  .attr('class', 'bar')
+  .attr('x', d => xScale(d.name))
+  .attr('y', height - margin.bottom)
+  .attr('width', xScale.bandwidth())
+  .attr('height', 0)
+  .attr('fill', d => d.color)
+  .attr('opacity', 0.8);
+
+// Animate bars
+bars.transition()
+  .duration(1000)
+  .delay((d, i) => i * 200)
+  .attr('y', d => yScale(d.value))
+  .attr('height', d => height - margin.bottom - yScale(d.value));
+
+// Add hover effects
+bars.on('mouseover', function(event, d) {
+  d3.select(this)
+    .transition()
+    .duration(200)
+    .attr('opacity', 1)
+    .attr('stroke', '#2c3e50')
+    .attr('stroke-width', 2);
+    
+  // Show tooltip
+  const tooltip = d3.select('body')
+    .append('div')
+    .attr('class', 'tooltip')
+    .style('opacity', 0);
+    
+  tooltip.transition()
+    .duration(200)
+    .style('opacity', 1);
+    
+  tooltip.html(`<strong>${d.name}</strong><br/>Value: ${d.value}`)
+    .style('left', (event.pageX + 10) + 'px')
+    .style('top', (event.pageY - 10) + 'px');
+})
+.on('mouseout', function() {
+  d3.select(this)
+    .transition()
+    .duration(200)
+    .attr('opacity', 0.8)
+    .attr('stroke', 'none');
+    
+  d3.selectAll('.tooltip').remove();
+});
+
+// Add labels
+svg.selectAll('.label')
+  .data(data)
+  .enter()
+  .append('text')
+  .attr('class', 'label')
+  .attr('x', d => xScale(d.name) + xScale.bandwidth() / 2)
+  .attr('y', d => yScale(d.value) - 5)
+  .attr('text-anchor', 'middle')
+  .attr('fill', 'white')
+  .attr('font-weight', 'bold')
+  .text(d => d.value);"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output1"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            D3.js uses data binding, scales, and transitions to create interactive visualizations. Focus on understanding the enter-update-exit pattern and smooth animations.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Interactive Charts -->
+            <div class="exercise-card" id="exercise2">
+                <div class="exercise-header">
+                    <h3>🎯 Exercise 2: Interactive Charts</h3>
+                    <p>Build interactive charts with zoom, pan, brush selection, and dynamic filtering</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Interactive Chart</span>
+                            <button class="run-btn" onclick="runExercise(2)">Run</button>
+                        </div>
+                        <textarea id="code2" class="code-input" placeholder="// Interactive Charts Exercise
+// Create a zoomable and pannable scatter plot
+
+// Generate sample data
+const generateData = (n) => {
+  return d3.range(n).map(i => ({
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 20 + 5,
+    color: d3.schemeCategory10[i % 10]
+  }));
+};
+
+const data = generateData(100);
+
+// Set up dimensions
+const width = 800;
+const height = 500;
+const margin = { top: 20, right: 20, bottom: 40, left: 40 };
+
+// Create SVG
+const svg = d3.select('#chart2')
+  .append('svg')
+  .attr('width', width)
+  .attr('height', height);
+
+// Create scales
+const xScale = d3.scaleLinear()
+  .domain([0, 100])
+  .range([margin.left, width - margin.right]);
+
+const yScale = d3.scaleLinear()
+  .domain([0, 100])
+  .range([height - margin.bottom, margin.top]);
+
+// Create zoom behavior
+const zoom = d3.zoom()
+  .scaleExtent([0.5, 10])
+  .on('zoom', (event) => {
+    const { transform } = event;
+    
+    // Update scales
+    const newXScale = transform.rescaleX(xScale);
+    const newYScale = transform.rescaleY(yScale);
+    
+    // Update circles
+    circles.attr('cx', d => newXScale(d.x))
+           .attr('cy', d => newYScale(d.y));
+    
+    // Update axes
+    svg.select('.x-axis').call(d3.axisBottom(newXScale));
+    svg.select('.y-axis').call(d3.axisLeft(newYScale));
+  });
+
+// Apply zoom to SVG
+svg.call(zoom);
+
+// Create axes
+svg.append('g')
+  .attr('class', 'x-axis')
+  .attr('transform', `translate(0, ${height - margin.bottom})`)
+  .call(d3.axisBottom(xScale));
+
+svg.append('g')
+  .attr('class', 'y-axis')
+  .attr('transform', `translate(${margin.left}, 0)`)
+  .call(d3.axisLeft(yScale));
+
+// Create circles
+const circles = svg.selectAll('.point')
+  .data(data)
+  .enter()
+  .append('circle')
+  .attr('class', 'point')
+  .attr('cx', d => xScale(d.x))
+  .attr('cy', d => yScale(d.y))
+  .attr('r', d => d.size)
+  .attr('fill', d => d.color)
+  .attr('opacity', 0.7)
+  .attr('stroke', '#fff')
+  .attr('stroke-width', 1);
+
+// Add brush selection
+const brush = d3.brush()
+  .extent([[margin.left, margin.top], [width - margin.right, height - margin.bottom]])
+  .on('brush', (event) => {
+    const selection = event.selection;
+    if (selection) {
+      const [[x0, y0], [x1, y1]] = selection;
+      
+      circles.classed('selected', d => {
+        const x = xScale(d.x);
+        const y = yScale(d.y);
+        return x >= x0 && x <= x1 && y >= y0 && y <= y1;
+      });
+      
+      // Update selected count
+      const selectedCount = circles.filter('.selected').size();
+      d3.select('#selected-count').text(`Selected: ${selectedCount} points`);
+    }
+  })
+  .on('end', (event) => {
+    if (!event.selection) {
+      circles.classed('selected', false);
+      d3.select('#selected-count').text('Selected: 0 points');
+    }
+  });
+
+svg.append('g')
+  .attr('class', 'brush')
+  .call(brush);
+
+// Add filtering controls
+const filterContainer = d3.select('#chart2')
+  .append('div')
+  .attr('class', 'filter-controls');
+
+filterContainer.append('label')
+  .text('Filter by size: ')
+  .append('input')
+  .attr('type', 'range')
+  .attr('min', 5)
+  .attr('max', 25)
+  .attr('value', 5)
+  .on('input', function() {
+    const minSize = +this.value;
+    circles.style('opacity', d => d.size >= minSize ? 0.7 : 0.1);
+  });
+
+// Add selection counter
+d3.select('#chart2')
+  .append('div')
+  .attr('id', 'selected-count')
+  .style('margin-top', '10px')
+  .style('font-weight', 'bold')
+  .text('Selected: 0 points');"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output2"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Interactive charts use zoom, pan, brush selection, and filtering to enhance user experience. Implement smooth transitions and responsive interactions.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: Real-time Data -->
+            <div class="exercise-card" id="exercise3">
+                <div class="exercise-header">
+                    <h3>⚡ Exercise 3: Real-time Data</h3>
+                    <p>Implement real-time data visualization with WebSocket connections and live updates</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Real-time Visualization</span>
+                            <button class="run-btn" onclick="runExercise(3)">Run</button>
+                        </div>
+                        <textarea id="code3" class="code-input" placeholder="// Real-time Data Visualization Exercise
+// Create a live updating line chart
+
+class RealTimeChart {
+  constructor(containerId) {
+    this.container = d3.select(containerId);
+    this.data = [];
+    this.maxDataPoints = 50;
+    this.isRunning = false;
+    
+    this.setupChart();
+    this.setupControls();
+  }
+  
+  setupChart() {
+    const width = 800;
+    const height = 400;
+    const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+    
+    this.width = width;
+    this.height = height;
+    this.margin = margin;
+    
+    // Create SVG
+    this.svg = this.container.append('svg')
+      .attr('width', width)
+      .attr('height', height);
+    
+    // Create scales
+    this.xScale = d3.scaleTime()
+      .domain([new Date(), new Date()])
+      .range([margin.left, width - margin.right]);
+    
+    this.yScale = d3.scaleLinear()
+      .domain([0, 100])
+      .range([height - margin.bottom, margin.top]);
+    
+    // Create line generator
+    this.line = d3.line()
+      .x(d => this.xScale(d.time))
+      .y(d => this.yScale(d.value))
+      .curve(d3.curveMonotoneX);
+    
+    // Create axes
+    this.xAxis = this.svg.append('g')
+      .attr('class', 'x-axis')
+      .attr('transform', `translate(0, ${height - margin.bottom})`);
+    
+    this.yAxis = this.svg.append('g')
+      .attr('class', 'y-axis')
+      .attr('transform', `translate(${margin.left}, 0)`);
+    
+    // Create path for line
+    this.path = this.svg.append('path')
+      .attr('class', 'line')
+      .attr('fill', 'none')
+      .attr('stroke', '#3498db')
+      .attr('stroke-width', 2);
+    
+    // Create area under line
+    this.area = d3.area()
+      .x(d => this.xScale(d.time))
+      .y0(height - margin.bottom)
+      .y1(d => this.yScale(d.value))
+      .curve(d3.curveMonotoneX);
+    
+    this.svg.append('path')
+      .attr('class', 'area')
+      .attr('fill', '#3498db')
+      .attr('opacity', 0.1);
+    
+    // Add grid lines
+    this.svg.append('g')
+      .attr('class', 'grid')
+      .attr('transform', `translate(0, ${height - margin.bottom})`)
+      .call(d3.axisBottom(this.xScale)
+        .tickSize(-height + margin.top + margin.bottom)
+        .tickFormat(''));
+    
+    this.svg.append('g')
+      .attr('class', 'grid')
+      .attr('transform', `translate(${margin.left}, 0)`)
+      .call(d3.axisLeft(this.yScale)
+        .tickSize(-width + margin.left + margin.right)
+        .tickFormat(''));
+  }
+  
+  setupControls() {
+    const controls = this.container.append('div')
+      .attr('class', 'controls');
+    
+    // Start/Stop button
+    controls.append('button')
+      .attr('id', 'start-stop')
+      .text('Start')
+      .on('click', () => this.toggle());
+    
+    // Clear button
+    controls.append('button')
+      .text('Clear')
+      .on('click', () => this.clear());
+    
+    // Speed control
+    controls.append('label')
+      .text('Speed: ')
+      .append('input')
+      .attr('type', 'range')
+      .attr('min', 100)
+      .attr('max', 2000)
+      .attr('value', 500)
+      .on('input', function() {
+        this.speed = +this.value;
+      }.bind(this));
+    
+    this.speed = 500;
+  }
+  
+  addDataPoint() {
+    const now = new Date();
+    const value = Math.random() * 100;
+    
+    this.data.push({ time: now, value: value });
+    
+    // Keep only last maxDataPoints
+    if (this.data.length > this.maxDataPoints) {
+      this.data.shift();
+    }
+    
+    this.updateChart();
+  }
+  
+  updateChart() {
+    if (this.data.length === 0) return;
+    
+    // Update scales
+    const timeExtent = d3.extent(this.data, d => d.time);
+    const valueExtent = d3.extent(this.data, d => d.value);
+    
+    this.xScale.domain(timeExtent);
+    this.yScale.domain([Math.max(0, valueExtent[0] - 10), Math.min(100, valueExtent[1] + 10)]);
+    
+    // Update axes
+    this.xAxis.transition()
+      .duration(300)
+      .call(d3.axisBottom(this.xScale)
+        .tickFormat(d3.timeFormat('%H:%M:%S')));
+    
+    this.yAxis.transition()
+      .duration(300)
+      .call(d3.axisLeft(this.yScale));
+    
+    // Update line
+    this.path.datum(this.data)
+      .transition()
+      .duration(300)
+      .attr('d', this.line);
+    
+    // Update area
+    this.svg.select('.area')
+      .datum(this.data)
+      .transition()
+      .duration(300)
+      .attr('d', this.area);
+    
+    // Update grid
+    this.svg.selectAll('.grid .tick line')
+      .transition()
+      .duration(300)
+      .attr('opacity', 0.1);
+  }
+  
+  toggle() {
+    const button = d3.select('#start-stop');
+    
+    if (this.isRunning) {
+      clearInterval(this.interval);
+      button.text('Start');
+      this.isRunning = false;
+    } else {
+      this.interval = setInterval(() => this.addDataPoint(), this.speed);
+      button.text('Stop');
+      this.isRunning = true;
+    }
+  }
+  
+  clear() {
+    this.data = [];
+    this.updateChart();
+  }
+}
+
+// Simulate WebSocket connection
+class MockWebSocket {
+  constructor(url) {
+    this.url = url;
+    this.onmessage = null;
+    this.onopen = null;
+    this.onclose = null;
+    this.onerror = null;
+    
+    // Simulate connection
+    setTimeout(() => {
+      if (this.onopen) this.onopen();
+    }, 100);
+  }
+  
+  send(data) {
+    console.log('Sending:', data);
+  }
+  
+  close() {
+    if (this.onclose) this.onclose();
+  }
+  
+  // Simulate incoming data
+  startDataStream() {
+    setInterval(() => {
+      if (this.onmessage) {
+        const data = {
+          timestamp: new Date().toISOString(),
+          value: Math.random() * 100,
+          type: 'sensor_data'
+        };
+        this.onmessage({ data: JSON.stringify(data) });
+      }
+    }, 1000);
+  }
+}
+
+// Initialize real-time chart
+const chart = new RealTimeChart('#chart3');
+
+// Simulate WebSocket connection
+const ws = new MockWebSocket('ws://localhost:8080/data');
+ws.onopen = () => {
+  console.log('WebSocket connected');
+  ws.startDataStream();
+};
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  chart.data.push({
+    time: new Date(data.timestamp),
+    value: data.value
+  });
+  
+  if (chart.data.length > chart.maxDataPoints) {
+    chart.data.shift();
+  }
+  
+  chart.updateChart();
+};
+
+ws.onclose = () => {
+  console.log('WebSocket disconnected');
+};"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output3"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Real-time visualizations require efficient data management, smooth transitions, and responsive updates. Use WebSockets for live data and optimize for performance.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Custom Visualizations -->
+            <div class="exercise-card" id="exercise4">
+                <div class="exercise-header">
+                    <h3>🎨 Exercise 4: Custom Visualizations</h3>
+                    <p>Create custom visualization types including treemaps, chord diagrams, and force-directed graphs</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Custom Visualization</span>
+                            <button class="run-btn" onclick="runExercise(4)">Run</button>
+                        </div>
+                        <textarea id="code4" class="code-input" placeholder="// Custom Visualizations Exercise
+// Create multiple custom visualization types
+
+// 1. Treemap Visualization
+class TreemapVisualization {
+  constructor(containerId, data) {
+    this.container = d3.select(containerId);
+    this.data = data;
+    this.setupTreemap();
+  }
+  
+  setupTreemap() {
+    const width = 400;
+    const height = 300;
+    
+    this.svg = this.container.append('svg')
+      .attr('width', width)
+      .attr('height', height);
+    
+    // Create treemap layout
+    this.treemap = d3.treemap()
+      .size([width, height])
+      .padding(2);
+    
+    // Process data
+    const root = d3.hierarchy(this.data)
+      .sum(d => d.value)
+      .sort((a, b) => b.value - a.value);
+    
+    this.treemap(root);
+    
+    // Create rectangles
+    const cells = this.svg.selectAll('.cell')
+      .data(root.leaves())
+      .enter()
+      .append('g')
+      .attr('class', 'cell')
+      .attr('transform', d => `translate(${d.x0},${d.y0})`);
+    
+    cells.append('rect')
+      .attr('width', d => d.x1 - d.x0)
+      .attr('height', d => d.y1 - d.y0)
+      .attr('fill', d => d3.schemeCategory10[d.parent.data.name.length % 10])
+      .attr('opacity', 0.8)
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 1);
+    
+    cells.append('text')
+      .attr('x', d => (d.x1 - d.x0) / 2)
+      .attr('y', d => (d.y1 - d.y0) / 2)
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'middle')
+      .attr('font-size', d => Math.min(d.x1 - d.x0, d.y1 - d.y0) / 8)
+      .attr('fill', 'white')
+      .text(d => d.data.name);
+  }
+}
+
+// 2. Chord Diagram
+class ChordDiagram {
+  constructor(containerId, data) {
+    this.container = d3.select(containerId);
+    this.data = data;
+    this.setupChord();
+  }
+  
+  setupChord() {
+    const width = 400;
+    const height = 400;
+    const radius = Math.min(width, height) / 2 - 40;
+    
+    this.svg = this.container.append('svg')
+      .attr('width', width)
+      .attr('height', height);
+    
+    // Create chord layout
+    this.chord = d3.chord()
+      .padAngle(0.05)
+      .sortSubgroups(d3.descending);
+    
+    const chords = this.chord(this.data);
+    
+    // Create group
+    const group = this.svg.append('g')
+      .attr('transform', `translate(${width/2}, ${height/2})`);
+    
+    // Create arcs
+    const arc = d3.arc()
+      .innerRadius(radius - 20)
+      .outerRadius(radius);
+    
+    group.selectAll('.arc')
+      .data(chords.groups)
+      .enter()
+      .append('path')
+      .attr('class', 'arc')
+      .attr('d', arc)
+      .attr('fill', (d, i) => d3.schemeCategory10[i])
+      .attr('opacity', 0.8);
+    
+    // Create ribbons
+    const ribbon = d3.ribbon()
+      .radius(radius - 20);
+    
+    group.selectAll('.ribbon')
+      .data(chords)
+      .enter()
+      .append('path')
+      .attr('class', 'ribbon')
+      .attr('d', ribbon)
+      .attr('fill', d => d3.schemeCategory10[d.source.index])
+      .attr('opacity', 0.6);
+    
+    // Add labels
+    group.selectAll('.label')
+      .data(chords.groups)
+      .enter()
+      .append('text')
+      .attr('class', 'label')
+      .attr('transform', d => {
+        const angle = (d.startAngle + d.endAngle) / 2;
+        const x = Math.cos(angle - Math.PI / 2) * (radius + 10);
+        const y = Math.sin(angle - Math.PI / 2) * (radius + 10);
+        return `translate(${x}, ${y})`;
+      })
+      .attr('text-anchor', d => {
+        const angle = (d.startAngle + d.endAngle) / 2;
+        return angle > Math.PI ? 'end' : 'start';
+      })
+      .attr('font-size', '12px')
+      .text((d, i) => `Group ${i + 1}`);
+  }
+}
+
+// 3. Force-Directed Graph
+class ForceDirectedGraph {
+  constructor(containerId, data) {
+    this.container = d3.select(containerId);
+    this.data = data;
+    this.setupForceGraph();
+  }
+  
+  setupForceGraph() {
+    const width = 400;
+    const height = 300;
+    
+    this.svg = this.container.append('svg')
+      .attr('width', width)
+      .attr('height', height);
+    
+    // Create force simulation
+    this.simulation = d3.forceSimulation(this.data.nodes)
+      .force('link', d3.forceLink(this.data.links).id(d => d.id).distance(50))
+      .force('charge', d3.forceManyBody().strength(-300))
+      .force('center', d3.forceCenter(width / 2, height / 2));
+    
+    // Create links
+    const links = this.svg.append('g')
+      .selectAll('.link')
+      .data(this.data.links)
+      .enter()
+      .append('line')
+      .attr('class', 'link')
+      .attr('stroke', '#999')
+      .attr('stroke-opacity', 0.6)
+      .attr('stroke-width', d => Math.sqrt(d.value));
+    
+    // Create nodes
+    const nodes = this.svg.append('g')
+      .selectAll('.node')
+      .data(this.data.nodes)
+      .enter()
+      .append('circle')
+      .attr('class', 'node')
+      .attr('r', d => Math.sqrt(d.group) * 3 + 5)
+      .attr('fill', d => d3.schemeCategory10[d.group])
+      .attr('opacity', 0.8)
+      .call(d3.drag()
+        .on('start', this.dragstarted.bind(this))
+        .on('drag', this.dragged.bind(this))
+        .on('end', this.dragended.bind(this)));
+    
+    // Add labels
+    const labels = this.svg.append('g')
+      .selectAll('.label')
+      .data(this.data.nodes)
+      .enter()
+      .append('text')
+      .attr('class', 'label')
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'middle')
+      .attr('font-size', '10px')
+      .text(d => d.id);
+    
+    // Update positions
+    this.simulation.on('tick', () => {
+      links
+        .attr('x1', d => d.source.x)
+        .attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x)
+        .attr('y2', d => d.target.y);
+      
+      nodes
+        .attr('cx', d => d.x)
+        .attr('cy', d => d.y);
+      
+      labels
+        .attr('x', d => d.x)
+        .attr('y', d => d.y);
+    });
+  }
+  
+  dragstarted(event, d) {
+    if (!event.active) this.simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
+  
+  dragged(event, d) {
+    d.fx = event.x;
+    d.fy = event.y;
+  }
+  
+  dragended(event, d) {
+    if (!event.active) this.simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
+}
+
+// Sample data
+const treemapData = {
+  name: 'root',
+  children: [
+    { name: 'A', value: 100 },
+    { name: 'B', value: 80 },
+    { name: 'C', value: 60 },
+    { name: 'D', value: 40 },
+    { name: 'E', value: 20 }
+  ]
+};
+
+const chordData = [
+  [0, 5, 3, 2],
+  [3, 0, 2, 1],
+  [2, 1, 0, 4],
+  [1, 2, 3, 0]
+];
+
+const forceData = {
+  nodes: [
+    { id: 'A', group: 1 },
+    { id: 'B', group: 1 },
+    { id: 'C', group: 2 },
+    { id: 'D', group: 2 },
+    { id: 'E', group: 3 }
+  ],
+  links: [
+    { source: 'A', target: 'B', value: 1 },
+    { source: 'B', target: 'C', value: 2 },
+    { source: 'C', target: 'D', value: 1 },
+    { source: 'D', target: 'E', value: 3 },
+    { source: 'E', target: 'A', value: 2 }
+  ]
+};
+
+// Initialize visualizations
+const treemap = new TreemapVisualization('#chart4-treemap', treemapData);
+const chord = new ChordDiagram('#chart4-chord', chordData);
+const forceGraph = new ForceDirectedGraph('#chart4-force', forceData);"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output4"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Custom visualizations require understanding of D3.js layouts, data structures, and interaction patterns. Focus on creating meaningful and intuitive visual representations.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Performance Optimization -->
+            <div class="exercise-card" id="exercise5">
+                <div class="exercise-header">
+                    <h3>🚀 Exercise 5: Performance Optimization</h3>
+                    <p>Optimize visualization performance with virtual scrolling, data aggregation, and efficient rendering</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Performance Optimization</span>
+                            <button class="run-btn" onclick="runExercise(5)">Run</button>
+                        </div>
+                        <textarea id="code5" class="code-input" placeholder="// Performance Optimization Exercise
+// Implement efficient rendering techniques for large datasets
+
+class OptimizedVisualization {
+  constructor(containerId) {
+    this.container = d3.select(containerId);
+    this.data = [];
+    this.visibleData = [];
+    this.viewport = { width: 800, height: 400 };
+    this.cellSize = 2;
+    this.maxCells = 10000;
+    
+    this.setupCanvas();
+    this.generateLargeDataset();
+    this.setupControls();
+  }
+  
+  setupCanvas() {
+    // Use Canvas for better performance with large datasets
+    this.canvas = this.container.append('canvas')
+      .attr('width', this.viewport.width)
+      .attr('height', this.viewport.height)
+      .style('border', '1px solid #ccc');
+    
+    this.context = this.canvas.node().getContext('2d');
+    
+    // Create SVG overlay for interactions
+    this.svg = this.container.append('svg')
+      .attr('width', this.viewport.width)
+      .attr('height', this.viewport.height)
+      .style('position', 'absolute')
+      .style('top', 0)
+      .style('left', 0)
+      .style('pointer-events', 'none');
+  }
+  
+  generateLargeDataset() {
+    // Generate 100,000 data points
+    this.data = d3.range(100000).map(i => ({
+      x: Math.random() * this.viewport.width,
+      y: Math.random() * this.viewport.height,
+      value: Math.random() * 100,
+      id: i
+    }));
+    
+    this.updateVisibleData();
+  }
+  
+  updateVisibleData() {
+    // Implement data aggregation for performance
+    const aggregatedData = this.aggregateData(this.data);
+    this.visibleData = aggregatedData.slice(0, this.maxCells);
+  }
+  
+  aggregateData(data) {
+    // Create a grid for aggregation
+    const gridSize = 10;
+    const grid = new Map();
+    
+    data.forEach(d => {
+      const gridX = Math.floor(d.x / gridSize);
+      const gridY = Math.floor(d.y / gridSize);
+      const key = `${gridX},${gridY}`;
+      
+      if (!grid.has(key)) {
+        grid.set(key, {
+          x: gridX * gridSize + gridSize / 2,
+          y: gridY * gridSize + gridSize / 2,
+          value: 0,
+          count: 0
+        });
+      }
+      
+      const cell = grid.get(key);
+      cell.value += d.value;
+      cell.count += 1;
+    });
+    
+    // Calculate average values
+    return Array.from(grid.values()).map(cell => ({
+      x: cell.x,
+      y: cell.y,
+      value: cell.value / cell.count,
+      count: cell.count
+    }));
+  }
+  
+  render() {
+    // Clear canvas
+    this.context.clearRect(0, 0, this.viewport.width, this.viewport.height);
+    
+    // Render data points
+    this.visibleData.forEach(d => {
+      const intensity = d.value / 100;
+      const alpha = Math.min(intensity * 0.8 + 0.2, 1);
+      
+      this.context.fillStyle = `rgba(52, 152, 219, ${alpha})`;
+      this.context.beginPath();
+      this.context.arc(d.x, d.y, this.cellSize, 0, 2 * Math.PI);
+      this.context.fill();
+    });
+    
+    // Add performance info
+    this.renderPerformanceInfo();
+  }
+  
+  renderPerformanceInfo() {
+    this.context.fillStyle = '#2c3e50';
+    this.context.font = '12px Arial';
+    this.context.fillText(`Data Points: ${this.data.length.toLocaleString()}`, 10, 20);
+    this.context.fillText(`Rendered: ${this.visibleData.length.toLocaleString()}`, 10, 40);
+    this.context.fillText(`FPS: ${this.fps || 0}`, 10, 60);
+  }
+  
+  setupControls() {
+    const controls = this.container.append('div')
+      .attr('class', 'controls')
+      .style('margin-top', '10px');
+    
+    // Cell size control
+    controls.append('label')
+      .text('Cell Size: ')
+      .append('input')
+      .attr('type', 'range')
+      .attr('min', 1)
+      .attr('max', 10)
+      .attr('value', this.cellSize)
+      .on('input', (event) => {
+        this.cellSize = +event.target.value;
+        this.render();
+      });
+    
+    // Max cells control
+    controls.append('label')
+      .text('Max Cells: ')
+      .append('input')
+      .attr('type', 'range')
+      .attr('min', 1000)
+      .attr('max', 50000)
+      .attr('value', this.maxCells)
+      .on('input', (event) => {
+        this.maxCells = +event.target.value;
+        this.updateVisibleData();
+        this.render();
+      });
+    
+    // Aggregation toggle
+    controls.append('label')
+      .append('input')
+      .attr('type', 'checkbox')
+      .attr('checked', true)
+      .on('change', (event) => {
+        if (event.target.checked) {
+          this.updateVisibleData();
+        } else {
+          this.visibleData = this.data.slice(0, this.maxCells);
+        }
+        this.render();
+      })
+      .node().parentNode.appendChild(document.createTextNode(' Enable Aggregation'));
+  }
+  
+  startAnimation() {
+    let lastTime = 0;
+    const animate = (currentTime) => {
+      const deltaTime = currentTime - lastTime;
+      this.fps = Math.round(1000 / deltaTime);
+      lastTime = currentTime;
+      
+      // Simulate data updates
+      this.data.forEach(d => {
+        d.x += (Math.random() - 0.5) * 0.5;
+        d.y += (Math.random() - 0.5) * 0.5;
+        d.value = Math.max(0, Math.min(100, d.value + (Math.random() - 0.5) * 2));
+      });
+      
+      this.updateVisibleData();
+      this.render();
+      
+      requestAnimationFrame(animate);
+    };
+    
+    requestAnimationFrame(animate);
+  }
+}
+
+// Virtual Scrolling Implementation
+class VirtualScrollingTable {
+  constructor(containerId, data) {
+    this.container = d3.select(containerId);
+    this.data = data;
+    this.itemHeight = 30;
+    this.containerHeight = 300;
+    this.visibleItems = Math.ceil(this.containerHeight / this.itemHeight);
+    this.scrollTop = 0;
+    
+    this.setupTable();
+  }
+  
+  setupTable() {
+    this.table = this.container.append('div')
+      .attr('class', 'virtual-table')
+      .style('height', `${this.containerHeight}px`)
+      .style('overflow-y', 'auto')
+      .style('border', '1px solid #ccc');
+    
+    this.table.on('scroll', () => {
+      this.scrollTop = this.table.node().scrollTop;
+      this.render();
+    });
+    
+    this.render();
+  }
+  
+  render() {
+    const startIndex = Math.floor(this.scrollTop / this.itemHeight);
+    const endIndex = Math.min(startIndex + this.visibleItems + 1, this.data.length);
+    
+    // Clear existing content
+    this.table.selectAll('.row').remove();
+    
+    // Create visible rows
+    const rows = this.table.selectAll('.row')
+      .data(this.data.slice(startIndex, endIndex))
+      .enter()
+      .append('div')
+      .attr('class', 'row')
+      .style('height', `${this.itemHeight}px`)
+      .style('display', 'flex')
+      .style('align-items', 'center')
+      .style('padding', '0 10px')
+      .style('border-bottom', '1px solid #eee');
+    
+    rows.append('div')
+      .style('width', '100px')
+      .text((d, i) => startIndex + i);
+    
+    rows.append('div')
+      .style('width', '200px')
+      .text(d => d.name);
+    
+    rows.append('div')
+      .style('width', '100px')
+      .text(d => d.value.toFixed(2));
+    
+    // Set scroll position
+    this.table.node().scrollTop = this.scrollTop;
+  }
+}
+
+// Initialize optimized visualizations
+const optimizedViz = new OptimizedVisualization('#chart5-canvas');
+optimizedViz.startAnimation();
+
+// Generate sample data for virtual scrolling
+const tableData = d3.range(10000).map(i => ({
+  name: `Item ${i}`,
+  value: Math.random() * 100
+}));
+
+const virtualTable = new VirtualScrollingTable('#chart5-table', tableData);"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output5"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Performance optimization involves data aggregation, virtual scrolling, Canvas rendering, and efficient update strategies. Focus on maintaining smooth interactions with large datasets.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goToLevel(39)">← Previous Level</button>
+            <button class="nav-btn" onclick="goToHub()">🏠 Back to Hub</button>
+            <button class="nav-btn" onclick="goToLevel(41)">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="level40-script.js"></script>
+</body>
+</html>
