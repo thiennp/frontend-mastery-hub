@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 41: Edge Computing - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level41-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>🌐 Level 41: Edge Computing</h1>
+                <p class="level-description">Master edge computing fundamentals, IoT integration, real-time processing, edge AI, and performance optimization</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text">Progress: <span id="progressText">0/5</span> exercises completed</p>
+            </div>
+            <div class="level-badges">
+                <div class="badge" id="badge1">⚡</div>
+                <div class="badge" id="badge2">🔗</div>
+                <div class="badge" id="badge3">🤖</div>
+                <div class="badge" id="badge4">📊</div>
+                <div class="badge" id="badge5">🚀</div>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: Edge Computing Fundamentals -->
+            <div class="exercise-card" id="exercise1">
+                <div class="exercise-header">
+                    <h3>⚡ Exercise 1: Edge Computing Fundamentals</h3>
+                    <p>Learn edge computing concepts, architecture, and deployment strategies</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Edge Computing</span>
+                            <button class="run-btn" onclick="runExercise(1)">Run</button>
+                        </div>
+                        <textarea id="code1" class="code-input" placeholder="// Edge Computing Fundamentals Exercise
+// Implement edge computing architecture
+
+class EdgeComputingFramework {
+  constructor() {
+    this.nodes = new Map();
+    this.services = new Map();
+    this.latency = new Map();
+  }
+  
+  addEdgeNode(nodeId, location, capacity) {
+    this.nodes.set(nodeId, {
+      id: nodeId,
+      location: location,
+      capacity: capacity,
+      services: new Set(),
+      status: 'active'
+    });
+  }
+  
+  deployService(serviceId, requirements) {
+    const bestNode = this.findOptimalNode(requirements);
+    if (bestNode) {
+      this.services.set(serviceId, {
+        id: serviceId,
+        nodeId: bestNode.id,
+        requirements: requirements,
+        status: 'deployed'
+      });
+      bestNode.services.add(serviceId);
+      return { success: true, nodeId: bestNode.id };
+    }
+    return { success: false, error: 'No suitable node found' };
+  }
+  
+  findOptimalNode(requirements) {
+    let bestNode = null;
+    let bestScore = Infinity;
+    
+    for (const node of this.nodes.values()) {
+      if (node.status === 'active' && 
+          node.capacity >= requirements.cpu &&
+          node.services.size < requirements.maxServices) {
+        
+        const latency = this.calculateLatency(node.location, requirements.location);
+        const score = latency + (node.services.size * 10);
+        
+        if (score < bestScore) {
+          bestScore = score;
+          bestNode = node;
+        }
+      }
+    }
+    
+    return bestNode;
+  }
+  
+  calculateLatency(nodeLocation, serviceLocation) {
+    // Simulate latency calculation based on distance
+    const distance = Math.abs(nodeLocation - serviceLocation);
+    return distance * 2; // 2ms per unit distance
+  }
+  
+  getNetworkTopology() {
+    return {
+      nodes: Array.from(this.nodes.values()),
+      services: Array.from(this.services.values()),
+      totalCapacity: Array.from(this.nodes.values())
+        .reduce((sum, node) => sum + node.capacity, 0),
+      averageLatency: this.calculateAverageLatency()
+    };
+  }
+  
+  calculateAverageLatency() {
+    let totalLatency = 0;
+    let count = 0;
+    
+    for (const service of this.services.values()) {
+      const node = this.nodes.get(service.nodeId);
+      if (node) {
+        totalLatency += this.calculateLatency(
+          node.location, 
+          service.requirements.location
+        );
+        count++;
+      }
+    }
+    
+    return count > 0 ? totalLatency / count : 0;
+  }
+}
+
+// Initialize edge computing framework
+const edgeFramework = new EdgeComputingFramework();
+
+// Add edge nodes
+edgeFramework.addEdgeNode('node-1', 10, 100);
+edgeFramework.addEdgeNode('node-2', 20, 150);
+edgeFramework.addEdgeNode('node-3', 30, 120);
+
+// Deploy services
+const service1 = edgeFramework.deployService('service-1', {
+  cpu: 50,
+  location: 15,
+  maxServices: 5
+});
+
+const service2 = edgeFramework.deployService('service-2', {
+  cpu: 80,
+  location: 25,
+  maxServices: 3
+});
+
+console.log('Edge Computing Framework Initialized');
+console.log('Network Topology:', edgeFramework.getNetworkTopology());"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output1"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Edge computing brings computation closer to data sources, reducing latency and improving performance. Focus on optimal node selection and service deployment strategies.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: IoT Integration -->
+            <div class="exercise-card" id="exercise2">
+                <div class="exercise-header">
+                    <h3>🔗 Exercise 2: IoT Integration</h3>
+                    <p>Integrate IoT devices with edge computing for real-time data processing</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>IoT Integration</span>
+                            <button class="run-btn" onclick="runExercise(2)">Run</button>
+                        </div>
+                        <textarea id="code2" class="code-input" placeholder="// IoT Integration Exercise
+// Implement IoT device management and data processing
+
+class IoTDeviceManager {
+  constructor() {
+    this.devices = new Map();
+    this.dataStreams = new Map();
+    this.processors = new Map();
+  }
+  
+  registerDevice(deviceId, type, location, capabilities) {
+    this.devices.set(deviceId, {
+      id: deviceId,
+      type: type,
+      location: location,
+      capabilities: capabilities,
+      status: 'online',
+      lastSeen: Date.now(),
+      dataRate: 0
+    });
+  }
+  
+  createDataStream(deviceId, streamType, frequency) {
+    const device = this.devices.get(deviceId);
+    if (!device) return { success: false, error: 'Device not found' };
+    
+    const streamId = `${deviceId}-${streamType}`;
+    this.dataStreams.set(streamId, {
+      id: streamId,
+      deviceId: deviceId,
+      type: streamType,
+      frequency: frequency,
+      active: true,
+      dataPoints: []
+    });
+    
+    return { success: true, streamId: streamId };
+  }
+  
+  processData(streamId, data) {
+    const stream = this.dataStreams.get(streamId);
+    if (!stream) return { success: false, error: 'Stream not found' };
+    
+    // Add data point
+    stream.dataPoints.push({
+      timestamp: Date.now(),
+      value: data,
+      processed: false
+    });
+    
+    // Keep only last 100 data points
+    if (stream.dataPoints.length > 100) {
+      stream.dataPoints.shift();
+    }
+    
+    // Process data based on stream type
+    const processedData = this.applyProcessingRules(stream, data);
+    
+    return { success: true, processedData: processedData };
+  }
+  
+  applyProcessingRules(stream, data) {
+    switch (stream.type) {
+      case 'temperature':
+        return {
+          value: data,
+          unit: '°C',
+          status: data > 30 ? 'high' : data < 10 ? 'low' : 'normal',
+          alert: data > 35 || data < 5
+        };
+      
+      case 'humidity':
+        return {
+          value: data,
+          unit: '%',
+          status: data > 80 ? 'high' : data < 20 ? 'low' : 'normal',
+          alert: data > 90 || data < 10
+        };
+      
+      case 'pressure':
+        return {
+          value: data,
+          unit: 'hPa',
+          status: data > 1020 ? 'high' : data < 980 ? 'low' : 'normal',
+          alert: data > 1030 || data < 970
+        };
+      
+      default:
+        return { value: data, processed: true };
+    }
+  }
+  
+  getDeviceStatus(deviceId) {
+    const device = this.devices.get(deviceId);
+    if (!device) return null;
+    
+    const streams = Array.from(this.dataStreams.values())
+      .filter(stream => stream.deviceId === deviceId);
+    
+    return {
+      device: device,
+      streams: streams,
+      totalDataPoints: streams.reduce((sum, stream) => sum + stream.dataPoints.length, 0),
+      averageDataRate: streams.reduce((sum, stream) => sum + stream.frequency, 0) / streams.length
+    };
+  }
+  
+  getNetworkOverview() {
+    return {
+      totalDevices: this.devices.size,
+      activeStreams: Array.from(this.dataStreams.values()).filter(s => s.active).length,
+      totalDataPoints: Array.from(this.dataStreams.values())
+        .reduce((sum, stream) => sum + stream.dataPoints.length, 0),
+      deviceTypes: Array.from(this.devices.values())
+        .reduce((acc, device) => {
+          acc[device.type] = (acc[device.type] || 0) + 1;
+          return acc;
+        }, {})
+    };
+  }
+}
+
+// Initialize IoT device manager
+const iotManager = new IoTDeviceManager();
+
+// Register IoT devices
+iotManager.registerDevice('sensor-1', 'temperature', 'room-1', ['temperature', 'humidity']);
+iotManager.registerDevice('sensor-2', 'pressure', 'room-2', ['pressure', 'altitude']);
+iotManager.registerDevice('camera-1', 'video', 'entrance', ['video', 'motion']);
+
+// Create data streams
+iotManager.createDataStream('sensor-1', 'temperature', 1000);
+iotManager.createDataStream('sensor-1', 'humidity', 2000);
+iotManager.createDataStream('sensor-2', 'pressure', 500);
+
+// Process sample data
+iotManager.processData('sensor-1-temperature', 25.5);
+iotManager.processData('sensor-1-humidity', 65.2);
+iotManager.processData('sensor-2-pressure', 1013.25);
+
+console.log('IoT Device Manager Initialized');
+console.log('Network Overview:', iotManager.getNetworkOverview());"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output2"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            IoT integration requires device management, data streaming, and real-time processing. Focus on efficient data handling and device communication protocols.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: Real-time Processing -->
+            <div class="exercise-card" id="exercise3">
+                <div class="exercise-header">
+                    <h3>🤖 Exercise 3: Real-time Processing</h3>
+                    <p>Implement real-time data processing pipelines with edge computing</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Real-time Processing</span>
+                            <button class="run-btn" onclick="runExercise(3)">Run</button>
+                        </div>
+                        <textarea id="code3" class="code-input" placeholder="// Real-time Processing Exercise
+// Implement streaming data processing pipeline
+
+class RealTimeProcessor {
+  constructor() {
+    this.pipelines = new Map();
+    this.processors = new Map();
+    this.metrics = new Map();
+  }
+  
+  createPipeline(pipelineId, config) {
+    this.pipelines.set(pipelineId, {
+      id: pipelineId,
+      config: config,
+      status: 'active',
+      throughput: 0,
+      latency: 0,
+      errorRate: 0
+    });
+    
+    return { success: true, pipelineId: pipelineId };
+  }
+  
+  addProcessor(pipelineId, processorId, processorType, config) {
+    const pipeline = this.pipelines.get(pipelineId);
+    if (!pipeline) return { success: false, error: 'Pipeline not found' };
+    
+    this.processors.set(processorId, {
+      id: processorId,
+      pipelineId: pipelineId,
+      type: processorType,
+      config: config,
+      status: 'active',
+      processedCount: 0,
+      errorCount: 0
+    });
+    
+    return { success: true, processorId: processorId };
+  }
+  
+  processData(pipelineId, data) {
+    const pipeline = this.pipelines.get(pipelineId);
+    if (!pipeline) return { success: false, error: 'Pipeline not found' };
+    
+    const startTime = Date.now();
+    const processors = Array.from(this.processors.values())
+      .filter(p => p.pipelineId === pipelineId && p.status === 'active');
+    
+    let processedData = data;
+    let hasError = false;
+    
+    for (const processor of processors) {
+      try {
+        processedData = this.executeProcessor(processor, processedData);
+        processor.processedCount++;
+      } catch (error) {
+        processor.errorCount++;
+        hasError = true;
+        break;
+      }
+    }
+    
+    const endTime = Date.now();
+    const latency = endTime - startTime;
+    
+    // Update metrics
+    this.updateMetrics(pipelineId, latency, hasError);
+    
+    return {
+      success: !hasError,
+      processedData: processedData,
+      latency: latency,
+      error: hasError ? 'Processing error' : null
+    };
+  }
+  
+  executeProcessor(processor, data) {
+    switch (processor.type) {
+      case 'filter':
+        return this.filterData(data, processor.config);
+      
+      case 'transform':
+        return this.transformData(data, processor.config);
+      
+      case 'aggregate':
+        return this.aggregateData(data, processor.config);
+      
+      case 'validate':
+        return this.validateData(data, processor.config);
+      
+      default:
+        return data;
+    }
+  }
+  
+  filterData(data, config) {
+    if (config.condition) {
+      return data.filter(item => {
+        return eval(config.condition.replace('value', item.value));
+      });
+    }
+    return data;
+  }
+  
+  transformData(data, config) {
+    if (config.mapping) {
+      return data.map(item => {
+        const transformed = {};
+        for (const [key, value] of Object.entries(config.mapping)) {
+          transformed[key] = eval(value.replace('item', JSON.stringify(item)));
+        }
+        return transformed;
+      });
+    }
+    return data;
+  }
+  
+  aggregateData(data, config) {
+    if (config.operation === 'sum') {
+      return data.reduce((sum, item) => sum + item.value, 0);
+    } else if (config.operation === 'average') {
+      return data.reduce((sum, item) => sum + item.value, 0) / data.length;
+    } else if (config.operation === 'count') {
+      return data.length;
+    }
+    return data;
+  }
+  
+  validateData(data, config) {
+    const errors = [];
+    data.forEach((item, index) => {
+      if (config.rules) {
+        config.rules.forEach(rule => {
+          if (!eval(rule.condition.replace('value', item.value))) {
+            errors.push(`Item ${index}: ${rule.message}`);
+          }
+        });
+      }
+    });
+    
+    if (errors.length > 0) {
+      throw new Error(`Validation failed: ${errors.join(', ')}`);
+    }
+    
+    return data;
+  }
+  
+  updateMetrics(pipelineId, latency, hasError) {
+    const pipeline = this.pipelines.get(pipelineId);
+    if (pipeline) {
+      pipeline.throughput++;
+      pipeline.latency = (pipeline.latency + latency) / 2;
+      if (hasError) {
+        pipeline.errorRate = (pipeline.errorRate + 1) / pipeline.throughput;
+      }
+    }
+  }
+  
+  getPipelineMetrics(pipelineId) {
+    const pipeline = this.pipelines.get(pipelineId);
+    if (!pipeline) return null;
+    
+    const processors = Array.from(this.processors.values())
+      .filter(p => p.pipelineId === pipelineId);
+    
+    return {
+      pipeline: pipeline,
+      processors: processors,
+      totalProcessed: processors.reduce((sum, p) => sum + p.processedCount, 0),
+      totalErrors: processors.reduce((sum, p) => sum + p.errorCount, 0),
+      averageLatency: pipeline.latency,
+      throughput: pipeline.throughput,
+      errorRate: pipeline.errorRate
+    };
+  }
+}
+
+// Initialize real-time processor
+const rtProcessor = new RealTimeProcessor();
+
+// Create processing pipeline
+rtProcessor.createPipeline('sensor-pipeline', {
+  name: 'Sensor Data Pipeline',
+  description: 'Process sensor data in real-time'
+});
+
+// Add processors
+rtProcessor.addProcessor('sensor-pipeline', 'filter-1', 'filter', {
+  condition: 'value > 0'
+});
+
+rtProcessor.addProcessor('sensor-pipeline', 'transform-1', 'transform', {
+  mapping: {
+    timestamp: 'Date.now()',
+    processedValue: 'item.value * 1.1'
+  }
+});
+
+rtProcessor.addProcessor('sensor-pipeline', 'validate-1', 'validate', {
+  rules: [
+    { condition: 'value < 100', message: 'Value too high' },
+    { condition: 'value > 0', message: 'Value must be positive' }
+  ]
+});
+
+// Process sample data
+const sampleData = [
+  { value: 25.5, sensor: 'temp-1' },
+  { value: 30.2, sensor: 'temp-2' },
+  { value: -5.1, sensor: 'temp-3' },
+  { value: 45.8, sensor: 'temp-4' }
+];
+
+const result = rtProcessor.processData('sensor-pipeline', sampleData);
+
+console.log('Real-time Processor Initialized');
+console.log('Processing Result:', result);
+console.log('Pipeline Metrics:', rtProcessor.getPipelineMetrics('sensor-pipeline'));"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output3"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Real-time processing requires efficient data pipelines, low-latency processing, and robust error handling. Focus on streaming data and pipeline optimization.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Edge AI -->
+            <div class="exercise-card" id="exercise4">
+                <div class="exercise-header">
+                    <h3>📊 Exercise 4: Edge AI</h3>
+                    <p>Implement AI models and inference at the edge for intelligent processing</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Edge AI</span>
+                            <button class="run-btn" onclick="runExercise(4)">Run</button>
+                        </div>
+                        <textarea id="code4" class="code-input" placeholder="// Edge AI Exercise
+// Implement AI inference at the edge
+
+class EdgeAI {
+  constructor() {
+    this.models = new Map();
+    this.inferences = new Map();
+    this.devices = new Map();
+  }
+  
+  loadModel(modelId, modelType, config) {
+    this.models.set(modelId, {
+      id: modelId,
+      type: modelType,
+      config: config,
+      status: 'loaded',
+      accuracy: config.accuracy || 0.95,
+      latency: config.latency || 10,
+      memoryUsage: config.memoryUsage || 50
+    });
+    
+    return { success: true, modelId: modelId };
+  }
+  
+  deployModel(modelId, deviceId) {
+    const model = this.models.get(modelId);
+    const device = this.devices.get(deviceId);
+    
+    if (!model || !device) {
+      return { success: false, error: 'Model or device not found' };
+    }
+    
+    if (device.memory < model.memoryUsage) {
+      return { success: false, error: 'Insufficient device memory' };
+    }
+    
+    device.models.add(modelId);
+    device.memory -= model.memoryUsage;
+    
+    return { success: true, deployed: true };
+  }
+  
+  runInference(modelId, inputData) {
+    const model = this.models.get(modelId);
+    if (!model) return { success: false, error: 'Model not found' };
+    
+    const startTime = Date.now();
+    
+    // Simulate AI inference based on model type
+    const result = this.simulateInference(model, inputData);
+    
+    const endTime = Date.now();
+    const inferenceTime = endTime - startTime;
+    
+    // Store inference result
+    const inferenceId = `inf-${Date.now()}`;
+    this.inferences.set(inferenceId, {
+      id: inferenceId,
+      modelId: modelId,
+      input: inputData,
+      output: result,
+      inferenceTime: inferenceTime,
+      timestamp: Date.now()
+    });
+    
+    return {
+      success: true,
+      result: result,
+      inferenceTime: inferenceTime,
+      confidence: result.confidence || 0.95
+    };
+  }
+  
+  simulateInference(model, inputData) {
+    switch (model.type) {
+      case 'image_classification':
+        return this.classifyImage(inputData, model.config);
+      
+      case 'object_detection':
+        return this.detectObjects(inputData, model.config);
+      
+      case 'anomaly_detection':
+        return this.detectAnomaly(inputData, model.config);
+      
+      case 'predictive_analytics':
+        return this.predictValue(inputData, model.config);
+      
+      default:
+        return { error: 'Unknown model type' };
+    }
+  }
+  
+  classifyImage(imageData, config) {
+    const classes = config.classes || ['cat', 'dog', 'bird', 'car', 'person'];
+    const predictedClass = classes[Math.floor(Math.random() * classes.length)];
+    const confidence = 0.7 + Math.random() * 0.3;
+    
+    return {
+      predictedClass: predictedClass,
+      confidence: confidence,
+      allClasses: classes.map(cls => ({
+        class: cls,
+        confidence: Math.random() * 0.5 + (cls === predictedClass ? 0.5 : 0)
+      }))
+    };
+  }
+  
+  detectObjects(imageData, config) {
+    const numObjects = Math.floor(Math.random() * 5) + 1;
+    const objects = [];
+    
+    for (let i = 0; i < numObjects; i++) {
+      objects.push({
+        class: ['person', 'car', 'bike', 'dog'][Math.floor(Math.random() * 4)],
+        confidence: 0.6 + Math.random() * 0.4,
+        bbox: {
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          width: Math.random() * 50 + 10,
+          height: Math.random() * 50 + 10
+        }
+      });
+    }
+    
+    return {
+      objects: objects,
+      count: objects.length,
+      processingTime: Math.random() * 20 + 5
+    };
+  }
+  
+  detectAnomaly(data, config) {
+    const threshold = config.threshold || 0.8;
+    const anomalyScore = Math.random();
+    const isAnomaly = anomalyScore > threshold;
+    
+    return {
+      isAnomaly: isAnomaly,
+      score: anomalyScore,
+      threshold: threshold,
+      severity: isAnomaly ? (anomalyScore > 0.9 ? 'high' : 'medium') : 'low',
+      features: {
+        value: data.value || Math.random() * 100,
+        timestamp: Date.now(),
+        location: data.location || 'unknown'
+      }
+    };
+  }
+  
+  predictValue(data, config) {
+    const baseValue = data.value || Math.random() * 100;
+    const trend = Math.random() * 0.2 - 0.1; // -10% to +10%
+    const predictedValue = baseValue * (1 + trend);
+    
+    return {
+      predictedValue: predictedValue,
+      confidence: 0.8 + Math.random() * 0.2,
+      trend: trend > 0 ? 'increasing' : 'decreasing',
+      timeframe: config.timeframe || '1 hour',
+      factors: ['historical_data', 'seasonal_pattern', 'external_events']
+    };
+  }
+  
+  getModelPerformance(modelId) {
+    const model = this.models.get(modelId);
+    if (!model) return null;
+    
+    const inferences = Array.from(this.inferences.values())
+      .filter(inf => inf.modelId === modelId);
+    
+    const totalInferences = inferences.length;
+    const averageTime = totalInferences > 0 
+      ? inferences.reduce((sum, inf) => sum + inf.inferenceTime, 0) / totalInferences
+      : 0;
+    
+    return {
+      model: model,
+      totalInferences: totalInferences,
+      averageInferenceTime: averageTime,
+      accuracy: model.accuracy,
+      memoryUsage: model.memoryUsage,
+      status: model.status
+    };
+  }
+}
+
+// Initialize Edge AI
+const edgeAI = new EdgeAI();
+
+// Register edge devices
+edgeAI.devices.set('device-1', {
+  id: 'device-1',
+  memory: 200,
+  models: new Set(),
+  location: 'edge-node-1'
+});
+
+// Load AI models
+edgeAI.loadModel('model-1', 'image_classification', {
+  accuracy: 0.95,
+  latency: 15,
+  memoryUsage: 80,
+  classes: ['person', 'vehicle', 'animal', 'object']
+});
+
+edgeAI.loadModel('model-2', 'anomaly_detection', {
+  accuracy: 0.92,
+  latency: 8,
+  memoryUsage: 40,
+  threshold: 0.85
+});
+
+// Deploy models
+edgeAI.deployModel('model-1', 'device-1');
+edgeAI.deployModel('model-2', 'device-1');
+
+// Run inference
+const imageResult = edgeAI.runInference('model-1', { image: 'sample.jpg' });
+const anomalyResult = edgeAI.runInference('model-2', { value: 25.5, location: 'sensor-1' });
+
+console.log('Edge AI Initialized');
+console.log('Image Classification:', imageResult);
+console.log('Anomaly Detection:', anomalyResult);
+console.log('Model Performance:', edgeAI.getModelPerformance('model-1'));"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output4"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Edge AI requires model optimization, efficient inference, and resource management. Focus on low-latency processing and model deployment strategies.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Performance Optimization -->
+            <div class="exercise-card" id="exercise5">
+                <div class="exercise-header">
+                    <h3>🚀 Exercise 5: Performance Optimization</h3>
+                    <p>Optimize edge computing performance with caching, load balancing, and resource management</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Performance Optimization</span>
+                            <button class="run-btn" onclick="runExercise(5)">Run</button>
+                        </div>
+                        <textarea id="code5" class="code-input" placeholder="// Performance Optimization Exercise
+// Implement edge computing performance optimization
+
+class EdgePerformanceOptimizer {
+  constructor() {
+    this.cache = new Map();
+    this.loadBalancer = new Map();
+    this.resourceManager = new Map();
+    this.metrics = new Map();
+  }
+  
+  setupCaching(cacheId, config) {
+    this.cache.set(cacheId, {
+      id: cacheId,
+      config: config,
+      data: new Map(),
+      hits: 0,
+      misses: 0,
+      size: 0,
+      maxSize: config.maxSize || 1000
+    });
+    
+    return { success: true, cacheId: cacheId };
+  }
+  
+  getFromCache(cacheId, key) {
+    const cache = this.cache.get(cacheId);
+    if (!cache) return { success: false, error: 'Cache not found' };
+    
+    if (cache.data.has(key)) {
+      cache.hits++;
+      return { success: true, data: cache.data.get(key), fromCache: true };
+    }
+    
+    cache.misses++;
+    return { success: false, fromCache: false };
+  }
+  
+  setCache(cacheId, key, value, ttl = 300000) {
+    const cache = this.cache.get(cacheId);
+    if (!cache) return { success: false, error: 'Cache not found' };
+    
+    // Check cache size limit
+    if (cache.size >= cache.maxSize) {
+      this.evictOldest(cache);
+    }
+    
+    cache.data.set(key, {
+      value: value,
+      timestamp: Date.now(),
+      ttl: ttl
+    });
+    
+    cache.size++;
+    return { success: true };
+  }
+  
+  evictOldest(cache) {
+    let oldestKey = null;
+    let oldestTime = Date.now();
+    
+    for (const [key, data] of cache.data.entries()) {
+      if (data.timestamp < oldestTime) {
+        oldestTime = data.timestamp;
+        oldestKey = key;
+      }
+    }
+    
+    if (oldestKey) {
+      cache.data.delete(oldestKey);
+      cache.size--;
+    }
+  }
+  
+  setupLoadBalancer(balancerId, nodes) {
+    this.loadBalancer.set(balancerId, {
+      id: balancerId,
+      nodes: nodes,
+      algorithm: 'round-robin',
+      currentIndex: 0,
+      nodeMetrics: new Map()
+    });
+    
+    // Initialize node metrics
+    nodes.forEach(nodeId => {
+      this.loadBalancer.get(balancerId).nodeMetrics.set(nodeId, {
+        requests: 0,
+        responseTime: 0,
+        errors: 0,
+        cpu: 0,
+        memory: 0
+      });
+    });
+    
+    return { success: true, balancerId: balancerId };
+  }
+  
+  selectNode(balancerId, requestType = 'default') {
+    const balancer = this.loadBalancer.get(balancerId);
+    if (!balancer) return { success: false, error: 'Load balancer not found' };
+    
+    let selectedNode = null;
+    
+    switch (balancer.algorithm) {
+      case 'round-robin':
+        selectedNode = balancer.nodes[balancer.currentIndex];
+        balancer.currentIndex = (balancer.currentIndex + 1) % balancer.nodes.length;
+        break;
+      
+      case 'least-connections':
+        selectedNode = this.selectLeastConnections(balancer);
+        break;
+      
+      case 'weighted':
+        selectedNode = this.selectWeighted(balancer);
+        break;
+    }
+    
+    // Update node metrics
+    const metrics = balancer.nodeMetrics.get(selectedNode);
+    metrics.requests++;
+    
+    return { success: true, nodeId: selectedNode };
+  }
+  
+  selectLeastConnections(balancer) {
+    let minRequests = Infinity;
+    let selectedNode = balancer.nodes[0];
+    
+    for (const nodeId of balancer.nodes) {
+      const metrics = balancer.nodeMetrics.get(nodeId);
+      if (metrics.requests < minRequests) {
+        minRequests = metrics.requests;
+        selectedNode = nodeId;
+      }
+    }
+    
+    return selectedNode;
+  }
+  
+  selectWeighted(balancer) {
+    // Simple weighted selection based on CPU usage
+    let totalWeight = 0;
+    const weights = new Map();
+    
+    for (const nodeId of balancer.nodes) {
+      const metrics = balancer.nodeMetrics.get(nodeId);
+      const weight = Math.max(0, 100 - metrics.cpu);
+      weights.set(nodeId, weight);
+      totalWeight += weight;
+    }
+    
+    const random = Math.random() * totalWeight;
+    let currentWeight = 0;
+    
+    for (const [nodeId, weight] of weights.entries()) {
+      currentWeight += weight;
+      if (random <= currentWeight) {
+        return nodeId;
+      }
+    }
+    
+    return balancer.nodes[0];
+  }
+  
+  setupResourceManager(managerId, config) {
+    this.resourceManager.set(managerId, {
+      id: managerId,
+      config: config,
+      resources: new Map(),
+      allocations: new Map(),
+      utilization: 0
+    });
+    
+    return { success: true, managerId: managerId };
+  }
+  
+  allocateResources(managerId, request) {
+    const manager = this.resourceManager.get(managerId);
+    if (!manager) return { success: false, error: 'Resource manager not found' };
+    
+    const availableCPU = manager.config.totalCPU - this.getUsedCPU(manager);
+    const availableMemory = manager.config.totalMemory - this.getUsedMemory(manager);
+    
+    if (request.cpu <= availableCPU && request.memory <= availableMemory) {
+      const allocationId = `alloc-${Date.now()}`;
+      manager.allocations.set(allocationId, {
+        id: allocationId,
+        cpu: request.cpu,
+        memory: request.memory,
+        timestamp: Date.now(),
+        status: 'active'
+      });
+      
+      manager.utilization = this.calculateUtilization(manager);
+      
+      return { success: true, allocationId: allocationId };
+    }
+    
+    return { success: false, error: 'Insufficient resources' };
+  }
+  
+  getUsedCPU(manager) {
+    return Array.from(manager.allocations.values())
+      .reduce((sum, alloc) => sum + alloc.cpu, 0);
+  }
+  
+  getUsedMemory(manager) {
+    return Array.from(manager.allocations.values())
+      .reduce((sum, alloc) => sum + alloc.memory, 0);
+  }
+  
+  calculateUtilization(manager) {
+    const usedCPU = this.getUsedCPU(manager);
+    const usedMemory = this.getUsedMemory(manager);
+    const cpuUtil = usedCPU / manager.config.totalCPU;
+    const memUtil = usedMemory / manager.config.totalMemory;
+    
+    return (cpuUtil + memUtil) / 2;
+  }
+  
+  getPerformanceMetrics() {
+    const cacheMetrics = Array.from(this.cache.values()).map(cache => ({
+      id: cache.id,
+      hitRate: cache.hits / (cache.hits + cache.misses) || 0,
+      size: cache.size,
+      maxSize: cache.maxSize
+    }));
+    
+    const balancerMetrics = Array.from(this.loadBalancer.values()).map(balancer => ({
+      id: balancer.id,
+      nodes: balancer.nodes.length,
+      algorithm: balancer.algorithm,
+      totalRequests: Array.from(balancer.nodeMetrics.values())
+        .reduce((sum, metrics) => sum + metrics.requests, 0)
+    }));
+    
+    const resourceMetrics = Array.from(this.resourceManager.values()).map(manager => ({
+      id: manager.id,
+      utilization: manager.utilization,
+      allocations: manager.allocations.size,
+      totalCPU: manager.config.totalCPU,
+      totalMemory: manager.config.totalMemory
+    }));
+    
+    return {
+      cache: cacheMetrics,
+      loadBalancer: balancerMetrics,
+      resources: resourceMetrics,
+      overallPerformance: this.calculateOverallPerformance()
+    };
+  }
+  
+  calculateOverallPerformance() {
+    const cacheHitRate = Array.from(this.cache.values())
+      .reduce((sum, cache) => sum + (cache.hits / (cache.hits + cache.misses)), 0) / this.cache.size || 0;
+    
+    const resourceUtilization = Array.from(this.resourceManager.values())
+      .reduce((sum, manager) => sum + manager.utilization, 0) / this.resourceManager.size || 0;
+    
+    return {
+      cacheHitRate: cacheHitRate,
+      resourceUtilization: resourceUtilization,
+      performanceScore: (cacheHitRate * 0.4 + (1 - resourceUtilization) * 0.6) * 100
+    };
+  }
+}
+
+// Initialize performance optimizer
+const optimizer = new EdgePerformanceOptimizer();
+
+// Setup caching
+optimizer.setupCaching('main-cache', { maxSize: 1000 });
+
+// Setup load balancer
+optimizer.setupLoadBalancer('main-balancer', ['node-1', 'node-2', 'node-3']);
+
+// Setup resource manager
+optimizer.setupResourceManager('main-resources', {
+  totalCPU: 1000,
+  totalMemory: 2048
+});
+
+// Simulate operations
+optimizer.setCache('main-cache', 'user-123', { name: 'John', role: 'admin' });
+optimizer.getFromCache('main-cache', 'user-123');
+
+optimizer.selectNode('main-balancer', 'api-request');
+optimizer.allocateResources('main-resources', { cpu: 100, memory: 256 });
+
+console.log('Edge Performance Optimizer Initialized');
+console.log('Performance Metrics:', optimizer.getPerformanceMetrics());"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output5"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Performance optimization requires caching strategies, load balancing, and resource management. Focus on reducing latency and improving throughput.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goToLevel(40)">← Previous Level</button>
+            <button class="nav-btn" onclick="goToHub()">🏠 Back to Hub</button>
+            <button class="nav-btn" onclick="goToLevel(42)">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="level41-script.js"></script>
+</body>
+</html>
