@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 36: Mobile Development</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="level36-styles.css">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <h1>📱 Level 36: Mobile Development</h1>
+            <p>Master React Native, Flutter, Progressive Web Apps, Mobile Performance, and Cross-platform Development</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="level-stats">
+                <span>Exercises: <span id="completedExercises">0</span>/5</span>
+                <span>Badges: <span id="badgeCount">0</span></span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: React Native -->
+            <div class="exercise" id="exercise1">
+                <h2>⚛️ Exercise 1: React Native</h2>
+                <p>Implement React Native components with navigation, state management, and native features.</p>
+                
+                <div class="code-editor">
+                    <h3>React Native App Manager</h3>
+                    <textarea id="code1" placeholder="Implement React Native app...">// React Native App Manager
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+
+// Main App Component
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+// Home Screen Component
+const HomeScreen = ({ navigation }) => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('https://jsonplaceholder.typicode.com/users');
+      const data = await response.json();
+      setUsers(data);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const renderUser = ({ item }) => (
+    <TouchableOpacity
+      style={styles.userCard}
+      onPress={() => navigation.navigate('Details', { user: item })}
+    >
+      <Text style={styles.userName}>{item.name}</Text>
+      <Text style={styles.userEmail}>{item.email}</Text>
+    </TouchableOpacity>
+  );
+
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>React Native Users</Text>
+      <FlatList
+        data={users}
+        renderItem={renderUser}
+        keyExtractor={item => item.id.toString()}
+        style={styles.list}
+      />
+    </View>
+  );
+};
+
+// Details Screen Component
+const DetailsScreen = ({ route }) => {
+  const { user } = route.params;
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>User Details</Text>
+      <View style={styles.detailsCard}>
+        <Text style={styles.detailLabel}>Name:</Text>
+        <Text style={styles.detailValue}>{user.name}</Text>
+        
+        <Text style={styles.detailLabel}>Email:</Text>
+        <Text style={styles.detailValue}>{user.email}</Text>
+        
+        <Text style={styles.detailLabel}>Phone:</Text>
+        <Text style={styles.detailValue}>{user.phone}</Text>
+        
+        <Text style={styles.detailLabel}>Website:</Text>
+        <Text style={styles.detailValue}>{user.website}</Text>
+      </View>
+    </View>
+  );
+};
+
+// Styles
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  list: {
+    flex: 1,
+  },
+  userCard: {
+    backgroundColor: 'white',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  userName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  userEmail: {
+    fontSize: 14,
+    color: '#666',
+  },
+  detailsCard: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  detailLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginBottom: 5,
+  },
+  detailValue: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 10,
+  },
+});
+
+export default App;</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(1)">Run Code</button>
+                    <button onclick="validateExercise(1)">Validate</button>
+                </div>
+                
+                <div class="output" id="output1"></div>
+                <div class="hint" id="hint1">
+                    <strong>Hint:</strong> Focus on React Native components, navigation, state management, and native features integration.
+                </div>
+            </div>
+
+            <!-- Exercise 2: Flutter -->
+            <div class="exercise" id="exercise2">
+                <h2>🦋 Exercise 2: Flutter</h2>
+                <p>Implement Flutter widgets with state management, navigation, and platform-specific features.</p>
+                
+                <div class="code-editor">
+                    <h3>Flutter App Manager</h3>
+                    <textarea id="code2" placeholder="Implement Flutter app...">// Flutter App Manager
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: HomeScreen(),
+      routes: {
+        '/details': (context) => DetailsScreen(),
+      },
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<User> users = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers();
+  }
+
+  Future<void> fetchUsers() async {
+    try {
+      final response = await http.get(
+        Uri.parse('https://jsonplaceholder.typicode.com/users'),
+      );
+      
+      if (response.statusCode == 200) {
+        List<dynamic> data = json.decode(response.body);
+        setState(() {
+          users = data.map((user) => User.fromJson(user)).toList();
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      print('Error fetching users: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter Users'),
+        backgroundColor: Colors.blue,
+      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: users.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  margin: EdgeInsets.all(8.0),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.blue,
+                      child: Text(
+                        users[index].name[0],
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    title: Text(
+                      users[index].name,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(users[index].email),
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/details',
+                        arguments: users[index],
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+    );
+  }
+}
+
+class DetailsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final User user = ModalRoute.of(context)!.settings.arguments as User;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('User Details'),
+        backgroundColor: Colors.blue,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Card(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Name',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(user.name),
+                SizedBox(height: 16),
+                Text(
+                  'Email',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(user.email),
+                SizedBox(height: 16),
+                Text(
+                  'Phone',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(user.phone),
+                SizedBox(height: 16),
+                Text(
+                  'Website',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(user.website),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class User {
+  final int id;
+  final String name;
+  final String email;
+  final String phone;
+  final String website;
+
+  User({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.website,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      phone: json['phone'],
+      website: json['website'],
+    );
+  }
+}</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(2)">Run Code</button>
+                    <button onclick="validateExercise(2)">Validate</button>
+                </div>
+                
+                <div class="output" id="output2"></div>
+                <div class="hint" id="hint2">
+                    <strong>Hint:</strong> Implement Flutter widgets, state management, navigation, and platform-specific features.
+                </div>
+            </div>
+
+            <!-- Exercise 3: Progressive Web Apps -->
+            <div class="exercise" id="exercise3">
+                <h2>🌐 Exercise 3: Progressive Web Apps</h2>
+                <p>Implement PWA features with service workers, offline functionality, and app-like experience.</p>
+                
+                <div class="code-editor">
+                    <h3>PWA Manager</h3>
+                    <textarea id="code3" placeholder="Implement PWA features...">// Progressive Web App Manager
+class PWAManager {
+  constructor() {
+    this.serviceWorker = null;
+    this.cacheName = 'pwa-cache-v1';
+    this.offlineData = new Map();
+    this.syncQueue = [];
+  }
+
+  async registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      try {
+        const registration = await navigator.serviceWorker.register('/sw.js');
+        this.serviceWorker = registration;
+        console.log('Service Worker registered successfully');
+        return registration;
+      } catch (error) {
+        console.error('Service Worker registration failed:', error);
+        throw error;
+      }
+    } else {
+      throw new Error('Service Worker not supported');
+    }
+  }
+
+  async installServiceWorker() {
+    const swCode = `
+      const CACHE_NAME = 'pwa-cache-v1';
+      const urlsToCache = [
+        '/',
+        '/index.html',
+        '/styles.css',
+        '/script.js',
+        '/manifest.json'
+      ];
+
+      self.addEventListener('install', (event) => {
+        event.waitUntil(
+          caches.open(CACHE_NAME)
+            .then((cache) => cache.addAll(urlsToCache))
+        );
+      });
+
+      self.addEventListener('fetch', (event) => {
+        event.respondWith(
+          caches.match(event.request)
+            .then((response) => {
+              if (response) {
+                return response;
+              }
+              return fetch(event.request);
+            })
+        );
+      });
+    `;
+    
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(blob);
+    
+    try {
+      const registration = await navigator.serviceWorker.register(swUrl);
+      console.log('Service Worker installed');
+      return registration;
+    } catch (error) {
+      console.error('Service Worker installation failed:', error);
+      throw error;
+    }
+  }
+
+  createManifest() {
+    const manifest = {
+      name: 'Mobile PWA App',
+      short_name: 'PWA App',
+      description: 'A Progressive Web App for mobile development',
+      start_url: '/',
+      display: 'standalone',
+      background_color: '#ffffff',
+      theme_color: '#000000',
+      icons: [
+        {
+          src: '/icon-192.png',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: '/icon-512.png',
+          sizes: '512x512',
+          type: 'image/png'
+        }
+      ]
+    };
+    
+    return manifest;
+  }
+
+  async enableOfflineMode() {
+    // Simulate offline data storage
+    this.offlineData.set('users', [
+      { id: 1, name: 'John Doe', email: 'john@example.com' },
+      { id: 2, name: 'Jane Smith', email: 'jane@example.com' }
+    ]);
+    
+    console.log('Offline mode enabled');
+    return this.offlineData;
+  }
+
+  async syncWhenOnline() {
+    if (navigator.onLine && this.syncQueue.length > 0) {
+      console.log('Syncing offline data...');
+      
+      for (const item of this.syncQueue) {
+        try {
+          await this.syncData(item);
+        } catch (error) {
+          console.error('Sync failed for item:', item, error);
+        }
+      }
+      
+      this.syncQueue = [];
+      console.log('Sync completed');
+    }
+  }
+
+  async syncData(data) {
+    // Simulate API call
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log('Data synced:', data);
+        resolve(data);
+      }, 1000);
+    });
+  }
+
+  addToSyncQueue(data) {
+    this.syncQueue.push(data);
+    console.log('Added to sync queue:', data);
+  }
+
+  async requestNotificationPermission() {
+    if ('Notification' in window) {
+      const permission = await Notification.requestPermission();
+      if (permission === 'granted') {
+        console.log('Notification permission granted');
+        return true;
+      } else {
+        console.log('Notification permission denied');
+        return false;
+      }
+    }
+    return false;
+  }
+
+  showNotification(title, body) {
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification(title, {
+        body: body,
+        icon: '/icon-192.png'
+      });
+    }
+  }
+
+  async installApp() {
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+      try {
+        await this.registerServiceWorker();
+        await this.requestNotificationPermission();
+        console.log('PWA installed successfully');
+        return true;
+      } catch (error) {
+        console.error('PWA installation failed:', error);
+        return false;
+      }
+    }
+    return false;
+  }
+}
+
+// PWA Installation Handler
+class PWAInstallHandler {
+  constructor() {
+    this.deferredPrompt = null;
+    this.installButton = null;
+  }
+
+  setupInstallPrompt() {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.deferredPrompt = e;
+      this.showInstallButton();
+    });
+  }
+
+  showInstallButton() {
+    const button = document.createElement('button');
+    button.textContent = 'Install App';
+    button.className = 'install-button';
+    button.onclick = () => this.installApp();
+    document.body.appendChild(button);
+    this.installButton = button;
+  }
+
+  async installApp() {
+    if (this.deferredPrompt) {
+      this.deferredPrompt.prompt();
+      const { outcome } = await this.deferredPrompt.userChoice;
+      console.log('Install outcome:', outcome);
+      this.deferredPrompt = null;
+      this.installButton.remove();
+    }
+  }
+}
+
+// Create PWA Manager
+const pwaManager = new PWAManager();
+const installHandler = new PWAInstallHandler();
+
+// Initialize PWA
+pwaManager.installServiceWorker();
+pwaManager.enableOfflineMode();
+installHandler.setupInstallPrompt();
+
+console.log('PWA Manager initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(3)">Run Code</button>
+                    <button onclick="validateExercise(3)">Validate</button>
+                </div>
+                
+                <div class="output" id="output3"></div>
+                <div class="hint" id="hint3">
+                    <strong>Hint:</strong> Implement service workers, offline functionality, app installation, and push notifications for PWA.
+                </div>
+            </div>
+
+            <!-- Exercise 4: Mobile Performance -->
+            <div class="exercise" id="exercise4">
+                <h2>⚡ Exercise 4: Mobile Performance</h2>
+                <p>Implement mobile performance optimization with lazy loading, image optimization, and memory management.</p>
+                
+                <div class="code-editor">
+                    <h3>Mobile Performance Optimizer</h3>
+                    <textarea id="code4" placeholder="Implement mobile performance optimization...">// Mobile Performance Optimizer
+class MobilePerformanceOptimizer {
+  constructor() {
+    this.metrics = new Map();
+    this.optimizations = new Map();
+    this.imageCache = new Map();
+    this.lazyLoadQueue = [];
+  }
+
+  // Performance Monitoring
+  measurePerformance() {
+    const metrics = {
+      loadTime: performance.now(),
+      memoryUsage: this.getMemoryUsage(),
+      networkSpeed: this.estimateNetworkSpeed(),
+      deviceInfo: this.getDeviceInfo()
+    };
+    
+    this.metrics.set('performance', metrics);
+    return metrics;
+  }
+
+  getMemoryUsage() {
+    if ('memory' in performance) {
+      return {
+        used: performance.memory.usedJSHeapSize,
+        total: performance.memory.totalJSHeapSize,
+        limit: performance.memory.jsHeapSizeLimit
+      };
+    }
+    return { used: 0, total: 0, limit: 0 };
+  }
+
+  estimateNetworkSpeed() {
+    if ('connection' in navigator) {
+      const connection = navigator.connection;
+      return {
+        effectiveType: connection.effectiveType,
+        downlink: connection.downlink,
+        rtt: connection.rtt
+      };
+    }
+    return { effectiveType: 'unknown', downlink: 0, rtt: 0 };
+  }
+
+  getDeviceInfo() {
+    return {
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      screenWidth: screen.width,
+      screenHeight: screen.height,
+      devicePixelRatio: window.devicePixelRatio,
+      touchSupport: 'ontouchstart' in window
+    };
+  }
+
+  // Image Optimization
+  optimizeImages() {
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+      this.optimizeImage(img);
+    });
+  }
+
+  optimizeImage(img) {
+    // Lazy loading
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.loadImage(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+      
+      observer.observe(img);
+    }
+
+    // Responsive images
+    if (img.dataset.src) {
+      img.src = this.generateResponsiveImage(img.dataset.src);
+    }
+
+    // Image compression
+    img.onload = () => {
+      this.compressImage(img);
+    };
+  }
+
+  generateResponsiveImage(src) {
+    const devicePixelRatio = window.devicePixelRatio || 1;
+    const screenWidth = screen.width;
+    
+    if (devicePixelRatio > 1) {
+      return src.replace(/(\d+)x(\d+)/, `${screenWidth * devicePixelRatio}x${screenHeight * devicePixelRatio}`);
+    }
+    
+    return src;
+  }
+
+  compressImage(img) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    
+    ctx.drawImage(img, 0, 0);
+    
+    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
+    img.src = compressedDataUrl;
+  }
+
+  // Lazy Loading
+  implementLazyLoading() {
+    const lazyElements = document.querySelectorAll('[data-lazy]');
+    
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.loadLazyElement(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+      
+      lazyElements.forEach(el => observer.observe(el));
+    }
+  }
+
+  loadLazyElement(element) {
+    const lazyType = element.dataset.lazy;
+    
+    switch (lazyType) {
+      case 'image':
+        element.src = element.dataset.src;
+        break;
+      case 'content':
+        this.loadContent(element);
+        break;
+      case 'component':
+        this.loadComponent(element);
+        break;
+    }
+  }
+
+  loadContent(element) {
+    const contentUrl = element.dataset.src;
+    fetch(contentUrl)
+      .then(response => response.text())
+      .then(content => {
+        element.innerHTML = content;
+        element.classList.add('loaded');
+      });
+  }
+
+  loadComponent(element) {
+    const componentName = element.dataset.component;
+    // Simulate component loading
+    element.innerHTML = `<div class="component-${componentName}">Component loaded</div>`;
+  }
+
+  // Memory Management
+  optimizeMemory() {
+    // Clear unused caches
+    this.clearUnusedCaches();
+    
+    // Optimize DOM
+    this.optimizeDOM();
+    
+    // Manage event listeners
+    this.optimizeEventListeners();
+  }
+
+  clearUnusedCaches() {
+    const now = Date.now();
+    const maxAge = 5 * 60 * 1000; // 5 minutes
+    
+    for (const [key, value] of this.imageCache.entries()) {
+      if (now - value.timestamp > maxAge) {
+        this.imageCache.delete(key);
+      }
+    }
+  }
+
+  optimizeDOM() {
+    // Remove unused DOM elements
+    const unusedElements = document.querySelectorAll('.unused');
+    unusedElements.forEach(el => el.remove());
+    
+    // Optimize DOM structure
+    const containers = document.querySelectorAll('.container');
+    containers.forEach(container => {
+      if (container.children.length === 0) {
+        container.style.display = 'none';
+      }
+    });
+  }
+
+  optimizeEventListeners() {
+    // Use event delegation
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.lazy-button')) {
+        this.handleLazyButtonClick(e.target);
+      }
+    });
+  }
+
+  handleLazyButtonClick(button) {
+    const action = button.dataset.action;
+    console.log('Lazy button clicked:', action);
+  }
+
+  // Bundle Optimization
+  optimizeBundle() {
+    const optimizations = {
+      codeSplitting: this.implementCodeSplitting(),
+      treeShaking: this.implementTreeShaking(),
+      compression: this.implementCompression(),
+      caching: this.implementCaching()
+    };
+    
+    this.optimizations.set('bundle', optimizations);
+    return optimizations;
+  }
+
+  implementCodeSplitting() {
+    return {
+      chunks: ['vendor', 'app', 'lazy'],
+      strategy: 'dynamic-imports',
+      benefits: ['faster initial load', 'better caching']
+    };
+  }
+
+  implementTreeShaking() {
+    return {
+      unusedCode: 'removed',
+      bundleSize: 'reduced by 30%',
+      benefits: ['smaller bundle', 'faster parsing']
+    };
+  }
+
+  implementCompression() {
+    return {
+      gzip: 'enabled',
+      brotli: 'enabled',
+      compressionRatio: '70%',
+      benefits: ['faster download', 'reduced bandwidth']
+    };
+  }
+
+  implementCaching() {
+    return {
+      serviceWorker: 'enabled',
+      httpCache: 'optimized',
+      benefits: ['faster repeat visits', 'offline support']
+    };
+  }
+
+  // Performance Report
+  generatePerformanceReport() {
+    const performance = this.metrics.get('performance');
+    const bundle = this.optimizations.get('bundle');
+    
+    return {
+      performance,
+      bundle,
+      recommendations: this.generateRecommendations(),
+      timestamp: new Date()
+    };
+  }
+
+  generateRecommendations() {
+    const recommendations = [];
+    const performance = this.metrics.get('performance');
+    
+    if (performance.memoryUsage.used > performance.memoryUsage.limit * 0.8) {
+      recommendations.push('Optimize memory usage');
+    }
+    
+    if (performance.networkSpeed.effectiveType === 'slow-2g' || performance.networkSpeed.effectiveType === '2g') {
+      recommendations.push('Implement aggressive caching');
+      recommendations.push('Use image compression');
+    }
+    
+    if (performance.deviceInfo.devicePixelRatio > 2) {
+      recommendations.push('Optimize for high-DPI displays');
+    }
+    
+    return recommendations;
+  }
+}
+
+// Create Performance Optimizer
+const performanceOptimizer = new MobilePerformanceOptimizer();
+
+// Initialize optimizations
+performanceOptimizer.measurePerformance();
+performanceOptimizer.optimizeImages();
+performanceOptimizer.implementLazyLoading();
+performanceOptimizer.optimizeMemory();
+performanceOptimizer.optimizeBundle();
+
+console.log('Mobile Performance Optimizer initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(4)">Run Code</button>
+                    <button onclick="validateExercise(4)">Validate</button>
+                </div>
+                
+                <div class="output" id="output4"></div>
+                <div class="hint" id="hint4">
+                    <strong>Hint:</strong> Implement lazy loading, image optimization, memory management, and bundle optimization for mobile performance.
+                </div>
+            </div>
+
+            <!-- Exercise 5: Cross-platform Development -->
+            <div class="exercise" id="exercise5">
+                <h2>🔄 Exercise 5: Cross-platform Development</h2>
+                <p>Implement cross-platform solutions with shared code, platform-specific features, and unified development.</p>
+                
+                <div class="code-editor">
+                    <h3>Cross-platform Development Manager</h3>
+                    <textarea id="code5" placeholder="Implement cross-platform development...">// Cross-platform Development Manager
+class CrossPlatformManager {
+  constructor() {
+    this.platforms = new Map();
+    this.sharedCode = new Map();
+    this.platformSpecific = new Map();
+    this.buildConfigs = new Map();
+  }
+
+  // Platform Detection
+  detectPlatform() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const platform = {
+      isIOS: /iphone|ipad|ipod/.test(userAgent),
+      isAndroid: /android/.test(userAgent),
+      isWeb: !/iphone|ipad|ipod|android/.test(userAgent),
+      isMobile: /iphone|ipad|ipod|android/.test(userAgent),
+      isDesktop: !/iphone|ipad|ipod|android/.test(userAgent)
+    };
+    
+    this.platforms.set('current', platform);
+    return platform;
+  }
+
+  // Shared Code Management
+  createSharedComponent(name, code) {
+    const sharedComponent = {
+      name,
+      code,
+      platforms: ['web', 'ios', 'android'],
+      dependencies: [],
+      version: '1.0.0'
+    };
+    
+    this.sharedCode.set(name, sharedComponent);
+    return sharedComponent;
+  }
+
+  // Platform-specific Features
+  createPlatformSpecific(feature, implementations) {
+    const platformFeature = {
+      feature,
+      implementations: {
+        web: implementations.web || null,
+        ios: implementations.ios || null,
+        android: implementations.android || null
+      }
+    };
+    
+    this.platformSpecific.set(feature, platformFeature);
+    return platformFeature;
+  }
+
+  // Build Configuration
+  createBuildConfig(platform, config) {
+    const buildConfig = {
+      platform,
+      entry: config.entry || 'index.js',
+      output: config.output || 'dist',
+      optimization: config.optimization || {},
+      plugins: config.plugins || [],
+      loaders: config.loaders || []
+    };
+    
+    this.buildConfigs.set(platform, buildConfig);
+    return buildConfig;
+  }
+
+  // Code Generation
+  generatePlatformCode(sharedCode, platform) {
+    const platformCode = this.adaptCodeForPlatform(sharedCode, platform);
+    return platformCode;
+  }
+
+  adaptCodeForPlatform(code, platform) {
+    let adaptedCode = code;
+    
+    switch (platform) {
+      case 'ios':
+        adaptedCode = this.adaptForIOS(code);
+        break;
+      case 'android':
+        adaptedCode = this.adaptForAndroid(code);
+        break;
+      case 'web':
+        adaptedCode = this.adaptForWeb(code);
+        break;
+    }
+    
+    return adaptedCode;
+  }
+
+  adaptForIOS(code) {
+    return code
+      .replace(/TouchableOpacity/g, 'TouchableOpacity')
+      .replace(/StyleSheet/g, 'StyleSheet')
+      .replace(/import.*react-native/g, 'import React from \'react\'; import { TouchableOpacity, StyleSheet } from \'react-native\';');
+  }
+
+  adaptForAndroid(code) {
+    return code
+      .replace(/TouchableOpacity/g, 'TouchableOpacity')
+      .replace(/StyleSheet/g, 'StyleSheet')
+      .replace(/import.*react-native/g, 'import React from \'react\'; import { TouchableOpacity, StyleSheet } from \'react-native\';');
+  }
+
+  adaptForWeb(code) {
+    return code
+      .replace(/TouchableOpacity/g, 'button')
+      .replace(/StyleSheet/g, 'styled-components')
+      .replace(/import.*react-native/g, 'import React from \'react\'; import styled from \'styled-components\';');
+  }
+
+  // State Management
+  createSharedState(name, initialState) {
+    const state = {
+      name,
+      initialState,
+      reducers: new Map(),
+      actions: new Map(),
+      middleware: []
+    };
+    
+    return state;
+  }
+
+  addReducer(state, name, reducer) {
+    state.reducers.set(name, reducer);
+  }
+
+  addAction(state, name, action) {
+    state.actions.set(name, action);
+  }
+
+  // API Layer
+  createAPILayer() {
+    const apiLayer = {
+      baseURL: 'https://api.example.com',
+      endpoints: new Map(),
+      interceptors: [],
+      errorHandlers: []
+    };
+    
+    return apiLayer;
+  }
+
+  addEndpoint(apiLayer, name, config) {
+    const endpoint = {
+      name,
+      method: config.method || 'GET',
+      url: config.url,
+      headers: config.headers || {},
+      transform: config.transform || null
+    };
+    
+    apiLayer.endpoints.set(name, endpoint);
+    return endpoint;
+  }
+
+  // Testing Strategy
+  createTestingStrategy() {
+    const testingStrategy = {
+      unitTests: {
+        framework: 'Jest',
+        coverage: 80,
+        platforms: ['web', 'ios', 'android']
+      },
+      integrationTests: {
+        framework: 'Cypress',
+        platforms: ['web']
+      },
+      e2eTests: {
+        framework: 'Detox',
+        platforms: ['ios', 'android']
+      }
+    };
+    
+    return testingStrategy;
+  }
+
+  // Deployment Pipeline
+  createDeploymentPipeline() {
+    const pipeline = {
+      stages: ['build', 'test', 'deploy'],
+      platforms: ['web', 'ios', 'android'],
+      environments: ['development', 'staging', 'production']
+    };
+    
+    return pipeline;
+  }
+
+  // Performance Monitoring
+  createPerformanceMonitoring() {
+    const monitoring = {
+      metrics: ['loadTime', 'memoryUsage', 'crashRate'],
+      platforms: ['web', 'ios', 'android'],
+      reporting: 'real-time'
+    };
+    
+    return monitoring;
+  }
+
+  // Generate Project Structure
+  generateProjectStructure() {
+    const structure = {
+      shared: {
+        components: 'src/shared/components',
+        utils: 'src/shared/utils',
+        services: 'src/shared/services',
+        types: 'src/shared/types'
+      },
+      platforms: {
+        web: 'src/web',
+        ios: 'src/ios',
+        android: 'src/android'
+      },
+      config: {
+        webpack: 'webpack.config.js',
+        metro: 'metro.config.js',
+        babel: 'babel.config.js'
+      }
+    };
+    
+    return structure;
+  }
+
+  // Build Report
+  generateBuildReport() {
+    const report = {
+      platforms: Array.from(this.platforms.keys()),
+      sharedComponents: Array.from(this.sharedCode.keys()),
+      platformSpecific: Array.from(this.platformSpecific.keys()),
+      buildConfigs: Array.from(this.buildConfigs.keys()),
+      recommendations: this.generateRecommendations(),
+      timestamp: new Date()
+    };
+    
+    return report;
+  }
+
+  generateRecommendations() {
+    return [
+      'Use shared components for common UI elements',
+      'Implement platform-specific features when needed',
+      'Optimize bundle size for each platform',
+      'Use consistent state management across platforms',
+      'Implement comprehensive testing strategy'
+    ];
+  }
+}
+
+// Create Cross-platform Manager
+const crossPlatformManager = new CrossPlatformManager();
+
+// Initialize cross-platform development
+crossPlatformManager.detectPlatform();
+crossPlatformManager.createSharedComponent('Button', 'const Button = ({ children, onPress }) => <TouchableOpacity onPress={onPress}>{children}</TouchableOpacity>');
+crossPlatformManager.createPlatformSpecific('navigation', {
+  web: 'React Router',
+  ios: 'React Navigation',
+  android: 'React Navigation'
+});
+crossPlatformManager.createBuildConfig('web', { entry: 'src/web/index.js' });
+crossPlatformManager.createBuildConfig('ios', { entry: 'src/ios/index.js' });
+crossPlatformManager.createBuildConfig('android', { entry: 'src/android/index.js' });
+
+console.log('Cross-platform Development Manager initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(5)">Run Code</button>
+                    <button onclick="validateExercise(5)">Validate</button>
+                </div>
+                
+                <div class="output" id="output5"></div>
+                <div class="hint" id="hint5">
+                    <strong>Hint:</strong> Implement shared code management, platform-specific features, build configurations, and unified development workflow.
+                </div>
+            </div>
+        </div>
+
+        <div class="level-navigation">
+            <button onclick="goToLevel(35)" class="nav-btn prev">← Previous Level</button>
+            <button onclick="goToLevel(37)" class="nav-btn next">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+    <script src="level36-script.js"></script>
+</body>
+</html>

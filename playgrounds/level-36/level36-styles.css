@@ -1,0 +1,650 @@
+/* Level 36: Mobile Development Styles */
+
+.level-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.level-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="10" y="10" width="8" height="12" fill="rgba(255,255,255,0.1)" rx="2"/><rect x="25" y="15" width="8" height="12" fill="rgba(255,255,255,0.1)" rx="2"/><rect x="40" y="12" width="8" height="12" fill="rgba(255,255,255,0.1)" rx="2"/><rect x="55" y="18" width="8" height="12" fill="rgba(255,255,255,0.1)" rx="2"/><rect x="70" y="14" width="8" height="12" fill="rgba(255,255,255,0.1)" rx="2"/></svg>') repeat;
+    animation: mobileFloat 15s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes mobileFloat {
+    0% { transform: translateX(-100px); }
+    100% { transform: translateX(100px); }
+}
+
+.level-header {
+    text-align: center;
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+}
+
+.level-header h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.level-header p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #ecf0f1;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
+.level-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.exercises-container {
+    display: grid;
+    gap: 30px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.exercise {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.exercise::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+}
+
+.exercise:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.exercise h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.exercise p {
+    color: #7f8c8d;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.code-editor {
+    margin-bottom: 20px;
+}
+
+.code-editor h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.code-editor textarea {
+    width: 100%;
+    min-height: 300px;
+    padding: 20px;
+    border: 2px solid #e0e6ed;
+    border-radius: 15px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    background: #f8f9fa;
+    color: #2c3e50;
+    resize: vertical;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.code-editor textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.exercise-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.exercise-controls button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.exercise-controls button:first-child {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+}
+
+.exercise-controls button:first-child:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.exercise-controls button:last-child {
+    background: linear-gradient(45deg, #f093fb, #f5576c);
+    color: white;
+}
+
+.exercise-controls button:last-child:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(240, 147, 251, 0.3);
+}
+
+.output {
+    background: #2c3e50;
+    color: #ecf0f1;
+    padding: 20px;
+    border-radius: 15px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100px;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    margin-bottom: 15px;
+    border: 1px solid #34495e;
+}
+
+.hint {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-left: 5px solid #00d4ff;
+}
+
+.level-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.nav-btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.nav-btn.prev {
+    background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+    color: white;
+}
+
+.nav-btn.next {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile-specific styling */
+.exercise:nth-child(1) h2::before {
+    content: "⚛️";
+    font-size: 1.5rem;
+}
+
+.exercise:nth-child(2) h2::before {
+    content: "🦋";
+    font-size: 1.5rem;
+}
+
+.exercise:nth-child(3) h2::before {
+    content: "🌐";
+    font-size: 1.5rem;
+}
+
+.exercise:nth-child(4) h2::before {
+    content: "⚡";
+    font-size: 1.5rem;
+}
+
+.exercise:nth-child(5) h2::before {
+    content: "🔄";
+    font-size: 1.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .level-container {
+        padding: 15px;
+    }
+    
+    .level-header h1 {
+        font-size: 2rem;
+    }
+    
+    .level-header p {
+        font-size: 1rem;
+    }
+    
+    .exercise {
+        padding: 20px;
+    }
+    
+    .exercise h2 {
+        font-size: 1.3rem;
+    }
+    
+    .code-editor textarea {
+        min-height: 250px;
+        font-size: 13px;
+    }
+    
+    .level-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .level-navigation {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Animation for completed exercises */
+.exercise.completed {
+    border-left: 5px solid #f093fb;
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.1), rgba(245, 87, 108, 0.1));
+}
+
+.exercise.completed h2::after {
+    content: " ✅";
+    color: #f093fb;
+    font-size: 1.2rem;
+}
+
+/* Mobile platform indicators */
+.platform-indicator {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.platform-indicator.ios {
+    background-color: #007aff;
+    color: white;
+}
+
+.platform-indicator.android {
+    background-color: #3ddc84;
+    color: white;
+}
+
+.platform-indicator.web {
+    background-color: #4285f4;
+    color: white;
+}
+
+.platform-indicator.cross-platform {
+    background-color: #667eea;
+    color: white;
+}
+
+/* Mobile performance metrics */
+.performance-metric {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    border-left: 4px solid #667eea;
+}
+
+.metric-name {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f093fb;
+}
+
+.metric-threshold {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+/* Mobile app simulation */
+.mobile-app-simulation {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    border: 2px solid #667eea;
+}
+
+.app-header {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.app-content {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    min-height: 200px;
+}
+
+.app-button {
+    background: linear-gradient(45deg, #f093fb, #f5576c);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.app-button:hover {
+    transform: scale(1.05);
+}
+
+/* PWA features */
+.pwa-feature {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    border-left: 4px solid #4facfe;
+}
+
+.feature-name {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.feature-status {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.feature-status.enabled {
+    color: #00d4ff;
+    font-weight: bold;
+}
+
+.feature-status.disabled {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* Cross-platform indicators */
+.cross-platform-indicator {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.platform-badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.platform-badge.shared {
+    background-color: #667eea;
+    color: white;
+}
+
+.platform-badge.ios-specific {
+    background-color: #007aff;
+    color: white;
+}
+
+.platform-badge.android-specific {
+    background-color: #3ddc84;
+    color: white;
+}
+
+.platform-badge.web-specific {
+    background-color: #4285f4;
+    color: white;
+}
+
+/* Success/Error states */
+.output.success {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    color: white;
+}
+
+.output.error {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Mobile-specific animations */
+@keyframes mobileSlideIn {
+    0% { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+.mobile-slide-in {
+    animation: mobileSlideIn 0.5s ease-out;
+}
+
+@keyframes mobileBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.mobile-bounce {
+    animation: mobileBounce 1s ease-in-out infinite;
+}
+
+@keyframes mobilePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.mobile-pulse {
+    animation: mobilePulse 2s ease-in-out infinite;
+}
+
+/* Touch-friendly interactions */
+.touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.touch-target:active {
+    transform: scale(0.95);
+}
+
+/* Mobile navigation */
+.mobile-nav {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 10px;
+    margin: 15px 0;
+}
+
+.mobile-nav-item {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.mobile-nav-item.active {
+    background: rgba(102, 126, 234, 0.2);
+}
+
+.mobile-nav-item:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+/* Mobile performance indicators */
+.performance-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.performance-bar {
+    flex: 1;
+    height: 8px;
+    background: #ecf0f1;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.performance-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    transition: width 0.3s ease;
+    border-radius: 4px;
+}
+
+.performance-bar-fill.excellent {
+    background: linear-gradient(90deg, #00d4ff, #4facfe);
+}
+
+.performance-bar-fill.good {
+    background: linear-gradient(90deg, #f093fb, #f5576c);
+}
+
+.performance-bar-fill.needs-improvement {
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+}
+
+/* Mobile app store badges */
+.app-store-badge {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin: 5px;
+}
+
+.app-store-badge.app-store {
+    background-color: #007aff;
+    color: white;
+}
+
+.app-store-badge.google-play {
+    background-color: #3ddc84;
+    color: white;
+}
+
+.app-store-badge.web-app {
+    background-color: #4285f4;
+    color: white;
+}
