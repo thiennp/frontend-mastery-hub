@@ -1,0 +1,397 @@
+/* Level 38: WebAssembly Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.level-header {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.level-info h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.level-description {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.level-badges {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+}
+
+.badge.unlocked {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border-color: #fff;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    transform: scale(1.1);
+}
+
+/* Exercise Cards */
+.exercises-container {
+    display: grid;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.exercise-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.exercise-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.exercise-card.completed {
+    border-color: #27ae60;
+    background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(46, 204, 113, 0.1));
+}
+
+.exercise-header {
+    margin-bottom: 25px;
+}
+
+.exercise-header h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.exercise-header p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.exercise-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+/* Code Editor */
+.code-editor {
+    background: #2d3748;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.editor-header {
+    background: #1a202c;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #e2e8f0;
+    font-weight: 600;
+}
+
+.run-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.run-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.code-input {
+    width: 100%;
+    min-height: 300px;
+    background: #2d3748;
+    color: #e2e8f0;
+    border: none;
+    padding: 20px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+}
+
+.code-input::placeholder {
+    color: #a0aec0;
+}
+
+/* Output Panel */
+.output-panel {
+    background: #1a202c;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.output-header {
+    background: #2d3748;
+    padding: 15px 20px;
+    color: #e2e8f0;
+    font-weight: 600;
+    border-bottom: 1px solid #4a5568;
+}
+
+.output-content {
+    padding: 20px;
+    min-height: 300px;
+    color: #e2e8f0;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-y: auto;
+}
+
+/* Hint Panel */
+.hint-panel {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.hint-header {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.hint-content {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Navigation */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.95);
+    color: #2c3e50;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.nav-btn:hover {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .level-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .level-info h1 {
+        font-size: 2rem;
+    }
+    
+    .exercise-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .navigation {
+        flex-direction: column;
+    }
+    
+    .nav-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .level-info h1 {
+        font-size: 1.5rem;
+    }
+    
+    .exercise-card {
+        padding: 20px;
+    }
+    
+    .code-input {
+        min-height: 250px;
+        font-size: 12px;
+    }
+    
+    .output-content {
+        min-height: 250px;
+        font-size: 12px;
+    }
+}
+
+/* Animation for completed exercises */
+@keyframes completeAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.exercise-card.completed {
+    animation: completeAnimation 0.6s ease;
+}
+
+/* WebAssembly specific styling */
+.wasm-highlight {
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    border-left: 4px solid #667eea;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.performance-metric {
+    display: inline-block;
+    background: #27ae60;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 5px;
+}
+
+.memory-usage {
+    background: #3498db;
+}
+
+.execution-time {
+    background: #e74c3c;
+}
+
+/* Syntax highlighting for WebAssembly */
+.wasm-keyword {
+    color: #ff79c6;
+    font-weight: bold;
+}
+
+.wasm-type {
+    color: #8be9fd;
+    font-weight: bold;
+}
+
+.wasm-instruction {
+    color: #50fa7b;
+}
+
+.wasm-comment {
+    color: #6272a4;
+    font-style: italic;
+}

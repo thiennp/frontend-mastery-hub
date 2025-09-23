@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 38: WebAssembly - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level38-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1>🚀 Level 38: WebAssembly</h1>
+                <p class="level-description">Master WebAssembly fundamentals, performance optimization, system integration, multi-threading, and advanced features</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text">Progress: <span id="progressText">0/5</span> exercises completed</p>
+            </div>
+            <div class="level-badges">
+                <div class="badge" id="badge1">🎯</div>
+                <div class="badge" id="badge2">⚡</div>
+                <div class="badge" id="badge3">🔧</div>
+                <div class="badge" id="badge4">🧵</div>
+                <div class="badge" id="badge5">🚀</div>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: WebAssembly Fundamentals -->
+            <div class="exercise-card" id="exercise1">
+                <div class="exercise-header">
+                    <h3>🎯 Exercise 1: WebAssembly Fundamentals</h3>
+                    <p>Learn the basics of WebAssembly, including WASM modules, memory management, and basic operations</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>WebAssembly Module</span>
+                            <button class="run-btn" onclick="runExercise(1)">Run</button>
+                        </div>
+                        <textarea id="code1" class="code-input" placeholder="// WebAssembly Fundamentals Exercise
+// Create a simple WASM module that performs basic arithmetic
+
+// Step 1: Define a simple function that adds two numbers
+// Step 2: Export the function for JavaScript to use
+// Step 3: Handle memory allocation and management
+// Step 4: Implement error handling
+
+// Example WASM text format (WAT):
+(module
+  (func $add (param $a i32) (param $b i32) (result i32)
+    local.get $a
+    local.get $b
+    i32.add)
+  (export \"add\" (func $add))
+)
+
+// JavaScript integration:
+const wasmModule = await WebAssembly.instantiateStreaming(fetch('module.wasm'));
+const addFunction = wasmModule.instance.exports.add;
+console.log('Result:', addFunction(5, 3)); // Should output: 8"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output1"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            WebAssembly uses a stack-based virtual machine. Functions take parameters from the stack and push results back. Use the WAT (WebAssembly Text) format for human-readable WASM code.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Performance Optimization -->
+            <div class="exercise-card" id="exercise2">
+                <div class="exercise-header">
+                    <h3>⚡ Exercise 2: Performance Optimization</h3>
+                    <p>Optimize WebAssembly code for maximum performance, including memory access patterns and computation efficiency</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Performance Optimization</span>
+                            <button class="run-btn" onclick="runExercise(2)">Run</button>
+                        </div>
+                        <textarea id="code2" class="code-input" placeholder="// Performance Optimization Exercise
+// Optimize a matrix multiplication algorithm in WebAssembly
+
+// Step 1: Implement basic matrix multiplication
+// Step 2: Optimize memory access patterns
+// Step 3: Use SIMD instructions for vectorization
+// Step 4: Implement loop unrolling and caching
+
+// Optimized WASM module for matrix multiplication:
+(module
+  (memory 1)
+  (export \"memory\" (memory 0))
+  
+  (func $matrix_multiply
+    (param $rows i32) (param $cols i32) (param $result_ptr i32)
+    (local $i i32) (local $j i32) (local $k i32)
+    (local $sum i32)
+    
+    ;; Optimized matrix multiplication with loop unrolling
+    (loop $outer
+      (loop $inner
+        ;; Vectorized operations using SIMD
+        ;; Memory access optimization
+        ;; Cache-friendly access patterns
+        (br_if $inner (i32.lt_s (local.get $j) (local.get $cols)))
+      )
+      (br_if $outer (i32.lt_s (local.get $i) (local.get $rows)))
+    )
+  )
+  
+  (export \"matrix_multiply\" (func $matrix_multiply))
+)
+
+// Performance benchmarking:
+const startTime = performance.now();
+// Execute optimized WASM function
+const endTime = performance.now();
+console.log(`Execution time: ${endTime - startTime}ms`);"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output2"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Focus on memory access patterns, use SIMD instructions for vectorization, implement loop unrolling, and optimize for cache locality. WebAssembly's linear memory model allows for efficient data access.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: System Integration -->
+            <div class="exercise-card" id="exercise3">
+                <div class="exercise-header">
+                    <h3>🔧 Exercise 3: System Integration</h3>
+                    <p>Integrate WebAssembly with JavaScript, handle imports/exports, and manage complex data structures</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>System Integration</span>
+                            <button class="run-btn" onclick="runExercise(3)">Run</button>
+                        </div>
+                        <textarea id="code3" class="code-input" placeholder="// System Integration Exercise
+// Integrate WebAssembly with JavaScript for complex data processing
+
+// Step 1: Define JavaScript imports for WASM
+// Step 2: Handle complex data structures (arrays, objects)
+// Step 3: Implement bidirectional communication
+// Step 4: Manage memory and data serialization
+
+// WASM module with JavaScript imports:
+(module
+  (import \"js\" \"console_log\" (func $log (param i32)))
+  (import \"js\" \"get_array_length\" (func $get_length (param i32) (result i32)))
+  (import \"js\" \"get_array_element\" (func $get_element (param i32) (param i32) (result i32)))
+  
+  (memory 1)
+  (export \"memory\" (memory 0))
+  
+  (func $process_array
+    (param $array_ptr i32) (param $length i32)
+    (local $i i32) (local $sum i32)
+    
+    (loop $process_loop
+      (local.set $sum
+        (i32.add
+          (local.get $sum)
+          (call $get_element (local.get $array_ptr) (local.get $i))
+        )
+      )
+      (local.set $i (i32.add (local.get $i) (i32.const 1)))
+      (br_if $process_loop (i32.lt_s (local.get $i) (local.get $length)))
+    )
+    
+    (call $log (local.get $sum))
+  )
+  
+  (export \"process_array\" (func $process_array))
+)
+
+// JavaScript integration:
+const importObject = {
+  js: {
+    console_log: (value) => console.log('WASM Result:', value),
+    get_array_length: (ptr) => arrayData.length,
+    get_array_element: (ptr, index) => arrayData[index]
+  }
+};
+
+const wasmModule = await WebAssembly.instantiateStreaming(
+  fetch('integration.wasm'), 
+  importObject
+);
+
+// Process complex data structure
+const arrayData = [1, 2, 3, 4, 5];
+wasmModule.instance.exports.process_array(0, arrayData.length);"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output3"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Use import objects to provide JavaScript functions to WebAssembly. Handle complex data by passing pointers and using helper functions for data access. Manage memory carefully to avoid leaks.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Multi-threading -->
+            <div class="exercise-card" id="exercise4">
+                <div class="exercise-header">
+                    <h3>🧵 Exercise 4: Multi-threading</h3>
+                    <p>Implement WebAssembly multi-threading using SharedArrayBuffer and Web Workers for parallel processing</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Multi-threading</span>
+                            <button class="run-btn" onclick="runExercise(4)">Run</button>
+                        </div>
+                        <textarea id="code4" class="code-input" placeholder="// Multi-threading Exercise
+// Implement parallel processing using WebAssembly and Web Workers
+
+// Step 1: Create shared memory buffer
+// Step 2: Implement worker-based parallel processing
+// Step 3: Handle thread synchronization
+// Step 4: Optimize for parallel execution
+
+// Main thread implementation:
+class WASMThreadManager {
+  constructor() {
+    this.workers = [];
+    this.sharedBuffer = new SharedArrayBuffer(1024 * 1024); // 1MB shared memory
+    this.sharedArray = new Int32Array(this.sharedBuffer);
+  }
+  
+  async createWorker(workerScript) {
+    const worker = new Worker(workerScript);
+    worker.postMessage({
+      type: 'init',
+      sharedBuffer: this.sharedBuffer
+    });
+    this.workers.push(worker);
+    return worker;
+  }
+  
+  async parallelProcess(data, numWorkers = 4) {
+    const chunkSize = Math.ceil(data.length / numWorkers);
+    const promises = [];
+    
+    for (let i = 0; i < numWorkers; i++) {
+      const start = i * chunkSize;
+      const end = Math.min(start + chunkSize, data.length);
+      const chunk = data.slice(start, end);
+      
+      const promise = new Promise((resolve) => {
+        const worker = this.workers[i];
+        worker.postMessage({
+          type: 'process',
+          data: chunk,
+          startIndex: start
+        });
+        
+        worker.onmessage = (e) => {
+          if (e.data.type === 'complete') {
+            resolve(e.data.result);
+          }
+        };
+      });
+      
+      promises.push(promise);
+    }
+    
+    const results = await Promise.all(promises);
+    return results.reduce((acc, result) => acc + result, 0);
+  }
+}
+
+// Worker implementation (worker.js):
+self.onmessage = async function(e) {
+  const { type, sharedBuffer, data, startIndex } = e.data;
+  
+  if (type === 'init') {
+    // Initialize WASM module in worker
+    const wasmModule = await WebAssembly.instantiateStreaming(
+      fetch('parallel.wasm')
+    );
+    self.wasmModule = wasmModule;
+  }
+  
+  if (type === 'process') {
+    // Process data chunk using WASM
+    const result = self.wasmModule.instance.exports.process_chunk(
+      data.length,
+      startIndex
+    );
+    
+    self.postMessage({
+      type: 'complete',
+      result: result
+    });
+  }
+};
+
+// Usage example:
+const threadManager = new WASMThreadManager();
+await threadManager.createWorker('worker.js');
+const result = await threadManager.parallelProcess([1,2,3,4,5,6,7,8,9,10]);"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output4"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Use SharedArrayBuffer for shared memory between threads. Implement Web Workers for parallel execution. Handle synchronization carefully to avoid race conditions and ensure thread safety.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Advanced Features -->
+            <div class="exercise-card" id="exercise5">
+                <div class="exercise-header">
+                    <h3>🚀 Exercise 5: Advanced Features</h3>
+                    <p>Explore advanced WebAssembly features including WASI, dynamic linking, and integration with modern frameworks</p>
+                </div>
+                <div class="exercise-content">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Advanced Features</span>
+                            <button class="run-btn" onclick="runExercise(5)">Run</button>
+                        </div>
+                        <textarea id="code5" class="code-input" placeholder="// Advanced Features Exercise
+// Implement advanced WebAssembly features and integrations
+
+// Step 1: WASI (WebAssembly System Interface) integration
+// Step 2: Dynamic linking and module composition
+// Step 3: Integration with modern frameworks
+// Step 4: Advanced memory management and garbage collection
+
+// WASI integration example:
+(module
+  (import \"wasi_snapshot_preview1\" \"fd_write\"
+    (func $fd_write (param i32 i32 i32 i32) (result i32)))
+  (import \"wasi_snapshot_preview1\" \"proc_exit\"
+    (func $proc_exit (param i32)))
+  
+  (memory 1)
+  (export \"memory\" (memory 0))
+  
+  (func $main
+    ;; Write \"Hello WASI!\" to stdout
+    (call $fd_write
+      (i32.const 1) ;; stdout
+      (i32.const 0) ;; iovec pointer
+      (i32.const 1) ;; iovec count
+      (i32.const 0) ;; nwritten pointer
+    )
+    drop
+    
+    (call $proc_exit (i32.const 0))
+  )
+  
+  (export \"_start\" (func $main))
+)
+
+// Dynamic linking example:
+class WASMModuleLoader {
+  constructor() {
+    this.modules = new Map();
+    this.sharedMemory = new WebAssembly.Memory({ initial: 1 });
+  }
+  
+  async loadModule(name, url) {
+    if (this.modules.has(name)) {
+      return this.modules.get(name);
+    }
+    
+    const module = await WebAssembly.instantiateStreaming(
+      fetch(url),
+      {
+        env: {
+          memory: this.sharedMemory,
+          table: new WebAssembly.Table({ initial: 0, element: 'anyfunc' })
+        }
+      }
+    );
+    
+    this.modules.set(name, module);
+    return module;
+  }
+  
+  async composeModules(moduleNames) {
+    const modules = await Promise.all(
+      moduleNames.map(name => this.loadModule(name, `${name}.wasm`))
+    );
+    
+    // Create composed module with shared memory and table
+    const composedModule = {
+      memory: this.sharedMemory,
+      exports: {}
+    };
+    
+    modules.forEach(module => {
+      Object.assign(composedModule.exports, module.instance.exports);
+    });
+    
+    return composedModule;
+  }
+}
+
+// React integration example:
+import React, { useEffect, useState } from 'react';
+
+const WASMComponent = () => {
+  const [wasmModule, setWasmModule] = useState(null);
+  const [result, setResult] = useState(null);
+  
+  useEffect(() => {
+    const loadWASM = async () => {
+      const module = await WebAssembly.instantiateStreaming(
+        fetch('react-integration.wasm')
+      );
+      setWasmModule(module);
+    };
+    
+    loadWASM();
+  }, []);
+  
+  const handleProcess = () => {
+    if (wasmModule) {
+      const result = wasmModule.instance.exports.process_data();
+      setResult(result);
+    }
+  };
+  
+  return (
+    <div>
+      <button onClick={handleProcess}>Process with WASM</button>
+      {result && <div>Result: {result}</div>}
+    </div>
+  );
+};
+
+// Advanced memory management:
+class WASMMemoryManager {
+  constructor() {
+    this.memory = new WebAssembly.Memory({ initial: 1 });
+    this.allocatedBlocks = new Map();
+    this.freeBlocks = new Set();
+  }
+  
+  allocate(size) {
+    // Custom memory allocator implementation
+    const block = this.findFreeBlock(size);
+    if (block) {
+      this.allocatedBlocks.set(block.ptr, block);
+      return block.ptr;
+    }
+    
+    // Allocate new block
+    const ptr = this.memory.grow(1);
+    const newBlock = { ptr, size, used: true };
+    this.allocatedBlocks.set(ptr, newBlock);
+    return ptr;
+  }
+  
+  deallocate(ptr) {
+    const block = this.allocatedBlocks.get(ptr);
+    if (block) {
+      block.used = false;
+      this.freeBlocks.add(block);
+      this.allocatedBlocks.delete(ptr);
+    }
+  }
+  
+  findFreeBlock(size) {
+    for (const block of this.freeBlocks) {
+      if (block.size >= size) {
+        this.freeBlocks.delete(block);
+        return block;
+      }
+    }
+    return null;
+  }
+}"></textarea>
+                    </div>
+                    <div class="output-panel">
+                        <div class="output-header">Output</div>
+                        <div class="output-content" id="output5"></div>
+                    </div>
+                    <div class="hint-panel">
+                        <div class="hint-header">💡 Hint</div>
+                        <div class="hint-content">
+                            Explore WASI for system-level operations, implement dynamic linking for modular architectures, integrate with modern frameworks like React, and implement advanced memory management patterns for optimal performance.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="goToLevel(37)">← Previous Level</button>
+            <button class="nav-btn" onclick="goToHub()">🏠 Back to Hub</button>
+            <button class="nav-btn" onclick="goToLevel(39)">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="level38-script.js"></script>
+</body>
+</html>
