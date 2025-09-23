@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 33: Security & Authentication</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="level33-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <h1>🔐 Level 33: Security & Authentication</h1>
+            <p>Master OAuth 2.0, JWT Tokens, Password Security, Security Headers, and Penetration Testing</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="level-stats">
+                <span>Exercises: <span id="completedExercises">0</span>/5</span>
+                <span>Badges: <span id="badgeCount">0</span></span>
+            </div>
+        </header>
+
+        <div class="exercises-container">
+            <!-- Exercise 1: OAuth 2.0 Implementation -->
+            <div class="exercise" id="exercise1">
+                <h2>🔑 Exercise 1: OAuth 2.0 Implementation</h2>
+                <p>Implement OAuth 2.0 authentication flow with authorization codes and access tokens.</p>
+                
+                <div class="code-editor">
+                    <h3>OAuth 2.0 Authentication System</h3>
+                    <textarea id="code1" placeholder="Implement OAuth 2.0 authentication...">// OAuth 2.0 Implementation
+class OAuth2Provider {
+  constructor(config) {
+    this.clientId = config.clientId;
+    this.clientSecret = config.clientSecret;
+    this.redirectUri = config.redirectUri;
+    this.authorizationEndpoint = config.authorizationEndpoint;
+    this.tokenEndpoint = config.tokenEndpoint;
+    this.scope = config.scope || 'read';
+  }
+  
+  generateAuthUrl(state) {
+    const params = new URLSearchParams({
+      response_type: 'code',
+      client_id: this.clientId,
+      redirect_uri: this.redirectUri,
+      scope: this.scope,
+      state: state || this.generateState()
+    });
+    
+    return `${this.authorizationEndpoint}?${params.toString()}`;
+  }
+  
+  async exchangeCodeForToken(code, state) {
+    console.log(`🔄 Exchanging authorization code for access token`);
+    
+    const tokenData = {
+      grant_type: 'authorization_code',
+      code: code,
+      redirect_uri: this.redirectUri,
+      client_id: this.clientId,
+      client_secret: this.clientSecret
+    };
+    
+    // Simulate token exchange
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    const response = {
+      access_token: this.generateAccessToken(),
+      token_type: 'Bearer',
+      expires_in: 3600,
+      refresh_token: this.generateRefreshToken(),
+      scope: this.scope
+    };
+    
+    return response;
+  }
+  
+  async refreshAccessToken(refreshToken) {
+    console.log(`🔄 Refreshing access token`);
+    
+    const tokenData = {
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+      client_id: this.clientId,
+      client_secret: this.clientSecret
+    };
+    
+    // Simulate token refresh
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    return {
+      access_token: this.generateAccessToken(),
+      token_type: 'Bearer',
+      expires_in: 3600,
+      refresh_token: this.generateRefreshToken()
+    };
+  }
+  
+  generateState() {
+    return `state_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  }
+  
+  generateAccessToken() {
+    return `access_${Date.now()}_${Math.random().toString(36).substr(2, 16)}`;
+  }
+  
+  generateRefreshToken() {
+    return `refresh_${Date.now()}_${Math.random().toString(36).substr(2, 16)}`;
+  }
+}
+
+// OAuth 2.0 Client
+class OAuth2Client {
+  constructor(provider) {
+    this.provider = provider;
+    this.tokens = null;
+    this.state = null;
+  }
+  
+  async initiateAuth() {
+    this.state = this.provider.generateState();
+    const authUrl = this.provider.generateAuthUrl(this.state);
+    
+    console.log(`🔐 Initiating OAuth 2.0 flow`);
+    console.log(`📋 Authorization URL: ${authUrl}`);
+    
+    return authUrl;
+  }
+  
+  async handleCallback(code, state) {
+    if (state !== this.state) {
+      throw new Error('Invalid state parameter');
+    }
+    
+    console.log(`✅ Authorization code received: ${code}`);
+    
+    this.tokens = await this.provider.exchangeCodeForToken(code, state);
+    
+    console.log(`🎉 Access token obtained: ${this.tokens.access_token}`);
+    
+    return this.tokens;
+  }
+  
+  async makeAuthenticatedRequest(url, options = {}) {
+    if (!this.tokens) {
+      throw new Error('No access token available');
+    }
+    
+    const headers = {
+      'Authorization': `Bearer ${this.tokens.access_token}`,
+      'Content-Type': 'application/json',
+      ...options.headers
+    };
+    
+    console.log(`🌐 Making authenticated request to: ${url}`);
+    
+    // Simulate API request
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    return {
+      status: 200,
+      data: { message: 'Authenticated request successful' },
+      headers
+    };
+  }
+  
+  async refreshTokenIfNeeded() {
+    if (!this.tokens || !this.tokens.refresh_token) {
+      throw new Error('No refresh token available');
+    }
+    
+    console.log(`🔄 Token expired, refreshing...`);
+    
+    this.tokens = await this.provider.refreshAccessToken(this.tokens.refresh_token);
+    
+    console.log(`✅ Token refreshed successfully`);
+    
+    return this.tokens;
+  }
+}
+
+// Create OAuth 2.0 Provider
+const googleProvider = new OAuth2Provider({
+  clientId: 'google_client_id',
+  clientSecret: 'google_client_secret',
+  redirectUri: 'http://localhost:3000/callback',
+  authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
+  tokenEndpoint: 'https://oauth2.googleapis.com/token',
+  scope: 'openid profile email'
+});
+
+// Create OAuth 2.0 Client
+const oauthClient = new OAuth2Client(googleProvider);
+
+// Simulate OAuth flow
+oauthClient.initiateAuth();
+
+console.log('OAuth 2.0 system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(1)">Run Code</button>
+                    <button onclick="validateExercise(1)">Validate</button>
+                </div>
+                
+                <div class="output" id="output1"></div>
+                <div class="hint" id="hint1">
+                    <strong>Hint:</strong> Focus on authorization code flow, token exchange, and secure state management.
+                </div>
+            </div>
+
+            <!-- Exercise 2: JWT Token Management -->
+            <div class="exercise" id="exercise2">
+                <h2>🎫 Exercise 2: JWT Token Management</h2>
+                <p>Implement JWT token creation, validation, and secure storage mechanisms.</p>
+                
+                <div class="code-editor">
+                    <h3>JWT Token Management System</h3>
+                    <textarea id="code2" placeholder="Implement JWT token management...">// JWT Token Management System
+class JWTManager {
+  constructor(secretKey) {
+    this.secretKey = secretKey;
+    this.algorithm = 'HS256';
+    this.expirationTime = 3600; // 1 hour
+  }
+  
+  createToken(payload) {
+    const header = {
+      alg: this.algorithm,
+      typ: 'JWT'
+    };
+    
+    const now = Math.floor(Date.now() / 1000);
+    const claims = {
+      ...payload,
+      iat: now,
+      exp: now + this.expirationTime,
+      iss: 'your-app',
+      aud: 'your-app-users'
+    };
+    
+    const encodedHeader = this.base64UrlEncode(JSON.stringify(header));
+    const encodedPayload = this.base64UrlEncode(JSON.stringify(claims));
+    
+    const signature = this.createSignature(`${encodedHeader}.${encodedPayload}`);
+    
+    return `${encodedHeader}.${encodedPayload}.${signature}`;
+  }
+  
+  verifyToken(token) {
+    try {
+      const parts = token.split('.');
+      if (parts.length !== 3) {
+        throw new Error('Invalid token format');
+      }
+      
+      const [header, payload, signature] = parts;
+      
+      // Verify signature
+      const expectedSignature = this.createSignature(`${header}.${payload}`);
+      if (signature !== expectedSignature) {
+        throw new Error('Invalid signature');
+      }
+      
+      // Decode payload
+      const decodedPayload = JSON.parse(this.base64UrlDecode(payload));
+      
+      // Check expiration
+      const now = Math.floor(Date.now() / 1000);
+      if (decodedPayload.exp < now) {
+        throw new Error('Token expired');
+      }
+      
+      return decodedPayload;
+    } catch (error) {
+      throw new Error(`Token verification failed: ${error.message}`);
+    }
+  }
+  
+  createSignature(data) {
+    // Simulate HMAC-SHA256 signature
+    const hash = this.simpleHash(data + this.secretKey);
+    return this.base64UrlEncode(hash);
+  }
+  
+  base64UrlEncode(str) {
+    return btoa(str)
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=/g, '');
+  }
+  
+  base64UrlDecode(str) {
+    str += '='.repeat((4 - str.length % 4) % 4);
+    str = str.replace(/-/g, '+').replace(/_/g, '/');
+    return atob(str);
+  }
+  
+  simpleHash(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return hash.toString(16);
+  }
+  
+  refreshToken(token) {
+    const payload = this.verifyToken(token);
+    
+    // Remove exp and iat claims
+    delete payload.exp;
+    delete payload.iat;
+    
+    return this.createToken(payload);
+  }
+}
+
+// Secure Token Storage
+class SecureTokenStorage {
+  constructor() {
+    this.storageKey = 'auth_tokens';
+  }
+  
+  storeTokens(tokens) {
+    const encryptedTokens = this.encrypt(JSON.stringify(tokens));
+    localStorage.setItem(this.storageKey, encryptedTokens);
+  }
+  
+  getTokens() {
+    const encryptedTokens = localStorage.getItem(this.storageKey);
+    if (!encryptedTokens) return null;
+    
+    try {
+      const decryptedTokens = this.decrypt(encryptedTokens);
+      return JSON.parse(decryptedTokens);
+    } catch (error) {
+      console.error('Failed to decrypt tokens:', error);
+      return null;
+    }
+  }
+  
+  clearTokens() {
+    localStorage.removeItem(this.storageKey);
+  }
+  
+  encrypt(data) {
+    // Simple encryption simulation
+    return btoa(data);
+  }
+  
+  decrypt(data) {
+    // Simple decryption simulation
+    return atob(data);
+  }
+}
+
+// Authentication Service
+class AuthenticationService {
+  constructor(jwtManager, tokenStorage) {
+    this.jwtManager = jwtManager;
+    this.tokenStorage = tokenStorage;
+    this.currentUser = null;
+  }
+  
+  async login(credentials) {
+    console.log(`🔐 Attempting login for user: ${credentials.username}`);
+    
+    // Simulate authentication
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    if (credentials.username === 'admin' && credentials.password === 'password') {
+      const token = this.jwtManager.createToken({
+        userId: 1,
+        username: credentials.username,
+        role: 'admin',
+        permissions: ['read', 'write', 'delete']
+      });
+      
+      const tokens = {
+        accessToken: token,
+        refreshToken: this.jwtManager.createToken({ userId: 1, type: 'refresh' }),
+        expiresAt: Date.now() + 3600000
+      };
+      
+      this.tokenStorage.storeTokens(tokens);
+      this.currentUser = { userId: 1, username: credentials.username, role: 'admin' };
+      
+      console.log(`✅ Login successful for user: ${credentials.username}`);
+      return tokens;
+    } else {
+      throw new Error('Invalid credentials');
+    }
+  }
+  
+  async logout() {
+    this.tokenStorage.clearTokens();
+    this.currentUser = null;
+    console.log(`👋 User logged out`);
+  }
+  
+  async getCurrentUser() {
+    const tokens = this.tokenStorage.getTokens();
+    if (!tokens) {
+      return null;
+    }
+    
+    try {
+      const payload = this.jwtManager.verifyToken(tokens.accessToken);
+      this.currentUser = {
+        userId: payload.userId,
+        username: payload.username,
+        role: payload.role,
+        permissions: payload.permissions
+      };
+      return this.currentUser;
+    } catch (error) {
+      console.error('Token verification failed:', error);
+      this.logout();
+      return null;
+    }
+  }
+  
+  async refreshTokens() {
+    const tokens = this.tokenStorage.getTokens();
+    if (!tokens) {
+      throw new Error('No tokens available for refresh');
+    }
+    
+    try {
+      const newAccessToken = this.jwtManager.refreshToken(tokens.accessToken);
+      const newTokens = {
+        ...tokens,
+        accessToken: newAccessToken,
+        expiresAt: Date.now() + 3600000
+      };
+      
+      this.tokenStorage.storeTokens(newTokens);
+      console.log(`🔄 Tokens refreshed successfully`);
+      
+      return newTokens;
+    } catch (error) {
+      console.error('Token refresh failed:', error);
+      this.logout();
+      throw error;
+    }
+  }
+}
+
+// Create JWT Manager and Services
+const jwtManager = new JWTManager('your-secret-key');
+const tokenStorage = new SecureTokenStorage();
+const authService = new AuthenticationService(jwtManager, tokenStorage);
+
+// Test JWT functionality
+const testToken = jwtManager.createToken({ userId: 1, username: 'testuser' });
+const verifiedPayload = jwtManager.verifyToken(testToken);
+
+console.log('JWT Token Management system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(2)">Run Code</button>
+                    <button onclick="validateExercise(2)">Validate</button>
+                </div>
+                
+                <div class="output" id="output2"></div>
+                <div class="hint" id="hint2">
+                    <strong>Hint:</strong> Implement JWT creation, verification, secure storage, and token refresh mechanisms.
+                </div>
+            </div>
+
+            <!-- Exercise 3: Password Security -->
+            <div class="exercise" id="exercise3">
+                <h2>🛡️ Exercise 3: Password Security</h2>
+                <p>Implement secure password hashing, validation, and security policies.</p>
+                
+                <div class="code-editor">
+                    <h3>Password Security System</h3>
+                    <textarea id="code3" placeholder="Implement password security...">// Password Security System
+class PasswordSecurity {
+  constructor() {
+    this.minLength = 8;
+    this.requireUppercase = true;
+    this.requireLowercase = true;
+    this.requireNumbers = true;
+    this.requireSpecialChars = true;
+    this.maxLength = 128;
+  }
+  
+  validatePassword(password) {
+    const errors = [];
+    
+    if (password.length < this.minLength) {
+      errors.push(`Password must be at least ${this.minLength} characters long`);
+    }
+    
+    if (password.length > this.maxLength) {
+      errors.push(`Password must be no more than ${this.maxLength} characters long`);
+    }
+    
+    if (this.requireUppercase && !/[A-Z]/.test(password)) {
+      errors.push('Password must contain at least one uppercase letter');
+    }
+    
+    if (this.requireLowercase && !/[a-z]/.test(password)) {
+      errors.push('Password must contain at least one lowercase letter');
+    }
+    
+    if (this.requireNumbers && !/\d/.test(password)) {
+      errors.push('Password must contain at least one number');
+    }
+    
+    if (this.requireSpecialChars && !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      errors.push('Password must contain at least one special character');
+    }
+    
+    return {
+      isValid: errors.length === 0,
+      errors,
+      strength: this.calculateStrength(password)
+    };
+  }
+  
+  calculateStrength(password) {
+    let score = 0;
+    
+    // Length bonus
+    if (password.length >= 8) score += 1;
+    if (password.length >= 12) score += 1;
+    if (password.length >= 16) score += 1;
+    
+    // Character variety bonus
+    if (/[a-z]/.test(password)) score += 1;
+    if (/[A-Z]/.test(password)) score += 1;
+    if (/\d/.test(password)) score += 1;
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) score += 1;
+    
+    // Pattern penalties
+    if (/(.)\1{2,}/.test(password)) score -= 1; // Repeated characters
+    if (/123|abc|qwe/i.test(password)) score -= 1; // Common patterns
+    
+    if (score <= 2) return 'weak';
+    if (score <= 4) return 'medium';
+    if (score <= 6) return 'strong';
+    return 'very-strong';
+  }
+  
+  async hashPassword(password, salt = null) {
+    if (!salt) {
+      salt = this.generateSalt();
+    }
+    
+    // Simulate bcrypt-like hashing
+    const hash = await this.simulateHash(password + salt);
+    
+    return {
+      hash: hash,
+      salt: salt,
+      algorithm: 'bcrypt',
+      rounds: 12
+    };
+  }
+  
+  async verifyPassword(password, hashData) {
+    const { hash, salt } = hashData;
+    const testHash = await this.simulateHash(password + salt);
+    
+    return hash === testHash;
+  }
+  
+  generateSalt() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let salt = '';
+    for (let i = 0; i < 16; i++) {
+      salt += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return salt;
+  }
+  
+  async simulateHash(input) {
+    // Simulate async hashing operation
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    let hash = 0;
+    for (let i = 0; i < input.length; i++) {
+      const char = input.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return hash.toString(16);
+  }
+  
+  generateSecurePassword(length = 16) {
+    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+    const numbers = '0123456789';
+    const special = '!@#$%^&*(),.?":{}|<>';
+    
+    let password = '';
+    
+    // Ensure at least one character from each category
+    password += uppercase[Math.floor(Math.random() * uppercase.length)];
+    password += lowercase[Math.floor(Math.random() * lowercase.length)];
+    password += numbers[Math.floor(Math.random() * numbers.length)];
+    password += special[Math.floor(Math.random() * special.length)];
+    
+    // Fill remaining length
+    const allChars = uppercase + lowercase + numbers + special;
+    for (let i = 4; i < length; i++) {
+      password += allChars[Math.floor(Math.random() * allChars.length)];
+    }
+    
+    // Shuffle the password
+    return password.split('').sort(() => Math.random() - 0.5).join('');
+  }
+}
+
+// Password Policy Manager
+class PasswordPolicyManager {
+  constructor() {
+    this.policies = new Map();
+    this.defaultPolicy = {
+      minLength: 8,
+      maxLength: 128,
+      requireUppercase: true,
+      requireLowercase: true,
+      requireNumbers: true,
+      requireSpecialChars: true,
+      preventCommonPasswords: true,
+      preventUserInfo: true,
+      maxAge: 90, // days
+      historyCount: 5
+    };
+  }
+  
+  createPolicy(name, policy) {
+    this.policies.set(name, { ...this.defaultPolicy, ...policy });
+  }
+  
+  getPolicy(name) {
+    return this.policies.get(name) || this.defaultPolicy;
+  }
+  
+  validateAgainstPolicy(password, policy, userInfo = {}) {
+    const errors = [];
+    
+    if (password.length < policy.minLength) {
+      errors.push(`Password must be at least ${policy.minLength} characters`);
+    }
+    
+    if (password.length > policy.maxLength) {
+      errors.push(`Password must be no more than ${policy.maxLength} characters`);
+    }
+    
+    if (policy.requireUppercase && !/[A-Z]/.test(password)) {
+      errors.push('Password must contain uppercase letters');
+    }
+    
+    if (policy.requireLowercase && !/[a-z]/.test(password)) {
+      errors.push('Password must contain lowercase letters');
+    }
+    
+    if (policy.requireNumbers && !/\d/.test(password)) {
+      errors.push('Password must contain numbers');
+    }
+    
+    if (policy.requireSpecialChars && !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      errors.push('Password must contain special characters');
+    }
+    
+    if (policy.preventCommonPasswords && this.isCommonPassword(password)) {
+      errors.push('Password is too common');
+    }
+    
+    if (policy.preventUserInfo && this.containsUserInfo(password, userInfo)) {
+      errors.push('Password cannot contain user information');
+    }
+    
+    return {
+      isValid: errors.length === 0,
+      errors
+    };
+  }
+  
+  isCommonPassword(password) {
+    const commonPasswords = [
+      'password', '123456', '123456789', 'qwerty', 'abc123',
+      'password123', 'admin', 'letmein', 'welcome', 'monkey'
+    ];
+    
+    return commonPasswords.includes(password.toLowerCase());
+  }
+  
+  containsUserInfo(password, userInfo) {
+    const lowerPassword = password.toLowerCase();
+    
+    if (userInfo.username && lowerPassword.includes(userInfo.username.toLowerCase())) {
+      return true;
+    }
+    
+    if (userInfo.email) {
+      const emailUsername = userInfo.email.split('@')[0].toLowerCase();
+      if (lowerPassword.includes(emailUsername)) {
+        return true;
+      }
+    }
+    
+    if (userInfo.firstName && lowerPassword.includes(userInfo.firstName.toLowerCase())) {
+      return true;
+    }
+    
+    if (userInfo.lastName && lowerPassword.includes(userInfo.lastName.toLowerCase())) {
+      return true;
+    }
+    
+    return false;
+  }
+}
+
+// Create Password Security System
+const passwordSecurity = new PasswordSecurity();
+const policyManager = new PasswordPolicyManager();
+
+// Create password policies
+policyManager.createPolicy('admin', {
+  minLength: 12,
+  requireSpecialChars: true,
+  maxAge: 30
+});
+
+policyManager.createPolicy('user', {
+  minLength: 8,
+  requireSpecialChars: false,
+  maxAge: 90
+});
+
+// Test password validation
+const testPassword = 'SecurePass123!';
+const validation = passwordSecurity.validatePassword(testPassword);
+const hashedPassword = await passwordSecurity.hashPassword(testPassword);
+
+console.log('Password Security system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(3)">Run Code</button>
+                    <button onclick="validateExercise(3)">Validate</button>
+                </div>
+                
+                <div class="output" id="output3"></div>
+                <div class="hint" id="hint3">
+                    <strong>Hint:</strong> Implement password hashing, strength validation, policy enforcement, and secure generation.
+                </div>
+            </div>
+
+            <!-- Exercise 4: Security Headers -->
+            <div class="exercise" id="exercise4">
+                <h2>🛡️ Exercise 4: Security Headers</h2>
+                <p>Implement comprehensive security headers and Content Security Policy.</p>
+                
+                <div class="code-editor">
+                    <h3>Security Headers Implementation</h3>
+                    <textarea id="code4" placeholder="Implement security headers...">// Security Headers Implementation
+class SecurityHeadersManager {
+  constructor() {
+    this.headers = new Map();
+    this.cspDirectives = new Map();
+  }
+  
+  // Content Security Policy
+  setCSPDirective(directive, sources) {
+    this.cspDirectives.set(directive, sources);
+  }
+  
+  generateCSP() {
+    const directives = [];
+    
+    for (const [directive, sources] of this.cspDirectives.entries()) {
+      if (Array.isArray(sources)) {
+        directives.push(`${directive} ${sources.join(' ')}`);
+      } else {
+        directives.push(`${directive} ${sources}`);
+      }
+    }
+    
+    return directives.join('; ');
+  }
+  
+  // Security Headers
+  setSecurityHeaders() {
+    // Content Security Policy
+    this.setCSPDirective('default-src', ["'self'"]);
+    this.setCSPDirective('script-src', ["'self'", "'unsafe-inline'", 'https://cdnjs.cloudflare.com']);
+    this.setCSPDirective('style-src', ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com']);
+    this.setCSPDirective('img-src', ["'self'", 'data:', 'https:']);
+    this.setCSPDirective('font-src', ["'self'", 'https://fonts.gstatic.com']);
+    this.setCSPDirective('connect-src', ["'self'"]);
+    this.setCSPDirective('frame-ancestors', ["'none'"]);
+    this.setCSPDirective('base-uri', ["'self'"]);
+    this.setCSPDirective('form-action', ["'self'"]);
+    
+    // Other Security Headers
+    this.headers.set('X-Content-Type-Options', 'nosniff');
+    this.headers.set('X-Frame-Options', 'DENY');
+    this.headers.set('X-XSS-Protection', '1; mode=block');
+    this.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    this.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+    this.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  }
+  
+  getSecurityHeaders() {
+    const headers = { ...Object.fromEntries(this.headers) };
+    headers['Content-Security-Policy'] = this.generateCSP();
+    return headers;
+  }
+  
+  validateCSPViolation(report) {
+    const violation = {
+      blockedURI: report.blockedURI,
+      violatedDirective: report.violatedDirective,
+      sourceFile: report.sourceFile,
+      lineNumber: report.lineNumber,
+      columnNumber: report.columnNumber,
+      timestamp: new Date()
+    };
+    
+    console.log(`🚨 CSP Violation detected:`, violation);
+    
+    // Log violation for monitoring
+    this.logSecurityEvent('csp_violation', violation);
+    
+    return violation;
+  }
+  
+  logSecurityEvent(type, data) {
+    const event = {
+      type,
+      data,
+      timestamp: new Date(),
+      userAgent: navigator.userAgent,
+      url: window.location.href
+    };
+    
+    // In a real application, send to security monitoring service
+    console.log(`🔒 Security Event: ${type}`, event);
+  }
+}
+
+// HTTPS Enforcement
+class HTTPSEnforcer {
+  constructor() {
+    this.redirectToHTTPS = true;
+    this.hstsMaxAge = 31536000; // 1 year
+  }
+  
+  enforceHTTPS() {
+    if (location.protocol !== 'https:' && this.redirectToHTTPS) {
+      console.log(`🔒 Redirecting to HTTPS`);
+      location.replace(`https:${location.href.substring(location.protocol.length)}`);
+    }
+  }
+  
+  setHSTSHeaders() {
+    return {
+      'Strict-Transport-Security': `max-age=${this.hstsMaxAge}; includeSubDomains; preload`
+    };
+  }
+}
+
+// CORS Configuration
+class CORSManager {
+  constructor() {
+    this.allowedOrigins = new Set(['https://yourdomain.com']);
+    this.allowedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
+    this.allowedHeaders = ['Content-Type', 'Authorization'];
+    this.credentialsAllowed = true;
+  }
+  
+  configureCORS(origin) {
+    const headers = {};
+    
+    if (this.allowedOrigins.has(origin) || origin === 'null') {
+      headers['Access-Control-Allow-Origin'] = origin;
+      headers['Access-Control-Allow-Methods'] = this.allowedMethods.join(', ');
+      headers['Access-Control-Allow-Headers'] = this.allowedHeaders.join(', ');
+      
+      if (this.credentialsAllowed) {
+        headers['Access-Control-Allow-Credentials'] = 'true';
+      }
+      
+      headers['Access-Control-Max-Age'] = '86400'; // 24 hours
+    }
+    
+    return headers;
+  }
+  
+  addAllowedOrigin(origin) {
+    this.allowedOrigins.add(origin);
+  }
+  
+  removeAllowedOrigin(origin) {
+    this.allowedOrigins.delete(origin);
+  }
+}
+
+// Security Monitoring
+class SecurityMonitor {
+  constructor() {
+    this.events = [];
+    this.thresholds = {
+      failedLogins: 5,
+      cspViolations: 10,
+      suspiciousRequests: 20
+    };
+  }
+  
+  recordEvent(type, data) {
+    const event = {
+      type,
+      data,
+      timestamp: new Date(),
+      ip: this.getClientIP(),
+      userAgent: navigator.userAgent
+    };
+    
+    this.events.push(event);
+    
+    // Check for security threats
+    this.checkSecurityThreats(type);
+    
+    return event;
+  }
+  
+  checkSecurityThreats(eventType) {
+    const recentEvents = this.events.filter(
+      event => Date.now() - event.timestamp.getTime() < 300000 // 5 minutes
+    );
+    
+    const eventCounts = {};
+    recentEvents.forEach(event => {
+      eventCounts[event.type] = (eventCounts[event.type] || 0) + 1;
+    });
+    
+    // Check thresholds
+    for (const [type, threshold] of Object.entries(this.thresholds)) {
+      if (eventCounts[type] >= threshold) {
+        this.triggerSecurityAlert(type, eventCounts[type]);
+      }
+    }
+  }
+  
+  triggerSecurityAlert(type, count) {
+    const alert = {
+      type: 'security_threat',
+      threatType: type,
+      count,
+      timestamp: new Date(),
+      severity: count > this.thresholds[type] * 2 ? 'high' : 'medium'
+    };
+    
+    console.log(`🚨 Security Alert: ${type} threshold exceeded (${count} events)`);
+    
+    // In a real application, send alert to security team
+    return alert;
+  }
+  
+  getClientIP() {
+    // Simulate IP detection
+    return `192.168.1.${Math.floor(Math.random() * 255)}`;
+  }
+  
+  generateSecurityReport() {
+    const totalEvents = this.events.length;
+    const eventTypes = {};
+    
+    this.events.forEach(event => {
+      eventTypes[event.type] = (eventTypes[event.type] || 0) + 1;
+    });
+    
+    return {
+      totalEvents,
+      eventTypes,
+      timeRange: {
+        start: this.events[0]?.timestamp,
+        end: this.events[this.events.length - 1]?.timestamp
+      },
+      generatedAt: new Date()
+    };
+  }
+}
+
+// Create Security Systems
+const securityHeaders = new SecurityHeadersManager();
+const httpsEnforcer = new HTTPSEnforcer();
+const corsManager = new CORSManager();
+const securityMonitor = new SecurityMonitor();
+
+// Configure security headers
+securityHeaders.setSecurityHeaders();
+
+// Test security systems
+const headers = securityHeaders.getSecurityHeaders();
+const cspViolation = securityHeaders.validateCSPViolation({
+  blockedURI: 'https://evil.com/script.js',
+  violatedDirective: 'script-src',
+  sourceFile: 'https://example.com/page.html',
+  lineNumber: 10,
+  columnNumber: 5
+});
+
+console.log('Security Headers system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(4)">Run Code</button>
+                    <button onclick="validateExercise(4)">Validate</button>
+                </div>
+                
+                <div class="output" id="output4"></div>
+                <div class="hint" id="hint4">
+                    <strong>Hint:</strong> Implement CSP directives, security headers, HTTPS enforcement, and security monitoring.
+                </div>
+            </div>
+
+            <!-- Exercise 5: Penetration Testing -->
+            <div class="exercise" id="exercise5">
+                <h2>🔍 Exercise 5: Penetration Testing</h2>
+                <p>Implement automated security testing and vulnerability scanning.</p>
+                
+                <div class="code-editor">
+                    <h3>Penetration Testing System</h3>
+                    <textarea id="code5" placeholder="Implement penetration testing...">// Penetration Testing System
+class PenetrationTester {
+  constructor() {
+    this.vulnerabilities = new Map();
+    this.testResults = [];
+    this.scanTargets = [];
+  }
+  
+  async scanTarget(target) {
+    console.log(`🔍 Starting penetration test on: ${target}`);
+    
+    const results = {
+      target,
+      startTime: new Date(),
+      vulnerabilities: [],
+      status: 'scanning'
+    };
+    
+    // Simulate scanning process
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Run various security tests
+    results.vulnerabilities.push(...await this.testSQLInjection(target));
+    results.vulnerabilities.push(...await this.testXSS(target));
+    results.vulnerabilities.push(...await this.testCSRF(target));
+    results.vulnerabilities.push(...await this.testAuthentication(target));
+    results.vulnerabilities.push(...await this.testAuthorization(target));
+    
+    results.endTime = new Date();
+    results.duration = results.endTime - results.startTime;
+    results.status = 'completed';
+    
+    this.testResults.push(results);
+    return results;
+  }
+  
+  async testSQLInjection(target) {
+    console.log(`  🧪 Testing SQL Injection vulnerabilities`);
+    
+    const payloads = [
+      "' OR '1'='1",
+      "'; DROP TABLE users; --",
+      "' UNION SELECT * FROM users --",
+      "1' OR 1=1 --"
+    ];
+    
+    const vulnerabilities = [];
+    
+    for (const payload of payloads) {
+      // Simulate SQL injection test
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
+      if (Math.random() > 0.8) { // 20% chance of vulnerability
+        vulnerabilities.push({
+          type: 'SQL Injection',
+          severity: 'High',
+          payload,
+          description: 'SQL injection vulnerability detected',
+          recommendation: 'Use parameterized queries and input validation'
+        });
+      }
+    }
+    
+    return vulnerabilities;
+  }
+  
+  async testXSS(target) {
+    console.log(`  🧪 Testing XSS vulnerabilities`);
+    
+    const payloads = [
+      '<script>alert("XSS")</script>',
+      '"><script>alert("XSS")</script>',
+      'javascript:alert("XSS")',
+      '<img src=x onerror=alert("XSS")>'
+    ];
+    
+    const vulnerabilities = [];
+    
+    for (const payload of payloads) {
+      // Simulate XSS test
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
+      if (Math.random() > 0.85) { // 15% chance of vulnerability
+        vulnerabilities.push({
+          type: 'Cross-Site Scripting (XSS)',
+          severity: 'Medium',
+          payload,
+          description: 'XSS vulnerability detected',
+          recommendation: 'Implement input validation and output encoding'
+        });
+      }
+    }
+    
+    return vulnerabilities;
+  }
+  
+  async testCSRF(target) {
+    console.log(`  🧪 Testing CSRF vulnerabilities`);
+    
+    // Simulate CSRF test
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    const vulnerabilities = [];
+    
+    if (Math.random() > 0.9) { // 10% chance of vulnerability
+      vulnerabilities.push({
+        type: 'Cross-Site Request Forgery (CSRF)',
+        severity: 'Medium',
+        description: 'CSRF vulnerability detected',
+        recommendation: 'Implement CSRF tokens and SameSite cookies'
+      });
+    }
+    
+    return vulnerabilities;
+  }
+  
+  async testAuthentication(target) {
+    console.log(`  🧪 Testing Authentication vulnerabilities`);
+    
+    const vulnerabilities = [];
+    
+    // Test weak passwords
+    const weakPasswords = ['password', '123456', 'admin', 'qwerty'];
+    
+    for (const password of weakPasswords) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      if (Math.random() > 0.7) { // 30% chance of weak password
+        vulnerabilities.push({
+          type: 'Weak Authentication',
+          severity: 'High',
+          description: `Weak password detected: ${password}`,
+          recommendation: 'Enforce strong password policies'
+        });
+      }
+    }
+    
+    // Test session management
+    if (Math.random() > 0.8) { // 20% chance of session vulnerability
+      vulnerabilities.push({
+        type: 'Session Management',
+        severity: 'Medium',
+        description: 'Session management vulnerability detected',
+        recommendation: 'Implement secure session handling and timeout'
+      });
+    }
+    
+    return vulnerabilities;
+  }
+  
+  async testAuthorization(target) {
+    console.log(`  🧪 Testing Authorization vulnerabilities`);
+    
+    const vulnerabilities = [];
+    
+    // Test privilege escalation
+    await new Promise(resolve => setTimeout(resolve, 250));
+    
+    if (Math.random() > 0.85) { // 15% chance of vulnerability
+      vulnerabilities.push({
+        type: 'Privilege Escalation',
+        severity: 'High',
+        description: 'Authorization bypass vulnerability detected',
+        recommendation: 'Implement proper access controls and role-based permissions'
+      });
+    }
+    
+    // Test directory traversal
+    if (Math.random() > 0.9) { // 10% chance of vulnerability
+      vulnerabilities.push({
+        type: 'Directory Traversal',
+        severity: 'High',
+        description: 'Directory traversal vulnerability detected',
+        recommendation: 'Validate and sanitize file paths'
+      });
+    }
+    
+    return vulnerabilities;
+  }
+  
+  generateReport() {
+    const totalVulnerabilities = this.testResults.reduce(
+      (sum, result) => sum + result.vulnerabilities.length, 0
+    );
+    
+    const severityCounts = {
+      High: 0,
+      Medium: 0,
+      Low: 0
+    };
+    
+    this.testResults.forEach(result => {
+      result.vulnerabilities.forEach(vuln => {
+        severityCounts[vuln.severity]++;
+      });
+    });
+    
+    return {
+      summary: {
+        totalTargets: this.testResults.length,
+        totalVulnerabilities,
+        severityCounts,
+        riskLevel: this.calculateRiskLevel(severityCounts)
+      },
+      results: this.testResults,
+      generatedAt: new Date()
+    };
+  }
+  
+  calculateRiskLevel(severityCounts) {
+    if (severityCounts.High > 0) return 'Critical';
+    if (severityCounts.Medium > 2) return 'High';
+    if (severityCounts.Medium > 0 || severityCounts.Low > 5) return 'Medium';
+    return 'Low';
+  }
+}
+
+// Vulnerability Scanner
+class VulnerabilityScanner {
+  constructor() {
+    this.scanPlugins = new Map();
+    this.scanResults = [];
+  }
+  
+  registerPlugin(name, plugin) {
+    this.scanPlugins.set(name, plugin);
+  }
+  
+  async runScan(target, plugins = []) {
+    console.log(`🔍 Running vulnerability scan on: ${target}`);
+    
+    const results = {
+      target,
+      startTime: new Date(),
+      findings: [],
+      status: 'scanning'
+    };
+    
+    const pluginsToRun = plugins.length > 0 ? plugins : Array.from(this.scanPlugins.keys());
+    
+    for (const pluginName of pluginsToRun) {
+      const plugin = this.scanPlugins.get(pluginName);
+      if (plugin) {
+        console.log(`  🔌 Running plugin: ${pluginName}`);
+        const findings = await plugin.scan(target);
+        results.findings.push(...findings);
+      }
+    }
+    
+    results.endTime = new Date();
+    results.duration = results.endTime - results.startTime;
+    results.status = 'completed';
+    
+    this.scanResults.push(results);
+    return results;
+  }
+}
+
+// Security Test Plugins
+const sqlInjectionPlugin = {
+  name: 'SQL Injection Scanner',
+  scan: async (target) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return [{
+      type: 'SQL Injection',
+      severity: 'High',
+      description: 'Potential SQL injection vulnerability',
+      remediation: 'Use parameterized queries'
+    }];
+  }
+};
+
+const xssPlugin = {
+  name: 'XSS Scanner',
+  scan: async (target) => {
+    await new Promise(resolve => setTimeout(resolve, 800));
+    return [{
+      type: 'XSS',
+      severity: 'Medium',
+      description: 'Potential XSS vulnerability',
+      remediation: 'Implement input validation and output encoding'
+    }];
+  }
+};
+
+// Create Penetration Testing System
+const penTester = new PenetrationTester();
+const vulnScanner = new VulnerabilityScanner();
+
+// Register plugins
+vulnScanner.registerPlugin('sql-injection', sqlInjectionPlugin);
+vulnScanner.registerPlugin('xss', xssPlugin);
+
+// Run penetration tests
+penTester.scanTarget('https://example.com');
+vulnScanner.runScan('https://example.com', ['sql-injection', 'xss']);
+
+console.log('Penetration Testing system initialized');</textarea>
+                </div>
+                
+                <div class="exercise-controls">
+                    <button onclick="runCode(5)">Run Code</button>
+                    <button onclick="validateExercise(5)">Validate</button>
+                </div>
+                
+                <div class="output" id="output5"></div>
+                <div class="hint" id="hint5">
+                    <strong>Hint:</strong> Implement automated vulnerability scanning, security testing, and penetration testing tools.
+                </div>
+            </div>
+        </div>
+
+        <div class="level-navigation">
+            <button onclick="goToLevel(32)" class="nav-btn prev">← Previous Level</button>
+            <button onclick="goToLevel(34)" class="nav-btn next">Next Level →</button>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+    <script src="level33-script.js"></script>
+</body>
+</html>
