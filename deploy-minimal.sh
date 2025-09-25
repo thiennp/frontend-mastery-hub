@@ -13,6 +13,7 @@ cp test.html .
 cp levels-showcase.html .
 cp user-achievement-showcase.html .
 cp styles.css .
+cp script.js .
 cp .nojekyll .
 
 # Create a simple directory structure
@@ -27,6 +28,9 @@ cp -r examples/* examples/ 2>/dev/null || true
 
 mkdir -p projects
 cp -r projects/* projects/ 2>/dev/null || true
+
+mkdir -p playgrounds
+cp -r playgrounds/* playgrounds/ 2>/dev/null || true
 
 # Add all files
 git add .
