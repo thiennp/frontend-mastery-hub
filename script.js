@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const saved = localStorage.getItem(this.storageKey);
             return saved ? JSON.parse(saved) : {
                 levels: {
-                    1: { completed: 0, total: 10, unlocked: true },
+                    1: { completed: 0, total: 5, unlocked: true },
                     2: { completed: 0, total: 12, unlocked: false },
                     3: { completed: 0, total: 15, unlocked: false },
                     4: { completed: 0, total: 18, unlocked: false },
