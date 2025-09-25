@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 45: Advanced Mobile Development</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="level45-styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Level 45: Advanced Mobile Development</h1>
+        <p>Master advanced mobile development techniques and cross-platform optimization.</p>
+
+        <div class="exercise-section">
+            <h2>Exercise 1: Advanced React Native Architecture</h2>
+            <p>Build scalable React Native applications with advanced patterns and performance optimization.</p>
+            <div class="code-editor">
+                <textarea id="react-native-advanced-code" class="code-input">
+// Advanced React Native Architecture
+import React, { useState, useEffect, useMemo } from 'react';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+
+const AdvancedRNComponent = () => {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    
+    // Memoized expensive calculations
+    const processedData = useMemo(() => {
+        return data.map(item => ({
+            ...item,
+            processed: true,
+            timestamp: Date.now()
+        }));
+    }, [data]);
+    
+    // Optimized list rendering
+    const renderItem = useMemo(() => ({ item }) => (
+        <TouchableOpacity onPress={() => handleItemPress(item)}>
+            <Text>{item.title}</Text>
+        </TouchableOpacity>
+    ), []);
+    
+    return (
+        <FlatList
+            data={processedData}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            onEndReached={loadMoreData}
+            removeClippedSubviews={true}
+        />
+    );
+};
+
+export default AdvancedRNComponent;
+                </textarea>
+                <button onclick="runReactNativeAdvanced()">Run Code</button>
+                <pre id="react-native-advanced-output" class="code-output"></pre>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 2: Cross-Platform State Management</h2>
+            <p>Implement advanced state management patterns for cross-platform mobile applications.</p>
+            <div class="code-editor">
+                <textarea id="cross-platform-state-code" class="code-input">
+// Cross-Platform State Management
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const persistConfig = {
+    key: 'root',
+    storage: AsyncStorage,
+    whitelist: ['user', 'settings']
+};
+
+const userReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_USER':
+            return { ...state, ...action.payload };
+        case 'CLEAR_USER':
+            return {};
+        default:
+            return state;
+    }
+};
+
+const settingsReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'UPDATE_SETTINGS':
+            return { ...state, ...action.payload };
+        default:
+            return state;
+    }
+};
+
+const rootReducer = combineReducers({
+    user: userReducer,
+    settings: settingsReducer
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+const store = createStore(persistedReducer);
+const persistor = persistStore(store);
+
+export { store, persistor };
+                </textarea>
+                <button onclick="runCrossPlatformState()">Run Code</button>
+                <pre id="cross-platform-state-output" class="code-output"></pre>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 3: Mobile Performance Optimization</h2>
+            <p>Optimize mobile applications for maximum performance and smooth user experience.</p>
+            <div class="code-editor">
+                <textarea id="mobile-performance-code" class="code-input">
+// Mobile Performance Optimization
+class MobilePerformanceOptimizer {
+    constructor() {
+        this.imageCache = new Map();
+        this.lazyLoadThreshold = 100;
+    }
+    
+    // Image optimization and caching
+    optimizeImage(imageUrl, width, height) {
+        const cacheKey = `${imageUrl}_${width}x${height}`;
+        
+        if (this.imageCache.has(cacheKey)) {
+            return this.imageCache.get(cacheKey);
+        }
+        
+        const optimizedUrl = this.generateOptimizedUrl(imageUrl, width, height);
+        this.imageCache.set(cacheKey, optimizedUrl);
+        
+        return optimizedUrl;
+    }
+    
+    // Lazy loading implementation
+    setupLazyLoading(container) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.loadContent(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        container.querySelectorAll('[data-lazy]').forEach(el => {
+            observer.observe(el);
+        });
+    }
+    
+    // Memory management
+    cleanup() {
+        this.imageCache.clear();
+        // Clean up event listeners and observers
+    }
+}
+
+const optimizer = new MobilePerformanceOptimizer();
+console.log('Mobile Performance Optimizer initialized');
+                </textarea>
+                <button onclick="runMobilePerformance()">Run Code</button>
+                <pre id="mobile-performance-output" class="code-output"></pre>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 4: Native Module Integration</h2>
+            <p>Integrate native modules and platform-specific features for enhanced mobile functionality.</p>
+            <div class="code-editor">
+                <textarea id="native-module-code" class="code-input">
+// Native Module Integration
+import { NativeModules, Platform } from 'react-native';
+
+class NativeModuleManager {
+    constructor() {
+        this.platform = Platform.OS;
+        this.nativeModules = this.initializeNativeModules();
+    }
+    
+    initializeNativeModules() {
+        const modules = {
+            ios: {
+                BiometricAuth: NativeModules.BiometricAuth,
+                CameraManager: NativeModules.CameraManager,
+                LocationService: NativeModules.LocationService
+            },
+            android: {
+                BiometricAuth: NativeModules.BiometricAuth,
+                CameraManager: NativeModules.CameraManager,
+                LocationService: NativeModules.LocationService
+            }
+        };
+        
+        return modules[this.platform] || {};
+    }
+    
+    async authenticateWithBiometrics() {
+        try {
+            const result = await this.nativeModules.BiometricAuth.authenticate({
+                reason: 'Please authenticate to continue',
+                fallbackLabel: 'Use Passcode'
+            });
+            return result.success;
+        } catch (error) {
+            console.error('Biometric authentication failed:', error);
+            return false;
+        }
+    }
+    
+    async capturePhoto(options = {}) {
+        try {
+            const photo = await this.nativeModules.CameraManager.capturePhoto({
+                quality: 0.8,
+                ...options
+            });
+            return photo;
+        } catch (error) {
+            console.error('Photo capture failed:', error);
+            return null;
+        }
+    }
+}
+
+const nativeManager = new NativeModuleManager();
+console.log('Native Module Manager initialized');
+                </textarea>
+                <button onclick="runNativeModule()">Run Code</button>
+                <pre id="native-module-output" class="code-output"></pre>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 5: Mobile Testing & CI/CD</h2>
+            <p>Implement comprehensive testing strategies and CI/CD pipelines for mobile applications.</p>
+            <div class="code-editor">
+                <textarea id="mobile-testing-code" class="code-input">
+// Mobile Testing & CI/CD
+class MobileTestSuite {
+    constructor() {
+        this.testResults = [];
+        this.coverageThreshold = 80;
+    }
+    
+    async runUnitTests() {
+        console.log('Running unit tests...');
+        // Jest unit tests
+        const unitResults = await this.executeJestTests();
+        this.testResults.push(...unitResults);
+        return unitResults;
+    }
+    
+    async runIntegrationTests() {
+        console.log('Running integration tests...');
+        // Detox integration tests
+        const integrationResults = await this.executeDetoxTests();
+        this.testResults.push(...integrationResults);
+        return integrationResults;
+    }
+    
+    async runE2ETests() {
+        console.log('Running E2E tests...');
+        // Appium E2E tests
+        const e2eResults = await this.executeAppiumTests();
+        this.testResults.push(...e2eResults);
+        return e2eResults;
+    }
+    
+    generateTestReport() {
+        const totalTests = this.testResults.length;
+        const passedTests = this.testResults.filter(r => r.status === 'passed').length;
+        const coverage = this.calculateCoverage();
+        
+        return {
+            totalTests,
+            passedTests,
+            failedTests: totalTests - passedTests,
+            coverage,
+            status: coverage >= this.coverageThreshold ? 'PASS' : 'FAIL'
+        };
+    }
+    
+    calculateCoverage() {
+        // Simulate coverage calculation
+        return Math.floor(Math.random() * 20) + 80;
+    }
+}
+
+const testSuite = new MobileTestSuite();
+console.log('Mobile Test Suite initialized');
+                </textarea>
+                <button onclick="runMobileTesting()">Run Code</button>
+                <pre id="mobile-testing-output" class="code-output"></pre>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="../level-44/index.html" class="btn prev-level">Previous Level</a>
+            <a href="../level-46/index.html" class="btn next-level">Next Level</a>
+        </div>
+    </div>
+    <script src="../../script.js"></script>
+    <script src="level45-script.js"></script>
+</body>
+</html>
