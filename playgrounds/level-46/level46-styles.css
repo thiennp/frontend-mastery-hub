@@ -1,0 +1,180 @@
+/* Level 46: Advanced Web Development Specific Styles */
+
+.exercise-section {
+    background-color: #fef3c7; /* Light yellow background */
+    border-left: 5px solid #f59e0b; /* Amber accent */
+}
+
+.exercise-section h2 {
+    color: #92400e; /* Dark amber heading */
+}
+
+.code-editor {
+    border: 1px solid #fbbf24; /* Light amber border */
+    box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2); /* Amber shadow */
+}
+
+.code-input {
+    background-color: #ffffff;
+    color: #92400e; /* Dark amber text */
+    border: 1px solid #fcd34d; /* Medium amber border */
+}
+
+.code-output {
+    background-color: #fffbeb; /* Very light yellow output */
+    color: #92400e; /* Dark amber text */
+    border-top: 1px solid #fcd34d;
+}
+
+button {
+    background-color: #f59e0b; /* Amber button */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #d97706; /* Darker amber on hover */
+}
+
+.navigation .btn {
+    background-color: #fbbf24; /* Lighter amber for navigation */
+}
+
+.navigation .btn:hover {
+    background-color: #f59e0b; /* Amber on hover */
+}
+
+/* Web development-themed animations */
+@keyframes web-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.web-animation {
+    animation: web-pulse 2s infinite;
+}
+
+/* Modern web standards indicators */
+.web-standard-indicator {
+    position: relative;
+}
+
+.web-standard-indicator::before {
+    content: '🌐';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+/* Performance optimization indicators */
+.performance-indicator {
+    position: relative;
+}
+
+.performance-indicator::before {
+    content: '⚡';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+/* PWA indicators */
+.pwa-indicator {
+    position: relative;
+}
+
+.pwa-indicator::after {
+    content: '📱';
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+/* Code highlighting for web concepts */
+.code-input {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Responsive design for web interfaces */
+@media (max-width: 768px) {
+    .exercise-section {
+        margin: 10px 0;
+        padding: 15px;
+    }
+    
+    .code-editor {
+        margin: 10px 0;
+    }
+    
+    .code-input {
+        font-size: 12px;
+    }
+}
+
+/* Modern web layout patterns */
+.exercise-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Web standards compliance indicators */
+.standards-compliant {
+    position: relative;
+}
+
+.standards-compliant::after {
+    content: '✅';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Security indicators */
+.security-indicator {
+    position: relative;
+}
+
+.security-indicator::before {
+    content: '🔒';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+/* Accessibility indicators */
+.accessibility-indicator {
+    position: relative;
+}
+
+.accessibility-indicator::after {
+    content: '♿';
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 16px;
+    opacity: 0.8;
+}

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 46: Advanced Web Development</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="level46-styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Level 46: Advanced Web Development</h1>
+        <p>Master advanced web development techniques and modern web standards.</p>
+
+        <div class="exercise-section">
+            <h2>Exercise 1: Modern Web Standards & APIs</h2>
+            <p>Implement cutting-edge web APIs and modern web standards for enhanced user experience.</p>
+            <div class="code-editor">
+                <textarea id="web-standards-code" class="code-input">
+// Modern Web Standards & APIs
+class ModernWebAPIs {
+    constructor() {
+        this.intersectionObserver = null;
+        this.performanceObserver = null;
+        this.mutationObserver = null;
+    }
+    
+    // Intersection Observer for lazy loading
+    setupIntersectionObserver() {
+        this.intersectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.loadContent(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('[data-lazy]').forEach(el => {
+            this.intersectionObserver.observe(el);
+        });
+    }
+    
+    // Performance Observer for monitoring
+    setupPerformanceObserver() {
+        this.performanceObserver = new PerformanceObserver((list) => {
+            list.getEntries().forEach(entry => {
+                console.log(`${entry.name}: ${entry.duration}ms`);
+            });
+        });
+        
+        this.performanceObserver.observe({ entryTypes: ['measure', 'navigation'] });
+    }
+    
+    // Web Workers for background processing
+    createWebWorker(script) {
+        return new Worker(script);
+    }
+    
+    // Service Worker for offline functionality
+    async registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            const registration = await navigator.serviceWorker.register('/sw.js');
+            console.log('Service Worker registered:', registration);
+        }
+    }
+}
+
+const webAPIs = new ModernWebAPIs();
+console.log('Modern Web APIs initialized');
+                </textarea>
+                <button onclick="runWebStandards()">Run Code</button>
+                <pre id="web-standards-output" class="code-output"></pre>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 2: Progressive Web App (PWA) Development</h2>
+            <p>Build Progressive Web Apps with offline functionality, push notifications, and app-like experience.</p>
+            <div class="code-editor">
+                <textarea id="pwa-development-code" class="code-input">
+// Progressive Web App Development
+class PWAManager {
+    constructor() {
+        this.deferredPrompt = null;
+        this.isInstalled = false;
+    }
+    
+    // PWA Installation
+    async setupInstallPrompt() {
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            this.deferredPrompt = e;
+            this.showInstallButton();
+        });
+        
+        window.addEventListener('appinstalled', () => {
+            this.isInstalled = true;
+            console.log('PWA installed successfully');
+        });
+    }
+    
+    // Service Worker Registration
+    async registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            try {
+                const registration = await navigator.serviceWorker.register('/sw.js');
+                console.log('SW registered:', registration);
+            } catch (error) {
+                console.error('SW registration failed:', error);
+            }
+        }
+    }
+    
+    // Push Notifications
+    async requestNotificationPermission() {
+        if ('Notification' in window) {
+            const permission = await Notification.requestPermission();
+            return permission === 'granted';
+        }
+        return false;
+    }
+    
+    // Offline Storage
+    async cacheResources(urls) {
+        const cache = await caches.open('pwa-cache-v1');
+        return await cache.addAll(urls);
+    }
+    
+    // Background Sync
+    async setupBackgroundSync() {
+        if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+            const registration = await navigator.serviceWorker.ready;
+            return await registration.sync.register('background-sync');
+        }
+    }
+}
+
+const pwaManager = new PWAManager();
+console.log('PWA Manager initialized');
+                </textarea>
+                <button onclick="runPWADevelopment()">Run Code</button>
+                <pre id="pwa-development-output" class="code-output"></pre>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 3: Advanced Web Performance</h2>
+            <p>Optimize web applications for maximum performance using modern techniques and tools.</p>
+            <div class="code-editor">
+                <textarea id="web-performance-code" class="code-input">
+// Advanced Web Performance Optimization
+class WebPerformanceOptimizer {
+    constructor() {
+        this.metrics = {};
+        this.observers = [];
+    }
+    
+    // Core Web Vitals monitoring
+    measureCoreWebVitals() {
+        // LCP - Largest Contentful Paint
+        new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            const lastEntry = entries[entries.length - 1];
+            this.metrics.lcp = lastEntry.startTime;
+        }).observe({ entryTypes: ['largest-contentful-paint'] });
+        
+        // FID - First Input Delay
+        new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            entries.forEach(entry => {
+                this.metrics.fid = entry.processingStart - entry.startTime;
+            });
+        }).observe({ entryTypes: ['first-input'] });
+        
+        // CLS - Cumulative Layout Shift
+        new PerformanceObserver((list) => {
+            let clsValue = 0;
+            list.getEntries().forEach(entry => {
+                if (!entry.hadRecentInput) {
+                    clsValue += entry.value;
+                }
+            });
+            this.metrics.cls = clsValue;
+        }).observe({ entryTypes: ['layout-shift'] });
+    }
+    
+    // Resource optimization
+    optimizeResources() {
+        // Image optimization
+        this.optimizeImages();
+        // Font optimization
+        this.optimizeFonts();
+        // Script optimization
+        this.optimizeScripts();
+    }
+    
+    // Critical CSS extraction
+    extractCriticalCSS() {
+        const criticalCSS = this.getCriticalCSS();
+        this.injectCriticalCSS(criticalCSS);
+    }
+    
+    // Preloading strategies
+    preloadCriticalResources() {
+        const criticalResources = [
+            '/css/critical.css',
+            '/js/main.js',
+            '/fonts/main.woff2'
+        ];
+        
+        criticalResources.forEach(resource => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.href = resource;
+            link.as = this.getResourceType(resource);
+            document.head.appendChild(link);
+        });
+    }
+}
+
+const performanceOptimizer = new WebPerformanceOptimizer();
+console.log('Web Performance Optimizer initialized');
+                </textarea>
+                <button onclick="runWebPerformance()">Run Code</button>
+                <pre id="web-performance-output" class="code-output"></pre>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 4: Advanced CSS & Layout Techniques</h2>
+            <p>Master advanced CSS techniques including Container Queries, CSS Grid, and modern layout patterns.</p>
+            <div class="code-editor">
+                <textarea id="advanced-css-code" class="code-input">
+// Advanced CSS & Layout Techniques
+class AdvancedCSSManager {
+    constructor() {
+        this.containerQueries = new Map();
+        this.cssCustomProperties = new Map();
+    }
+    
+    // Container Queries implementation
+    setupContainerQueries() {
+        if (CSS.supports('container-type: inline-size')) {
+            document.querySelectorAll('[data-container]').forEach(container => {
+                container.style.containerType = 'inline-size';
+                this.observeContainer(container);
+            });
+        }
+    }
+    
+    // CSS Custom Properties management
+    setCustomProperty(name, value, element = document.documentElement) {
+        element.style.setProperty(`--${name}`, value);
+        this.cssCustomProperties.set(name, value);
+    }
+    
+    // Advanced Grid layouts
+    createAdvancedGrid(container, config) {
+        const { columns, rows, areas, gap } = config;
+        
+        container.style.display = 'grid';
+        container.style.gridTemplateColumns = columns;
+        container.style.gridTemplateRows = rows;
+        container.style.gridTemplateAreas = areas;
+        container.style.gap = gap;
+    }
+    
+    // Responsive typography
+    setupResponsiveTypography() {
+        const typography = {
+            '--font-size-xs': 'clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem)',
+            '--font-size-sm': 'clamp(0.875rem, 0.8rem + 0.375vw, 1rem)',
+            '--font-size-base': 'clamp(1rem, 0.9rem + 0.5vw, 1.125rem)',
+            '--font-size-lg': 'clamp(1.125rem, 1rem + 0.625vw, 1.25rem)',
+            '--font-size-xl': 'clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem)'
+        };
+        
+        Object.entries(typography).forEach(([property, value]) => {
+            this.setCustomProperty(property, value);
+        });
+    }
+    
+    // CSS-in-JS simulation
+    generateCSS(styles) {
+        const css = Object.entries(styles)
+            .map(([selector, rules]) => {
+                const ruleString = Object.entries(rules)
+                    .map(([property, value]) => `${property}: ${value}`)
+                    .join('; ');
+                return `${selector} { ${ruleString} }`;
+            })
+            .join('\n');
+        
+        return css;
+    }
+}
+
+const cssManager = new AdvancedCSSManager();
+console.log('Advanced CSS Manager initialized');
+                </textarea>
+                <button onclick="runAdvancedCSS()">Run Code</button>
+                <pre id="advanced-css-output" class="code-output"></pre>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 5: Web Security & Best Practices</h2>
+            <p>Implement comprehensive web security measures and follow modern web development best practices.</p>
+            <div class="code-editor">
+                <textarea id="web-security-code" class="code-input">
+// Web Security & Best Practices
+class WebSecurityManager {
+    constructor() {
+        this.cspPolicy = '';
+        this.securityHeaders = new Map();
+    }
+    
+    // Content Security Policy
+    setupCSP() {
+        this.cspPolicy = [
+            "default-src 'self'",
+            "script-src 'self' 'unsafe-inline' https://trusted-cdn.com",
+            "style-src 'self' 'unsafe-inline'",
+            "img-src 'self' data: https:",
+            "font-src 'self' https://fonts.gstatic.com",
+            "connect-src 'self' https://api.example.com",
+            "frame-ancestors 'none'",
+            "base-uri 'self'",
+            "form-action 'self'"
+        ].join('; ');
+        
+        const meta = document.createElement('meta');
+        meta.httpEquiv = 'Content-Security-Policy';
+        meta.content = this.cspPolicy;
+        document.head.appendChild(meta);
+    }
+    
+    // Security Headers
+    setupSecurityHeaders() {
+        this.securityHeaders.set('X-Content-Type-Options', 'nosniff');
+        this.securityHeaders.set('X-Frame-Options', 'DENY');
+        this.securityHeaders.set('X-XSS-Protection', '1; mode=block');
+        this.securityHeaders.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+        this.securityHeaders.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    }
+    
+    // Input sanitization
+    sanitizeInput(input) {
+        const div = document.createElement('div');
+        div.textContent = input;
+        return div.innerHTML;
+    }
+    
+    // XSS prevention
+    preventXSS(userInput) {
+        return userInput
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#x27;');
+    }
+    
+    // CSRF protection
+    generateCSRFToken() {
+        const array = new Uint8Array(32);
+        crypto.getRandomValues(array);
+        return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+    }
+    
+    // Secure cookie handling
+    setSecureCookie(name, value, options = {}) {
+        const defaults = {
+            secure: true,
+            httpOnly: true,
+            sameSite: 'strict',
+            maxAge: 3600
+        };
+        
+        const cookieOptions = { ...defaults, ...options };
+        const cookieString = `${name}=${value}; ${Object.entries(cookieOptions)
+            .map(([key, val]) => `${key}=${val}`)
+            .join('; ')}`;
+        
+        document.cookie = cookieString;
+    }
+}
+
+const securityManager = new WebSecurityManager();
+console.log('Web Security Manager initialized');
+                </textarea>
+                <button onclick="runWebSecurity()">Run Code</button>
+                <pre id="web-security-output" class="code-output"></pre>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="../level-45/index.html" class="btn prev-level">Previous Level</a>
+            <a href="../level-47/index.html" class="btn next-level">Next Level</a>
+        </div>
+    </div>
+    <script src="../../script.js"></script>
+    <script src="level46-script.js"></script>
+</body>
+</html>
