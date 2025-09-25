@@ -31,6 +31,7 @@ class Level1Manager {
         this.setupEventListeners();
         this.updateUI();
         this.loadExerciseCode();
+		this.syncHubProgress();
     }
 
     setupEventListeners() {
@@ -272,7 +273,8 @@ class Level1Manager {
             this.unlockExercise(exerciseNum + 1);
         }
 
-        this.saveProgress();
+		this.saveProgress();
+		this.syncHubProgress();
         this.updateUI();
         this.showNotification(`Exercise ${exerciseNum} completed! 🎉`, 'success');
 
@@ -316,6 +318,53 @@ class Level1Manager {
             this.saveProgress();
         }
     }
+
+	// Sync Level 1 progress to the global hub progress used on the main page
+	syncHubProgress() {
+		try {
+			const hubStorageKey = 'frontend-mastery-progress';
+			const savedHub = localStorage.getItem(hubStorageKey);
+			let hubProgress = savedHub ? JSON.parse(savedHub) : {
+				levels: {
+					1: { completed: 0, total: this.totalExercises, unlocked: true },
+					2: { completed: 0, total: 12, unlocked: false },
+					3: { completed: 0, total: 15, unlocked: false },
+					4: { completed: 0, total: 18, unlocked: false },
+					5: { completed: 0, total: 20, unlocked: false }
+				},
+				badges: {
+					'first-steps': false,
+					'css-artist': false,
+					'javascript-ninja': false,
+					'react-master': false
+				}
+			};
+
+			// Ensure structures exist
+			hubProgress.levels = hubProgress.levels || {};
+			hubProgress.badges = hubProgress.badges || {};
+
+			// Update Level 1 progress
+			hubProgress.levels[1] = hubProgress.levels[1] || { completed: 0, total: this.totalExercises, unlocked: true };
+			hubProgress.levels[1].total = this.totalExercises;
+			hubProgress.levels[1].completed = Math.max(hubProgress.levels[1].completed || 0, this.progress.completed);
+			hubProgress.levels[1].unlocked = true;
+
+			// Unlock Level 2 if Level 1 completed
+			if (hubProgress.levels[1].completed >= hubProgress.levels[1].total) {
+				if (!hubProgress.levels[2]) hubProgress.levels[2] = { completed: 0, total: 12, unlocked: false };
+				hubProgress.levels[2].unlocked = true;
+			}
+
+			// Sync badges earned in Level 1
+			if (this.progress.badges?.firstSteps) hubProgress.badges['first-steps'] = true;
+			if (this.progress.badges?.cssArtist) hubProgress.badges['css-artist'] = true;
+
+			localStorage.setItem(hubStorageKey, JSON.stringify(hubProgress));
+		} catch (error) {
+			console.warn('Failed to sync hub progress', error);
+		}
+	}
 
     updateUI() {
         // Update progress bar
