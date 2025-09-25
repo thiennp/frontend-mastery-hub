@@ -1,0 +1,90 @@
+/* Level 44: Advanced AI Integration Specific Styles */
+
+.exercise-section {
+    background-color: #f0f8ff; /* Light blue background */
+    border-left: 5px solid #4169e1; /* Royal blue accent */
+}
+
+.exercise-section h2 {
+    color: #1e3a8a; /* Dark blue heading */
+}
+
+.code-editor {
+    border: 1px solid #93c5fd; /* Light blue border */
+    box-shadow: 0 2px 4px rgba(65, 105, 225, 0.2); /* Blue shadow */
+}
+
+.code-input {
+    background-color: #ffffff;
+    color: #1e40af; /* Dark blue text */
+    border: 1px solid #bfdbfe; /* Medium blue border */
+}
+
+.code-output {
+    background-color: #eff6ff; /* Very light blue output */
+    color: #1e40af; /* Dark blue text */
+    border-top: 1px solid #bfdbfe;
+}
+
+button {
+    background-color: #3b82f6; /* Blue button */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2563eb; /* Darker blue on hover */
+}
+
+.navigation .btn {
+    background-color: #60a5fa; /* Lighter blue for navigation */
+}
+
+.navigation .btn:hover {
+    background-color: #3b82f6; /* Blue on hover */
+}
+
+/* AI-themed animations */
+@keyframes ai-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.ai-processing {
+    animation: ai-pulse 2s infinite;
+}
+
+/* Neural network pattern background */
+.exercise-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(147, 197, 253, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Code highlighting for AI concepts */
+.code-input {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+/* Responsive design for AI interfaces */
+@media (max-width: 768px) {
+    .exercise-section {
+        margin: 10px 0;
+        padding: 15px;
+    }
+    
+    .code-editor {
+        margin: 10px 0;
+    }
+}
