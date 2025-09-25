@@ -14,11 +14,11 @@ class Level1Manager {
         return saved ? JSON.parse(saved) : {
             completed: 0,
             exercises: {
-                1: { completed: false, code: '' },
-                2: { completed: false, code: '' },
-                3: { completed: false, code: '' },
-                4: { completed: false, code: '' },
-                5: { completed: false, code: '' }
+                1: { completed: false, htmlCode: '', cssCode: '' },
+                2: { completed: false, htmlCode: '', cssCode: '' },
+                3: { completed: false, htmlCode: '', cssCode: '' },
+                4: { completed: false, htmlCode: '', cssCode: '' },
+                5: { completed: false, htmlCode: '', cssCode: '' }
             }
         };
     }
@@ -47,6 +47,13 @@ class Level1Manager {
                 this.updatePreview(e.target);
                 this.saveCode(e.target);
             });
+            
+            // Auto-save every 5 seconds
+            setInterval(() => {
+                if (editor.value) {
+                    this.saveCode(editor);
+                }
+            }, 5000);
         });
 
         // Check button clicks
@@ -98,7 +105,20 @@ class Level1Manager {
         const previewFrame = exerciseCard.querySelector('iframe');
         
         if (previewFrame) {
-            const code = editor.value;
+            let code = editor.value;
+            
+            // If this is a CSS editor, combine with HTML
+            if (editor.dataset.language === 'css') {
+                const htmlEditor = exerciseCard.querySelector('.code-editor[data-language="html"]');
+                if (htmlEditor) {
+                    // Replace the CSS in the style tag
+                    code = htmlEditor.value.replace(
+                        /<style>[\s\S]*?<\/style>/,
+                        `<style>\n${editor.value}\n</style>`
+                    );
+                }
+            }
+            
             const blob = new Blob([code], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             previewFrame.src = url;
@@ -108,7 +128,19 @@ class Level1Manager {
     saveCode(editor) {
         const exerciseCard = editor.closest('.exercise-card');
         const exerciseNum = parseInt(exerciseCard.dataset.exercise);
-        this.progress.exercises[exerciseNum].code = editor.value;
+        
+        // Initialize exercise data if it doesn't exist
+        if (!this.progress.exercises[exerciseNum]) {
+            this.progress.exercises[exerciseNum] = { completed: false, htmlCode: '', cssCode: '' };
+        }
+        
+        // Save based on editor type
+        if (editor.dataset.language === 'css') {
+            this.progress.exercises[exerciseNum].cssCode = editor.value;
+        } else {
+            this.progress.exercises[exerciseNum].htmlCode = editor.value;
+        }
+        
         this.saveProgress();
     }
 
@@ -116,10 +148,29 @@ class Level1Manager {
         Object.keys(this.progress.exercises).forEach(exerciseNum => {
             const exercise = this.progress.exercises[exerciseNum];
             const exerciseCard = document.querySelector(`[data-exercise="${exerciseNum}"]`);
-            if (exerciseCard && exercise.code) {
-                const editor = exerciseCard.querySelector('.code-editor');
-                if (editor) {
-                    editor.value = exercise.code;
+            if (exerciseCard) {
+                // Load HTML code
+                if (exercise.htmlCode) {
+                    const htmlEditor = exerciseCard.querySelector('.code-editor[data-language="html"]');
+                    if (htmlEditor) {
+                        htmlEditor.value = exercise.htmlCode;
+                    }
+                }
+                
+                // Load CSS code
+                if (exercise.cssCode) {
+                    const cssEditor = exerciseCard.querySelector('.code-editor[data-language="css"]');
+                    if (cssEditor) {
+                        cssEditor.value = exercise.cssCode;
+                    }
+                }
+                
+                // Handle legacy code format
+                if (exercise.code && !exercise.htmlCode) {
+                    const htmlEditor = exerciseCard.querySelector('.code-editor[data-language="html"]');
+                    if (htmlEditor) {
+                        htmlEditor.value = exercise.code;
+                    }
                 }
             }
         });
@@ -127,39 +178,43 @@ class Level1Manager {
 
     checkExercise(exerciseNum) {
         const exerciseCard = document.querySelector(`[data-exercise="${exerciseNum}"]`);
-        const editor = exerciseCard.querySelector('.code-editor');
-        const code = editor.value.toLowerCase();
+        const htmlEditor = exerciseCard.querySelector('.code-editor[data-language="html"]');
+        const cssEditor = exerciseCard.querySelector('.code-editor[data-language="css"]');
+        
+        let htmlCode = htmlEditor ? htmlEditor.value.toLowerCase() : '';
+        let cssCode = cssEditor ? cssEditor.value.toLowerCase() : '';
+        let combinedCode = htmlCode + ' ' + cssCode;
 
         let isCorrect = false;
         let feedback = '';
 
         switch (exerciseNum) {
             case 1:
-                isCorrect = this.checkExercise1(code);
+                isCorrect = this.checkExercise1(htmlCode);
                 feedback = isCorrect ? 
                     'Great! You created a proper HTML structure with DOCTYPE, html, head, and body tags.' :
                     'Try including DOCTYPE, html, head, and body tags in your HTML structure.';
                 break;
             case 2:
-                isCorrect = this.checkExercise2(code);
+                isCorrect = this.checkExercise2(htmlCode);
                 feedback = isCorrect ? 
                     'Excellent! You used various HTML elements like headings, paragraphs, lists, and links.' :
                     'Try using different HTML elements: headings (h1-h6), paragraphs (p), lists (ul, li), and links (a).';
                 break;
             case 3:
-                isCorrect = this.checkExercise3(code);
+                isCorrect = this.checkExercise3(combinedCode);
                 feedback = isCorrect ? 
                     'Perfect! You added CSS styling with internal stylesheets and basic selectors.' :
                     'Try adding CSS using the <style> tag in the head section and target elements with selectors.';
                 break;
             case 4:
-                isCorrect = this.checkExercise4(code);
+                isCorrect = this.checkExercise4(combinedCode);
                 feedback = isCorrect ? 
                     'Awesome! You used different CSS selectors including element, class, and ID selectors.' :
                     'Try using different selectors: # for IDs, . for classes, and element selectors.';
                 break;
             case 5:
-                isCorrect = this.checkExercise5(code);
+                isCorrect = this.checkExercise5(combinedCode);
                 feedback = isCorrect ? 
                     'Fantastic! You applied the CSS box model with margin, padding, and border properties.' :
                     'Try using box model properties like margin, padding, border, width, and height.';
@@ -178,7 +233,8 @@ class Level1Manager {
                code.includes('<html') && 
                code.includes('<head') && 
                code.includes('<body') &&
-               code.includes('</html>');
+               code.includes('</html>') &&
+               code.includes('<title');
     }
 
     checkExercise2(code) {
@@ -278,6 +334,165 @@ class Level1Manager {
 
         // Check for badges
         this.checkBadges(exerciseNum);
+        
+        // Check if all exercises are completed
+        if (this.progress.completed >= this.totalExercises) {
+            this.showLevelCompletion();
+        }
+        
+        // Sync with main hub progress
+        this.syncWithMainHub();
+    }
+
+    syncWithMainHub() {
+        // Update main hub progress
+        const mainHubProgress = JSON.parse(localStorage.getItem('frontend-mastery-progress') || '{}');
+        
+        if (!mainHubProgress.levels) {
+            mainHubProgress.levels = {};
+        }
+        
+        if (!mainHubProgress.levels[1]) {
+            mainHubProgress.levels[1] = { completed: 0, total: 5, unlocked: true };
+        }
+        
+        // Update level 1 progress
+        mainHubProgress.levels[1].completed = this.progress.completed;
+        
+        // Update badges
+        if (!mainHubProgress.badges) {
+            mainHubProgress.badges = {};
+        }
+        
+        if (this.progress.badges?.firstSteps) {
+            mainHubProgress.badges['first-steps'] = true;
+        }
+        
+        if (this.progress.badges?.cssArtist) {
+            mainHubProgress.badges['css-artist'] = true;
+        }
+        
+        // Save to main hub storage
+        localStorage.setItem('frontend-mastery-progress', JSON.stringify(mainHubProgress));
+    }
+
+    showLevelCompletion() {
+        // Create celebration modal
+        const modal = document.createElement('div');
+        modal.className = 'level-completion-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="celebration-icon">🎉</div>
+                <h2>Congratulations!</h2>
+                <p>You've completed Level 1: HTML & CSS Fundamentals!</p>
+                <div class="completion-stats">
+                    <div class="stat">
+                        <span class="stat-number">${this.totalExercises}</span>
+                        <span class="stat-label">Exercises Completed</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">${Object.keys(this.progress.badges || {}).length}</span>
+                        <span class="stat-label">Badges Earned</span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <a href="../../index.html" class="btn btn-primary">Back to Hub</a>
+                    <button class="btn btn-secondary" onclick="this.closest('.level-completion-modal').remove()">Continue Learning</button>
+                </div>
+            </div>
+        `;
+
+        // Style the modal
+        Object.assign(modal.style, {
+            position: 'fixed',
+            top: '0',
+            left: '0',
+            width: '100%',
+            height: '100%',
+            background: 'rgba(0, 0, 0, 0.8)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: '10000',
+            animation: 'fadeIn 0.3s ease'
+        });
+
+        const modalContent = modal.querySelector('.modal-content');
+        Object.assign(modalContent.style, {
+            background: 'white',
+            padding: '3rem',
+            borderRadius: '20px',
+            textAlign: 'center',
+            maxWidth: '500px',
+            width: '90%',
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+            animation: 'slideIn 0.3s ease'
+        });
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes slideIn {
+                from { transform: translateY(-50px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+            .celebration-icon {
+                font-size: 4rem;
+                margin-bottom: 1rem;
+                animation: bounce 1s infinite;
+            }
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+                40% { transform: translateY(-10px); }
+                60% { transform: translateY(-5px); }
+            }
+            .completion-stats {
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                margin: 2rem 0;
+            }
+            .modal-actions {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                margin-top: 2rem;
+            }
+            .btn {
+                padding: 0.75rem 1.5rem;
+                border: none;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+            .btn-primary {
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                color: white;
+            }
+            .btn-secondary {
+                background: #e2e8f0;
+                color: #4a5568;
+            }
+            .btn:hover {
+                transform: translateY(-2px);
+            }
+        `;
+        document.head.appendChild(style);
+
+        document.body.appendChild(modal);
+
+        // Auto-remove after 10 seconds
+        setTimeout(() => {
+            if (modal.parentNode) {
+                modal.remove();
+            }
+        }, 10000);
     }
 
     unlockExercise(exerciseNum) {
@@ -433,6 +648,26 @@ document.addEventListener('DOMContentLoaded', function() {
                         level1Manager.updatePreview(activeEditor);
                     }
                     break;
+                case 'Enter':
+                    e.preventDefault();
+                    const activeExercise = document.querySelector('.exercise-card:not(.locked) .check-button:not(:disabled)');
+                    if (activeExercise) {
+                        activeExercise.click();
+                    }
+                    break;
+            }
+        }
+        
+        // Tab navigation for exercises
+        if (e.key === 'Tab' && e.shiftKey === false) {
+            const activeEditor = document.querySelector('.code-editor:focus');
+            if (activeEditor) {
+                const exerciseCard = activeEditor.closest('.exercise-card');
+                const nextEditor = exerciseCard.querySelector('.code-editor:not(:focus)');
+                if (nextEditor) {
+                    e.preventDefault();
+                    nextEditor.focus();
+                }
             }
         }
     });
