@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 47: Advanced Backend Development - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level47-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1><i class="fas fa-server"></i> Level 47: Advanced Backend Development</h1>
+                <p class="level-description">Master advanced backend development patterns, microservices architecture, database optimization, API design, and serverless computing.</p>
+                <div class="level-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0/5 Complete</span>
+                </div>
+            </div>
+            <div class="level-badges">
+                <div class="badge" id="badge1" title="Microservices Architecture"><i class="fas fa-cubes"></i></div>
+                <div class="badge" id="badge2" title="Database Optimization"><i class="fas fa-database"></i></div>
+                <div class="badge" id="badge3" title="API Design"><i class="fas fa-code"></i></div>
+                <div class="badge" id="badge4" title="Serverless Computing"><i class="fas fa-cloud"></i></div>
+                <div class="badge" id="badge5" title="Backend Master"><i class="fas fa-crown"></i></div>
+            </div>
+        </header>
+
+        <main class="exercises-container">
+            <!-- Exercise 1: Microservices Architecture -->
+            <div class="exercise-card" id="exercise1">
+                <div class="exercise-header">
+                    <h2><i class="fas fa-cubes"></i> Exercise 1: Microservices Architecture</h2>
+                    <div class="exercise-status" id="status1">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Design and implement a microservices architecture with service discovery, load balancing, and inter-service communication.</p>
+                        <div class="exercise-hints">
+                            <h4>Key Concepts:</h4>
+                            <ul>
+                                <li>Service decomposition and domain boundaries</li>
+                                <li>API Gateway pattern implementation</li>
+                                <li>Service mesh and communication patterns</li>
+                                <li>Distributed data management</li>
+                                <li>Event-driven architecture</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Microservices Architecture Implementation</span>
+                            <button class="run-btn" onclick="runExercise(1)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <textarea id="code1" class="code-input" placeholder="// Implement microservices architecture
+class MicroserviceArchitecture {
+    constructor() {
+        this.services = new Map();
+        this.apiGateway = new APIGateway();
+        this.serviceRegistry = new ServiceRegistry();
+    }
+    
+    // TODO: Implement service registration
+    registerService(serviceName, serviceInstance) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement service discovery
+    discoverService(serviceName) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement load balancing
+    loadBalance(serviceName, request) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement circuit breaker pattern
+    circuitBreaker(serviceName, operation) {
+        // Your implementation here
+    }
+}
+
+// Service Registry Implementation
+class ServiceRegistry {
+    constructor() {
+        this.services = new Map();
+    }
+    
+    // TODO: Implement service registration
+    register(serviceName, serviceInfo) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement health checks
+    healthCheck(serviceName) {
+        // Your implementation here
+    }
+}
+
+// API Gateway Implementation
+class APIGateway {
+    constructor() {
+        this.routes = new Map();
+        this.middleware = [];
+    }
+    
+    // TODO: Implement route configuration
+    configureRoute(path, serviceName) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement request routing
+    routeRequest(request) {
+        // Your implementation here
+    }
+}
+
+// Example usage
+const architecture = new MicroserviceArchitecture();
+console.log('Microservices Architecture initialized');"></textarea>
+                        <div class="output" id="output1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Database Optimization -->
+            <div class="exercise-card" id="exercise2">
+                <div class="exercise-header">
+                    <h2><i class="fas fa-database"></i> Exercise 2: Database Optimization</h2>
+                    <div class="exercise-status" id="status2">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement advanced database optimization techniques including indexing, query optimization, connection pooling, and caching strategies.</p>
+                        <div class="exercise-hints">
+                            <h4>Key Concepts:</h4>
+                            <ul>
+                                <li>Database indexing strategies</li>
+                                <li>Query optimization and execution plans</li>
+                                <li>Connection pooling and resource management</li>
+                                <li>Read replicas and sharding</li>
+                                <li>Database caching and performance monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Database Optimization Implementation</span>
+                            <button class="run-btn" onclick="runExercise(2)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <textarea id="code2" class="code-input" placeholder="// Implement database optimization
+class DatabaseOptimizer {
+    constructor() {
+        this.connectionPool = new ConnectionPool();
+        this.queryCache = new Map();
+        this.indexes = new Map();
+        this.metrics = new PerformanceMetrics();
+    }
+    
+    // TODO: Implement connection pooling
+    getConnection() {
+        // Your implementation here
+    }
+    
+    // TODO: Implement query optimization
+    optimizeQuery(query) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement indexing strategy
+    createIndex(tableName, columns) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement query caching
+    cacheQuery(query, result) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement performance monitoring
+    monitorPerformance(query, executionTime) {
+        // Your implementation here
+    }
+}
+
+// Connection Pool Implementation
+class ConnectionPool {
+    constructor(maxConnections = 10) {
+        this.maxConnections = maxConnections;
+        this.connections = [];
+        this.availableConnections = [];
+    }
+    
+    // TODO: Implement connection management
+    acquireConnection() {
+        // Your implementation here
+    }
+    
+    // TODO: Implement connection release
+    releaseConnection(connection) {
+        // Your implementation here
+    }
+}
+
+// Performance Metrics Implementation
+class PerformanceMetrics {
+    constructor() {
+        this.queryTimes = new Map();
+        this.slowQueries = [];
+        this.connectionUsage = [];
+    }
+    
+    // TODO: Implement metrics collection
+    recordQueryTime(query, time) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement slow query detection
+    detectSlowQueries() {
+        // Your implementation here
+    }
+}
+
+// Example usage
+const optimizer = new DatabaseOptimizer();
+console.log('Database Optimizer initialized');"></textarea>
+                        <div class="output" id="output2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: API Design -->
+            <div class="exercise-card" id="exercise3">
+                <div class="exercise-header">
+                    <h2><i class="fas fa-code"></i> Exercise 3: API Design</h2>
+                    <div class="exercise-status" id="status3">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Design and implement RESTful APIs with proper versioning, authentication, rate limiting, and documentation.</p>
+                        <div class="exercise-hints">
+                            <h4>Key Concepts:</h4>
+                            <ul>
+                                <li>RESTful API design principles</li>
+                                <li>API versioning strategies</li>
+                                <li>Authentication and authorization</li>
+                                <li>Rate limiting and throttling</li>
+                                <li>API documentation and testing</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>API Design Implementation</span>
+                            <button class="run-btn" onclick="runExercise(3)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <textarea id="code3" class="code-input" placeholder="// Implement API design patterns
+class APIDesigner {
+    constructor() {
+        this.routes = new Map();
+        this.middleware = [];
+        this.rateLimiter = new RateLimiter();
+        this.authManager = new AuthManager();
+        this.versionManager = new VersionManager();
+    }
+    
+    // TODO: Implement route definition
+    defineRoute(method, path, handler, options = {}) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement middleware system
+    use(middleware) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement API versioning
+    version(version, routes) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement rate limiting
+    rateLimit(options) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement authentication
+    authenticate(strategy) {
+        // Your implementation here
+    }
+}
+
+// Rate Limiter Implementation
+class RateLimiter {
+    constructor() {
+        this.requests = new Map();
+        this.limits = new Map();
+    }
+    
+    // TODO: Implement rate limiting logic
+    checkLimit(identifier, limit, window) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement request tracking
+    trackRequest(identifier) {
+        // Your implementation here
+    }
+}
+
+// Auth Manager Implementation
+class AuthManager {
+    constructor() {
+        this.strategies = new Map();
+        this.tokens = new Map();
+    }
+    
+    // TODO: Implement authentication strategies
+    addStrategy(name, strategy) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement token management
+    generateToken(user) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement token validation
+    validateToken(token) {
+        // Your implementation here
+    }
+}
+
+// Version Manager Implementation
+class VersionManager {
+    constructor() {
+        this.versions = new Map();
+        this.defaultVersion = 'v1';
+    }
+    
+    // TODO: Implement version management
+    addVersion(version, routes) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement version routing
+    routeByVersion(version, path) {
+        // Your implementation here
+    }
+}
+
+// Example usage
+const apiDesigner = new APIDesigner();
+console.log('API Designer initialized');"></textarea>
+                        <div class="output" id="output3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Serverless Computing -->
+            <div class="exercise-card" id="exercise4">
+                <div class="exercise-header">
+                    <h2><i class="fas fa-cloud"></i> Exercise 4: Serverless Computing</h2>
+                    <div class="exercise-status" id="status4">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement serverless functions with event-driven architecture, cold start optimization, and resource management.</p>
+                        <div class="exercise-hints">
+                            <h4>Key Concepts:</h4>
+                            <ul>
+                                <li>Serverless function design patterns</li>
+                                <li>Event-driven architecture</li>
+                                <li>Cold start optimization</li>
+                                <li>Resource allocation and scaling</li>
+                                <li>Serverless monitoring and debugging</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Serverless Computing Implementation</span>
+                            <button class="run-btn" onclick="runExercise(4)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <textarea id="code4" class="code-input" placeholder="// Implement serverless computing
+class ServerlessPlatform {
+    constructor() {
+        this.functions = new Map();
+        this.events = new EventBus();
+        this.resources = new ResourceManager();
+        this.monitor = new ServerlessMonitor();
+    }
+    
+    // TODO: Implement function deployment
+    deployFunction(name, handler, config) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement event handling
+    handleEvent(eventType, data) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement cold start optimization
+    optimizeColdStart(functionName) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement auto-scaling
+    autoScale(functionName, metrics) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement resource management
+    manageResources(functionName, requirements) {
+        // Your implementation here
+    }
+}
+
+// Event Bus Implementation
+class EventBus {
+    constructor() {
+        this.subscribers = new Map();
+        this.events = [];
+    }
+    
+    // TODO: Implement event subscription
+    subscribe(eventType, handler) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement event publishing
+    publish(eventType, data) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement event routing
+    routeEvent(event) {
+        // Your implementation here
+    }
+}
+
+// Resource Manager Implementation
+class ResourceManager {
+    constructor() {
+        this.allocations = new Map();
+        this.limits = new Map();
+        this.usage = new Map();
+    }
+    
+    // TODO: Implement resource allocation
+    allocateResources(functionName, requirements) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement resource monitoring
+    monitorUsage(functionName) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement resource optimization
+    optimizeResources(functionName) {
+        // Your implementation here
+    }
+}
+
+// Serverless Monitor Implementation
+class ServerlessMonitor {
+    constructor() {
+        this.metrics = new Map();
+        this.alerts = [];
+        this.dashboards = new Map();
+    }
+    
+    // TODO: Implement metrics collection
+    collectMetrics(functionName) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement alerting
+    setupAlerts(functionName, thresholds) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement performance tracking
+    trackPerformance(functionName, metrics) {
+        // Your implementation here
+    }
+}
+
+// Example usage
+const serverlessPlatform = new ServerlessPlatform();
+console.log('Serverless Platform initialized');"></textarea>
+                        <div class="output" id="output4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Advanced Backend Patterns -->
+            <div class="exercise-card" id="exercise5">
+                <div class="exercise-header">
+                    <h2><i class="fas fa-crown"></i> Exercise 5: Advanced Backend Patterns</h2>
+                    <div class="exercise-status" id="status5">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement advanced backend patterns including CQRS, Event Sourcing, Saga patterns, and distributed transactions.</p>
+                        <div class="exercise-hints">
+                            <h4>Key Concepts:</h4>
+                            <ul>
+                                <li>CQRS (Command Query Responsibility Segregation)</li>
+                                <li>Event Sourcing and event stores</li>
+                                <li>Saga pattern for distributed transactions</li>
+                                <li>Domain-driven design patterns</li>
+                                <li>Advanced caching and consistency patterns</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Advanced Backend Patterns Implementation</span>
+                            <button class="run-btn" onclick="runExercise(5)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <textarea id="code5" class="code-input" placeholder="// Implement advanced backend patterns
+class AdvancedBackendPatterns {
+    constructor() {
+        this.commandBus = new CommandBus();
+        this.queryBus = new QueryBus();
+        this.eventStore = new EventStore();
+        this.sagaManager = new SagaManager();
+        this.domainEvents = new DomainEventBus();
+    }
+    
+    // TODO: Implement CQRS pattern
+    implementCQRS() {
+        // Your implementation here
+    }
+    
+    // TODO: Implement Event Sourcing
+    implementEventSourcing() {
+        // Your implementation here
+    }
+    
+    // TODO: Implement Saga pattern
+    implementSaga(sagaType, steps) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement domain events
+    publishDomainEvent(event) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement distributed transactions
+    handleDistributedTransaction(operations) {
+        // Your implementation here
+    }
+}
+
+// Command Bus Implementation
+class CommandBus {
+    constructor() {
+        this.handlers = new Map();
+        this.middleware = [];
+    }
+    
+    // TODO: Implement command handling
+    registerHandler(commandType, handler) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement command execution
+    execute(command) {
+        // Your implementation here
+    }
+}
+
+// Query Bus Implementation
+class QueryBus {
+    constructor() {
+        this.handlers = new Map();
+        this.cache = new Map();
+    }
+    
+    // TODO: Implement query handling
+    registerHandler(queryType, handler) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement query execution
+    execute(query) {
+        // Your implementation here
+    }
+}
+
+// Event Store Implementation
+class EventStore {
+    constructor() {
+        this.events = new Map();
+        this.snapshots = new Map();
+    }
+    
+    // TODO: Implement event storage
+    storeEvent(aggregateId, event) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement event retrieval
+    getEvents(aggregateId, fromVersion) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement snapshot management
+    createSnapshot(aggregateId, state) {
+        // Your implementation here
+    }
+}
+
+// Saga Manager Implementation
+class SagaManager {
+    constructor() {
+        this.sagas = new Map();
+        this.compensations = new Map();
+    }
+    
+    // TODO: Implement saga orchestration
+    orchestrateSaga(sagaId, steps) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement compensation logic
+    compensate(sagaId, failedStep) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement saga state management
+    manageSagaState(sagaId, state) {
+        // Your implementation here
+    }
+}
+
+// Domain Event Bus Implementation
+class DomainEventBus {
+    constructor() {
+        this.subscribers = new Map();
+        this.eventHandlers = new Map();
+    }
+    
+    // TODO: Implement event subscription
+    subscribe(eventType, handler) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement event publishing
+    publish(event) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement event handling
+    handleEvent(event) {
+        // Your implementation here
+    }
+}
+
+// Example usage
+const advancedPatterns = new AdvancedBackendPatterns();
+console.log('Advanced Backend Patterns initialized');"></textarea>
+                        <div class="output" id="output5"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="level-footer">
+            <div class="navigation">
+                <a href="../level-46/index.html" class="nav-btn prev">
+                    <i class="fas fa-arrow-left"></i> Previous Level
+                </a>
+                <a href="../../index.html" class="nav-btn home">
+                    <i class="fas fa-home"></i> Hub
+                </a>
+                <a href="../level-48/index.html" class="nav-btn next">
+                    Next Level <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="level-summary">
+                <h3>Level 47 Complete!</h3>
+                <p>You've mastered advanced backend development patterns including microservices architecture, database optimization, API design, serverless computing, and advanced backend patterns.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="level47-script.js"></script>
+</body>
+</html>
