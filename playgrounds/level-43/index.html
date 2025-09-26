@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 43: Advanced Security Patterns - Frontend Mastery Hub</title>
+    <link rel="stylesheet" href="level43-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="level-container">
+        <header class="level-header">
+            <div class="level-info">
+                <h1><i class="fas fa-shield-alt"></i> Level 43: Advanced Security Patterns</h1>
+                <p class="level-description">Master advanced security patterns including Zero Trust Architecture, Threat Modeling, Security Automation, Incident Response, and Advanced Security Patterns.</p>
+                <div class="level-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0/5 Complete</span>
+                </div>
+            </div>
+            <div class="level-badges">
+                <div class="badge" id="badge1" title="Zero Trust Architecture"><i class="fas fa-shield-virus"></i></div>
+                <div class="badge" id="badge2" title="Threat Modeling"><i class="fas fa-search"></i></div>
+                <div class="badge" id="badge3" title="Security Automation"><i class="fas fa-robot"></i></div>
+                <div class="badge" id="badge4" title="Incident Response"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="badge" id="badge5" title="Security Master"><i class="fas fa-lock"></i></div>
+            </div>
+        </header>
+
+        <main class="exercises-container">
+            <!-- Exercise 1: Zero Trust Architecture -->
+            <div class="exercise-card" id="exercise1">
+                <div class="exercise-header">
+                    <h2><i class="fas fa-shield-virus"></i> Exercise 1: Zero Trust Architecture</h2>
+                    <div class="exercise-status" id="status1">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement Zero Trust Architecture principles with continuous verification, least privilege access, and micro-segmentation.</p>
+                        <div class="exercise-hints">
+                            <h4>Key Concepts:</h4>
+                            <ul>
+                                <li>Never trust, always verify principle</li>
+                                <li>Identity and access management (IAM)</li>
+                                <li>Micro-segmentation and network isolation</li>
+                                <li>Continuous monitoring and analytics</li>
+                                <li>Device and user verification</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Zero Trust Architecture Implementation</span>
+                            <button class="run-btn" onclick="runExercise(1)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <textarea id="code1" class="code-input" placeholder="// Implement Zero Trust Architecture
+class ZeroTrustArchitecture {
+    constructor() {
+        this.identityProvider = new IdentityProvider();
+        this.accessController = new AccessController();
+        this.networkSegmentation = new NetworkSegmentation();
+        this.monitoringSystem = new MonitoringSystem();
+        this.policyEngine = new PolicyEngine();
+    }
+    
+    // TODO: Implement continuous verification
+    verifyAccess(userId, resourceId, context) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement least privilege access
+    enforceLeastPrivilege(userId, requestedAccess) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement micro-segmentation
+    createMicroSegment(resourceId, policies) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement continuous monitoring
+    monitorAccess(userId, resourceId, action) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement risk assessment
+    assessRisk(userId, resourceId, context) {
+        // Your implementation here
+    }
+}
+
+// Identity Provider Implementation
+class IdentityProvider {
+    constructor() {
+        this.users = new Map();
+        this.devices = new Map();
+        this.sessions = new Map();
+    }
+    
+    // TODO: Implement user authentication
+    authenticateUser(credentials, deviceInfo) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement device verification
+    verifyDevice(deviceId, deviceInfo) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement multi-factor authentication
+    verifyMFA(userId, mfaCode) {
+        // Your implementation here
+    }
+}
+
+// Access Controller Implementation
+class AccessController {
+    constructor() {
+        this.policies = new Map();
+        this.permissions = new Map();
+        this.accessLogs = [];
+    }
+    
+    // TODO: Implement access control
+    checkAccess(userId, resourceId, action) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement policy evaluation
+    evaluatePolicy(userId, resourceId, context) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement access revocation
+    revokeAccess(userId, resourceId) {
+        // Your implementation here
+    }
+}
+
+// Network Segmentation Implementation
+class NetworkSegmentation {
+    constructor() {
+        this.segments = new Map();
+        this.firewallRules = new Map();
+        this.networkPolicies = new Map();
+    }
+    
+    // TODO: Implement network segmentation
+    createSegment(segmentId, policies) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement traffic filtering
+    filterTraffic(source, destination, protocol) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement isolation enforcement
+    enforceIsolation(segmentId) {
+        // Your implementation here
+    }
+}
+
+// Monitoring System Implementation
+class MonitoringSystem {
+    constructor() {
+        this.metrics = new Map();
+        this.alerts = [];
+        this.anomalies = [];
+    }
+    
+    // TODO: Implement continuous monitoring
+    monitorActivity(userId, resourceId, action) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement anomaly detection
+    detectAnomalies(activityData) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement alert generation
+    generateAlert(severity, message, context) {
+        // Your implementation here
+    }
+}
+
+// Policy Engine Implementation
+class PolicyEngine {
+    constructor() {
+        this.policies = new Map();
+        this.rules = new Map();
+        this.contexts = new Map();
+    }
+    
+    // TODO: Implement policy evaluation
+    evaluatePolicy(policyId, context) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement dynamic policy updates
+    updatePolicy(policyId, newRules) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement policy compliance
+    checkCompliance(userId, resourceId) {
+        // Your implementation here
+    }
+}
+
+// Example usage
+const zeroTrust = new ZeroTrustArchitecture();
+console.log('Zero Trust Architecture initialized');"></textarea>
+                        <div class="output" id="output1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2: Threat Modeling -->
+            <div class="exercise-card" id="exercise2">
+                <div class="exercise-header">
+                    <h2><i class="fas fa-search"></i> Exercise 2: Threat Modeling</h2>
+                    <div class="exercise-status" id="status2">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement comprehensive threat modeling with attack surface analysis, vulnerability assessment, and risk mitigation strategies.</p>
+                        <div class="exercise-hints">
+                            <h4>Key Concepts:</h4>
+                            <ul>
+                                <li>STRIDE threat modeling methodology</li>
+                                <li>Attack surface identification</li>
+                                <li>Threat actor profiling</li>
+                                <li>Vulnerability assessment</li>
+                                <li>Risk mitigation strategies</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Threat Modeling Implementation</span>
+                            <button class="run-btn" onclick="runExercise(2)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <textarea id="code2" class="code-input" placeholder="// Implement Threat Modeling
+class ThreatModeling {
+    constructor() {
+        this.threats = new Map();
+        this.assets = new Map();
+        this.attackVectors = new Map();
+        this.vulnerabilities = new Map();
+        this.mitigations = new Map();
+    }
+    
+    // TODO: Implement STRIDE analysis
+    performSTRIDEAnalysis(component) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement attack surface analysis
+    analyzeAttackSurface(system) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement threat actor profiling
+    profileThreatActors(system) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement vulnerability assessment
+    assessVulnerabilities(component) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement risk mitigation
+    mitigateRisks(threatId, mitigationStrategy) {
+        // Your implementation here
+    }
+}
+
+// STRIDE Analysis Implementation
+class STRIDEAnalysis {
+    constructor() {
+        this.spoofing = [];
+        this.tampering = [];
+        this.repudiation = [];
+        this.informationDisclosure = [];
+        this.denialOfService = [];
+        this.elevationOfPrivilege = [];
+    }
+    
+    // TODO: Implement spoofing analysis
+    analyzeSpoofing(component) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement tampering analysis
+    analyzeTampering(component) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement repudiation analysis
+    analyzeRepudiation(component) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement information disclosure analysis
+    analyzeInformationDisclosure(component) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement denial of service analysis
+    analyzeDenialOfService(component) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement elevation of privilege analysis
+    analyzeElevationOfPrivilege(component) {
+        // Your implementation here
+    }
+}
+
+// Attack Surface Analysis Implementation
+class AttackSurfaceAnalysis {
+    constructor() {
+        this.endpoints = new Map();
+        this.inputs = new Map();
+        this.outputs = new Map();
+        this.interfaces = new Map();
+    }
+    
+    // TODO: Implement endpoint analysis
+    analyzeEndpoints(system) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement input validation
+    validateInputs(inputs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement output sanitization
+    sanitizeOutputs(outputs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement interface security
+    secureInterfaces(interfaces) {
+        // Your implementation here
+    }
+}
+
+// Threat Actor Profiling Implementation
+class ThreatActorProfiling {
+    constructor() {
+        this.actors = new Map();
+        this.motivations = new Map();
+        this.capabilities = new Map();
+        this.opportunities = new Map();
+    }
+    
+    // TODO: Implement actor identification
+    identifyActors(system) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement motivation analysis
+    analyzeMotivations(actor) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement capability assessment
+    assessCapabilities(actor) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement opportunity analysis
+    analyzeOpportunities(actor, system) {
+        // Your implementation here
+    }
+}
+
+// Vulnerability Assessment Implementation
+class VulnerabilityAssessment {
+    constructor() {
+        this.vulnerabilities = new Map();
+        this.severities = new Map();
+        this.exploitability = new Map();
+        this.impacts = new Map();
+    }
+    
+    // TODO: Implement vulnerability scanning
+    scanVulnerabilities(system) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement severity assessment
+    assessSeverity(vulnerability) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement exploitability analysis
+    analyzeExploitability(vulnerability) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement impact assessment
+    assessImpact(vulnerability) {
+        // Your implementation here
+    }
+}
+
+// Risk Mitigation Implementation
+class RiskMitigation {
+    constructor() {
+        this.mitigations = new Map();
+        this.controls = new Map();
+        this.monitoring = new Map();
+        this.response = new Map();
+    }
+    
+    // TODO: Implement mitigation strategies
+    implementMitigation(threatId, strategy) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement security controls
+    implementControls(threatId, controls) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement monitoring
+    setupMonitoring(threatId, monitoringConfig) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement incident response
+    setupIncidentResponse(threatId, responsePlan) {
+        // Your implementation here
+    }
+}
+
+// Example usage
+const threatModeling = new ThreatModeling();
+console.log('Threat Modeling initialized');"></textarea>
+                        <div class="output" id="output2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3: Security Automation -->
+            <div class="exercise-card" id="exercise3">
+                <div class="exercise-header">
+                    <h2><i class="fas fa-robot"></i> Exercise 3: Security Automation</h2>
+                    <div class="exercise-status" id="status3">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement security automation with automated threat detection, response orchestration, and compliance monitoring.</p>
+                        <div class="exercise-hints">
+                            <h4>Key Concepts:</h4>
+                            <ul>
+                                <li>Automated threat detection and response</li>
+                                <li>Security orchestration and automation</li>
+                                <li>Compliance monitoring and reporting</li>
+                                <li>Security policy enforcement</li>
+                                <li>Incident response automation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Security Automation Implementation</span>
+                            <button class="run-btn" onclick="runExercise(3)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <textarea id="code3" class="code-input" placeholder="// Implement Security Automation
+class SecurityAutomation {
+    constructor() {
+        this.threatDetector = new ThreatDetector();
+        this.responseOrchestrator = new ResponseOrchestrator();
+        this.complianceMonitor = new ComplianceMonitor();
+        this.policyEnforcer = new PolicyEnforcer();
+        this.incidentResponder = new IncidentResponder();
+    }
+    
+    // TODO: Implement automated threat detection
+    detectThreats(systemData) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement automated response
+    respondToThreat(threatId, responseActions) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement compliance monitoring
+    monitorCompliance(system, policies) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement policy enforcement
+    enforcePolicies(system, policies) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement incident automation
+    automateIncidentResponse(incidentId, responsePlan) {
+        // Your implementation here
+    }
+}
+
+// Threat Detector Implementation
+class ThreatDetector {
+    constructor() {
+        this.signatures = new Map();
+        this.behaviors = new Map();
+        this.machineLearning = new MLModel();
+        this.rules = new Map();
+    }
+    
+    // TODO: Implement signature-based detection
+    detectBySignature(data, signatures) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement behavior-based detection
+    detectByBehavior(data, behaviors) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement ML-based detection
+    detectByML(data) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement rule-based detection
+    detectByRules(data, rules) {
+        // Your implementation here
+    }
+}
+
+// Response Orchestrator Implementation
+class ResponseOrchestrator {
+    constructor() {
+        this.playbooks = new Map();
+        this.actions = new Map();
+        this.workflows = new Map();
+        this.tools = new Map();
+    }
+    
+    // TODO: Implement playbook execution
+    executePlaybook(playbookId, context) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement action orchestration
+    orchestrateActions(actions, context) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement workflow management
+    manageWorkflow(workflowId, steps) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement tool integration
+    integrateTools(toolId, configuration) {
+        // Your implementation here
+    }
+}
+
+// Compliance Monitor Implementation
+class ComplianceMonitor {
+    constructor() {
+        this.frameworks = new Map();
+        this.controls = new Map();
+        this.assessments = new Map();
+        this.reports = new Map();
+    }
+    
+    // TODO: Implement framework compliance
+    checkFrameworkCompliance(system, framework) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement control assessment
+    assessControls(system, controls) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement continuous monitoring
+    monitorContinuously(system, policies) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement compliance reporting
+    generateComplianceReport(system, framework) {
+        // Your implementation here
+    }
+}
+
+// Policy Enforcer Implementation
+class PolicyEnforcer {
+    constructor() {
+        this.policies = new Map();
+        this.rules = new Map();
+        this.violations = new Map();
+        this.remediations = new Map();
+    }
+    
+    // TODO: Implement policy enforcement
+    enforcePolicy(policyId, system) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement rule evaluation
+    evaluateRules(system, rules) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement violation detection
+    detectViolations(system, policies) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement automated remediation
+    remediateViolations(violations) {
+        // Your implementation here
+    }
+}
+
+// Incident Responder Implementation
+class IncidentResponder {
+    constructor() {
+        this.responsePlans = new Map();
+        this.escalationRules = new Map();
+        this.notifications = new Map();
+        this.forensics = new Map();
+    }
+    
+    // TODO: Implement incident response
+    respondToIncident(incidentId, responsePlan) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement escalation management
+    manageEscalation(incidentId, escalationRules) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement notification system
+    sendNotifications(incidentId, recipients) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement forensic analysis
+    performForensics(incidentId, evidence) {
+        // Your implementation here
+    }
+}
+
+// Machine Learning Model Implementation
+class MLModel {
+    constructor() {
+        this.model = null;
+        this.features = new Map();
+        this.predictions = new Map();
+        this.training = new Map();
+    }
+    
+    // TODO: Implement model training
+    trainModel(trainingData, labels) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement prediction
+    predict(features) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement model evaluation
+    evaluateModel(testData, labels) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement model updating
+    updateModel(newData) {
+        // Your implementation here
+    }
+}
+
+// Example usage
+const securityAutomation = new SecurityAutomation();
+console.log('Security Automation initialized');"></textarea>
+                        <div class="output" id="output3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 4: Incident Response -->
+            <div class="exercise-card" id="exercise4">
+                <div class="exercise-header">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Exercise 4: Incident Response</h2>
+                    <div class="exercise-status" id="status4">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement comprehensive incident response with detection, analysis, containment, eradication, and recovery procedures.</p>
+                        <div class="exercise-hints">
+                            <h4>Key Concepts:</h4>
+                            <ul>
+                                <li>Incident detection and classification</li>
+                                <li>Incident analysis and investigation</li>
+                                <li>Containment and isolation</li>
+                                <li>Eradication and recovery</li>
+                                <li>Post-incident analysis and lessons learned</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Incident Response Implementation</span>
+                            <button class="run-btn" onclick="runExercise(4)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <textarea id="code4" class="code-input" placeholder="// Implement Incident Response
+class IncidentResponse {
+    constructor() {
+        this.detector = new IncidentDetector();
+        this.analyzer = new IncidentAnalyzer();
+        this.containment = new ContainmentManager();
+        this.eradication = new EradicationManager();
+        this.recovery = new RecoveryManager();
+    }
+    
+    // TODO: Implement incident detection
+    detectIncident(systemData, indicators) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement incident analysis
+    analyzeIncident(incidentId, evidence) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement containment procedures
+    containIncident(incidentId, containmentPlan) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement eradication procedures
+    eradicateThreat(incidentId, eradicationPlan) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement recovery procedures
+    recoverSystem(incidentId, recoveryPlan) {
+        // Your implementation here
+    }
+}
+
+// Incident Detector Implementation
+class IncidentDetector {
+    constructor() {
+        this.indicators = new Map();
+        this.signatures = new Map();
+        this.behaviors = new Map();
+        this.alerts = new Map();
+    }
+    
+    // TODO: Implement indicator detection
+    detectIndicators(systemData, indicators) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement signature detection
+    detectSignatures(systemData, signatures) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement behavior analysis
+    analyzeBehavior(systemData, behaviors) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement alert generation
+    generateAlert(severity, message, context) {
+        // Your implementation here
+    }
+}
+
+// Incident Analyzer Implementation
+class IncidentAnalyzer {
+    constructor() {
+        this.forensics = new Map();
+        this.timeline = new Map();
+        this.evidence = new Map();
+        this.analysis = new Map();
+    }
+    
+    // TODO: Implement forensic analysis
+    performForensics(incidentId, evidence) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement timeline reconstruction
+    reconstructTimeline(incidentId, events) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement evidence collection
+    collectEvidence(incidentId, sources) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement root cause analysis
+    analyzeRootCause(incidentId, data) {
+        // Your implementation here
+    }
+}
+
+// Containment Manager Implementation
+class ContainmentManager {
+    constructor() {
+        this.isolation = new Map();
+        this.quarantine = new Map();
+        this.blocking = new Map();
+        this.monitoring = new Map();
+    }
+    
+    // TODO: Implement system isolation
+    isolateSystem(systemId, isolationLevel) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement threat quarantine
+    quarantineThreat(threatId, quarantineConfig) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement network blocking
+    blockNetworkTraffic(source, destination, rules) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement containment monitoring
+    monitorContainment(incidentId, monitoringConfig) {
+        // Your implementation here
+    }
+}
+
+// Eradication Manager Implementation
+class EradicationManager {
+    constructor() {
+        this.removal = new Map();
+        this.patching = new Map();
+        this.cleaning = new Map();
+        this.verification = new Map();
+    }
+    
+    // TODO: Implement threat removal
+    removeThreat(threatId, removalMethod) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement system patching
+    patchSystem(systemId, patches) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement system cleaning
+    cleanSystem(systemId, cleaningConfig) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement eradication verification
+    verifyEradication(incidentId, verificationTests) {
+        // Your implementation here
+    }
+}
+
+// Recovery Manager Implementation
+class RecoveryManager {
+    constructor() {
+        this.restoration = new Map();
+        this.validation = new Map();
+        this.monitoring = new Map();
+        this.documentation = new Map();
+    }
+    
+    // TODO: Implement system restoration
+    restoreSystem(systemId, restorationPlan) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement system validation
+    validateSystem(systemId, validationTests) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement recovery monitoring
+    monitorRecovery(systemId, monitoringConfig) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement incident documentation
+    documentIncident(incidentId, documentation) {
+        // Your implementation here
+    }
+}
+
+// Post-Incident Analysis Implementation
+class PostIncidentAnalysis {
+    constructor() {
+        this.lessonsLearned = new Map();
+        this.improvements = new Map();
+        this.recommendations = new Map();
+        this.reports = new Map();
+    }
+    
+    // TODO: Implement lessons learned analysis
+    analyzeLessonsLearned(incidentId, data) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement improvement identification
+    identifyImprovements(incidentId, analysis) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement recommendation generation
+    generateRecommendations(incidentId, analysis) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement report generation
+    generateReport(incidentId, data) {
+        // Your implementation here
+    }
+}
+
+// Example usage
+const incidentResponse = new IncidentResponse();
+console.log('Incident Response initialized');"></textarea>
+                        <div class="output" id="output4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 5: Advanced Security Patterns -->
+            <div class="exercise-card" id="exercise5">
+                <div class="exercise-header">
+                    <h2><i class="fas fa-lock"></i> Exercise 5: Advanced Security Patterns</h2>
+                    <div class="exercise-status" id="status5">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="exercise-description">
+                        <p>Implement advanced security patterns including defense in depth, security by design, and adaptive security architectures.</p>
+                        <div class="exercise-hints">
+                            <h4>Key Concepts:</h4>
+                            <ul>
+                                <li>Defense in depth strategies</li>
+                                <li>Security by design principles</li>
+                                <li>Adaptive security architectures</li>
+                                <li>Security orchestration and automation</li>
+                                <li>Advanced threat intelligence</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <span>Advanced Security Patterns Implementation</span>
+                            <button class="run-btn" onclick="runExercise(5)">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                        </div>
+                        <textarea id="code5" class="code-input" placeholder="// Implement Advanced Security Patterns
+class AdvancedSecurityPatterns {
+    constructor() {
+        this.defenseInDepth = new DefenseInDepth();
+        this.securityByDesign = new SecurityByDesign();
+        this.adaptiveSecurity = new AdaptiveSecurity();
+        this.securityOrchestration = new SecurityOrchestration();
+        this.threatIntelligence = new ThreatIntelligence();
+    }
+    
+    // TODO: Implement defense in depth
+    implementDefenseInDepth(system, layers) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement security by design
+    implementSecurityByDesign(system, requirements) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement adaptive security
+    implementAdaptiveSecurity(system, adaptationRules) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement security orchestration
+    orchestrateSecurity(system, orchestrationConfig) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement threat intelligence
+    integrateThreatIntelligence(system, intelligenceSources) {
+        // Your implementation here
+    }
+}
+
+// Defense in Depth Implementation
+class DefenseInDepth {
+    constructor() {
+        this.layers = new Map();
+        this.controls = new Map();
+        this.monitoring = new Map();
+        this.response = new Map();
+    }
+    
+    // TODO: Implement security layers
+    implementLayers(system, layerConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement security controls
+    implementControls(layerId, controls) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement layer monitoring
+    monitorLayers(layerId, monitoringConfig) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement coordinated response
+    coordinateResponse(threatId, responsePlan) {
+        // Your implementation here
+    }
+}
+
+// Security by Design Implementation
+class SecurityByDesign {
+    constructor() {
+        this.requirements = new Map();
+        this.architecture = new Map();
+        this.implementation = new Map();
+        this.validation = new Map();
+    }
+    
+    // TODO: Implement security requirements
+    defineSecurityRequirements(system, requirements) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement secure architecture
+    designSecureArchitecture(system, requirements) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement secure implementation
+    implementSecurely(system, implementationPlan) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement security validation
+    validateSecurity(system, validationTests) {
+        // Your implementation here
+    }
+}
+
+// Adaptive Security Implementation
+class AdaptiveSecurity {
+    constructor() {
+        this.adaptationRules = new Map();
+        this.contexts = new Map();
+        this.responses = new Map();
+        this.learning = new Map();
+    }
+    
+    // TODO: Implement adaptation rules
+    defineAdaptationRules(system, rules) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement context awareness
+    implementContextAwareness(system, contextSources) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement adaptive responses
+    implementAdaptiveResponses(system, responseConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement learning mechanisms
+    implementLearning(system, learningConfig) {
+        // Your implementation here
+    }
+}
+
+// Security Orchestration Implementation
+class SecurityOrchestration {
+    constructor() {
+        this.workflows = new Map();
+        this.playbooks = new Map();
+        this.tools = new Map();
+        this.integrations = new Map();
+    }
+    
+    // TODO: Implement security workflows
+    implementWorkflows(system, workflowConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement security playbooks
+    implementPlaybooks(system, playbookConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement tool integration
+    integrateTools(system, toolConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement system integration
+    integrateSystems(system, integrationConfigs) {
+        // Your implementation here
+    }
+}
+
+// Threat Intelligence Implementation
+class ThreatIntelligence {
+    constructor() {
+        this.sources = new Map();
+        this.indicators = new Map();
+        this.analysis = new Map();
+        this.sharing = new Map();
+    }
+    
+    // TODO: Implement intelligence sources
+    integrateSources(system, sourceConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement indicator management
+    manageIndicators(system, indicatorConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement intelligence analysis
+    analyzeIntelligence(system, analysisConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement intelligence sharing
+    shareIntelligence(system, sharingConfigs) {
+        // Your implementation here
+    }
+}
+
+// Security Metrics Implementation
+class SecurityMetrics {
+    constructor() {
+        this.metrics = new Map();
+        this.kpis = new Map();
+        this.reporting = new Map();
+        this.dashboards = new Map();
+    }
+    
+    // TODO: Implement security metrics
+    implementMetrics(system, metricConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement KPI tracking
+    trackKPIs(system, kpiConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement reporting
+    implementReporting(system, reportingConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement dashboards
+    implementDashboards(system, dashboardConfigs) {
+        // Your implementation here
+    }
+}
+
+// Security Governance Implementation
+class SecurityGovernance {
+    constructor() {
+        this.policies = new Map();
+        this.procedures = new Map();
+        this.compliance = new Map();
+        this.auditing = new Map();
+    }
+    
+    // TODO: Implement security policies
+    implementPolicies(system, policyConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement security procedures
+    implementProcedures(system, procedureConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement compliance management
+    manageCompliance(system, complianceConfigs) {
+        // Your implementation here
+    }
+    
+    // TODO: Implement security auditing
+    implementAuditing(system, auditingConfigs) {
+        // Your implementation here
+    }
+}
+
+// Example usage
+const advancedSecurity = new AdvancedSecurityPatterns();
+console.log('Advanced Security Patterns initialized');"></textarea>
+                        <div class="output" id="output5"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="level-footer">
+            <div class="navigation">
+                <a href="../level-42/index.html" class="nav-btn prev">
+                    <i class="fas fa-arrow-left"></i> Previous Level
+                </a>
+                <a href="../../index.html" class="nav-btn home">
+                    <i class="fas fa-home"></i> Hub
+                </a>
+                <a href="../level-44/index.html" class="nav-btn next">
+                    Next Level <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="level-summary">
+                <h3>Level 43 Complete!</h3>
+                <p>You've mastered advanced security patterns including Zero Trust Architecture, Threat Modeling, Security Automation, Incident Response, and Advanced Security Patterns.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="level43-script.js"></script>
+</body>
+</html>

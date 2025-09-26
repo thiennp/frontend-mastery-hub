@@ -386,78 +386,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize progress tracker
     const progressTracker = new ProgressTracker();
 
-    // Add click handlers for level buttons
+    // Add click handlers for level buttons - allow normal link behavior
     const levelButtons = document.querySelectorAll('.level-button:not(.disabled)');
     levelButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            e.preventDefault();
+            // Only prevent default for demo functionality, not for actual navigation
             const levelCard = this.closest('.level-card');
             const levelNumber = levelCard.querySelector('.level-number').textContent;
             
-            // Navigate to the appropriate level page
-            if (levelNumber === '1') {
-                window.location.href = 'playgrounds/level-1/index.html';
-            } else if (levelNumber === '2') {
-                window.location.href = 'playgrounds/level-2/index.html';
-            } else if (levelNumber === '3') {
-                window.location.href = 'playgrounds/level-3/index.html';
-            } else if (levelNumber === '4') {
-                window.location.href = 'playgrounds/level-4/index.html';
-            } else if (levelNumber === '5') {
-                window.location.href = 'playgrounds/level-5/index.html';
-            } else if (levelNumber === '6') {
-                window.location.href = 'playgrounds/level-6/index.html';
-            } else if (levelNumber === '7') {
-                window.location.href = 'playgrounds/level-7/index.html';
-            } else if (levelNumber === '8') {
-                window.location.href = 'playgrounds/level-8/index.html';
-            } else if (levelNumber === '9') {
-                window.location.href = 'playgrounds/level-9/index.html';
-            } else if (levelNumber === '10') {
-                window.location.href = 'playgrounds/level-10/index.html';
-            } else if (levelNumber === '11') {
-                window.location.href = 'playgrounds/level-11/index.html';
-            } else if (levelNumber === '12') {
-                window.location.href = 'playgrounds/level-12/index.html';
-            } else if (levelNumber === '13') {
-                window.location.href = 'playgrounds/level-13/index.html';
-            } else if (levelNumber === '14') {
-                window.location.href = 'playgrounds/level-14/index.html';
-            } else if (levelNumber === '15') {
-                window.location.href = 'playgrounds/level-15/index.html';
-            } else if (levelNumber === '16') {
-                window.location.href = 'playgrounds/level-16/index.html';
-            } else if (levelNumber === '17') {
-                window.location.href = 'playgrounds/level-17/index.html';
-            } else if (levelNumber === '18') {
-                window.location.href = 'playgrounds/level-18/index.html';
-            } else if (levelNumber === '19') {
-                window.location.href = 'playgrounds/level-19/index.html';
-            } else if (levelNumber === '20') {
-                window.location.href = 'playgrounds/level-20/index.html';
-            } else if (levelNumber === '21') {
-                window.location.href = 'playgrounds/level-21/index.html';
-            } else if (levelNumber === '22') {
-                window.location.href = 'playgrounds/level-22/index.html';
-            } else if (levelNumber === '23') {
-                window.location.href = 'playgrounds/level-23/index.html';
-            } else if (levelNumber === '24') {
-                window.location.href = 'playgrounds/level-24/index.html';
-            } else if (levelNumber === '25') {
-                window.location.href = 'playgrounds/level-25/index.html';
-            } else if (levelNumber === '26') {
-                window.location.href = 'playgrounds/level-26/index.html';
-            } else if (levelNumber === '27') {
-                window.location.href = 'playgrounds/level-27/index.html';
-            } else if (levelNumber === '28') {
-                window.location.href = 'playgrounds/level-28/index.html';
-            } else {
+            // Check if this is a demo button (no href or href is empty)
+            if (!this.href || this.href === '' || this.href === window.location.href) {
+                e.preventDefault();
+                
                 // For demo purposes, simulate completing an exercise
                 const currentCompleted = progressTracker.progress.levels[levelNumber].completed;
                 if (currentCompleted < progressTracker.progress.levels[levelNumber].total) {
                     progressTracker.completeExercise(parseInt(levelNumber), currentCompleted + 1);
                 }
             }
+            // If the button has a valid href, let the browser handle the navigation naturally
         });
     });
 
